@@ -13,10 +13,12 @@
             return {
                 coordinates: [55.76, 37.64],
                 myMap: {},
-                user_city: JSON.parse(localStorage.getItem('city')),
+                user_city: this.city,
                 schools: null
             }
         },
+
+        props: ['city'],
 
         computed: {
             geocode: function () {
