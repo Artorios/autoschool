@@ -7,9 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Автошкола</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/slick.css" />
-    <link rel="stylesheet" type="text/css" href="/css/slick-theme.css" />
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick-theme.css" />
     @if(Route::currentRouteName() === 'regUser')
         <link rel="stylesheet" type="text/css" href="/css/selectric.css" />
     @endif
@@ -157,9 +157,9 @@
 <!-- Modal -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/slick.js"></script>
-<script type="text/javascript" src="/js/jquery.selectric.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/node_modules/slick-carousel/slick/slick.js"></script>
+<script type="text/javascript" src="/node_modules/selectric/public/jquery.selectric.min.js"></script>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 <script src="/js/scripts.js"></script>
 <script src="/js/distrib.js"></script>
