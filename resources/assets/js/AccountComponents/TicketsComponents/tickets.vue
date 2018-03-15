@@ -1,0 +1,235 @@
+<template>
+    <div class="content error tickets">
+        <div class="breadcrumbs">
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li>Билеты</li>
+            </ul>
+        </div>
+        <input type="checkbox" v-model="withComments" @change="setShowComment" id="withCom">
+        <label for="withCom">Решать с комментариями</label>
+        <div class="tickets-wrapper">
+            <div class="ticket" data-toggle="collapse" :data-target="'#ticket' + i" v-for="(ticket, i) in tickets" :key="ticket.ticket_id">
+                <div class="ticket-inner" :class="[{'black': !ticket.try}]">
+                    <div class="info">
+                                <a :href="'/account/tickets/' + ticket.ticket_id" class="number">
+                                        {{ticket.ticket_id}}
+                                    </a>
+                        <span class="status" v-if="ticket.status === 'passed'">Пройден</span>
+                        <span class="status" v-if="ticket.status === 'failed'">{{ticket.right_answers_count}} из {{ticket.all_count}}<span class="refresh"></span></span>
+                        <span class="status" v-if="!ticket.status">Этот билет еще не решался</span>
+                        <span v-if="ticket.date_try">{{ticket.date_try}}</span>
+                    </div>
+                    <!--<span class="btn-grey ticket-toggle" @click.prevent>Статистика попыток</span>-->
+                    <span class="btn-grey ticket-toggle" v-if="ticket.status">Статистика попыток</span>
+                </div>
+                <div class="hidden-part collapse" :id="'ticket' + i" v-if="ticket.history">
+                    <div class="hidden-content">
+                        <h5>Статистика попыток Билет № {{ticket.ticket_id}}:</h5>
+                        <div class="line" v-for="(history, i) in ticket.history">
+                            <span class="name">Попытка {{i + 1}}</span>
+                            <span class="mistakes">Ошибок<span class="red">{{history.incorrect_answers_count}}</span></span>
+                            <span class="date">{{setDate(history.updated_at)}}</span>
+                            <a href="#">Разбор ошибок</a>
+                        </div>
+                        <span class="close" data-toggle="collapse" data-target="#ticket1"></span>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="ticket" data-toggle="collapse" data-target="#ticket2">-->
+                <!--<div class="ticket-inner">-->
+                    <!--<div class="info">-->
+                                <!--<span class="number">-->
+                                        <!--01-->
+                                    <!--</span>-->
+                        <!--<span class="status">28 из 28<span class="refresh"></span></span>-->
+                        <!--<span>22.11.2017</span>-->
+                    <!--</div>-->
+                    <!--<span class="btn-grey ticket-toggle">Статистика попыток</span>-->
+                <!--</div>-->
+                <!--<div class="hidden-part collapse" id="ticket2">-->
+                    <!--<div class="hidden-content">-->
+                        <!--<h5>Статистика попыток Билет № 01 Предупреждающие знаки:</h5>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span class="red">5</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span>0</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<span class="close" data-toggle="collapse" data-target="#ticket2"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="ticket" data-toggle="collapse" data-target="#ticket3">-->
+                <!--<div class="ticket-inner">-->
+                    <!--<div class="info">-->
+                                <!--<span class="number">-->
+                                        <!--01-->
+                                    <!--</span>-->
+                        <!--<span class="status">6 из 28<span class="refresh"></span></span>-->
+                        <!--<span>22.11.2017</span>-->
+                    <!--</div>-->
+                    <!--<span class="btn-grey ticket-toggle">Статистика попыток</span>-->
+                <!--</div>-->
+                <!--<div class="hidden-part collapse" id="ticket3">-->
+                    <!--<div class="hidden-content">-->
+                        <!--<h5>Статистика попыток Билет № 01 Предупреждающие знаки:</h5>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span class="red">5</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span>0</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<span class="close" data-toggle="collapse" data-target="#ticket3"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="ticket" data-toggle="collapse" data-target="#ticket4">-->
+                <!--<div class="ticket-inner">-->
+                    <!--<div class="info">-->
+                                <!--<span class="number">-->
+                                        <!--01-->
+                                    <!--</span>-->
+                        <!--<span class="status">6 из 28<span class="refresh"></span></span>-->
+                        <!--<span>22.11.2017</span>-->
+                    <!--</div>-->
+                    <!--<span class="btn-grey ticket-toggle">Статистика попыток</span>-->
+                <!--</div>-->
+                <!--<div class="hidden-part collapse" id="ticket4">-->
+                    <!--<div class="hidden-content">-->
+                        <!--<h5>Статистика попыток Билет № 01 Предупреждающие знаки:</h5>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span class="red">5</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span>0</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<span class="close" data-toggle="collapse" data-target="#ticket4"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="ticket" data-toggle="collapse" data-target="#ticket5">-->
+                <!--<div class="ticket-inner">-->
+                    <!--<div class="info">-->
+                                <!--<span class="number">-->
+                                        <!--01-->
+                                    <!--</span>-->
+                        <!--<span class="status">Этот билет еще не решался</span>-->
+                    <!--</div>-->
+                    <!--<span class="btn-grey ticket-toggle">Статистика попыток</span>-->
+                <!--</div>-->
+                <!--<div class="hidden-part collapse" id="ticket5">-->
+                    <!--<div class="hidden-content">-->
+                        <!--<h5>Статистика попыток Билет № 01 Предупреждающие знаки:</h5>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span class="red">5</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span>0</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<span class="close" data-toggle="collapse" data-target="#ticket5"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="ticket" data-toggle="collapse" data-target="#ticket6">-->
+                <!--<div class="ticket-inner">-->
+                    <!--<div class="info">-->
+                                <!--<span class="number">-->
+                                        <!--01-->
+                                    <!--</span>-->
+                        <!--<span class="status">Этот билет еще не решался</span>-->
+                    <!--</div>-->
+                    <!--<span class="btn-grey ticket-toggle">Статистика попыток</span>-->
+                <!--</div>-->
+                <!--<div class="hidden-part collapse" id="ticket6">-->
+                    <!--<div class="hidden-content">-->
+                        <!--<h5>Статистика попыток Билет № 01 Предупреждающие знаки:</h5>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span class="red">5</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<div class="line">-->
+                            <!--<span class="name">Попытка 1</span>-->
+                            <!--<span class="mistakes">Ошибок<span>0</span></span>-->
+                            <!--<span class="date">12.11.2017</span>-->
+                            <!--<a href="#">Разбор ошибок</a>-->
+                        <!--</div>-->
+                        <!--<span class="close" data-toggle="collapse" data-target="#ticket6"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+            </ul>
+        </nav>
+    </div>
+</template>
+
+<script type="text/babel">
+    import moment from 'moment'
+    export default {
+        data () {
+            return {
+                withComments: +this.showComments
+            }
+        },
+        props: ['tickets', 'showComments'],
+        methods: {
+            setShowComment () {
+                let data = {
+                    value: this.withComments ? 1 : 0
+                }
+
+                this.$http.post('/account/tickets/set-show-comments', data).catch(e => {
+                    this.withComments = !this.withComments
+                })
+            },
+            setDate (date) {
+                return date.split(' ')[0]
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .inner-main-content .container .tickets .tickets-wrapper .ticket .ticket-inner{
+        /*cursor: pointer;*/
+        &.black {
+            border-color: #999;
+        }
+    }
+    .inner-main-content .container .tickets .tickets-wrapper .ticket .ticket-inner .info .number {
+        color: #333;
+    }
+</style>
