@@ -27,15 +27,14 @@ class RegistrationController extends Controller
         $validator = Validator::make($request->all(), [
             'name'        => 'required|string|min:3',
             'last_name'   => 'required|string|min:3',
-            'second_name' => 'string|min:3',
+            'second_name' => 'nullable|string|min:3',
             'email'       => 'required|email|unique:users,email',
             'phone'       => 'required',
             'password'    => 'required|string|min:6',
+			'city' 		  => 'required|exists:cities,id'
         ]);
 
-        if (count($validator->errors())) {
-            return response()->json(['status' => 0], 400);
-        }
+		$validator->validate();
 
         try {
             $data = $request->only([

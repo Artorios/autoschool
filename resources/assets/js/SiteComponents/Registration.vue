@@ -8,18 +8,45 @@
                     <form v-on:submit.prevent="registration">
                         <p class="error" v-if="serverError">Произошла ошибка при регистрации</p>
                         <div>
-                            <input type="text" placeholder="Имя*" v-model="data.name">
-                            <input type="text" placeholder="Фамилия*" v-model="data.last_name">
-                            <input type="text" placeholder="Отчество" v-model="data.second_name">
+                            <div v-bind:class="{'has-error': errors.name}">
+                                <input type="text" placeholder="Имя*" v-model="data.name">
+                                <span v-if="errors.name" class="control-label">{{ errors.name[0] }}</span>
+                            </div>
+
+                            <div v-bind:class="{'has-error': errors.last_name}">
+                                <input type="text" placeholder="Фамилия*" v-model="data.last_name">
+                                <span v-if="errors.last_name" class="control-label">{{ errors.last_name[0] }}</span>
+                            </div>
+
+                            <div v-bind:class="{'has-error': errors.second_name}">
+                                <input type="text" placeholder="Отчество" v-model="data.second_name">
+                                <span v-if="errors.second_name" class="control-label">{{ errors.second_name[0] }}</span>
+                            </div>
+
                         </div>
                         <div class="right">
-                            <input type="email" placeholder="Электронная*" v-model="data.email">
-                            <input type="text" placeholder="Телефон*" v-model="data.phone">
-                            <input type="password" placeholder="Пароль*" v-model="data.password">
-                            <select class="select" v-model="data.price_city_id">
-                                <option selected disabled>Ваш город*</option>
-                                <option :value="city.id" v-for="city in cities">{{city.name}}</option>
-                            </select>
+                            <div v-bind:class="{'has-error': errors.email}">
+                                <input type="email" placeholder="Электронная*" v-model="data.email">
+                                <span v-if="errors.email" class="control-label">{{ errors.email[0] }}</span>
+                            </div>
+
+                            <div v-bind:class="{'has-error': errors.phone}">
+                                <input type="text" placeholder="Телефон*" v-model="data.phone">
+                                <span v-if="errors.phone" class="control-label">{{ errors.phone[0] }}</span>
+                            </div>
+
+                            <div v-bind:class="{'has-error': errors.password}">
+                                <input type="password" placeholder="Пароль*" v-model="data.password">
+                                <span v-if="errors.password" class="control-label">{{ errors.password[0] }}</span>
+                            </div>
+
+                            <div v-bind:class="{'has-error': errors.city}">
+                                <select class="select" v-model="data.city">
+                                    <option selected disabled>Ваш город*</option>
+                                    <option :value="city.id" v-for="city in cities">{{city.name}}</option>
+                                </select>
+                                <span v-if="errors.city" class="control-label">{{ errors.city[0] }}</span>
+                            </div>
                         </div>
                         <button type="submit" class="btn-red">Зарегистрироваться</button>
                         <div class="auth-wrapper">
@@ -48,7 +75,7 @@
                     email: '',
                     password: '',
                     phone: '',
-                    price_city_id: ''
+                    city: ''
                 },
                 errors: {
                     name: false,
@@ -67,7 +94,7 @@
             let vm = this
             $('.select').selectric({
                 onChange: function(element) {
-                    vm.data.price_city_id = $(element).val()
+                    vm.data.city = $(element).val()
                 },
             })
 //            this.getCities()
@@ -76,16 +103,16 @@
 //        },
         methods: {
             registration () {
-                if (this.validate()) return false
+//                if (this.validate()) return false
 
                 this.$http.post('/registration', this.data).then(res => {
                     if (res.status === 201) {
                         location.href = '/'
                     }
-                }, err => {
-                    if (+err.status === 400) {
-                        this.serverError = true
-                    }
+                }, response => {
+					if (response.body.errors) {
+						this.errors = response.body.errors;
+					}
                 })
             },
             validate () {
