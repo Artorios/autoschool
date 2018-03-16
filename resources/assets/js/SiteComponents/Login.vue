@@ -6,8 +6,17 @@
                     <form class="left" v-on:submit.prevent="login">
                         <h3>Авторизация</h3>
                         <span>Войти на сайт используя e-mail и пароль</span>
-                        <input type="text" placeholder="Ваш e-mail" v-model="data.email">
-                        <input type="password" placeholder="Пароль" v-model="data.password">
+
+                        <div v-bind:class="{'has-error': errors.email}">
+                            <input type="text" placeholder="Ваш e-mail" v-model="data.email">
+                            <span v-if="errors.email" class="control-label">{{ errors.email[0] }}</span>
+                        </div>
+
+                        <div v-bind:class="{'has-error': errors.password}">
+                            <input type="password" placeholder="Пароль" v-model="data.password">
+                            <span v-if="errors.password" class="control-label">{{ errors.password[0] }}</span>
+                        </div>
+
                         <button type="submit" class="btn-red">Войти</button>
                         <div class="link-wrapper">
                             <a href="#">Забыли пароль</a>
@@ -48,16 +57,16 @@
         },
         methods: {
             login () {
-                if (this.validate()) return false
+//                if (this.validate()) return false
 
                 this.$http.post('/login', this.data).then(res => {
                     if (res.status === 202) {
                         location.href = '/'
                     }
-                }, err => {
-                    if (+err.status === 400) {
-                        this.serverError = true
-                    }
+                }, response => {
+					if (response.body.errors) {
+						this.errors = response.body.errors;
+					}
                 })
             },
             validate () {

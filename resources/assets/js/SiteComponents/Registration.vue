@@ -6,7 +6,7 @@
                 <div class="registration-wrapper">
                     <h3>Регистрация</h3>
                     <form v-on:submit.prevent="registration">
-                        <p class="error" v-if="serverError">Произошла ошибка при регистрации</p>
+                        <p class="error" v-if="errors">Произошла ошибка при регистрации</p>
                         <div>
                             <div v-bind:class="{'has-error': errors.name}">
                                 <input type="text" placeholder="Имя*" v-model="data.name">
