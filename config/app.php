@@ -186,6 +186,7 @@ return [
         \App\Providers\SettingsProvider::class,
         \App\Providers\TicketsProvider::class,
         \App\Providers\LessonRulesProvider::class,
+		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*
