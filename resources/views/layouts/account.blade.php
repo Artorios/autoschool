@@ -9,6 +9,8 @@
     <title>Автошкола</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/selectric.css" />
+
     <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick-theme.css" />
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -24,7 +26,7 @@
     <header class="inner">
         <div class="container">
             <div class="logo">
-                <a href="/account"><img src="/img/logo.png" alt=""></a>
+                <a href="/"><img src="/img/logo.png" alt=""></a>
             </div>
             <div class="menu-toggle-wrapper">
                 <div class="menu-toggle" data-toggle="collapse" data-target="#sbMenu">
@@ -38,7 +40,7 @@
                     <div class="img">
                         <img src="/img/profile-photo.png" alt="">
                     </div>
-                    <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="/img/arrow-down.png"></h3>
+                    <a href="/account/profile">{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="/img/arrow-down.png"></a>
                     <span>Группа № 123</span>
                 </div>
                 <a href="{{route('user.notify')}}" class="notes">

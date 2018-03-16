@@ -33,6 +33,8 @@ Route::middleware('auth')->get('/logout', 'Auth\LoginController@logout')->name('
 Route::post('/registration', 'Site\RegistrationController@registration');
 Route::post('/login', 'Auth\LoginController@auth');
 
+
+
 /*
  * Social authentication
  */
@@ -47,6 +49,8 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     Route::get('/', function () {
         return view('account.main');
     })->name('user.account');
+
+    Route::get('/profile', 'AccountController@profile');
 
     Route::get('/get-count-lesson', function () {
         $user = Auth::user();
