@@ -48,7 +48,7 @@
             </div>
             <div class="form-group">
                 <label>Категория:</label>
-                <input type="text" value="B" readonly>
+                <input type="text" value="{{$uinfo->license_category}}" readonly>
             </div>
            {{-- <button type="submit" class="btn-grey">Сохранить изменения</button>--}}
         </form>
@@ -76,20 +76,18 @@
         </div>
         <div class="pass-change notes-config">
             <h4>Настройка уведомлений:</h4>
-            <form>
+            <form id="form_set_notices">
+                <div class="inform"></div>
+                <input type="hidden" value="{!! csrf_token() !!}" name="_token">
                 <div class="form-group">
-                    <input type="checkbox" id="site">
-                    <label for="site">Старый пароль</label>
+                    <input type="checkbox" id="mail" name="email_notice" value="1">
+                    <label for="mail">Получать уведомления на почту</label>
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" id="mail">
-                    <label for="mail">Получать уведомления на сайт</label>
-                </div>
-                <div class="form-group">
-                    <input type="checkbox" id="tel">
+                    <input type="checkbox" id="tel" name="sms_notice" value="1">
                     <label for="tel">Получать уведомления на телефон</label>
                 </div>
-                <button type="submit" class="btn-grey">Сохранить изменения</button>
+                <button type="submit" id="btn_set_notices" class="btn-grey">Сохранить изменения</button>
             </form>
         </div>
 

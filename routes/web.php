@@ -51,7 +51,8 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     })->name('user.account');
 
     Route::get('/profile', 'AccountController@profile');
-    Route::post('/profile/change', 'AccountController@changePassword');
+    Route::post('/profile/change_password', 'AccountController@changePassword');
+    Route::post('/profile/set_notices', 'AccountController@setNotices');
 
     Route::get('/get-count-lesson', function () {
         $user = Auth::user();

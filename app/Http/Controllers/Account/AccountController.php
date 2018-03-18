@@ -25,7 +25,7 @@ class AccountController extends Controller
     }
     public function changePassword(Request $request){
         $msgs=array(
-            0=>'Пароль изменен',
+            0=>'Пароль успешно изменен',
             1=> 'Пароль слишком короткий',
             2 => 'Старый пароль неверный',
             3=> 'Новый пароль и подтверждение не совпадают'
@@ -54,6 +54,16 @@ class AccountController extends Controller
         }
 
         return response()->json(['msg' => $msgs[$status] ]);
+    }
+    public function setNotices(Request $request)
+    {
+        $email_notice = (string) $request->email_notice;
+        $sms_notice = (string)$request->sms_notice;
+        $id= Auth::id();
+        DB::table('users')
+            ->where('id', $id)
+            ->update(['email_notice' => $email_notice,'sms_notice' => $sms_notice]);
+        return response()->json(['msg' => 'Изменения успешно сохранены' ]);
     }
 
 
