@@ -124,7 +124,11 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::post('/{ticket}/check-ticket', 'TicketsController@checkTicket');
         Route::get('/{ticket}', 'TicketsController@single');
     });
+
 });
+
+Route::get('api/lessons', 'Api\LessonController@index');
+
 
 Route::post('get-price', 'Site\PriceController@getPrice');
 Route::get('/schools', 'Site\SchoolsController@getSchools');

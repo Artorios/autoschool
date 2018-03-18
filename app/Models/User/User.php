@@ -35,6 +35,7 @@ class User extends Authenticatable
         'phone',
         'activated',
         'confirmation_code',
+		'license_category'
     ];
 
     /**

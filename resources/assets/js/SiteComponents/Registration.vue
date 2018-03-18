@@ -40,12 +40,28 @@
                                 <span v-if="errors.password" class="control-label">{{ errors.password[0] }}</span>
                             </div>
 
+                            <!--<div v-bind:class="{'has-error': errors.city}">-->
+                                <!--<select class="select" v-model="data.city">-->
+                                    <!--<option selected disabled>Ваш город*</option>-->
+                                    <!--<option :value="city.id" v-for="city in cities">{{city.name}}</option>-->
+                                <!--</select>-->
+                                <!--<span v-if="errors.city" class="control-label">{{ errors.city[0] }}</span>-->
+                            <!--</div>-->
+
                             <div v-bind:class="{'has-error': errors.city}">
-                                <select class="select" v-model="data.city">
+                                <select name="city" class="select" v-model="data.city">
                                     <option selected disabled>Ваш город*</option>
                                     <option :value="city.id" v-for="city in cities">{{city.name}}</option>
                                 </select>
                                 <span v-if="errors.city" class="control-label">{{ errors.city[0] }}</span>
+                            </div>
+
+                            <div v-bind:class="{'has-error': errors.license_category}">
+                                <select name="license_category" class="select" v-model="data.license_category">
+                                    <option selected disabled>Категория*</option>
+                                    <option :value="category" v-for="category in licenseCategories">{{ category }}</option>
+                                </select>
+                                <span v-if="errors.license_category" class="control-label">{{ errors.license_category[0] }}</span>
                             </div>
                         </div>
                         <button type="submit" class="btn-red">Зарегистрироваться</button>
@@ -75,7 +91,8 @@
                     email: '',
                     password: '',
                     phone: '',
-                    city: ''
+                    city: '',
+                    license_category: ''
                 },
                 errors: {
                     name: false,
@@ -86,7 +103,8 @@
                     phone: false,
                     price_city_id: false
                 },
-                serverError: false
+                serverError: false,
+				licenseCategories: ['A', 'B', 'C']
             }
         },
         props: ['cities'],
@@ -94,9 +112,10 @@
             let vm = this
             $('.select').selectric({
                 onChange: function(element) {
-                    vm.data.city = $(element).val()
+                    vm.data[$(element).attr('name')] = $(element).val()
                 },
-            })
+            });
+
 //            this.getCities()
         },
 //        munted () {

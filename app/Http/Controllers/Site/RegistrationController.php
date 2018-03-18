@@ -31,7 +31,8 @@ class RegistrationController extends Controller
             'email'       => 'required|email|unique:users,email',
             'phone'       => 'required',
             'password'    => 'required|string|min:6',
-			'city' 		  => 'required|exists:cities,id'
+			'city' 		  => 'required|exists:cities,id',
+			'license_category' => 'required|in:A,B,C'
         ]);
 
 		$validator->validate();
@@ -44,6 +45,7 @@ class RegistrationController extends Controller
                 'email',
                 'phone',
                 'password',
+				'license_category'
             ]);
 
             $data['role']              = 'user';
