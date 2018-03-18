@@ -13,11 +13,15 @@ import DoneLessons from './AccountComponents/MainComponents/done-lessons'
 import CurrentLesson from './AccountComponents/MainComponents/current-lesson'
 import SliderVue from './AccountComponents/MainComponents/slider'
 import TicketsVue from './AccountComponents/TicketsComponents/tickets'
+import Pagination from './CommonComponents/pagination.vue'
 import TicketQuestionsVue from './AccountComponents/TicketsComponents/ticket-questions'
+
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 Vue.use(VueResource);
 Vue.use(VueVideoPlayer);
+
+Vue.component('pagination', Pagination);
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 Vue.http.options.emulateJSON = true;

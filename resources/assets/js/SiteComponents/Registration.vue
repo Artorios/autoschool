@@ -40,6 +40,14 @@
                                 <span v-if="errors.password" class="control-label">{{ errors.password[0] }}</span>
                             </div>
 
+                            <!--<div v-bind:class="{'has-error': errors.city}">-->
+                                <!--<select class="select" v-model="data.city">-->
+                                    <!--<option selected disabled>Ваш город*</option>-->
+                                    <!--<option :value="city.id" v-for="city in cities">{{city.name}}</option>-->
+                                <!--</select>-->
+                                <!--<span v-if="errors.city" class="control-label">{{ errors.city[0] }}</span>-->
+                            <!--</div>-->
+
                             <div v-bind:class="{'has-error': errors.city}">
                                 <select class="select" v-model="data.city">
                                     <option selected disabled>Ваш город*</option>

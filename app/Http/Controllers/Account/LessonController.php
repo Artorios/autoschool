@@ -40,13 +40,10 @@ class LessonController extends Controller
             $user->lessons()->attach(['lesson_id' => $lesson->id]);
         }
 
-        $lessons = Lesson::all();
+        $lessons = Lesson::query()->paginate();
 
-        $user_lessons = $user->lessons;
-
-
-        foreach ($user_lessons as $user_lesson) {
-            foreach ($lessons as $lesson) {
+        foreach ($user->lessons as $user_lesson) {
+            foreach ($lessons as &$lesson) {
                 if ($user_lesson->id === $lesson->id) {
                     $lesson->locked = 0;
                 }
