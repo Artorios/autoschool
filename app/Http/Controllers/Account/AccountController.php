@@ -24,8 +24,14 @@ class AccountController extends Controller
 
     }
     public function changePassword(Request $request){
+        $msgs=array(
+            0=>'Пароль изменен',
+            1=> 'Пароль слишком короткий',
+            2 => 'Старый пароль неверный',
+            3=> 'Новый пароль и подтверждение не совпадают'
 
-        $status='ok';
+        );
+
         $validator = Validator::make($request->all(), [
             'old_password' => 'required|min:6',
             'new_password' => 'required|min:6',
@@ -35,15 +41,19 @@ class AccountController extends Controller
         $new_password = $request->new_password;
         $confirm_password = $request->confirm_password;
         $user = Auth::user();
-
-        if($validator->fails() ||! Hash::check($old_password, $user->password) || $new_password!=$confirm_password ){
-            $status='error';
-        }else{
-            $user->password = Hash::make($new_password);
+        $status=0;
+        if($validator->fails())
+            $status=1;
+        else if(! Hash::check($old_password, $user->password))
+              $status=2;
+            else if($new_password!=$confirm_password)
+                $status=3;
+       if($status == 0){
+            $user->password = $new_password;
             $user->save();
         }
 
-        return response()->json(['status' => $status ]);
+        return response()->json(['msg' => $msgs[$status] ]);
     }
 
 
