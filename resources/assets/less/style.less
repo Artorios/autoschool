@@ -13,6 +13,7 @@ button, button:active, button:hover, button:focus{
     outline: none;
     text-decoration: none;
 }
+
 a:focus{
     color:#000;
 }
@@ -3470,7 +3471,13 @@ footer.inner{
                         border:1px solid red;
                     }
                 }
+                &.active a{
+                    color:red;
+                    border:1px solid red;
+                    background: none;
+                }
             }
+
         }
     }
 }
@@ -5363,6 +5370,12 @@ footer.inner{
                         }
                     }
                 }
+                .active{
+                    margin-top: 1px;
+                    border-radius: 25px;
+                    background: #ccc;
+                }
+
             }
         }
     }
@@ -5393,6 +5406,12 @@ footer.inner{
                             }
                         }
                     }
+                    .active{
+                        margin-top: 1px;
+                        border-radius: 25px;
+                        background: #ccc;
+                    }
+
                 }
                 nav{
                     margin-bottom:20px;

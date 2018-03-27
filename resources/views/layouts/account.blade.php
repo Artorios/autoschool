@@ -8,11 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Автошкола</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
-    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/node_modules/selectric/public/selectric.css" />
-
-    <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick.css" />
-    <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick-theme.css" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/selectric.css" />
+    <link rel="stylesheet" type="text/css" href="/css/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/css/slick-theme.css" />
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 
     <!--[if lt IE 9]>
@@ -26,7 +25,7 @@
     <header class="inner">
         <div class="container">
             <div class="logo">
-                <a href="/"><img src="/img/logo.png" alt=""></a>
+                <a href="/account"><img src="/img/logo.png" alt=""></a>
             </div>
             <div class="menu-toggle-wrapper">
                 <div class="menu-toggle" data-toggle="collapse" data-target="#sbMenu">
@@ -36,16 +35,17 @@
                 </div>
             </div>
             <div class="right">
-                <div class="student-info">
+                <a href="{{route('user.edit')}}" class="student-info">
                     <div class="img">
                         <img src="/img/profile-photo.png" alt="">
                     </div>
-                    <a href="/account/profile">{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="/img/arrow-down.png"></a>
-                    <span>Группа № 123</span>
-                </div>
+                    <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="/img/arrow-down.png"></h3>
+                    <span>Группа № {{Auth::user()->auto_school_group_id}}</span>
+                </a>
                 <a href="{{route('user.notify')}}" class="notes">
                     <img src="/img/bell.png" alt="">
-                    <span class="number">25</span>
+                    <span class="number">
+                        {{count(\App\Models\User\Notification::where(['user_id' => Auth::user()->id, 'status' => '1'])->get())}}</span>
                     <span class="title">Уведомления</span>
                 </a>
                 <a href="#" class="help">
@@ -128,11 +128,12 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/node_modules/slick-carousel/slick/slick.js"></script>
-<script type="text/javascript" src="/node_modules/selectric/public/jquery.selectric.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.selectric.min.js"></script>
+<script type="text/javascript" src="/js/slick.js"></script>
 <script src="/js/scripts.js"></script>
 <script src="/js/account.js"></script>
+<script src="less/less.js"></script>
 </body>
 
 </html>

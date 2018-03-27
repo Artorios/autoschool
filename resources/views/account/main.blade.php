@@ -7,11 +7,11 @@
             </ul>
         </div>
         <div class="info">
-            <div class="block">
-                <h3>Школьный экзамен</h3>
+            <school-exam></school-exam>
+
+                {{--<h3>Школьный экзамен</h3>
                 <span><img src="img/clock.png" alt=""> 02.09.2017 (понедельник) 18:00</span>
-                <span>осталось:<span class="number">42</span> дня</span>
-            </div>
+                <span>осталось:<span class="number">42</span> дня</span>--}}
             <done-lessons></done-lessons>
         </div>
         <current-lesson></current-lesson>

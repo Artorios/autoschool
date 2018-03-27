@@ -27,15 +27,15 @@ class RegistrationController extends Controller
         $validator = Validator::make($request->all(), [
             'name'        => 'required|string|min:3',
             'last_name'   => 'required|string|min:3',
-            'second_name' => 'nullable|string|min:3',
+            'second_name' => 'string|min:3',
             'email'       => 'required|email|unique:users,email',
             'phone'       => 'required',
             'password'    => 'required|string|min:6',
-			'city' 		  => 'required|exists:cities,id',
-			'license_category' => 'required|in:A,B,C'
         ]);
 
-		$validator->validate();
+        if (count($validator->errors())) {
+            return response()->json(['status' => 0], 400);
+        }
 
         try {
             $data = $request->only([
@@ -45,7 +45,6 @@ class RegistrationController extends Controller
                 'email',
                 'phone',
                 'password',
-				'license_category'
             ]);
 
             $data['role']              = 'user';

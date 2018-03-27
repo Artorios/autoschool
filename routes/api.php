@@ -18,10 +18,6 @@ Route::get('/settings-all', function () {
    return response()->json(['settings' => Setting::all()], 200);
 });
 
-
-
-
-
 Route::get('/get-region-prices', 'HomeController@getRegionPrices');
 Route::post('/test-kassa', 'HomeController@testKassa');
 

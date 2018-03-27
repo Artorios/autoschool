@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Training\Processing\Answer;
 use App\Models\Training\Lesson\Lesson;
 use App\Models\Training\Lesson\LessonsSettings;
+use App\Models\Training\School\AutoSchoolGroup;
+use App\Models\User\User;
 use App\Models\User\UserLesson;
 use App\Models\User\UserLessonTraining;
 use DateTime;
@@ -40,10 +42,13 @@ class LessonController extends Controller
             $user->lessons()->attach(['lesson_id' => $lesson->id]);
         }
 
-        $lessons = Lesson::query()->paginate();
+        $lessons = Lesson::all();
 
-        foreach ($user->lessons as $user_lesson) {
-            foreach ($lessons as &$lesson) {
+        $user_lessons = $user->lessons;
+
+
+        foreach ($user_lessons as $user_lesson) {
+            foreach ($lessons as $lesson) {
                 if ($user_lesson->id === $lesson->id) {
                     $lesson->locked = 0;
                 }
@@ -256,5 +261,33 @@ class LessonController extends Controller
         }
 
         return response()->json(['lessons' => $lessons], 200);
+    }
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function getCountSchoolExam(){
+        $user = Auth::user();
+        $groups = AutoSchoolGroup::all();
+        $days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+        $actualTime = time();
+        foreach ($groups as $group){
+            if($group->id === $user->auto_school_group_id){
+                $date = $group->exam_date;
+                $time = $group->exam_time;
+                $tempLeftDay =  strtotime($date) - $actualTime;
+                if($tempLeftDay > 0){
+                    $tempDate = explode('-', $date);
+                    $tempTime = explode(':', $time);
+                    $tempDay = strftime("%w", strtotime($date));
+                    $date = $tempDate['2'].'.'.$tempDate['1'].'.'.$tempDate['0'];
+                    $time = $tempTime['0'].':'.$tempTime['1'];
+                    $day = $days[$tempDay];
+                    $leftDay = floor($tempLeftDay/86400);
+                }
+            }
+        }
+
+        return response()->json(['date' => $date, 'time' => $time, 'day' => $day, 'leftDay' => $leftDay]);
     }
 }

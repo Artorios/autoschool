@@ -33,8 +33,6 @@ Route::middleware('auth')->get('/logout', 'Auth\LoginController@logout')->name('
 Route::post('/registration', 'Site\RegistrationController@registration');
 Route::post('/login', 'Auth\LoginController@auth');
 
-
-
 /*
  * Social authentication
  */
@@ -49,10 +47,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     Route::get('/', function () {
         return view('account.main');
     })->name('user.account');
-
-    Route::get('/profile', 'AccountController@profile');
-    Route::post('/profile/change_password', 'AccountController@changePassword');
-    Route::post('/profile/set_notices', 'AccountController@setNotices');
 
     Route::get('/get-count-lesson', function () {
         $user = Auth::user();
@@ -73,9 +67,26 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         return view('account.statistic.error-check');
     })->name('user.statistic.error');
 
-    Route::get('/notifications', function () {
-        return view('account.notify.index');
-    })->name('user.notify');
+    Route::get('/notifications', 'NotificationController@getPageNew')->name('user.notify');
+
+    Route::get('/notifications-all', 'NotificationController@getPageAll')->name('user.notify.all');
+
+    Route::post('/notify-read', 'NotificationController@notifyRead' );
+
+    Route::get('/edit-profile', function () {
+        $cities = City::where('show_city', 1)->get();
+        return view('account.profile.index', compact('cities'));
+    })->name('user.edit');
+
+    Route::post('/edit-profile', 'AccountController@updateProfile');
+    Route::post('/edit-pass', 'AccountController@updatePassword');
+    Route::post('/edit-notify-settings', 'AccountController@editNotifySettings');
+
+    Route::get('/auth-info-acc', function (){
+        $user = Auth::user();
+
+        return response()->json(['user' => $user]);
+    });
 
     Route::group(['prefix' => 'finance'], function () {
         Route::get('/', function () {
@@ -91,6 +102,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
 
     Route::get('/lessons', 'LessonController@index')->name('user.lessons');
     Route::get('/get-count-lessons', 'LessonController@getCountLesson');
+    Route::get('/get-count-school-exam', 'LessonController@getCountSchoolExam');
 
     Route::group(['prefix' => 'lessons'], function () {
         Route::get('/exam/banned', function () {
@@ -125,11 +137,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::post('/{ticket}/check-ticket', 'TicketsController@checkTicket');
         Route::get('/{ticket}', 'TicketsController@single');
     });
-
 });
-
-Route::get('api/lessons', 'Api\LessonController@index');
-
 
 Route::post('get-price', 'Site\PriceController@getPrice');
 Route::get('/schools', 'Site\SchoolsController@getSchools');

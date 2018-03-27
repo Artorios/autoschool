@@ -10,19 +10,23 @@ import NumberLessons from './AccountComponents/number-lessons.vue'
 import AnalysisVue from './AccountComponents/LessonComponents/error-analysis.vue'
 import StatisticVue from './AccountComponents/StatisticComponents/statistic.vue'
 import DoneLessons from './AccountComponents/MainComponents/done-lessons'
+import SchoolExam from './AccountComponents/MainComponents/school-exam'
 import CurrentLesson from './AccountComponents/MainComponents/current-lesson'
 import SliderVue from './AccountComponents/MainComponents/slider'
 import TicketsVue from './AccountComponents/TicketsComponents/tickets'
-import Pagination from './CommonComponents/pagination.vue'
 import TicketQuestionsVue from './AccountComponents/TicketsComponents/ticket-questions'
+import EditProfileForm from './components/UserComponent/edit-profile-form'
+import EditPassForm from './components/UserComponent/edit-pass-form'
+import EditNotifySettings from './components/UserComponent/edit-notify-settings'
+import NotifyAll from './AccountComponents/NotifyComponents/notify-all'
+import NotifyNew from './AccountComponents/NotifyComponents/notify-new'
+import Pages from './AccountComponents/NotifyComponents/pages.vue'
+
 
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 Vue.use(VueResource);
 Vue.use(VueVideoPlayer);
-
-Vue.component('pagination', Pagination);
-
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 Vue.http.options.emulateJSON = true;
 
@@ -47,10 +51,18 @@ const app = new Vue({
         AnalysisVue,
         StatisticVue,
         DoneLessons,
+        SchoolExam,
         CurrentLesson,
         SliderVue,
         GroupExamVue,
         TicketsVue,
-        TicketQuestionsVue
+        TicketQuestionsVue,
+        EditProfileForm,
+        EditPassForm,
+        EditNotifySettings,
+        NotifyNew,
+        NotifyAll,
+        Pages
+
     }
 });

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Psy\Exception\ErrorException;
@@ -58,7 +57,6 @@ class LoginController extends Controller
             'email'    => 'required|email|exists:users,email',
             'password' => 'required|string|min:6',
         ]);
-        $validator->validate();
 
         $user = User::where(['email' => $request->email])->first();
 
@@ -68,13 +66,12 @@ class LoginController extends Controller
 
         $credentials = $request->only(['email', 'password']);
 
-
         if (Auth::attempt($credentials)) {
             $response = redirect()->intended('/');
 
             return response()->json(['status' => 1, 'url' => $response->headers->get('location')], 202);
         } else {
-            return response()->json(['errors' => ['login' => 'Неверный Email или пароль']], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->json(['status' => 0], 400);
         }
     }
 

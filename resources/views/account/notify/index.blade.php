@@ -8,26 +8,16 @@
         </ul>
     </div>
     <div class="btn-wrapper">
-        <a href="#" class="active">Новые</a>
-        <a href="#">Все</a>
+        <a href="{{route('user.notify')}}" class="active">Новые</a>
+        <a href="{{route('user.notify.all')}}" >Все</a>
     </div>
-    <div class="notice-wrapper">
-        <div class="line">
-            <span class="date-time"><img src="img/clock.png" alt="">02.09.2017 18:00</span>
-            <p>Имеется задолженность за октябрь по договору Д752-17, подробности в разделе <a href="#">Финансы</a></p>
-        </div>
-        <div class="line">
-            <span class="date-time"><img src="img/clock.png" alt="">9 дней назад</span>
-            <p>Вы поступили в Школу Автотренер! <br> Мы скоро свяжемся с Вами и согласуем детали обучения.</p>
-        </div>
-    </div>
+    <notify-new :notifies="{{json_encode($notifies->items())}}"></notify-new>
     <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link active" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-        </ul>
+        <pages :page="{{json_encode($notifies->currentPage())}}"
+               :pages="{{json_encode($notifies->total())}}"></pages>
+
+
     </nav>
 </div>
+
 @endsection

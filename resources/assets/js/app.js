@@ -13,6 +13,7 @@ import QuestionsVue from './components/QuestionComponents/questions.vue'
 import QuestionVue from './components/QuestionComponents/question.vue'
 import QuestionSingle from './components/QuestionComponents/question-single.vue'
 import LessonsSettings from './components/SettingsComponents/LessonsSettings.vue'
+import EditProfile from './components/UserComponent/edit-profile-form.vue'
 import VueVideoPlayer from 'vue-video-player'
 import Toasted from 'vue-toasted';
 
@@ -42,6 +43,7 @@ const app = new Vue({
         QuestionsVue,
         QuestionVue,
         QuestionSingle,
-        LessonsSettings
+        LessonsSettings,
+        EditProfile
     }
 });

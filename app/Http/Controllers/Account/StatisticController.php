@@ -21,8 +21,8 @@ class StatisticController extends Controller
         $lessons = $user->lessons->unique('lesson_num');
         $lessons = $lessons->toArray();
 
-		$returnLessons = [];
-		if (count($lessons)) {
+         if (count($lessons)) {
+             $returnLessons = [];
 
              foreach ($lessons as $key => $lesson) {
                  $returnLessons[$key] = $lesson;

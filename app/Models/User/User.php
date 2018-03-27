@@ -35,7 +35,7 @@ class User extends Authenticatable
         'phone',
         'activated',
         'confirmation_code',
-		'license_category'
+        'auto_school_group_id',
     ];
 
     /**
@@ -47,4 +47,5 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
 }

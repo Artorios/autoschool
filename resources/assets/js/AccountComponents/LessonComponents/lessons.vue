@@ -11,7 +11,7 @@
                 <span class="number">№</span>
                 <span>Название</span>
             </div>
-            <div class="line" v-for="lesson in lessons.data">
+            <div class="line" v-for="lesson in lessons">
                 <span class="number">{{lesson.lesson_num}}</span>
                 <div class="info">
                     <a v-if="!lesson.locked" :href="'/account/lessons/' + lesson.id">{{lesson.title}}</a>
@@ -24,7 +24,14 @@
                 </div>
             </div>
         </div>
-        <pagination :url="'account/lessons'" :current-page="lessons.current_page" :total-pages="lessons.last_page"></pagination>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+            </ul>
+        </nav>
     </div>
 </template>
 
@@ -33,6 +40,9 @@
         data () {
             return {}
         },
-        props: ['lessons']
+        props: ['lessons'],
+        created () {
+            console.log('aaa')
+        }
     }
 </script>

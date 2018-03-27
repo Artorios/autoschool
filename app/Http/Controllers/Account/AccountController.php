@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Models\Location\City;
+use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 /**
  * Class AccountController
  * @package App\Http\Controllers\Account
@@ -15,56 +16,71 @@ use Illuminate\Support\Facades\Hash;
 class AccountController extends Controller
 {
 
-    public function profile(){
-        $uinfo = DB::table('users')
-            ->where('id',Auth::id() )
-            ->first();
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
 
-        return view('account.profile',['uinfo'=>$uinfo]);
+    public function updateProfile(Request $request, User $user, City $city){
+        $itempost = $request->input();
+        $city_id = $city->select('id')->where(['name' => $itempost['city_id']])->firstOrFail();
+        $itempost['city_id'] = $city_id['id'];
+        $validator = Validator::make($itempost, [
+            'name'        => 'required|string|min:3',
+            'last_name'   => 'required|string|min:3',
+            'second_name' => 'string|min:3',
+            'email'       => 'required|email|unique:users,email',
+            'phone'       => 'required',
+            'city_id'     => 'requires',
+            'license'     => 'required'
+        ]);
+        $user->where(['id' => $itempost['id']])->update($itempost);
+        return response()->json(['status' => 1], 201);
 
     }
-    public function changePassword(Request $request){
-        $msgs=array(
-            0=>'Пароль успешно изменен',
-            1=> 'Пароль слишком короткий',
-            2 => 'Старый пароль неверный',
-            3=> 'Новый пароль и подтверждение не совпадают'
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updatePassword(Request $request, User $user){
+        $password = $request->input('password');
+        $newPassword = $request->input('new_password');
+        $newPassword = bcrypt($newPassword);
+        $userNow = Auth::user();
+        $oldPassword = $user->select('password')->where(['id' => $userNow['id']])->firstOrFail();
 
-        );
+        if(Hash::check($password, $oldPassword['password'])){
+            $user->where(['id' => $userNow['id']])->update(['password' => $newPassword]);
+            return response()->json(['status' => 1], 205);
+        }
+        else{
+            return response()->json(['status' => 0, 'password' => $password], 400);
 
-        $validator = Validator::make($request->all(), [
-            'old_password' => 'required|min:6',
-            'new_password' => 'required|min:6',
-            'confirm_password' => 'required|min:6',
-        ]);
-        $old_password = $request->old_password;
-        $new_password = $request->new_password;
-        $confirm_password = $request->confirm_password;
-        $user = Auth::user();
-        $status=0;
-        if($validator->fails())
-            $status=1;
-        else if(! Hash::check($old_password, $user->password))
-              $status=2;
-            else if($new_password!=$confirm_password)
-                $status=3;
-       if($status == 0){
-            $user->password = $new_password;
-            $user->save();
+        }
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function editNotifySettings(Request $request, User $user){
+        $itempost = $request->input();
+        if(isset($itempost['notify_email']) or isset($itempost['notify_phone'])){
+            if(isset($itempost['notify_email'])){
+                $user->where(['id' => $itempost['id']])->update(['notify_email' => $itempost['notify_email']]);
+            }
+            if(isset($itempost['notify_phone'])){
+                $user->where(['id' => $itempost['id']])->update(['notify_phone' => $itempost['notify_phone']]);
+            }
+
+            return response()->json(['status' => 1], 204);
         }
 
-        return response()->json(['msg' => $msgs[$status] ]);
-    }
-    public function setNotices(Request $request)
-    {
-        $email_notice = (string) $request->email_notice;
-        $sms_notice = (string)$request->sms_notice;
-        $id= Auth::id();
-        DB::table('users')
-            ->where('id', $id)
-            ->update(['email_notice' => $email_notice,'sms_notice' => $sms_notice]);
-        return response()->json(['msg' => 'Изменения успешно сохранены' ]);
-    }
+        return response()->json(['status' => 0], 400);
 
-
+    }
 }
