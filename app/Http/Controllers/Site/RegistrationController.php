@@ -33,9 +33,9 @@ class RegistrationController extends Controller
             'password'    => 'required|string|min:6',
         ]);
 
-        if (count($validator->errors())) {
+        /*if (count($validator->errors())) {
             return response()->json(['status' => 0], 400);
-        }
+        }*/
 
         try {
             $data = $request->only([

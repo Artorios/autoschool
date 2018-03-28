@@ -77,7 +77,6 @@
         methods: {
             registration () {
                 if (this.validate()) return false
-
                 this.$http.post('/registration', this.data).then(res => {
                     if (res.status === 201) {
                         location.href = '/'

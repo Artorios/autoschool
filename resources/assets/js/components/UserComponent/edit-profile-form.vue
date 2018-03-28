@@ -84,7 +84,6 @@
                 this.user.license = $('#license option:selected').text()
                 this.user.city_id = $('#city option:selected').text()
 
-                console.log(this.user.city_id)
                 if (this.validate()) return false
 
                 this.$http.post('/account/edit-profile', this.user).then(res => {
