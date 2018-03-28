@@ -19,11 +19,13 @@
                 <h3>{{Auth::user()->last_name.' '.Auth::user()->name}}<span>(ID {{Auth::user()->id}}) Группа №
                         @if(!empty(Auth::user()->auto_school_group_id))
                         {{Auth::user()->auto_school_group_id}}
+                            <?php $auto_school_group_id = Auth::user()->auto_school_group_id; ?>
+
                         @endif </span></h3>
 
                 <a href="#">
-                    @if(!empty(Auth::user()->auto_school_group_id))
-                    {{\App\Models\Training\School\AutoSchool::find(\App\Models\Training\School\AutoSchoolGroup::find(Auth::user()->auto_school_group_id)->auto_school_id)->title }}
+                    @if(!empty($auto_school_group_id))
+                    {{\App\Models\Training\School\AutoSchool::find(\App\Models\Training\School\AutoSchoolGroup::find($auto_school_group_id)->auto_school_id)->title }}
                         @endif
                 </a>
                 <div class="btn-wrapper">

@@ -37,7 +37,7 @@ class AccountController extends Controller
             return response()->json(['status' => 0], 400);
         }
         $validator = Validator::make($itempost, [
-            'email'       => 'required|email|unique:users,email'
+            'email' => 'unique:users,email,'.$itempost['id']
         ]);
         if (count($validator->errors())) {
             return response()->json(['status' => 5], 400);
