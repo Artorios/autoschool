@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/css/slick.css" />
     <link rel="stylesheet" type="text/css" href="/css/slick-theme.css" />
     @if(Route::currentRouteName() === 'regUser')
-        <link rel="stylesheet" type="text/css" href="/node_modules/selectric/public/selectric.css" />
+        <link rel="stylesheet" type="text/css" href="/css/selectric.css" />
     @endif
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <!--<link rel="stylesheet/less" href="css/style.less">-->
