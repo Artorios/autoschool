@@ -8,8 +8,8 @@
     <title>Автошкола</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/slick.css" />
-    <link rel="stylesheet" type="text/css" href="/css/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/node_modules/slick-carousel/slick/slick-theme.css" />
     @if(Route::currentRouteName() === 'regUser')
         <link rel="stylesheet" type="text/css" href="/node_modules/selectric/public/selectric.css" />
     @endif
@@ -42,7 +42,7 @@
                             <a href="{{route('logout')}}">Выход</a>
                         @else
                             <a href="{{route('user.account')}}"><img src="img/lock.png" alt="">Кабинет
-                                {{Auth::user()->name . ' ' . Auth::user()->last_name}}</a>
+                                                        {{Auth::user()->name . ' ' . Auth::user()->last_name}}</a>
                             {{--<a href="#">Активировать купон</a>--}}
                             <a href="{{route('logout')}}">Выход</a>
                         @endif
@@ -72,7 +72,7 @@
                         <span>Онлайн-курс «АвтоТренер» вместо посещения лекций в автошколе</span>
                         <a href="{{route('regUser')}}" class="btn-red">Попробуйте  бесплатно</a>
                     </div>
-                    <img src="/img/box.png" alt="">
+                    <img src="img/box.png" alt="">
                 </div>
             </div>
         @endif
@@ -116,9 +116,9 @@
         </div>
     </div>
     {{--<div class="map">--}}
-    {{--<div class="map-wrapper">--}}
-    {{--<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Aabb13e8ec510da7acc3e1d31034688dcd1efe4d341a74497bef8ef1d6cf69a0e&amp;width=100%25&amp;height=240&amp;lang=ru_RU&amp;scroll=true"></script>--}}
-    {{--</div>--}}
+        {{--<div class="map-wrapper">--}}
+            {{--<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Aabb13e8ec510da7acc3e1d31034688dcd1efe4d341a74497bef8ef1d6cf69a0e&amp;width=100%25&amp;height=240&amp;lang=ru_RU&amp;scroll=true"></script>--}}
+        {{--</div>--}}
     {{--</div>--}}
     <div class="bottom-line">
         <div class="container">

@@ -11,14 +11,20 @@
                             <input type="text" placeholder="Имя*" v-model="data.name">
                             <input type="text" placeholder="Фамилия*" v-model="data.last_name">
                             <input type="text" placeholder="Отчество" v-model="data.second_name">
+                            <input type="email" placeholder="Электронная*" v-model="data.email">
                         </div>
                         <div class="right">
-                            <input type="email" placeholder="Электронная*" v-model="data.email">
                             <input type="text" placeholder="Телефон*" v-model="data.phone">
                             <input type="password" placeholder="Пароль*" v-model="data.password">
                             <select class="select" v-model="data.price_city_id">
                                 <option selected disabled>Ваш город*</option>
                                 <option :value="city.id" v-for="city in cities">{{city.name}}</option>
+                            </select>
+                            <select class="select" v-model="data.license">
+                                <option selected disabled>Категория*</option>
+                                <option value="A" >A</option>
+                                <option value="B" >B</option>
+                                <option value="C" >C</option>
                             </select>
                         </div>
                         <button type="submit" class="btn-red">Зарегистрироваться</button>
@@ -48,7 +54,8 @@
                     email: '',
                     password: '',
                     phone: '',
-                    price_city_id: ''
+                    price_city_id: '',
+                    license: ''
                 },
                 errors: {
                     name: false,
