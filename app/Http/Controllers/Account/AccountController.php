@@ -24,17 +24,24 @@ class AccountController extends Controller
 
     public function updateProfile(Request $request, User $user, City $city){
         $itempost = $request->input();
-        $city_id = $city->select('id')->where(['name' => $itempost['city_id']])->firstOrFail();
-        $itempost['city_id'] = $city_id['id'];
         $validator = Validator::make($itempost, [
             'name'        => 'required|string|min:3',
             'last_name'   => 'required|string|min:3',
             'second_name' => 'string|min:3',
-            'email'       => 'required|email|unique:users,email',
             'phone'       => 'required',
-            'city_id'     => 'requires',
+            'city_id'     => 'required',
             'license'     => 'required'
         ]);
+
+        if (count($validator->errors())) {
+            return response()->json(['status' => 0], 400);
+        }
+        $validator = Validator::make($itempost, [
+            'email'       => 'required|email|unique:users,email'
+        ]);
+        if (count($validator->errors())) {
+            return response()->json(['status' => 5], 400);
+        }
         $user->where(['id' => $itempost['id']])->update($itempost);
         return response()->json(['status' => 1], 201);
 
