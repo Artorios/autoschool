@@ -28,12 +28,12 @@
         <div class="top-line">
             <div class="container">
                 <ul>
-                    <li><a href="#">Как мы учим</a></li>
-                    <li><a href="#">7 плюсов</a></li>
-                    <li><a href="#">Для кого</a></li>
-                    <li><a href="#">Отзывы</a></li>
-                    <li><a href="#">Купить</a></li>
-                    <li><a href="#">Контакты</a></li>
+                    <li><a href="/#kak-uchim">Как мы учим</a></li>
+                    <li><a href="/#top7plus">7 плюсов</a></li>
+                    <li><a href="/#komu">Для кого</a></li>
+                    <li><a href="/#otzuv">Отзывы</a></li>
+                    <li><a href="/#sale">Купить</a></li>
+                    <li><a href="/#contact">Контакты</a></li>
                 </ul>
                 <div class="right">
                     @if(Auth::check())
@@ -81,7 +81,7 @@
     <yandex-map :city="'Санкт Петербург'"></yandex-map>
 </div>
 <footer>
-    <div class="info">
+    <div class="info" id="contact">
         <div class="container">
             <div class="contacts">
                 <h4>Контакты:</h4>

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="main-content">
-        <div class="info-block">
+        <div class="info-block" id="kak-uchim">
             <div class="container">
                 <div class="ico-wrapper">
                     <div class="block">
@@ -78,7 +78,7 @@
                 <a href="{{route('regUser')}}" class="btn-red">Начните обучаться бесплатно</a>
             </div>
         </div>
-        <div class="top">
+        <div class="top" id="top7plus">
             <div class="container">
                 <h2>ТОП-7 плюсов онлайн-курса: <span>«АвтоТренер»</span></h2>
                 <div class="first">
@@ -128,7 +128,7 @@
                 </div>
             </div>
         </div>
-        <div class="suit">
+        <div class="suit" id="komu">
             <div class="container">
                 <h2>«АвтоТренер» идеально подходит, если:</h2>
                 <div>
@@ -165,7 +165,7 @@
                 </form>
             </div>
         </div>
-        <div class="comments">
+        <div class="comments" id="otzuv">
             <div class="container">
                 <h3>Отзывы наших учеников: </h3>
                 <div class="slick-wrapper">
@@ -210,7 +210,7 @@
                 <img src="/img/socials.png" alt="">
             </div>
         </div>
-        <div class="buy">
+        <div class="buy" id="sale">
             <div class="container">
                 <img src="/img/box.png" alt="">
                 <price-vue></price-vue>
