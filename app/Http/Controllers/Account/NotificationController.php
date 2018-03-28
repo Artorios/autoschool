@@ -28,4 +28,6 @@ class NotificationController extends Controller
         $this->data['notifies'] = $notification->where(['user_id'=> $user_id, 'status' => 1])->paginate(5);
         return view('account.notify.index', $this->data);
     }
+
+
 }

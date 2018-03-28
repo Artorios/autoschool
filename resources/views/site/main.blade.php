@@ -177,7 +177,7 @@
                         </div>
                         <div class="slide">
                             <div class="video-wrapper">
-                                <iframe src="https://www.youtube.com/embed/Ul9sFd-mFCU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                                <iframe height="380" src="https://www.youtube.com/embed/Ul9sFd-mFCU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>

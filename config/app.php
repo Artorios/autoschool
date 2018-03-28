@@ -187,6 +187,8 @@ return [
         \App\Providers\TicketsProvider::class,
         \App\Providers\LessonRulesProvider::class,
 		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -240,6 +242,7 @@ return [
         'Settings' => \App\Services\Settings\Facade\Settings::class,
         'Tickets' => \App\Services\Tickets\Facade\Tickets::class,
         'LessonRules' => \App\Services\LessonRules\Facade\LessonRules::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

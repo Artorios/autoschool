@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Http\Controllers\Account\NotificationController;
+use App\Models\User\Notification;
 use App\Models\User\User;
 use App\Models\Location\Region;
 use App\Notifications\UserRegistration;
@@ -22,7 +24,7 @@ class RegistrationController extends Controller
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function registration(Request $request)
+    public function registration(Request $request, Notification $notification)
     {
         $validator = Validator::make($request->all(), [
             'name'        => 'required|string|min:3',
@@ -31,11 +33,13 @@ class RegistrationController extends Controller
             'email'       => 'required|email|unique:users,email',
             'phone'       => 'required',
             'password'    => 'required|string|min:6',
+            'city_id' 		  => 'required|exists:cities,id',
+            'license' => 'required|in:A,B,C'
         ]);
 
-        /*if (count($validator->errors())) {
+        if (count($validator->errors())) {
             return response()->json(['status' => 0], 400);
-        }*/
+        }
 
         try {
             $data = $request->only([
@@ -45,6 +49,8 @@ class RegistrationController extends Controller
                 'email',
                 'phone',
                 'password',
+                'city_id',
+                'license'
             ]);
 
             $data['role']              = 'user';
@@ -52,9 +58,12 @@ class RegistrationController extends Controller
             $user                      = User::create($data);
             $full_name                 = $user->name . ' ' . $user->last_name;
 
-            $user->notify(new UserRegistration($full_name, $user->confirmation_code));
-
+            Controller::notification($user->id,'Вы поступили в Школу Автотренер! 
+Мы скоро свяжемся с Вами и согласуем детали обучения.');
             Auth::loginUsingId($user->id);
+
+            //$user->notify(new UserRegistration($full_name, $user->confirmation_code));
+
 
             return response()->json(['status' => 1], 201);
         } catch (ErrorException $e) {

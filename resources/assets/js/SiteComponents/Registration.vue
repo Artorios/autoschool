@@ -16,11 +16,12 @@
                         <div class="right">
                             <input type="text" placeholder="Телефон*" v-model="data.phone">
                             <input type="password" placeholder="Пароль*" v-model="data.password">
-                            <select class="select" v-model="data.price_city_id">
+                            <select class="select"  id="city_id">
                                 <option selected disabled>Ваш город*</option>
                                 <option :value="city.id" v-for="city in cities">{{city.name}}</option>
                             </select>
-                            <select class="select" v-model="data.license">
+                            <br>
+                            <select class="select" id="license">
                                 <option selected disabled>Категория*</option>
                                 <option value="A" >A</option>
                                 <option value="B" >B</option>
@@ -54,7 +55,7 @@
                     email: '',
                     password: '',
                     phone: '',
-                    price_city_id: '',
+                    city_id: '',
                     license: ''
                 },
                 errors: {
@@ -72,9 +73,14 @@
         props: ['cities'],
         mounted () {
             let vm = this
-            $('.select').selectric({
+            $('#city_id').selectric({
                 onChange: function(element) {
-                    vm.data.price_city_id = $(element).val()
+                    vm.data.city_id = $(element).val()
+                },
+            })
+            $('#license').selectric({
+                onChange: function(element) {
+                    vm.data.license = $(element).val()
                 },
             })
 //            this.getCities()
@@ -83,6 +89,8 @@
 //        },
         methods: {
             registration () {
+                console.log(this.data.city_id)
+                console.log(this.data.license)
                 if (this.validate()) return false
                 this.$http.post('/registration', this.data).then(res => {
                     if (res.status === 201) {
