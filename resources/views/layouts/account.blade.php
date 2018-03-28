@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="right">
-                <a href="{{route('user.edit')}}" class="student-info">
+                <a href="{{route('user.edit')}}" class="student-info" style="color: black">
                     <div class="img">
                         <img src="/img/profile-photo.png" alt="">
                     </div>
