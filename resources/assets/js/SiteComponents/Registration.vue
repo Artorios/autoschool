@@ -10,7 +10,7 @@
                         <div>
                             <input type="text" placeholder="Имя*" v-model="data.name">
                             <input type="text" placeholder="Фамилия*" v-model="data.last_name">
-                            <input type="text" placeholder="Отчество" v-model="data.second_name">
+                            <input type="text" placeholder="Отчество*" v-model="data.second_name">
                             <input type="email" placeholder="Электронная*" v-model="data.email">
                         </div>
                         <div class="right">
