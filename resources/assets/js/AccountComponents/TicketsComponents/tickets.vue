@@ -11,7 +11,7 @@
         <div class="tickets-wrapper">
             <div class="ticket" data-toggle="collapse" :data-target="'#ticket' + i" v-for="(ticket, i) in tickets"
                  :key="ticket.ticket_id">
-                <div class="ticket-inner" :class="[{'black': !ticket.try}]  ">
+                <div class="ticket-inner" :class="[{'black': !ticket.status, 'green': ticket.status, 'red': ticket.status === 'failed'}]">
                     <div class="info">
                         <a :href="'/account/tickets/' + ticket.ticket_id" class="number ">
                             {{ticket.ticket_id}}
