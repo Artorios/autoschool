@@ -48,7 +48,7 @@
                         {{count(\App\Models\User\Notification::where(['user_id' => Auth::user()->id, 'status' => '1'])->get())}}</span>
                     <span class="title">Уведомления</span>
                 </a>
-                <a href="" class="help">
+                <a href="{{route('faq')}}" class="help">
                     <img src="/img/help.png" alt="">
                 </a>
             </div>
