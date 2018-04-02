@@ -26,7 +26,7 @@
                     </div>
                     <!--<span class="btn-grey ticket-toggle" @click.prevent>Статистика попыток</span>-->
                     <span class="btn-grey ticket-toggle" v-if="ticket.status">Статистика попыток</span>
-                    <span class="btn-grey ticket-toggle" v-if="!ticket.status">Решить</span>
+                    <span class="btn-grey ticket-toggle" v-if="!ticket.status">Пройти</span>
                 </div>
                 <div class="hidden-part collapse" :id="'ticket' + i" v-if="ticket.history">
                     <div class="hidden-content">
