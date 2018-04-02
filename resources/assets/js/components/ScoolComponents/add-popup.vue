@@ -51,8 +51,10 @@
                                         <div class="form-group">
                                             <label>Тип</label>
                                             <select name="type" class="form-control" v-model="contact.type">
-                                                <option value="0" disabled>Выберите тип</option>
+                                                <option value="address" >Адрес</option>
+<!--
                                                 <option :value="type.slug" v-for="type in types">{{type.name}}</option>
+-->
                                             </select>
                                         </div>
                                     </div>

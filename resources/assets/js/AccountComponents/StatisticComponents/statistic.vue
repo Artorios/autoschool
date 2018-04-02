@@ -6,6 +6,7 @@
                 <li>Статистика (Успеваемость)</li>
             </ul>
         </div>
+
         <div class="table-wrapper">
             <div class="title-line">
                 <span class="number">№</span>
@@ -26,14 +27,14 @@
                     <div class="lesson">
                         <span class="mobile-title">Урок</span>
                         <span :class="{'ready': lesson.viewed}">{{lesson.viewed ? 'Пройден' : 'Не пройден'}}</span>
-                        <span class="date">{{lesson.updated_at.split(' ')[0]}}</span>
+                        <span class="date">{{editDate(lesson.updated_at)}}</span>
                     </div>
                     <div class="train">
                         <div v-if="lesson.right_quest_train">
                             <span class="mobile-title">Тренировка</span>
                             <span>{{lesson.right_quest_train}} из {{lesson.all_quest_train}}</span>
                             <a :href="'/account/lessons/training/' + lesson.id"><span class="refresh"></span></a>
-                            <span>27.11.2017</span>
+                            <span>{{editDate(lesson.updated_at)}}</span>
                         </div>
                     </div>
                     <div class="exam">
@@ -41,7 +42,7 @@
                             <span class="mobile-title">Зачет</span>
                             <span>{{lesson.right_quest_exam}} из {{lesson.all_quest_exam}}</span>
                             <a :href="'/account/lessons/exam/' + lesson.id"><span class="refresh"></span></a>
-                            <span>28.11.2017</span>
+                            <span>{{editDate(lesson.updated_at)}}</span>
                         </div>
                     </div>
                     <div class="group-exam">
@@ -57,9 +58,9 @@
                     </div>
                 </div>
                 <div class="hidden-statistics collapse" :id="'theme' + i">
-                    <span class="close" data-toggle="collapse" data-target="#theme1"></span>
+                    <span class="close" data-toggle="collapse" :data-target="'#theme'+i"></span>
                     <div class="try-wrapper">
-                        <div class="try">
+                        <!--<div class="try">
                             <div class="number">
                                 <span>Попытка 1</span>
                             </div>
@@ -106,346 +107,46 @@
                                     <a href="#">Разбор ошибок</a>
                                 </div>
                             </div>
+                        </div>-->
+                        <div class="try"  v-for="(train,key) in alldata[lesson.lesson_num].idLessonTrain">
+                            <div class="number">
+                                <span>Попытка {{key+1}}</span>
+                            </div>
+                            <div class="train-wrapper" >
+                                <div class="train" >
+                                    <div class="train" v-if="train.type === 'training'">
+                                        <span>Ошибок <span>{{alldata[lesson.lesson_num].questions_uncorrect[train.id]}}</span></span>
+                                        <span v-if="train.updated_at == null">неизвестно</span>
+                                        <span v-else>{{editDate(train.updated_at) }}</span>
+                                        <a :href="'/account/lessons/analysis/'+train.id">Разбор ошибок</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="exam-wrapper" >
+                                <div class="exam">
+                                    <div class="exam" v-if="train.type === 'exam'">
+                                        <span>Ошибок <span>{{alldata[lesson.lesson_num].questions_uncorrect[train.id]}}</span></span>
+                                        <span v-if="train.updated_at == null">неизвестно</span>
+                                        <span v-else>{{editDate(train.updated_at) }}</span>
+                                        <a :href="'/account/lessons/analysis/'+train.id">Разбор ошибок</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exam-wrapper" >
+                                <div class="exam">
+                                    <div class="exam" v-if="train.type === 'group'">
+                                        <span>Ошибок <span>{{alldata[lesson.lesson_num].questions_uncorrect[train.id]}}</span></span>
+                                        <span v-if="train.updated_at == null">неизвестно</span>
+                                        <span v-else>{{editDate(train.updated_at) }}</span>
+                                        <a :href="'/account/lessons/analysis/'+train.id">Разбор ошибок</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--<div class="line">-->
-                <!--<div class="number">-->
-                    <!--<span>02</span>-->
-                <!--</div>-->
-                <!--<div class="name">-->
-                    <!--<a href="#">Предупреждающие знаки</a>-->
-                <!--</div>-->
-                <!--<div class="lesson">-->
-                    <!--<span class="mobile-title">Урок</span>-->
-                    <!--<span class="ready">Пройден</span>-->
-                    <!--<span class="date">22.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="train">-->
-                    <!--<span class="mobile-title">Тренировка</span>-->
-                    <!--<span class="ready">28 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>27.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="exam">-->
-                    <!--<span class="mobile-title">Зачет</span>-->
-                    <!--<span>0 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>27.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="group-exam">-->
-                    <!--<span class="mobile-title">Груп. зачет</span>-->
-                    <!--<span>5 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>28.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="toggle">-->
-                    <!--<span class="btn-grey" data-toggle="collapse" data-target="#theme2">Статистика попыток</span>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="hidden-statistics collapse" id="theme2">-->
-                <!--<span class="close" data-toggle="collapse" data-target="#theme2"></span>-->
-                <!--<div class="try-wrapper">-->
-                    <!--<div class="try">-->
-                        <!--<div class="number">-->
-                            <!--<span>Попытка 1</span>-->
-                        <!--</div>-->
-                        <!--<div class="train-wrapper">-->
-                            <!--<div class="train">-->
-                                <!--<span>Ошибок <span>5</span></span>-->
-                                <!--<span>27.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="exam-wrapper">-->
-                            <!--<div class="exam">-->
-                                <!--<span>Ошибок <span>18</span></span>-->
-                                <!--<span>28.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="try">-->
-                        <!--<div class="number">-->
-                            <!--<span>Попытка 2</span>-->
-                        <!--</div>-->
-                        <!--<div class="train-wrapper">-->
-                            <!--<div class="train">-->
-                                <!--<span>Ошибок <span class="without">0</span></span>-->
-                                <!--<span>27.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="exam-wrapper">-->
-                            <!--<div class="exam">-->
-                                <!--<span>Ошибок <span>15</span></span>-->
-                                <!--<span>28.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="line">-->
-                <!--<div class="number">-->
-                    <!--<span>03</span>-->
-                <!--</div>-->
-                <!--<div class="name">-->
-                    <!--<a href="#">Групповой зачет</a>-->
-                <!--</div>-->
-                <!--<div class="lesson">-->
-                <!--</div>-->
-                <!--<div class="train">-->
-                <!--</div>-->
-                <!--<div class="exam">-->
-                    <!--<span>6 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>27.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="group-exam">-->
-                    <!--<span class="mobile-title">Груп. зачет</span>-->
-                    <!--<span>5 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>28.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="toggle">-->
-                    <!--<span class="btn-grey" data-toggle="collapse" data-target="#theme3">Статистика попыток</span>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="hidden-statistics collapse" id="theme3">-->
-                <!--<span class="close" data-toggle="collapse" data-target="#theme3"></span>-->
-                <!--<div class="try-wrapper">-->
-                    <!--<div class="try">-->
-                        <!--<div class="number">-->
-                            <!--<span>Попытка 1</span>-->
-                        <!--</div>-->
-                        <!--<div class="train-wrapper">-->
-                            <!--<div class="train">-->
-                                <!--<span>Ошибок <span>5</span></span>-->
-                                <!--<span>27.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="exam-wrapper">-->
-                            <!--<div class="exam">-->
-                                <!--<span>Ошибок <span>18</span></span>-->
-                                <!--<span>28.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="try">-->
-                        <!--<div class="number">-->
-                            <!--<span>Попытка 2</span>-->
-                        <!--</div>-->
-                        <!--<div class="train-wrapper">-->
-                            <!--<div class="train">-->
-                                <!--<span>Ошибок <span class="without">0</span></span>-->
-                                <!--<span>27.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="exam-wrapper">-->
-                            <!--<div class="exam">-->
-                                <!--<span>Ошибок <span>15</span></span>-->
-                                <!--<span>28.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="line">-->
-                <!--<div class="number">-->
-                    <!--<span>04</span>-->
-                <!--</div>-->
-                <!--<div class="name">-->
-                    <!--<a href="#">Приоритет МТС</a>-->
-                <!--</div>-->
-                <!--<div class="lesson">-->
-                    <!--<span class="mobile-title">Урок</span>-->
-                    <!--<span class="ready">Пройден</span>-->
-                    <!--<span class="date">21.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="train">-->
-                    <!--<span class="mobile-title">Тренировка</span>-->
-                    <!--<span>6 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>27.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="exam">-->
-                    <!--<span class="mobile-title">Зачет</span>-->
-                    <!--<span>0 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>27.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="group-exam">-->
-                    <!--<span class="mobile-title">Груп. зачет</span>-->
-                    <!--<span>5 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>28.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="toggle">-->
-                    <!--<span class="btn-grey" data-toggle="collapse" data-target="#theme4">Статистика попыток</span>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="hidden-statistics collapse" id="theme4">-->
-                <!--<span class="close" data-toggle="collapse" data-target="#theme4"></span>-->
-                <!--<div class="try-wrapper">-->
-                    <!--<div class="try">-->
-                        <!--<div class="number">-->
-                            <!--<span>Попытка 1</span>-->
-                        <!--</div>-->
-                        <!--<div class="train-wrapper">-->
-                            <!--<div class="train">-->
-                                <!--<span>Ошибок <span>5</span></span>-->
-                                <!--<span>27.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="exam-wrapper">-->
-                            <!--<div class="exam">-->
-                                <!--<span>Ошибок <span>18</span></span>-->
-                                <!--<span>28.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="try">-->
-                        <!--<div class="number">-->
-                            <!--<span>Попытка 2</span>-->
-                        <!--</div>-->
-                        <!--<div class="train-wrapper">-->
-                            <!--<div class="train">-->
-                                <!--<span>Ошибок <span class="without">0</span></span>-->
-                                <!--<span>27.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="exam-wrapper">-->
-                            <!--<div class="exam">-->
-                                <!--<span>Ошибок <span>15</span></span>-->
-                                <!--<span>28.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="line">-->
-                <!--<div class="number">-->
-                    <!--<span>05</span>-->
-                <!--</div>-->
-                <!--<div class="name">-->
-                    <!--<a href="#">Предписывающие знаки</a>-->
-                <!--</div>-->
-                <!--<div class="lesson">-->
-                    <!--<span class="mobile-title">Урок</span>-->
-                    <!--<span class="ready">Пройден</span>-->
-                    <!--<span class="date">21.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="train">-->
-                    <!--<span class="mobile-title">Тренировка</span>-->
-                    <!--<span class="ready">6 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>27.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="exam">-->
-                    <!--<span class="mobile-title">Зачет</span>-->
-                    <!--<a href="#">пройти</a>-->
-                    <!--<span class="refresh"></span>-->
-                <!--</div>-->
-                <!--<div class="group-exam">-->
-                    <!--<span class="mobile-title">Груп. зачет</span>-->
-                    <!--<span>5 из 28</span>-->
-                    <!--<span class="refresh"></span>-->
-                    <!--<span>28.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="toggle">-->
-                    <!--<span class="btn-grey" data-toggle="collapse" data-target="#theme5">Статистика попыток</span>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="hidden-statistics collapse" id="theme5">-->
-                <!--<span class="close" data-toggle="collapse" data-target="#theme5"></span>-->
-                <!--<div class="try-wrapper">-->
-                    <!--<div class="try">-->
-                        <!--<div class="number">-->
-                            <!--<span>Попытка 1</span>-->
-                        <!--</div>-->
-                        <!--<div class="train-wrapper">-->
-                            <!--<div class="train">-->
-                                <!--<span>Ошибок <span>5</span></span>-->
-                                <!--<span>27.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="exam-wrapper">-->
-                            <!--<div class="exam">-->
-                                <!--<span>Ошибок <span>18</span></span>-->
-                                <!--<span>28.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="try">-->
-                        <!--<div class="number">-->
-                            <!--<span>Попытка 2</span>-->
-                        <!--</div>-->
-                        <!--<div class="train-wrapper">-->
-                            <!--<div class="train">-->
-                                <!--<span>Ошибок <span class="without">0</span></span>-->
-                                <!--<span>27.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="exam-wrapper">-->
-                            <!--<div class="exam">-->
-                                <!--<span>Ошибок <span>15</span></span>-->
-                                <!--<span>28.11.2017</span>-->
-                                <!--<a href="#">Разбор ошибок</a>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="line">-->
-                <!--<div class="number">-->
-                    <!--<span>06</span>-->
-                <!--</div>-->
-                <!--<div class="name">-->
-                    <!--<a href="#">Знаки особых предписаний</a>-->
-                <!--</div>-->
-                <!--<div class="lesson">-->
-                <!--</div>-->
-                <!--<div class="train">-->
-                <!--</div>-->
-                <!--<div class="exam">-->
-                <!--</div>-->
-                <!--<div class="group-exam">-->
-                <!--</div>-->
-                <!--<div class="toggle">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="line">-->
-                <!--<div class="number">-->
-                    <!--<span>07</span>-->
-                <!--</div>-->
-                <!--<div class="name">-->
-                    <!--<a href="#">Групповой зачет</a>-->
-                <!--</div>-->
-                <!--<div class="lesson">-->
-                <!--</div>-->
-                <!--<div class="train">-->
-                <!--</div>-->
-                <!--<div class="exam">-->
-                    <!--<span>26.11.2017</span>-->
-                <!--</div>-->
-                <!--<div class="group-exam">-->
-                <!--</div>-->
-                <!--<div class="toggle">-->
-                <!--</div>-->
-            <!--</div>-->
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -461,8 +162,24 @@
 <script type="text/babel">
     export default {
         data () {
-            return {}
+            return {
+                number: '1',
+            }
         },
-        props: ['statistics']
+        props: ['statistics','alldata'],
+        methods: {
+            editDate(date){
+                console.log(date)
+                var dateT = date.split(' ')['0']
+                var dateTemp = dateT.split('-')
+                date = dateTemp['2'] + '.' + dateTemp['1'] + '.' + dateTemp['0']
+                return date
+            },
+            editTime(time){
+                var timeTemp = time.split(':')
+                time = timeTemp['0'] + ':' + timeTemp['1']
+                return time
+            },
+        }
     }
 </script>
