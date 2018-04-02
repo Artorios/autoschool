@@ -7,22 +7,36 @@
                     <h3>Регистрация</h3>
                     <form v-on:submit.prevent="registration">
                         <p class="error" v-if="serverError">Произошла ошибка при регистрации</p>
+                        <div class="error" v-if="registerErrors">
+                            <ul>
+                                <li v-for="error in registerErrors">{{ error[0] }}</li>
+                            </ul>
+                        </div>
                         <div>
+                            <p class="error" v-if="errors.name">Длина имени должна быть минимум 3 символа</p>
                             <input type="text" placeholder="Имя*" v-model="data.name">
+                            <p class="error" v-if="errors.last_name">Длина фамилии должна быть минимум 3 символа</p>
                             <input type="text" placeholder="Фамилия*" v-model="data.last_name">
                             <input type="text" placeholder="Отчество*" v-model="data.second_name">
+                            <p class="error" v-if="errors.second_name">Длина отчества должна быть минимум 3 символа</p>
+                            <input type="text" placeholder="Отчество" v-model="data.second_name">
+                            <p class="error" v-if="errors.email">Не правильный email</p>
                             <input type="email" placeholder="Электронная*" v-model="data.email">
                         </div>
                         <div class="right">
+                            <p class="error" v-if="errors.phone">Не правильный телефон</p>
                             <input type="text" placeholder="Телефон*" v-model="data.phone">
+                            <p class="error" v-if="errors.password">Длина пароля должна быть минимум 6 символа</p>
                             <input type="password" placeholder="Пароль*" v-model="data.password">
-                            <select class="select"  id="city_id">
-                                <option selected disabled>Ваш город*</option>
+                            <p class="error" v-if="errors.city_id">Выбирите город</p>
+                            <select class="select"  id="city_id" v-model="data.city_id">
+                                <option disabled value="">Ваш город*</option>
                                 <option :value="city.id" v-for="city in cities">{{city.name}}</option>
                             </select>
                             <br>
-                            <select class="select" id="license">
-                                <option selected disabled>Категория*</option>
+                            <p class="error" v-if="errors.license">Выбирите категорию</p>
+                            <select class="select" id="license" v-model="data.license">
+                                <option disabled value="">Категория*</option>
                                 <option value="A" >A</option>
                                 <option value="B" >B</option>
                                 <option value="C" >C</option>
@@ -32,8 +46,9 @@
                         <div class="auth-wrapper">
                             <a href="#">Авторизация</a>
                         </div>
+                        <p class="error" v-if="errors.agree">Подтвердите согласие на обработку персональных данных</p>
                         <div class="agree">
-                            <input type="checkbox" id="agree">
+                            <input type="checkbox" id="agree" v-model="data.agree">
                             <label for="agree">Я согласен на обработку моих персональных данных.</label>
                             <a href="#">Соглашение</a>
                         </div>
@@ -56,7 +71,8 @@
                     password: '',
                     phone: '',
                     city_id: '',
-                    license: ''
+                    license: '',
+                    agree: false
                 },
                 errors: {
                     name: false,
@@ -65,9 +81,11 @@
                     email: false,
                     password: false,
                     phone: false,
-                    price_city_id: false
+                    city_id: false,
+                    license: false
                 },
-                serverError: false
+                serverError: false,
+                registerErrors: []
             }
         },
         props: ['cities'],
@@ -89,8 +107,6 @@
 //        },
         methods: {
             registration () {
-                console.log(this.data.city_id)
-                console.log(this.data.license)
                 if (this.validate()) return false
                 this.$http.post('/registration', this.data).then(res => {
                     if (res.status === 201) {
@@ -99,6 +115,7 @@
                 }, err => {
                     if (+err.status === 400) {
                         this.serverError = true
+                        this.registerErrors = err.data['registerErrors']
                     }
                 })
             },
@@ -106,7 +123,7 @@
                 for (let key in this.data) {
                     switch (key) {
                         case 'name':
-                            if (!this.data[key] && this.data[key].length < 3) {
+                            if (!this.data[key] || this.data[key].length < 3) {
                                 this.$set(this.errors, key, true)
                             } else {
                                 this.$set(this.errors, key, false)
@@ -127,24 +144,31 @@
                             }
                             break
                         case 'password':
-                            if (!this.data[key] || this.data[key].length < 3) {
+                            if (!this.data[key] || this.data[key].length < 6) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
                             }
                             break
                         case 'phone':
-                            if (!this.data[key] || this.data[key].length < 3) {
+                            if (!this.checkPhone(this.data[key])) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
                             }
                             break
-                        case 'price_city_id':
+                        case 'city_id':
                             if (!this.data[key]) {
                                 this.errors[key] = true
                             } else {
                                 this.data[key] = +this.data[key]
+                                this.errors[key] = false
+                            }
+                            break
+                        case 'license':
+                            if (!this.data[key]) {
+                                this.errors[key] = true
+                            } else {
                                 this.errors[key] = false
                             }
                             break
@@ -155,7 +179,13 @@
                                 this.errors[key] = false
                             }
                             break
-
+                        case 'agree':
+                            if (!this.data[key]) {
+                                this.errors[key] = true
+                            } else {
+                                this.errors[key] = false
+                            }
+                            break
                     }
                 }
                 let hasError = false
@@ -171,11 +201,16 @@
                 return re.test(email.toLowerCase());
 
             },
+            checkPhone (phone){
+                let re = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/
+                return re.test(phone);
+
+            },
             getCities () {
                 this.$http.post('/api/get-prices', {}).then(res => {
                     this.cities = res.data.cities
                     $('.select').selectric('refresh')
-            })
+                })
             }
         }
     }

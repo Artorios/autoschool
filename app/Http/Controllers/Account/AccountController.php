@@ -27,7 +27,6 @@ class AccountController extends Controller
         $validator = Validator::make($itempost, [
             'name'        => 'required|string|min:3',
             'last_name'   => 'required|string|min:3',
-            'second_name' => 'string|min:3',
             'phone'       => 'required',
             'city_id'     => 'required',
             'license'     => 'required'

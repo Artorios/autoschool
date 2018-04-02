@@ -1,7 +1,7 @@
 <template>
     <span>
-        <city-popup :regions="regions" :checked-region="checkedRegion" v-if="showCityPopup"></city-popup>
-        <school-popup v-if="showSchoolPopup"></school-popup>
+        <city-popup :regions="regions" :checked-region="checkedRegion" v-show="showCityPopup"></city-popup>
+        <school-popup v-show="showSchoolPopup"></school-popup>
         <div class="select-wrapper">
             <img src="/img/location.png" alt="">
             <span data-toggle="modal" data-target="#cityModal" @click="showCityPopup = !showCityPopup">

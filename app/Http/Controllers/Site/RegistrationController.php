@@ -38,7 +38,7 @@ class RegistrationController extends Controller
         ]);
 
         if (count($validator->errors())) {
-            return response()->json(['status' => 0], 400);
+            return response()->json(['registerErrors' => $validator->errors(), 'status' => 0], 400);
         }
 
         try {

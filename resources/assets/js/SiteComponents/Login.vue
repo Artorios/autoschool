@@ -6,7 +6,15 @@
                     <form class="left" v-on:submit.prevent="login">
                         <h3>Авторизация</h3>
                         <span>Войти на сайт используя e-mail и пароль</span>
+                        <div class="error" v-if="loginErrors">
+                            <ul>
+                                <li v-for="error in loginErrors">{{ error[0] }}</li>
+                            </ul>
+                        </div>
+                        <p class="error" v-if="errors.email">Не правильный email</p>
                         <input type="text" placeholder="Ваш e-mail" v-model="data.email">
+                        <p class="error" v-if="errors.password">Длина пароля должна быть минимум 6 символов</p>
+                        <p class="error" v-if="passwordError">{{ passwordError }}</p>
                         <input type="password" placeholder="Пароль" v-model="data.password">
                         <button type="submit" class="btn-red">Войти</button>
                         <div class="link-wrapper">
@@ -43,7 +51,9 @@
                     email: false,
                     password: false
                 },
-                serverError: false
+                serverError: false,
+                loginErrors: [],
+                passwordError: ''
             }
         },
         methods: {
@@ -57,6 +67,8 @@
                 }, err => {
                     if (+err.status === 400) {
                         this.serverError = true
+                        this.loginErrors = err.data['loginErrors']
+                        this.passwordError = err.data['passwordError']
                     }
                 })
             },
@@ -64,7 +76,7 @@
                 for (let key in this.data) {
                     switch (key) {
                         case 'password':
-                            if (!this.data[key] || this.data[key].length < 3) {
+                            if (!this.data[key] || this.data[key].length < 6) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
