@@ -17,13 +17,10 @@
                             <input type="text" placeholder="Имя*" v-model="data.name">
                             <p class="error" v-if="errors.last_name">Длина фамилии должна быть минимум 3 символа</p>
                             <input type="text" placeholder="Фамилия*" v-model="data.last_name">
-<<<<<<< HEAD
                             <input type="text" placeholder="Отчество*" v-model="data.second_name">
-=======
                             <p class="error" v-if="errors.second_name">Длина отчества должна быть минимум 3 символа</p>
                             <input type="text" placeholder="Отчество" v-model="data.second_name">
                             <p class="error" v-if="errors.email">Не правильный email</p>
->>>>>>> 4830c9f49765d3eec0718626c068d4a16b6674f6
                             <input type="email" placeholder="Электронная*" v-model="data.email">
                         </div>
                         <div class="right">
