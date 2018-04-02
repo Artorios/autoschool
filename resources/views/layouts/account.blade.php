@@ -134,6 +134,8 @@
 <script src="/js/scripts.js"></script>
 <script src="/js/account.js"></script>
 <script src="/less/less.js"></script>
+
+@stack('scripts')
 </body>
 
 </html>

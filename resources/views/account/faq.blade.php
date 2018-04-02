@@ -9,59 +9,71 @@
         </div>
 
         <div class="row faq-content">
-            <div class="col-md-5">
+            <div class="col-md-5 search-form-block">
+                <div class="modal-backdrop in" style="display: none"></div>
                 <div class="search-form">
-                    <input type="text" class="icon">
-                    <div class="menu-header text-uppercase">
-                        <div class="menu-header-burger"></div>
-                        <div>Меню справки</div>
-                    </div>
-                    <div class="link-menu">
-                        <ul> Вопросы по обучению:
-                            <li>
-                                <a href="">
-                                    Что есть в занятии?
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    Как проходить тестирование?
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    Почему задание не доступно?
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    Как задать вопрос?
-                                </a>
-                            </li>
-                        </ul>
-                        <ul> Вопросы по авторизации:
-                            <li>
-                                <a href="">
-                                    Как восстановить пароль?
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    Как зарегистрироваться?
-                                </a>
-                            </li>
-                        </ul>
-                        <ul>Вопросы по оплате:
-                            <li>
-                                <a href="">
-                                    Как оплатить обучение?
-                                </a>
-                            </li>
-                        </ul>
+                    <div class="row ">
+                        <div class="col-sm-6 col-md-12">
+                            <input type="text" class="icon">
+                        </div>
+                        <div class="col-sm-6 col-md-12">
+                            <div class="menu-header text-uppercase" data-toggle="collapse" href="#link_menu"
+                                 aria-expanded="false" aria-controls="link_menu">
+                                <div class="menu-header-burger"></div>
+                                <div>Меню справки</div>
+                            </div>
+                        </div>
+                        <div class="link-menu collapse" id="link_menu">
+                            <div class="col-sm-6 col-md-12">
+                                    <ul> Вопросы по обучению:
+                                        <li>
+                                            <a href="">
+                                                Что есть в занятии?
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                Как проходить тестирование?
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                Почему задание не доступно?
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                Как задать вопрос?
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <div class="col-sm-6 col-md-12">
+                                    <ul> Вопросы по авторизации:
+                                        <li>
+                                            <a href="">
+                                                Как восстановить пароль?
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                Как зарегистрироваться?
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul>Вопросы по оплате:
+                                        <li>
+                                            <a href="">
+                                                Как оплатить обучение?
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 block-information">
                 <h4>
                         <span class="heading-number">
                             1
@@ -84,9 +96,9 @@
                         дом.
                     </p>
                 </div>
-                <h4>
-                    <span class="heading-text">Дорожные знаки. Предупреждающие знаки</span>
-                </h4>
+                <h5>
+                    <span  class="heading-text">Дорожные знаки. Предупреждающие знаки</span>
+                </h5>
                 <div class="text-block">
                     <ul>
                         В этом руководстве вы можете узнать:
@@ -130,8 +142,10 @@
                     <div class="text-center">
                         <img src="/img/user5-128x128.jpg" alt="" class="user-avatar">
                     </div>
-                    <textarea name="" class="form-control" placeholder="Какую информацию нам добавить?"></textarea>
-                    <button class="btn-grey ">Отправить</button>
+                    <form action="">
+                        <textarea name="" class="form-control" placeholder="Какую информацию нам добавить?"></textarea>
+                        <a class="btn-grey ">Отправить</a>
+                    </form>
                 </div>
                 <h4>
                         <span class="heading-number">
@@ -144,13 +158,57 @@
                 <div class="text-block">
 
                     <p>
-                       Если вы не нашли ответа, свяжитесь с нашими специалистами.
+                        Если вы не нашли ответа, свяжитесь с нашими специалистами.
                         Команда Поддержки найдет решение.
                     </p>
 
-                    <button class="btn-grey">Задать вопрос</button>
+                    <a class="btn-grey">Задать вопрос</a>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        var $linkMenu = $('#link_menu');
+
+        $(window).resize(function () {
+            if (window.matchMedia("(min-width: 992px)").matches) {
+                $linkMenu.collapse('show');
+                $('.faq-content').each(function(){
+                    var highestBox = 0;
+                    $('.col-md-5, .col-md-7', this).each(function(){
+                        if($(this).height() > highestBox) {
+                            highestBox = $(this).height();
+                        }
+                    });
+                    $('.col-md-5, .col-md-7 ',this).height(highestBox);
+                });
+            } else {
+                $linkMenu.collapse('hide');
+
+                $('.faq-content').find('[class^="col-"]').removeAttr('style');
+            }
+
+        }).trigger('resize');
+
+        $linkMenu.on('hide.bs.collapse', function (event) {
+            if (window.matchMedia("(min-width: 992px)").matches) {
+                event.preventDefault();
+            } else {
+                $(this).closest('.faq-content').find('.modal-backdrop').fadeOut('fast');
+            }
+        });
+
+        $linkMenu.on('show.bs.collapse', function(event) {
+            if(window.matchMedia("(max-width: 991px)").matches) {
+                $(this).closest('.faq-content').find('.modal-backdrop').fadeIn('fast');
+            }
+        });
+
+    });
+
+</script>
+@endpush
