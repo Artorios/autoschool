@@ -22,14 +22,7 @@
     export default {
         data () {
             return {
-                notifies: {
-                    user_id: '',
-                    id: '',
-                    date: '',
-                    time: '',
-                    notify: '',
-                    status: ''
-                }
+
 
 
             }

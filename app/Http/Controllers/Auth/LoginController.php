@@ -61,7 +61,7 @@ class LoginController extends Controller
         $user = User::where(['email' => $request->email])->first();
 
         if (count($validator->errors()) || ! $user) {
-            return response()->json(['status' => 0], 400);
+            return response()->json(['loginErrors' => $validator->errors(), 'status' => 0], 400);
         }
 
         $credentials = $request->only(['email', 'password']);
@@ -71,7 +71,7 @@ class LoginController extends Controller
 
             return response()->json(['status' => 1, 'url' => $response->headers->get('location')], 202);
         } else {
-            return response()->json(['status' => 0], 400);
+            return response()->json(['passwordError' => 'Не верный пароль', 'status' => 0], 400);
         }
     }
 

@@ -129,7 +129,7 @@
                             }
                             break
                         case 'second_name':
-                            if (!this.user[key] || this.user[key].length < 3) {
+                            if (this.user[key] && this.user[key].length < 3) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
