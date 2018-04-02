@@ -130,6 +130,9 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::post('/video/ended', 'LessonController@endView')->name('user.lessons.endView');
     });
 
+    Route::view('faq', 'account.faq')->name('faq');
+
+
     Route::group(['prefix' => 'tickets'], function () {
         Route::get('/', 'TicketsController@index')->name('account.tickets');
         Route::post('/set-show-comments', 'TicketsController@setShowAnswer');
