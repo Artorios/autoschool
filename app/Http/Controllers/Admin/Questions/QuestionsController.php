@@ -75,12 +75,12 @@ class QuestionsController extends Controller
         }
 
         $question->update($request->only(['ticket_num', 'description', 'comment']));
-
         if ($image) {
             if (Storage::exists('public/tmp/' . $image)) {
                 Storage::deleteDirectory('public/question/' . $question->id . '/');
 
                 Storage::move('public/tmp/' . $image, 'public/question/' . $question->id . '/' . $image);
+                $question->update(['image_src' => $image]);
             }
         } else {
             if (Storage::exists('public/question/' . $question->id . '/' . $image)) {
@@ -205,7 +205,7 @@ class QuestionsController extends Controller
                 'description',
                 'comment',
                 'ticket_num',
-                'question_num',
+                'question_num'
             ]));
 
             $question->answers()->createMany($request->input('answers'));
@@ -214,6 +214,7 @@ class QuestionsController extends Controller
 
             if ($image) {
                 Storage::move('public/tmp/' . $image['name'], 'public/question/' . $question->id . '/' . $image['name']);
+
             }
 
             return response()->json(['status' => 1], 201);

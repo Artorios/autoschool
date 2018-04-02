@@ -123,6 +123,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::post('/training/{training}/check-training', 'UserLessonController@checkTraining');
         Route::post('/training/{training}/check-exam', 'UserLessonController@checkExam');
         Route::post('/training/{training}/check-group-exam', 'UserLessonController@checkGroupExam');
+        Route::post('/training/{training}/check-group-exam', 'UserLessonController@checkGroupExam');
 
         Route::get('/analysis/{training}', 'LessonController@analysis');
 

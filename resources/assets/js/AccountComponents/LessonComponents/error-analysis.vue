@@ -1,5 +1,5 @@
 <template>
-    <div class="content error training">
+    <div class="content error training" >
         <div class="breadcrumbs">
             <ul>
                 <li><a href="/account">Главная</a></li>
@@ -11,7 +11,7 @@
         <h4>Разбор ошибок по {{training ? 'тренировке' : 'зачету'}}:</h4>
         <span>Урок № {{lesson.lesson_num}}</span>
         <span class="ex-title">{{lesson.title}}</span>
-        <div>
+        <div v-if="checkedQuestion">
             <div class="slick-wrapper">
                 <div class="slick-training">
                     <!--active wrong correct-->
@@ -32,7 +32,7 @@
                 <!--<timer-vue :time="time"></timer-vue>-->
             </div>
             <div class="img">
-                <img v-if="checkedQuestion.image" :src="checkedQuestion.image" alt="">
+                <img v-if="checkedQuestion.image" :src="'http://'+checkedQuestion.image" alt="">
             </div>
             <h5>{{checkedQuestion.description}}</h5>
             <form class="variants">
@@ -55,7 +55,11 @@
                 <a href="#" class="btn-grey" @click.prevent="nextQuestion">Далее</a>
             </div>
         </div>
+        <div v-else>
+            Вы не отвечали на вопросы
+        </div>
     </div>
+
 </template>
 
 <script type="text/babel">
