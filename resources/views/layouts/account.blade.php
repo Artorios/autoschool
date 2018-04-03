@@ -140,8 +140,17 @@
 <script src="/js/scripts.js"></script>
 <script src="/js/account.js"></script>
 <script src="/less/less.js"></script>
+<<<<<<< HEAD
 
 @stack('scripts')
+=======
+<script src="{{ asset('js/jquery.matchHeight-min.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $('.ticket-inner').matchHeight();
+    });
+</script>
+>>>>>>> 80060d94abad8f75efb4970696799c62e220a657
 </body>
 
 </html>
