@@ -31,7 +31,7 @@
                                                 <ul class="adress" v-if="checkedSchool.addresses.length">
                                                     <li v-for="address in checkedSchool.addresses">
                                                         <img src="/img/location.png" alt="">
-                                                        {{(checkedSchool.city ? 'г' + checkedSchool.city.name : '') + ' ' + address.value}}
+                                                        {{(checkedSchool.city ? 'г ' + checkedSchool.city.name : '') + ' ' + address.value}}
                                                     </li>
                                                 </ul>
                                             </div>
