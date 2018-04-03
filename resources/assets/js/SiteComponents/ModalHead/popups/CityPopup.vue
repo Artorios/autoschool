@@ -63,7 +63,7 @@
         },
         props: ['regions', 'checkedRegion'],
         mounted () {
-            $('body').addClass('modal-open')
+//            $('body').addClass('modal-open')
         },
         watch: {
 
