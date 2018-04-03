@@ -2,6 +2,7 @@
 
 namespace App\Models\User\Traits\Relationship;
 
+use App\Models\Location\City;
 use App\Models\Training\Lesson\Lesson;
 use App\Models\Training\Lesson\LessonVideo;
 use App\Models\User\SocialAccount;
@@ -61,5 +62,9 @@ trait UserRelationship
     public function tickets()
     {
         return $this->hasMany(UserTicket::class, 'user_id', 'id');
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class);
     }
 }

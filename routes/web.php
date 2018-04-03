@@ -92,6 +92,9 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::get('/', function () {
             return view('account.finance.index');
         })->name('user.finance');
+        Route::post('get-variants', 'FinanceController@getVariants')->name('user.getvariants');
+        Route::post('card-payment', 'FinanceController@cardPayment')->name('user.cardpayment');
+
     });
 
     Route::group(['prefix' => 'exams'], function () {
