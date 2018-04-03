@@ -5,49 +5,61 @@
             <div class="container">
                 <div class="registration-wrapper">
                     <h3>Регистрация</h3>
+                    <div class="error-server error" v-if="serverError">Произошла ошибка при регистрации</div>
+                    <ul class="error-list error" v-if="registerErrors">
+                        <li v-for="error in registerErrors">{{ error[0] }}</li>
+                    </ul>
                     <form v-on:submit.prevent="registration">
-                        <p class="error" v-if="serverError">Произошла ошибка при регистрации</p>
-                        <div class="error" v-if="registerErrors">
-                            <ul>
-                                <li v-for="error in registerErrors">{{ error[0] }}</li>
-                            </ul>
-                        </div>
                         <div>
-                            <p class="error" v-if="errors.name">Длина имени должна быть минимум 3 символа</p>
-                            <input type="text" placeholder="Имя*" v-model="data.name">
-                            <p class="error" v-if="errors.last_name">Длина фамилии должна быть минимум 3 символа</p>
-                            <input type="text" placeholder="Фамилия*" v-model="data.last_name">
-                            <input type="text" placeholder="Отчество*" v-model="data.second_name">
-                            <p class="error" v-if="errors.second_name">Длина отчества должна быть минимум 3 символа</p>
-                            <input type="text" placeholder="Отчество" v-model="data.second_name">
-                            <p class="error" v-if="errors.email">Не правильный email</p>
-                            <input type="email" placeholder="Электронная*" v-model="data.email">
+                            <div class="form-group">
+                                <p class="error" v-if="errors.name">Имя должно быть минимум 3 символа</p>
+                                <input type="text" placeholder="Имя*" v-model="data.name" v-bind:class="{ 'input-error': errors.name}">
+                            </div>
+                            <div class="form-group">
+                                <p class="error" v-if="errors.last_name">Фамилия должна быть минимум 3 символа</p>
+                                <input type="text" placeholder="Фамилия*" v-model="data.last_name" v-bind:class="{ 'input-error': errors.last_name}">
+                            </div>
+                            <div class="form-group">
+                                <p class="error" v-if="errors.second_name">Отчество должно быть минимум 3 символа</p>
+                                <input type="text" placeholder="Отчество" v-model="data.second_name" v-bind:class="{ 'input-error': errors.second_name}">
+                            </div>
+                            <div class="form-group">
+                                <p class="error" v-if="errors.email">Не правильный email</p>
+                                <input type="email" placeholder="Электронная*" v-model="data.email" v-bind:class="{ 'input-error': errors.email}">
+                            </div>
                         </div>
                         <div class="right">
-                            <p class="error" v-if="errors.phone">Не правильный телефон</p>
-                            <input type="text" placeholder="Телефон*" v-model="data.phone">
-                            <p class="error" v-if="errors.password">Длина пароля должна быть минимум 6 символа</p>
-                            <input type="password" placeholder="Пароль*" v-model="data.password">
-                            <p class="error" v-if="errors.city_id">Выбирите город</p>
-                            <select class="select"  id="city_id" v-model="data.city_id">
-                                <option disabled value="">Ваш город*</option>
-                                <option :value="city.id" v-for="city in cities">{{city.name}}</option>
-                            </select>
-                            <br>
-                            <p class="error" v-if="errors.license">Выбирите категорию</p>
-                            <select class="select" id="license" v-model="data.license">
-                                <option disabled value="">Категория*</option>
-                                <option value="A" >A</option>
-                                <option value="B" >B</option>
-                                <option value="C" >C</option>
-                            </select>
+                            <div class="form-group">
+                                <p class="error" v-if="errors.phone">Не правильный телефон</p>
+                                <input type="text" placeholder="Телефон*" v-model="data.phone" v-bind:class="{ 'input-error': errors.phone}">
+                            </div>
+                            <div class="form-group">
+                                <p class="error" v-if="errors.password">Пароль должен быть минимум 6 символов</p>
+                                <input type="password" placeholder="Пароль*" v-model="data.password" v-bind:class="{ 'input-error': errors.password}">
+                            </div>
+                            <div class="form-group">
+                                <p class="error" v-if="errors.city_id">Выбирите город</p>
+                                <select class="select"  id="city_id" v-model="data.city_id">
+                                    <option disabled value="">Ваш город*</option>
+                                    <option :value="city.id" v-for="city in cities">{{city.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <p class="error" v-if="errors.license">Выбирите категорию</p>
+                                <select class="select" id="license" v-model="data.license">
+                                    <option disabled value="">Категория*</option>
+                                    <option value="A" >A</option>
+                                    <option value="B" >B</option>
+                                    <option value="C" >C</option>
+                                </select>
+                            </div>
                         </div>
                         <button type="submit" class="btn-red">Зарегистрироваться</button>
                         <div class="auth-wrapper">
                             <a href="#">Авторизация</a>
                         </div>
-                        <p class="error" v-if="errors.agree">Подтвердите согласие на обработку персональных данных</p>
                         <div class="agree">
+                            <p class="error" v-if="errors.agree">Подтвердите согласие на обработку персональных данных</p>
                             <input type="checkbox" id="agree" v-model="data.agree">
                             <label for="agree">Я согласен на обработку моих персональных данных.</label>
                             <a href="#">Соглашение</a>
@@ -82,10 +94,11 @@
                     password: false,
                     phone: false,
                     city_id: false,
-                    license: false
+                    license: false,
+                    agree: false
                 },
                 serverError: false,
-                registerErrors: []
+                registerErrors: false,
             }
         },
         props: ['cities'],
@@ -144,7 +157,7 @@
                             }
                             break
                         case 'password':
-                            if (!this.data[key] || this.data[key].length < 6) {
+                            if (!this.data[key] || this.data[key].length < 4) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
@@ -215,3 +228,39 @@
         }
     }
 </script>
+<style scoped>
+    p.error{
+        color: red;
+        font-size: 12px;
+        position: absolute;
+        left: auto;
+        top: 0;
+        width: 100%;
+        line-height: 12px;
+    }
+    .form-group{
+        position: relative;
+        padding: 17px 0 0 0;
+    }
+    .registration .container form > div input {
+        margin: 0 0 15px;
+    }
+    .registration .container form .agree{
+        position: relative;
+        padding: 10px 0 0 0;
+        margin-top: 20px;
+    }
+    @media screen and (max-width: 680px){
+        .agree p.error{
+            top: -20px;
+        }
+    }
+    .error-server.error{
+        color: red;
+    }
+    .error-list.error{
+        color: red;
+        list-style: none;
+        padding: 0;
+    }
+</style>
