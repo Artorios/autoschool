@@ -10,7 +10,7 @@ class ExamsController extends Controller
 {
     public  function  testPage(){
 
-        $ticket_num = Question::all()->select('ticket_num')->
+//        $ticket_num = Question::all()->select('ticket_num')->;
 
         return 0 ;
     }
