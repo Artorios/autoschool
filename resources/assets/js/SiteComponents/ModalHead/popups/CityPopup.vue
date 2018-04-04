@@ -6,7 +6,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body city-choose">
-                    <span class="close" @click="close"></span>
+                        <span class="close" @click="close"></span>
                         <div class="modal-toggle" data-dismiss="modal" aria-label="Close">
                             <img src="/img/location.png" alt="">
                             <span>{{checkedRegionData.name}}</span>
@@ -51,7 +51,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import {Events} from "../../../siteApp"
     export default {
         data () {
@@ -63,7 +63,7 @@
         },
         props: ['regions', 'checkedRegion'],
         mounted () {
-//            $('body').addClass('modal-open')
+            $('body').addClass('modal-open')
         },
         watch: {
 
@@ -76,7 +76,7 @@
         },
         methods: {
             close () {
-                $('body').removeClass('modal-open')
+                //$('body').removeClass('modal-open')
                 Events.$emit('close-popup-city', {region: this.checkedRegionData, city: this.city})
             },
             checkedRegionFunc (region) {

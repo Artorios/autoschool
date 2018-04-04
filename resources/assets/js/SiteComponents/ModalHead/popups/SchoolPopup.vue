@@ -14,30 +14,36 @@
 
                         <h3>
                             Список автошкол партнеров сервиса Автотренер в {{checkedCity ? 'г. ' + checkedCity.name : 'городах'}}:</h3>
-                        <div class="wrapper row">
+                        <div class="wrapper row" v-for="school in schools">
                             <div class="col-md-4 left">
                                 <ul>
-                                    <li v-for="school in schools">
-                                        <a href="#" @click.prevent="checkedSchoolFunc(school)"
-                                           :class="{'active': school.id === checkedSchool.id}">{{school.title}}</a>
+                                    <li >
+                                        <a href="#">{{school.title}}</a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="col-md-8 right">
-                                <div class="ul-wrapper" v-if="checkedSchool">
+                                <div class="ul-wrapper" >
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <ul class="adress" v-if="checkedSchool.addresses.length">
-                                                    <li v-for="address in checkedSchool.addresses">
+                                                <ul class="adress" v-if="school.addresses[0]">
+                                                    <li v-for="addres in school.addresses" >
                                                         <img src="/img/location.png" alt="">
-                                                        {{(checkedSchool.city ? 'г ' + checkedSchool.city.name : '') + ' ' + address.value}}
+                                                        <span v-if="school.city.name">{{'г. '+school.city.name}}</span>
+                                                        <span v-if="addres.value">{{addres.value}}</span>
+                                                    </li>
+                                                </ul>
+                                                <ul class="adress" v-else>
+                                                    <li >
+                                                        <img src="/img/location.png" alt="">
+                                                        <span v-if="school.city.name">{{'г. '+school.city.name}}</span>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="col-md-6">
-                                                <ul class="tel" v-if="checkedSchool.phones.length">
-                                                    <li v-for="phone in checkedSchool.phones">
+                                                <ul class="tel" v-if="school.phones">
+                                                    <li v-for="phone in school.phones">
                                                         <img src="/img/tel.png" alt="">
                                                         <span>{{phone.value}}</span>
                                                     </li>

@@ -11,11 +11,15 @@
                                 <li v-for="error in loginErrors">{{ error[0] }}</li>
                             </ul>
                         </div>
-                        <p class="error" v-if="errors.email">Не правильный email</p>
-                        <input type="text" placeholder="Ваш e-mail" v-model="data.email">
-                        <p class="error" v-if="errors.password">Длина пароля должна быть минимум 6 символов</p>
-                        <p class="error" v-if="passwordError">{{ passwordError }}</p>
-                        <input type="password" placeholder="Пароль" v-model="data.password">
+                        <div class="form-group">
+                            <p class="error" v-if="errors.email">Не правильный email</p>
+                            <input type="text" placeholder="Ваш e-mail" v-model="data.email">
+                        </div>
+                        <div class="form-group">
+                            <p class="error" v-if="errors.password">Длина пароля должна быть минимум 6 символов</p>
+                            <p class="error" v-if="passwordError">{{ passwordError }}</p>
+                            <input type="password" placeholder="Пароль" v-model="data.password">
+                        </div>
                         <button type="submit" class="btn-red">Войти</button>
                         <div class="link-wrapper">
                             <a href="#">Забыли пароль</a>
