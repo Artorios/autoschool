@@ -15,4 +15,5 @@ class Exam extends Model
      *
      * @var array
      */
+
 }

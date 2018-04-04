@@ -2,6 +2,7 @@
 
 namespace App\Models\User\Traits\Relationship;
 
+use App\Models\Training\Exam\Exam;
 use App\Models\Training\Lesson\Lesson;
 use App\Models\Training\Lesson\LessonVideo;
 use App\Models\User\SocialAccount;
@@ -39,6 +40,10 @@ trait UserRelationship
         return $this->belongsToMany(Lesson::class, 'user_lessons', 'user_id', 'lesson_id')->withPivot(['done']);
     }
 
+    /*public function exams()
+    {
+        return $this->belongsToMany(Exam::class, 'exams', 'user_id')->withPivot(['done']);
+    }*/
     /**
      * @return mixed
      */
