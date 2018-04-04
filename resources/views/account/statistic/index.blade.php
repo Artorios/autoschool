@@ -2,6 +2,12 @@
 
 @section('content')
         {{--{{dd($returnResult)}}--}}
-        <statistic-vue :statistics="{{json_encode($returnLessons)}}"
-                        :alldata="{{json_encode($returnResult)}}"></statistic-vue>
+        @if(!empty($returnLessons))
+                @if(!empty($returnResult))
+                        {{--{{dd($returnLessons)}}--}}
+                        <statistic-vue :statistics="{{json_encode($returnLessons)}}"
+                                :alldata="{{json_encode($returnResult)}}"></statistic-vue>
+                @endif
+                @else
+        @endif
     @endsection

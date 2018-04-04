@@ -36,7 +36,6 @@ class StatisticController extends Controller
 
 
 
-
                  $returnResult[$returnLessons[$key]['id']]['lesson'] = $returnLessons[$key]['id'];
                  $countTests = $user->lessonsTrainings()->where(['lesson_id' => $returnLessons[$key]['id']])->get();
                  $countTests = count($countTests);
@@ -78,19 +77,23 @@ class StatisticController extends Controller
 
                  if ($last_train && $last_train->status) {
                      $returnLessons[$key]['last_training']     = $last_train->status;
+                     $returnLessons[$key]['last_training_date']     = explode(' ', $last_train->updated_at)['0'];
                      $returnLessons[$key]['right_quest_train'] = $last_train->questions()->where('correct', 1)->count();
                      $returnLessons[$key]['all_quest_train']   = $last_train->questions()->count();
                  }
 
                  if ($last_exam && $last_exam->status) {
                      $returnLessons[$key]['last_exam']        = $last_exam->status;
+                     $returnLessons[$key]['last_exam_date']        = explode(' ', $last_exam->updated_at)['0'];
                      $returnLessons[$key]['right_quest_exam'] = $last_exam->questions()->where('correct', 1)->count();
                      $returnLessons[$key]['all_quest_exam']   = $last_exam->questions()->count();
                  }
              }
+             $this->data['returnLessons'] = $returnLessons;
+             $this->data['returnResult'] = $returnResult;
+             return view('account.statistic.index', $this->data);
         }
-        $this->data['returnLessons'] = $returnLessons;
-        $this->data['returnResult'] = $returnResult;
-        return view('account.statistic.index', $this->data);
+        return view('account.statistic.index');
+
     }
 }
