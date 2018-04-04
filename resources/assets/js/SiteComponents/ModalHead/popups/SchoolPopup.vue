@@ -93,10 +93,10 @@
                 Events.$emit('close-popup-school');
             },
             showAddresses () {
-                $('#schoolModal').find('.right').addClass('show');
+                $('#schoolModal').find('.right').addClass('show-addresses');
             },
             hideAddresses () {
-                $('#schoolModal').find('.right').removeClass('show');
+                $('#schoolModal').find('.right').removeClass('show-addresses');
             }
         }
     }
