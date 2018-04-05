@@ -22,7 +22,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="right" v-show="showSchool == 0">
+                            <div class="right" v-if="showSchool == 0">
                                 <span class="close hidden-lg" data-dismiss="modal" aria-label="Close" @click.self="hideAddresses"></span>
                                 <div class="ul-wrapper" v-for="school in schools">
                                     <ul class="adress" v-if="school.addresses[0]">
@@ -48,7 +48,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="right" v-show="showSchool != 0">
+                            <div class="right" v-if="showSchool != 0">
                                 <span class="close hidden-lg" data-dismiss="modal" aria-label="Close" @click.self="hideAddresses"></span>
                                 <div class="ul-wrapper" v-for="school in schools" v-if="school.id == showSchool">
                                     <ul class="adress" v-if="school.addresses[0]">
