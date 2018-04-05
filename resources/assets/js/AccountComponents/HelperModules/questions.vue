@@ -6,7 +6,7 @@
             <timer-vue :time="time"></timer-vue>
         </div>
         <div class="img">
-            <img class="imgTicket" v-if="checkedQuestion.image" :src="'http://'+checkedQuestion.image"  alt="">
+            <img class="imgTicket" v-if="checkedQuestion.image" :src="checkedQuestion.image"  alt="">
         </div>
         <h5>{{checkedQuestion.description}}</h5>
         <form class="variants">
