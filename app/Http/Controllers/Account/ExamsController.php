@@ -12,10 +12,10 @@ use App\Models\Training\Exam;
 
 class ExamsController extends Controller
 {
-    public  function  testPage(){
+    public  function  testPage(Question $questions){
         $user = Auth::user();
         $ticket_num = Question::max('ticket_num');
-        $questions = Question::all();
+        $questions = $questions->with('answers')->get();
         $this->data['ticket_num'] = $ticket_num;
         $settings_exam = LessonsSettings::where('key', 'exam_time')->first();
         $ticketValue = [];
@@ -35,7 +35,7 @@ class ExamsController extends Controller
                     }
             }
 
-            for($k=1; $k<=5 ; $k++) {
+            for($k=0; $k<=4 ; $k++) {
                 $qn = $k + 5 * ($i - 1);
                 $questionNumber = 0;
                 for ($l = 1; ; $l++) {
@@ -46,6 +46,7 @@ class ExamsController extends Controller
                     else{
                         array_push($questionNumbers, $questionNumber);
                         $examsQuestion[$qn] = $questions->where('ticket_num' , $ticketNumber)->where( 'question_num',$questionNumber)->first();
+
                         break;
                     }
                 }
@@ -80,17 +81,10 @@ class ExamsController extends Controller
 
     public function checkExam(Exams $exams, Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'lesson_ids' => 'required|array'
-        ]);
-
-        if (count($validator->errors())) {
-            return response()->json(['status' => 0], 400);
-        }
 
         $user = Auth::user();
 
-        if ( ! $user->lessonsTrainings()->find($exams->id)) {
+        if ( ! $user->exams()->find($exams->id)) {
             return response()->json([], 406);
         }
 
