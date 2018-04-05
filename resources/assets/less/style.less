@@ -2265,7 +2265,6 @@ body {
       display: inline-block;
       h3 {
         font-size: 18px;
-        font-weight: 500;
         padding-left: 20px;
         margin-bottom: 20px;
         font-weight: 600;
@@ -2302,11 +2301,9 @@ body {
       display: inline-block;
       h3 {
         font-size: 18px;
-        font-weight: 500;
         padding-left: 20px;
         margin-bottom: 20px;
         font-weight: 600;
-        margin-bottom: 22px;
       }
       .ul-wrapper {
         max-height: 400px;
@@ -2537,17 +2534,51 @@ body {
           padding-left: 10px;
         }
         .wrapper {
-          max-height: none;
-          overflow: visible;
+
           .left {
             ul {
-              max-height: 135px !important;
-              overflow-y: scroll;
+              overflow-y: visible;
+              li{
+                margin-bottom: 10px;
+                a{
+                  line-height: 40px;
+                }
+              }
             }
           }
           .right {
             .ul-wrapper {
               max-height: 135px;
+              ul {
+                vertical-align: top;
+                &.adress {
+                  width: 500px;
+                  li {
+                    img {
+                      width: 13px;
+                      margin-right: 10px;
+                    }
+                  }
+                }
+                &.tel {
+                  width: 310px;
+                  li {
+                    span {
+                      font-weight: 600;
+                    }
+                    img {
+                      position: relative;
+                      top: -2px;
+                    }
+                  }
+                }
+                li {
+                  line-height: 40px;
+                  img {
+                    margin-right: 5px;
+                  }
+                }
+              }
             }
           }
         }
@@ -2625,8 +2656,25 @@ body {
               }
             }
             .right {
-              display: none;
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              right: -100%;
+              width: 100%;
+              background: white;
+              padding-top: 40px;
+              transition: all 0.5s ease-in-out;
 
+              &.show-addresses {
+                right: 0;
+              }
+
+              span.close {
+                position: absolute;
+                top:10px;
+                right: 10px;
+                display: block;
+              }
             }
           }
           .modal-toggle {

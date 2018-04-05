@@ -2,6 +2,7 @@
 
 namespace App\Models\Training\Exam;
 
+use App\Models\Training\ExamQuestion\ExamQuestion;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,5 +16,13 @@ class Exam extends Model
      *
      * @var array
      */
-
+    protected $fillable = [
+        'user_id',
+        'type',
+        'status'
+    ];
+    public function questions()
+    {
+        return $this->hasMany(ExamQuestion::class, 'exam_id', 'id');
+    }
 }

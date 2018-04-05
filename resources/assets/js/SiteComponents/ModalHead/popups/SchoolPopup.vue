@@ -14,43 +14,38 @@
 
                         <h3>
                             Список автошкол партнеров сервиса Автотренер в {{checkedCity ? 'г. ' + checkedCity.name : 'городах'}}:</h3>
-                        <div class="wrapper row" v-for="school in schools">
-                            <div class="col-md-4 left">
+                        <div class="wrapper">
+                            <div class="left">
                                 <ul>
-                                    <li >
-                                        <a href="#">{{school.title}}</a>
+                                    <li v-for="school in schools" @click="showAddresses">
+                                        <a href="#" class="school-media-991">{{school.title}}</a>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="col-md-8 right">
-                                <div class="ul-wrapper" >
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <ul class="adress" v-if="school.addresses[0]">
-                                                    <li v-for="addres in school.addresses" >
-                                                        <img src="/img/location.png" alt="">
-                                                        <span v-if="school.city.name">{{'г. '+school.city.name}}</span>
-                                                        <span v-if="addres.value">{{addres.value}}</span>
-                                                    </li>
-                                                </ul>
-                                                <ul class="adress" v-else>
-                                                    <li >
-                                                        <img src="/img/location.png" alt="">
-                                                        <span v-if="school.city.name">{{'г. '+school.city.name}}</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <ul class="tel" v-if="school.phones">
-                                                    <li v-for="phone in school.phones">
-                                                        <img src="/img/tel.png" alt="">
-                                                        <span>{{phone.value}}</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="right">
+                                <span class="close hidden-lg" data-dismiss="modal" aria-label="Close" @click.self="hideAddresses"></span>
+                                <div class="ul-wrapper" v-for="school in schools">
+                                    <ul class="adress" v-if="school.addresses[0]">
+                                        <li v-for="addres in school.addresses">
+                                            <img src="/img/location.png" alt="">
+                                            <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
+                                            <span v-if="addres.value">{{addres.value}}</span>
+                                        </li>
+                                    </ul>
+
+                                    <ul class="adress" v-else>
+                                        <li>
+                                            <img src="/img/location.png" alt="">
+                                            <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
+                                        </li>
+                                    </ul>
+
+                                    <ul class="tel" v-if="school.phones">
+                                        <li v-for="phone in school.phones">
+                                            <img src="/img/tel.png" alt="">
+                                            <span>{{phone.value}}</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -79,23 +74,29 @@
         },
         methods: {
             getData () {
-                let id = ''
+                let id = '';
                 if (this.checkedCity) {
                     id = this.checkedCity.id
                 }
                 this.$http.get('/schools/' + id).then(res => {
                     if (res.status === 200) {
-                        this.schools = res.data
-                        this.checkedSchool = this.schools[0]
+                        this.schools = res.data;
+                        this.checkedSchool = this.schools[0];
                     }
                 })
             },
             checkedSchoolFunc (school) {
-                this.checkedSchool = school
+                this.checkedSchool = school;
             },
             close () {
-                $('body').removeClass('modal-open')
-                Events.$emit('close-popup-school')
+                $('body').removeClass('modal-open');
+                Events.$emit('close-popup-school');
+            },
+            showAddresses () {
+                $('#schoolModal').find('.right').addClass('show-addresses');
+            },
+            hideAddresses () {
+                $('#schoolModal').find('.right').removeClass('show-addresses');
             }
         }
     }

@@ -67,4 +67,9 @@ trait UserRelationship
     {
         return $this->hasMany(UserTicket::class, 'user_id', 'id');
     }
+
+    public function exams()
+    {
+        return $this->hasMany(Exam::class, 'user_id', 'id');
+    }
 }
