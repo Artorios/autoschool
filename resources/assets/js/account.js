@@ -21,6 +21,7 @@ import EditNotifySettings from './components/UserComponent/edit-notify-settings'
 import NotifyAll from './AccountComponents/NotifyComponents/notify-all'
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new'
 import Pages from './AccountComponents/NotifyComponents/pages.vue'
+import TestExam from './AccountComponents/ExamsComponents/exams-test.vue'
 
 
 require('video.js/dist/video-js.css')
@@ -62,7 +63,8 @@ const app = new Vue({
         EditNotifySettings,
         NotifyNew,
         NotifyAll,
-        Pages
+        Pages,
+        TestExam
 
     }
 });

@@ -34,7 +34,7 @@
                             <span class="mobile-title">Тренировка</span>
                             <span>{{lesson.right_quest_train}} из {{lesson.all_quest_train}}</span>
                             <a :href="'/account/lessons/training/' + lesson.id"><span class="refresh"></span></a>
-                            <span>{{editDate(lesson.updated_at)}}</span>
+                            <span>{{editDate(lesson.last_training_date)}}</span>
                         </div>
                     </div>
                     <div class="exam">
@@ -42,7 +42,7 @@
                             <span class="mobile-title">Зачет</span>
                             <span>{{lesson.right_quest_exam}} из {{lesson.all_quest_exam}}</span>
                             <a :href="'/account/lessons/exam/' + lesson.id"><span class="refresh"></span></a>
-                            <span>{{editDate(lesson.updated_at)}}</span>
+                            <span>{{editDate(lesson.last_exam_date)}}</span>
                         </div>
                     </div>
                     <div class="group-exam">
@@ -148,14 +148,14 @@
                 </div>
             </div>
         </div>
-        <nav aria-label="Page navigation example">
+        <!--<nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item"><a class="page-link active" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#">4</a></li>
             </ul>
-        </nav>
+        </nav>-->
     </div>
 </template>
 

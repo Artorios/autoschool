@@ -141,7 +141,14 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::post('/{ticket}/check-ticket', 'TicketsController@checkTicket');
         Route::get('/{ticket}', 'TicketsController@single');
     });
-});
+    Route::group(['prefix' => 'exams'], function () {
+        Route::get('/test', 'ExamsController@testPage');
+        Route::post('/test/{training}/check-exam', 'ExamsController@checkExam');
+        Route::post('/test/{training}/send-answer', 'ExamsController@checkAnswerExam');
+
+
+    });
+    });
 
 Route::post('get-price', 'Site\PriceController@getPrice');
 Route::get('/schools', 'Site\SchoolsController@getSchools');
