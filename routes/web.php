@@ -89,11 +89,9 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     });
 
     Route::group(['prefix' => 'finance'], function () {
-        Route::get('/', function () {
-            return view('account.finance.index');
-        })->name('user.finance');
-        Route::post('get-variants', 'FinanceController@getVariants')->name('user.getvariants');
-        Route::post('card-payment', 'FinanceController@cardPayment')->name('user.cardpayment');
+        Route::get('/', 'FinanceController@index')->name('user.finance');
+        Route::post('get-variants', 'FinanceController@getVariants')->name('account.finance.getvariants');
+        Route::post('card-payment', 'OrderController@cardPayment')->name('account.finance.cardpayment');
 
     });
 

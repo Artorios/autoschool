@@ -14,4 +14,5 @@ class Order extends Model
         'number_contract'
     ];
 
+
 }

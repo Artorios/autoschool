@@ -5,6 +5,7 @@ namespace App\Models\User\Traits\Relationship;
 use App\Models\Location\City;
 use App\Models\Training\Lesson\Lesson;
 use App\Models\Training\Lesson\LessonVideo;
+use App\Models\User\Contract;
 use App\Models\User\SocialAccount;
 use App\Models\User\UserSettings;
 use App\Models\User\UserLessonTraining;
@@ -66,5 +67,10 @@ trait UserRelationship
 
     public function city(){
         return $this->belongsTo(City::class);
+    }
+
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
     }
 }

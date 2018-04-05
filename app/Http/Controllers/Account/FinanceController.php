@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class FinanceController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+        return view('account.finance.index', compact('user'));
+    }
     public function getVariants(Request $request)
     {
         $SelectedType = $request->input('variant');

@@ -33,20 +33,9 @@
                 </div>
             </div>
         </div>
-        <form class="payment variants" method="POST" action="/account/finance/get-variants">
-            {{ csrf_field() }}
-            <h5>Выберите способ оплаты</h5>
-            <input type="radio" name="variant" id="typeA" value="typeA">
-            <label for="typeA">Банковской картой, платежных систем Master Card и VISA.</label>
-            <input type="radio" name="variant" id="typeB" value="typeB">
-            <label for="typeB">Банковским переводом, на наши реквизиты (квитанция)</label>
-            <input type="radio" name="variant" id="typeC" value="typeC">
-            <label class="correct" for="typeC">Оплатить купоном</label>
-            <div class="coupon">
-                <span>Введите номер купона:</span>
-                <input type="password" name="coupon">
-            </div>
-            <button class="btn-grey" type="submit">Оплатить</button>
-        </form>
+        <payment-variants :user="{{json_encode($user)}}" 
+                          :contract="{{json_encode($user->contract->name)}}"
+                          :price="{{json_encode($user->city->price)}}"
+        ></payment-variants>
     </div>
 @endsection
