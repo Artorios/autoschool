@@ -22,7 +22,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="right" v-show="showSchool == 0">
+                            <div class="right" v-if="showSchool == 0">
                                 <div class="ul-wrapper" v-for="school in schools">
                                     <ul class="adress" v-if="school.addresses[0]">
                                         <li v-for="addres in school.addresses">
@@ -47,30 +47,34 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="right" v-show="showSchool != 0">
-                                <span class="close hidden-md hidden-lg" @click.self="hideAddresses"></span>
-                                <div class="ul-wrapper" v-for="school in schools" v-if="school.id == showSchool">
-                                    <ul class="adress" v-if="school.addresses[0]">
-                                        <li v-for="addres in school.addresses">
-                                            <img src="/img/location.png" alt="">
-                                            <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
-                                            <span v-if="addres.value">{{addres.value}}</span>
-                                        </li>
-                                    </ul>
+                            <div class="right" v-if="showSchool != 0">
+                                <span class="close hidden-lg" data-dismiss="modal" aria-label="Close"
+                                      @click.self="hideAddresses"></span>
+                                <div class="right" v-show="showSchool != 0">
+                                    <span class="close hidden-md hidden-lg" @click.self="hideAddresses"></span>
+                                    <div class="ul-wrapper" v-for="school in schools" v-if="school.id == showSchool">
+                                        <ul class="adress" v-if="school.addresses[0]">
+                                            <li v-for="addres in school.addresses">
+                                                <img src="/img/location.png" alt="">
+                                                <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
+                                                <span v-if="addres.value">{{addres.value}}</span>
+                                            </li>
+                                        </ul>
 
-                                    <ul class="adress" v-else>
-                                        <li>
-                                            <img src="/img/location.png" alt="">
-                                            <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
-                                        </li>
-                                    </ul>
+                                        <ul class="adress" v-else>
+                                            <li>
+                                                <img src="/img/location.png" alt="">
+                                                <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
+                                            </li>
+                                        </ul>
 
-                                    <ul class="tel" v-if="school.phones">
-                                        <li v-for="phone in school.phones">
-                                            <img src="/img/tel.png" alt="">
-                                            <span>{{phone.value}}</span>
-                                        </li>
-                                    </ul>
+                                        <ul class="tel" v-if="school.phones">
+                                            <li v-for="phone in school.phones">
+                                                <img src="/img/tel.png" alt="">
+                                                <span>{{phone.value}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
