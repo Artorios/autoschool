@@ -8,6 +8,7 @@
             </ul>
         </div>
         <h4>Тестовый экзамен:</h4>
+        {{questions}}
         <questions-vue :questions="questions" :time="time" type="exam" v-if="!stopTrain"></questions-vue>
         <div v-if="stopTrain">
             Правильных ответов {{rightAnswers}} из {{questions.length}}
