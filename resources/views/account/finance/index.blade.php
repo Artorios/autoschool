@@ -33,19 +33,9 @@
                 </div>
             </div>
         </div>
-        <form class="payment variants">
-            <h5>Выберите способ оплаты</h5>
-            <input type="radio" name="variant" id="typeA">
-            <label for="typeA">Банковской картой, платежных систем Master Card и VISA.</label>
-            <input type="radio" name="variant" id="typeB">
-            <label for="typeB">Банковским переводом, на наши реквизиты (квитанция)</label>
-            <input type="radio" name="variant" id="typeC">
-            <label class="correct" for="typeC">Оплатить купоном</label>
-            <div class="coupon">
-                <span>Введите номер купона:</span>
-                <input type="password">
-            </div>
-            <a href="#" class="btn-grey" type="submit">Оплатить</a>
-        </form>
+        <payment-variants :user="{{json_encode($user)}}" 
+                          :contract="{{json_encode($user->contract->name)}}"
+                          :price="{{json_encode($user->city->price)}}"
+        ></payment-variants>
     </div>
 @endsection

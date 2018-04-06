@@ -14,7 +14,8 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "socialiteproviders/twitter": "^3.0",
-        "socialiteproviders/vkontakte": "^3.0"
+        "socialiteproviders/vkontakte": "^3.0",
+        "stripe/stripe-php": "^6.4"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

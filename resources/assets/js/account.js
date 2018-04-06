@@ -22,7 +22,7 @@ import NotifyAll from './AccountComponents/NotifyComponents/notify-all'
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new'
 import Pages from './AccountComponents/NotifyComponents/pages.vue'
 import TestExam from './AccountComponents/ExamsComponents/exams-test.vue'
-
+import PaymentVariants from './AccountComponents/FinanceComponents/payment-variants'
 
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
@@ -65,6 +65,8 @@ const app = new Vue({
         NotifyAll,
         Pages,
         TestExam
+        Pages,
+        PaymentVariants
 
     }
 });
