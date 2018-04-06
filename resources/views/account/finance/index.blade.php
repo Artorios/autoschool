@@ -33,6 +33,7 @@
                 </div>
             </div>
         </div>
+
         <payment-variants :user="{{json_encode($user)}}" 
                           :contract="{{json_encode($user->contract->name)}}"
                           :price="{{json_encode($user->city->price)}}"

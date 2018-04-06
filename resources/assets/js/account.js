@@ -63,8 +63,7 @@ const app = new Vue({
         EditNotifySettings,
         NotifyNew,
         NotifyAll,
-        Pages,
-        TestExam
+        TestExam,
         Pages,
         PaymentVariants
 
