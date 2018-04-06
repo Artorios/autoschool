@@ -4266,6 +4266,36 @@ footer.inner {
             }
           }
         }
+        .group-test{
+          padding: 10px;
+          .btn-grey {
+            width: 48%;
+            display: inline-block;
+            line-height: 45px;
+            height: 45px;
+            margin: 0;
+            &:last-child {
+              float: right;
+            }
+          }
+          &.disabled {
+            &:after {
+              width: 100%;
+              height: 100%;
+              content: '';
+              display: block;
+              position: absolute;
+              left: 0;
+              top: 0;
+              z-index: 100;
+            }
+            .btn-grey {
+              background: #fff;
+              border: 1px solid #ccc;
+              color: #999;
+            }
+          }
+        }
       }
       nav {
         margin: 20px 0;
@@ -4281,7 +4311,7 @@ footer.inner {
         .lessons-wrapper {
           .line {
             .info {
-              max-width: 390px;
+              max-width: 60%;
             }
           }
         }
