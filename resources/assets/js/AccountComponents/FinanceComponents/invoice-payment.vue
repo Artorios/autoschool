@@ -290,7 +290,7 @@
                                             <div>г.</div>
                                         </div>
                                     </div>
-                                    <div class="blank-text-block">
+                                    <div class="blank-text-block only-text">
                                         С условиями приема указанной в платежном документе суммы, в т. ч. с суммой взымаемой платы за услуги банка, ознакомлен и
                                         согласен.
                                     </div>
@@ -585,7 +585,7 @@
                                             <div>г.</div>
                                         </div>
                                     </div>
-                                    <div class="blank-text-block">
+                                    <div class="blank-text-block only-text">
                                         С условиями приема указанной в платежном документе суммы, в т. ч. с суммой взымаемой платы за услуги банка, ознакомлен и
                                         согласен.
                                     </div>
@@ -627,7 +627,7 @@
         }
     }
 </script>
-<style scoped>
+<style>
     .receipt {
         display: flex;
     }
@@ -687,7 +687,9 @@
     }
 
     .four-blocks-row .second {
-        flex-grow: 2;
+        border: 2px solid black;
+        display: table-row;
+        margin: 0 0 0 15px;
     }
 
     .four-blocks-row .number-blank {
@@ -763,8 +765,9 @@
     }
 
     .three-blocks-row .third {
-        flex-grow: 2;
-        justify-content: center;
+        border: 2px solid black;
+        display: table-row;
+        margin: 0 auto;
     }
 
     .receipt .half {
@@ -781,9 +784,9 @@
     }
 
     .number-blank {
-        display: flex;
-        justify-content: flex-start;
-        align-content: center;
+        display: table-row;
+        border-collapse: collapse;
+        border: 2px solid black;
     }
 
     .three-blocks-row .number-blank {
@@ -791,16 +794,16 @@
     }
 
     .correct-number {
-        border: 2px solid black;
-        border-left: none;
-        flex: 0 0 20px;
+        border-left: 2px solid black;
         text-align: center;
-        height: 22px;
-        line-height: 20px;
+        height: 20px;
+        display: table-cell;
+        width: 20px;
+        vertical-align: middle;
     }
 
     .correct-number:first-child {
-        border: 2px solid black;
+        border-left: none;
     }
 
     .name-block {
@@ -836,7 +839,77 @@
         top: 10px;
         right: 5px;
     }
+    .blank-text-block.only-text{
+        margin: 20px 0 15px 0;
+    }
+    .btn-block{
+        display: flex;
+        justify-content: flex-end;
+        margin: 15px 0 0 0;
+    }
     @media print{
+        *,
+        *:before,
+        *:after,
+        *:first-letter,
+        p:first-line,
+        div:first-line,
+        blockquote:first-line,
+        li:first-line {
+            background: transparent !important;
+            color: #000 !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+        *{
+            background-image: none;
+            -webkit-print-color-adjust: exact;
+        }
+        header, footer, .sidebar, .breadcrumbs, .finance-wrapper {
+            display: none !important;
+        }
+        .payment input, .payment label, .payment h5, .payment button, .modal-body.online-invoice-content .close {
+            display: none  !important;
+        }
+        #sbMenu{
+            display: none !important;
+        }
+        .modal.online-invoice-modal{
+            overflow: auto;
+        }
+        .modal-dialog.online-invoice-dialog .city-choose {
+            padding: 0;
+            margin: 1cm 0.5cm;
+            font-size: 75%;
+        }
+        .receipt .notice{
+            flex: 0 0 17%;
+        }
+        .receipt .blank{
+            flex: 0 0 83%;
+            padding: 0 0.15cm 0.1cm;
 
+        }
+        .blank-line{
+            margin: 0 0 0.15cm 0;
+        }
+        .correct-number{
+            height: 0.4cm;
+            width: 0.4cm;
+            font-weight: bold;
+        }
+        .modal-dialog.online-invoice-dialog {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            max-width: unset;
+        }
+        .modal-content{
+            border: none;
+            border-radius: 0;
+        }
+        .blank-text-block.only-text{
+            margin: 0.2cm 0;
+        }
     }
 </style>
