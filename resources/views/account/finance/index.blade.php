@@ -33,13 +33,9 @@
                 </div>
             </div>
         </div>
-@if(!empty($user->contract))
         <payment-variants :user="{{json_encode($user)}}"
                           :contract="{{json_encode($user->contract->name)}}"
                           :price="{{json_encode($user->city->price)}}"
         ></payment-variants>
-    @else
-    <p>Нет контрактов</p>
-    @endif
     </div>
 @endsection
