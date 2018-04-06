@@ -22,7 +22,7 @@ class ExamsController extends Controller
         $examsQuestion = [];
         $user_exam     = $user->exams()->create(['type' => 'test']);
         $test = [];
-        for($i= 1; $i<=12; $i++){
+        for($i= 0; $i<=11; $i++){
             $ticketNumber = 0;
             $questionNumbers = [];
             for($j=1; ; $j++){
@@ -35,8 +35,8 @@ class ExamsController extends Controller
                     }
             }
 
-            for($k=1; $k<=5 ; $k++) {
-                $qn = $k + 5 * ($i - 1);
+            for($k=0; $k<=4 ; $k++) {
+                $qn = $k + 5 * ($i);
                 $questionNumber = 0;
                 for ($l = 1; ; $l++) {
                     $questionNumber = rand(1, 20);
@@ -45,7 +45,7 @@ class ExamsController extends Controller
                     }
                     else{
                         array_push($questionNumbers, $questionNumber);
-                        $examsQuestion[$qn] = $questions->where('ticket_num' , $ticketNumber)->where( 'question_num',$questionNumber)->first();
+                        $examsQuestion[$qn] = $questions->load('answers')->where('ticket_num' , $ticketNumber)->where( 'question_num',$questionNumber)->first();
                         break;
                     }
                 }

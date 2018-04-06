@@ -12,7 +12,7 @@ $(document).ready(function(){
 	});
 
 	if( window.innerWidth >= 991 ){
-		$(".menu-toggle-wrapper").on("click", function () {asfdadsffads
+		$(".menu-toggle-wrapper").on("click", function () {
 			$(".inner-main-content").toggleClass("sidebar-narrow");
 		});
 	}
