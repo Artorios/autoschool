@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Training\Lesson\LessonsSettings;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Training\Exam;
-
+use App\Models\Training\Exam\Exam;
+use App\Models\Training\Processing\Answer;
+use Illuminate\Support\Facades\Validator;
 class ExamsController extends Controller
 {
     public  function  testPage(){
@@ -22,7 +23,7 @@ class ExamsController extends Controller
         $examsQuestion = [];
         $user_exam     = $user->exams()->create(['type' => 'test']);
         $test = [];
-        for($i= 0; $i<=11; $i++){
+        for($i= 0; $i<=0; $i++){
             $ticketNumber = 0;
             $questionNumbers = [];
             for($j=1; ; $j++){
@@ -52,7 +53,10 @@ class ExamsController extends Controller
             }
 
             }
+
+
         $this->data['ticketValue'] = $ticketValue;
+//        $this->data['answer'] = $anwser;
         $this->data['userExam'] = $user_exam;
         $this->data['examsQuestion'] = $examsQuestion;
         $this->data['time']          = (integer) $settings_exam->value * count($examsQuestion) ?? count($examsQuestion) * 1;
@@ -64,73 +68,55 @@ class ExamsController extends Controller
         $validator = Validator::make($request->all(), [
             'answer_id' => 'required|exists:answers,id',
         ]);
-
-        if (count($validator->errors())) {
-            return response()->json(['status' => 0], 400);
-        }
+        $user = Auth::user();
+        $exams = $exams->where(['user_id' => $user->id])->orderBy('updated_at', 'desc')->first();
 
         $answer = Answer::find($request->input('answer_id'))->makeVisible('correct');
 
-        $response = \AnswerCheck::check($answer);
+        if($answer->correct === 1){
+            $exams->questions()->create(['question_id' => $answer->question_id, 'correct' => 1, 'answer_id' => $request->input('answer_id')]);
+        }
+        else{
+            $exams->questions()->create(['question_id' => $answer->question_id, 'correct' => 0, 'answer_id' => $request->input('answer_id')]);
 
-        $exams->questions()->create(['question_id' => $answer->question_id, 'correct' => $response['correct'], 'answer_id' => $response['answer_id']]);
+        }
+
 
         return response()->json([], 200);
     }
 
-    public function checkExam(Exams $exams, Request $request)
+    public function checkExam(Exam $exams)
     {
-        $validator = Validator::make($request->all(), [
-            'lesson_ids' => 'required|array'
-        ]);
-
-        if (count($validator->errors())) {
-            return response()->json(['status' => 0], 400);
-        }
-
         $user = Auth::user();
+        $exams = $exams->where(['user_id' => $user->id])->orderBy('updated_at', 'desc')->first();
 
-        if ( ! $user->lessonsTrainings()->find($exams->id)) {
-            return response()->json([], 406);
-        }
-
-
-        $check_training = new CheckTraining($exams);
-
-        $response = $check_training->check($request->input('lesson_id'));
 
         $response['right_count'] = $exams->questions()->where('correct', 1)->count();
+        if($response['right_count'] == 2){
+            $exams->status = '1';
+            $response['status'] = 'passed';
+        }
+        else {
+            $exams->status = '0';
+            $response['status'] = 'failed';
 
-        $exams->status = $response['status'];
+        }
 
-        $exams->save();
+        $exams->update();
 
         /*
          * If exam failed
          */
-        if ($response['status'] !== 'passed') return response()->json($response, 200);
+        if ($exams->status !== 1) return response()->json($response, 200);
 
         /*
          * If lesson has group exam
          */
-        if ($lesson->getIsGroupAttribute()) {
-            $response['group_exam'] = 1;
 
-            return response()->json($response, 200);
-        }
 
         /*
          * Add new lesson for user
          */
-        $next_lesson     = $lesson->next_lesson;
-        $response_lesson = $next_lesson->id ?? false;
-
-        if ($next_lesson) {
-            $user->lessonsVideos()->attach($next_lesson->videos);
-            $user->lessons()->attach(['lesson_id' => $next_lesson->id]);
-        }
-
-        $response['next_lesson'] = $response_lesson;
 
         return response()->json($response, 200);
     }

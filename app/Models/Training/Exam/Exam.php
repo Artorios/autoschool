@@ -19,7 +19,8 @@ class Exam extends Model
     protected $fillable = [
         'user_id',
         'type',
-        'status'
+        'status',
+        'id'
     ];
     public function questions()
     {

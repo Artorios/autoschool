@@ -15,4 +15,10 @@ class ExamQuestion extends Model
      *
      * @var array
      */
+    protected $fillable = [
+        'exam_id',
+        'correct',
+        'question_id',
+        'answer_id'
+    ];
 }
