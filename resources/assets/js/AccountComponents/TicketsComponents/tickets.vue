@@ -9,7 +9,7 @@
         <input type="checkbox" v-model="withComments" @change="setShowComment" id="withCom">
         <label for="withCom">Решать с комментариями</label>
         <div class="tickets-wrapper">
-            <div class="ticket" data-toggle="collapse" :data-target="'#ticket' + i" v-for="(ticket, i) in tickets"
+            <div class="ticket" data-toggle="collapse" :data-target="'#ticket' + i" v-for="(ticket, i) in paginate"
                  :key="ticket.ticket_id">
                 <div class="ticket-inner" :class="[{'black': !ticket.status, 'green': ticket.status, 'red': ticket.status === 'failed'}]">
                     <div class="info">
@@ -43,14 +43,11 @@
                 </div>
             </div>
         </div>
-        <!--<nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-            </ul>
-        </nav>-->
+        <ul class="pagination" v-if="itemsPerPage < resultCount">
+            <li class="page-item" v-for="pageNumber in totalPages">
+                <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -59,10 +56,29 @@
     export default {
         data () {
             return {
-                withComments: +this.showComments
+                withComments: +this.showComments,
+                currentPage: 1,
+                itemsPerPage: 5,
+                resultCount: 0,
             }
         },
         props: ['tickets', 'showComments'],
+        computed: {
+            totalPages: function(){
+                return Math.ceil(this.resultCount / this.itemsPerPage)
+            },
+            paginate: function(){
+                if (!this.tickets || this.tickets.length != this.tickets.length){
+                    return
+                }
+                this.resultCount = this.tickets.length
+                if(this.currentPage >= this.totalPages){
+                    this.currentPage = this.totalPages
+                }
+                let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+                return this.tickets.slice(index, index + this.itemsPerPage)
+            }
+        },
         methods: {
             setShowComment () {
                 let data = {
@@ -75,6 +91,9 @@
             },
             setDate (date) {
                 return date.split(' ')[0]
+            },
+            setPage(pageNumber){
+                this.currentPage = pageNumber
             }
         }
     }
