@@ -16,7 +16,7 @@
                 <span class="exam">Зачет</span>
                 <span class="group-exam">Групповой зачет</span>
             </div>
-            <div v-for="(lesson, i) in statistics">
+            <div v-for="(lesson, i) in  paginate">
                 <div class="line">
                     <div class="number">
                         <span>{{lesson.lesson_num}}</span>
@@ -148,30 +148,44 @@
                 </div>
             </div>
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <!--<nav aria-label="Page navigation example">-->
+            <ul class="pagination" v-if="itemsPerPage < resultCount">
+                <li class="page-item" v-for="pageNumber in totalPages">
+                    <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
+
+                </li>
             </ul>
-        </nav>
-        <statistic-pagination></statistic-pagination>
+        <!--</nav>-->
     </div>
 </template>
 
 <script type="text/babel">
-    import StatisticPagination from './statistic-pagination'
     export default {
-        components: {
-            StatisticPagination
-        },
         data () {
             return {
+                currentPage: 1,
+                itemsPerPage: 3,
+                resultCount: 0,
                 number: '1',
             }
         },
         props: ['statistics','alldata'],
+        computed: {
+            totalPages: function(){
+                return Math.ceil(this.resultCount / this.itemsPerPage)
+            },
+            paginate: function(){
+                if (!this.statistics || this.statistics.length != this.statistics.length){
+                    return
+                }
+                this.resultCount = this.statistics.length
+                if(this.currentPage >= this.totalPages){
+                    this.currentPage = this.totalPages
+                }
+                let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+                return this.statistics.slice(index, index + this.itemsPerPage)
+            }
+        },
         methods: {
             editDate(date){
                 console.log(date)
@@ -185,6 +199,9 @@
                 time = timeTemp['0'] + ':' + timeTemp['1']
                 return time
             },
+            setPage(pageNumber){
+                this.currentPage = pageNumber
+            }
         }
     }
 </script>
