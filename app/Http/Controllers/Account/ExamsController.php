@@ -24,7 +24,7 @@ class ExamsController extends Controller
         $examsQuestion = [];
         $user_exam     = $user->exams()->create(['type' => 'test']);
         $test = [];
-        for($i= 0; $i<=0; $i++){
+        for($i= 0; $i<=11; $i++){
             $ticketNumber = 0;
             $questionNumbers = [];
             for($j=1; ; $j++){
