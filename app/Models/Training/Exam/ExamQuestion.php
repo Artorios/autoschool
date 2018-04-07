@@ -3,6 +3,8 @@
 namespace App\Models\Training\ExamQuestion;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Training\Processing\Question;
+
 
 /**
  * Class LessonsSettings
@@ -21,4 +23,8 @@ class ExamQuestion extends Model
         'question_id',
         'answer_id'
     ];
+
+    public function questions(){
+        return $this->belongsTo(Question::class, 'id', 'question_id');
+    }
 }

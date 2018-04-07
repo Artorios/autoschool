@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Models\Training\ExamQuestion\ExamQuestion;
 use App\Models\Training\Processing\Question;
 use App\Models\User\User;
 use Illuminate\Http\Request;
@@ -119,5 +120,38 @@ class ExamsController extends Controller
          */
 
         return response()->json($response, 200);
+    }
+    public function analysis(Exam $exam, $id)
+    {
+        $user = Auth::user();
+
+        if ( ! $user->exams()->find($id)) {
+            return redirect('/account');
+        }
+        $exam = $user->exams()->find($id);
+        $questionEx = ExamQuestion::all();
+        $questions        = $exam->questions->where('id','14')->questions; //$question->load('answers')->where(['exam_id' => $id])->get();
+        $user_questions   = $exam->questions;
+        $return_questions = $questions;
+        return view('account.exams.analysis', compact('return_questions'));
+
+        foreach ($user_questions as $user_question) {
+            foreach ($questions as $question) {
+                if ($question->id == $user_question->question_id) {
+                    $question->correct        = (integer) $user_question->correct;
+                    $question->user_answer_id = (integer) $user_question->answer_id;
+
+                    if ( ! $user_question->correct) {
+                        $question->correct_answer = Answer::where(['question_id' => $question->id, 'correct' => 1])
+                            ->first()
+                            ->makeVisible('correct');
+                    }
+
+                    array_push($return_questions, $question);
+                }
+            }
+        }
+
+        return view('account.exams.analysis', compact('return_questions'));
     }
 }

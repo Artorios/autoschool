@@ -171,6 +171,7 @@ class LessonController extends Controller
                 }
             }
         }
+        $return_questions = $user_questions;
 
         return view('account.lessons.analysis', compact('return_questions', 'lesson', 'training'));
     }

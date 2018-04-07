@@ -144,6 +144,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     });
     Route::group(['prefix' => 'exams'], function () {
         Route::get('/test', 'ExamsController@testPage');
+        Route::get('/analysis/{id}', 'ExamsController@analysis');
         Route::post('/test/{training}/check-exam', 'ExamsController@checkExam');
         Route::post('/test/{training}/send-answer', 'ExamsController@checkAnswerExam');
 
