@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Account\NotificationController;
+use App\Models\User\Contract;
 use App\Models\User\Notification;
 use App\Models\User\User;
 use App\Models\Location\Region;
@@ -57,6 +58,11 @@ class RegistrationController extends Controller
             $data['confirmation_code'] = str_random(30);
             $user                      = User::create($data);
             $full_name                 = $user->name . ' ' . $user->last_name;
+
+            $contract = Contract::create([
+                'name' => generateContractNumber($user),
+                'user_id' => $user->id
+            ]);
 
             Controller::notification($user->id,'Вы поступили в Школу Автотренер! 
 Мы скоро свяжемся с Вами и согласуем детали обучения.');

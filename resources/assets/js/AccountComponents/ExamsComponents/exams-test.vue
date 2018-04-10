@@ -13,8 +13,8 @@
         <div v-if="stopTrain">
             Правильных ответов {{rightAnswers}} из {{questions.length}}
             Вы {{trainDone ? 'сдали' : 'не сдали'}}  зачет.
-            <p v-if="!trainDone"><a :href="'/account/exams/test'">Попробовать еще раз?</a></p>
-            <a :href="'/account/exams/analysis/'">Перейти к разбору ошибок</a>
+            <p><a :href="'/account/exams/test'">Попробовать еще раз?</a></p>
+            <a :href="'/account/exams/analysis/'+userExam.id " v-if="!trainDone">Перейти к разбору ошибок</a>
         </div>
 
     </div>

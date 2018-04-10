@@ -89,9 +89,10 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     });
 
     Route::group(['prefix' => 'finance'], function () {
-        Route::get('/', function () {
-            return view('account.finance.index');
-        })->name('user.finance');
+        Route::get('/', 'FinanceController@index')->name('user.finance');
+        Route::post('get-variants', 'FinanceController@getVariants')->name('account.finance.getvariants');
+        Route::post('card-payment', 'OrderController@cardPayment')->name('account.finance.cardpayment');
+
     });
 
     Route::group(['prefix' => 'exams'], function () {
@@ -143,6 +144,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     });
     Route::group(['prefix' => 'exams'], function () {
         Route::get('/test', 'ExamsController@testPage');
+        Route::get('/analysis/{id}', 'ExamsController@analysis');
         Route::post('/test/{training}/check-exam', 'ExamsController@checkExam');
         Route::post('/test/{training}/send-answer', 'ExamsController@checkAnswerExam');
 

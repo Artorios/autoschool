@@ -22,6 +22,10 @@
                     <a :href="'/account/lessons/training/' + lesson.id" class="btn-grey">Тренировка</a>
                     <a :href="'/account/lessons/exam/' + lesson.id" class="btn-grey">Зачет</a>
                 </div>
+
+            </div>
+            <div class="group-test">
+                <a href="" class="btn-grey">Груповой зачет</a>
             </div>
         </div>
         <nav aria-label="Page navigation example">

@@ -22,47 +22,14 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="right" v-if="showSchool == 0">
-                                <span class="close hidden-lg" data-dismiss="modal" aria-label="Close" @click.self="hideAddresses"></span>
-                                <div class="ul-wrapper" v-for="school in schools">
-                                    <ul class="adress" v-if="school.addresses[0]">
+                            <div class="right">
+                                <span class="close hidden-md hidden-lg" @click.self="hideAddresses"></span>
+                                <div class="ul-wrapper" v-for="school in schools" v-if="showSchool == 0 || school.id == showSchool">
+                                    <ul class="adress">
                                         <li v-for="addres in school.addresses">
                                             <img src="/img/location.png" alt="">
                                             <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
                                             <span v-if="addres.value">{{addres.value}}</span>
-                                        </li>
-                                    </ul>
-
-                                    <ul class="adress" v-else>
-                                        <li>
-                                            <img src="/img/location.png" alt="">
-                                            <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
-                                        </li>
-                                    </ul>
-
-                                    <ul class="tel" v-if="school.phones">
-                                        <li v-for="phone in school.phones">
-                                            <img src="/img/tel.png" alt="">
-                                            <span>{{phone.value}}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="right" v-if="showSchool != 0">
-                                <span class="close hidden-lg" data-dismiss="modal" aria-label="Close" @click.self="hideAddresses"></span>
-                                <div class="ul-wrapper" v-for="school in schools" v-if="school.id == showSchool">
-                                    <ul class="adress" v-if="school.addresses[0]">
-                                        <li v-for="addres in school.addresses">
-                                            <img src="/img/location.png" alt="">
-                                            <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
-                                            <span v-if="addres.value">{{addres.value}}</span>
-                                        </li>
-                                    </ul>
-
-                                    <ul class="adress" v-else>
-                                        <li>
-                                            <img src="/img/location.png" alt="">
-                                            <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
                                         </li>
                                     </ul>
 
@@ -94,7 +61,7 @@
             }
         },
         created () {
-            this.getData()
+            this.getData();
         },
         mounted () {
             //$('body').addClass('modal-open')
@@ -103,7 +70,7 @@
             getData () {
                 let id = '';
                 if (this.checkedCity) {
-                    id = this.checkedCity.id
+                    id = this.checkedCity.id;
                 }
                 this.$http.get('/schools/' + id).then(res => {
                     if (res.status === 200) {
@@ -120,12 +87,12 @@
                 Events.$emit('close-popup-school');
             },
             showAddresses (schoolId) {
-                this.showSchool = schoolId
+                this.showSchool = schoolId;
 
                 $('#schoolModal').find('.right').addClass('show-addresses');
             },
             hideAddresses () {
-                this.showSchool = 0
+                this.showSchool = 0;
                 $('#schoolModal').find('.right').removeClass('show-addresses');
             }
         }

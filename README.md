@@ -47,3 +47,9 @@ This README would normally document whatever steps are necessary to get your app
 * Сидер создает пользователя с ролью админ
 * login: admin@gmail.com
 * password: adminadmin
+
+### Stripe ###
+* Надо зарегистрироваться на https://dashboard.stripe.com/register
+и получить STRIPE_SECRET и STRIPE_KEY в разделе https://dashboard.stripe.com/account/apikeys
+* Прописать их в файле .env
+* В разделе https://stripe.com/docs/api#create_card_token получить номер карточки и cvc для тестирования
