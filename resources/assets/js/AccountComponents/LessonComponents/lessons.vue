@@ -11,7 +11,7 @@
                 <span class="number">№</span>
                 <span>Название</span>
             </div>
-            <div class="line" v-for="lesson in lessons">
+            <div class="line" v-for="lesson in paginate">
                 <span class="number">{{lesson.lesson_num}}</span>
                 <div class="info">
                     <a v-if="!lesson.locked" :href="'/account/lessons/' + lesson.id">{{lesson.title}}</a>
@@ -24,25 +24,47 @@
                 </div>
             </div>
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-            </ul>
-        </nav>
+        <ul class="pagination" v-if="itemsPerPage < resultCount">
+            <li class="page-item" v-for="pageNumber in totalPages">
+                <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
+            </li>
+        </ul>
     </div>
 </template>
 
 <script type="text/babel">
     export default {
         data () {
-            return {}
+            return {
+                currentPage: 1,
+                itemsPerPage: 5,
+                resultCount: 0,
+            }
         },
         props: ['lessons'],
         created () {
             console.log('aaa')
+        },
+        computed: {
+            totalPages: function(){
+                return Math.ceil(this.resultCount / this.itemsPerPage)
+            },
+            paginate: function(){
+                if (!this.lessons || this.lessons.length != this.lessons.length){
+                    return
+                }
+                this.resultCount = this.lessons.length
+                if(this.currentPage >= this.totalPages){
+                    this.currentPage = this.totalPages
+                }
+                let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+                return this.lessons.slice(index, index + this.itemsPerPage)
+            }
+        },
+        methods: {
+            setPage(pageNumber){
+                this.currentPage = pageNumber
+            }
         }
     }
 </script>
