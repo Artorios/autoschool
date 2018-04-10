@@ -1,6 +1,6 @@
 <template>
     <ul class="pagination">
-        <li class="page-item" v-for="n in Math.ceil(pages/5)">
+        <li class="page-item" v-for="n in Math.ceil(pages/total)">
 
             <a :href="url+n" v-if="page == n" class="active">{{n}}</a>
             <a :href="url+n" v-else>{{n}}</a>
@@ -21,7 +21,7 @@
         },
 
 
-        props:['pages','page'],
+        props:['pages','page', 'total'],
 
 
     }

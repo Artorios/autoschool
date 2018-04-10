@@ -15,7 +15,7 @@
                 <span class="result">Результат</span>
                 <span>Дата</span>
             </div>
-{{--            {{dd($exams)}}--}}
+            {{--{{dd($exams)}}--}}
             <?php $key_exam = 0; ?>
             @foreach($exams as $exam)
                 <div class="line">
@@ -45,7 +45,8 @@
         </div>
         <nav aria-label="Page navigation example">
             <pages :page="{{json_encode($exams->currentPage())}}"
-                   :pages="{{json_encode($exams->total())}}"></pages>
+                   :pages="{{json_encode($exams->total())}}"
+                   :total="{{json_encode($exams->perPage())}}"></pages>
         </nav>
     </div>
 @endsection
