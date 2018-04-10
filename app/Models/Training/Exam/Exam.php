@@ -3,6 +3,7 @@
 namespace App\Models\Training\Exam;
 
 use App\Models\Training\Exam\ExamQuestion;
+use App\Models\Training\Processing\Question;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,4 +27,5 @@ class Exam extends Model
     {
         return $this->hasMany(ExamQuestion::class, 'exam_id', 'id');
     }
+
 }

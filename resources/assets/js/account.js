@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueResource from 'vue-resource';
+import VueResource  from 'vue-resource';
 import VueVideoPlayer from 'vue-video-player'
 import LessonsVue from './AccountComponents/LessonComponents/lessons.vue'
 import LessonVue from './AccountComponents/LessonComponents/lesson.vue'
@@ -22,6 +22,7 @@ import NotifyAll from './AccountComponents/NotifyComponents/notify-all'
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new'
 import Pages from './AccountComponents/NotifyComponents/pages.vue'
 import TestExam from './AccountComponents/ExamsComponents/exams-test.vue'
+import ExamAnalysis from './AccountComponents/ExamsComponents/analysis-exam.vue'
 import PaymentVariants from './AccountComponents/FinanceComponents/payment-variants'
 
 require('video.js/dist/video-js.css')
@@ -65,7 +66,8 @@ const app = new Vue({
         NotifyAll,
         TestExam,
         Pages,
-        PaymentVariants
+        PaymentVariants,
+        ExamAnalysis,
 
     }
 });

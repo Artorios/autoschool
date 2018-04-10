@@ -14,6 +14,20 @@ use App\Models\Training\Processing\Answer;
 use Illuminate\Support\Facades\Validator;
 class ExamsController extends Controller
 {
+    public function index(){
+        $user = Auth::user();
+
+        $this->data['exams'] = $user->exams()->paginate(8);
+        $this->data['correct_number'] = [];
+        $this->data['all_number'] = [];
+        foreach ($this->data['exams'] as $exam){
+            $this->data['correct_number'][$exam->id] = $exam->questions()->where(['correct' => '1'])->count();
+            $this->data['all_number'][$exam->id] = $exam->questions()->count();
+        }
+
+        return view('account.exams.index', $this->data);
+    }
+
     public  function  testPage(){
         $user = Auth::user();
         $ticket_num = Question::max('ticket_num');
@@ -122,19 +136,28 @@ class ExamsController extends Controller
 
         return response()->json($response, 200);
     }
-    public function analysis(Exam $exam, $id)
+    public function analysis($id)
     {
         $user = Auth::user();
-
+        $exam = Exam::all();
+        $questionEx = ExamQuestion::all();
         if ( ! $user->exams()->find($id)) {
             return redirect('/account');
         }
+        $quests = Question::all();
         $exam = $user->exams()->find($id);
-        $questionEx = ExamQuestion::all();
-        $questions        = $exam->questions->where('id','14')->questions; //$question->load('answers')->where(['exam_id' => $id])->get();
+        $questions        = $exam->questions()->get(); //$question->load('answers')->where(['exam_id' => $id])->get();
+        $question_list = [];
+        foreach ($questions as $question){
+            foreach ($quests as $quest) {
+                if($quest->id == $question->question_id){
+                    array_push($question_list,$quests->find($quest->id)->load('answers'));
+                }
+            }
+        }
         $user_questions   = $exam->questions;
-        $return_questions = $questions;
-        return view('account.exams.analysis', compact('return_questions'));
+        $questions = $question_list;
+        $return_questions = [];
 
         foreach ($user_questions as $user_question) {
             foreach ($questions as $question) {

@@ -19,7 +19,7 @@ class ExamQuestion extends Model
         'answer_id'
     ];
 
-    public function questions(){
-        return $this->belongsTo(Question::class, 'id', 'question_id');
+    public function questionsE(){
+        return $this->hasOne(Question::class, 'id', 'question_id');
     }
 }

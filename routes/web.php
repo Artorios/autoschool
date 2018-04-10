@@ -95,11 +95,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
 
     });
 
-    Route::group(['prefix' => 'exams'], function () {
-        Route::get('/', function () {
-            return view('account.exams.index');
-        })->name('user.exams');
-    });
+
 
     Route::get('/lessons', 'LessonController@index')->name('user.lessons');
     Route::get('/get-count-lessons', 'LessonController@getCountLesson');
@@ -143,6 +139,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::get('/{ticket}', 'TicketsController@single');
     });
     Route::group(['prefix' => 'exams'], function () {
+        Route::get('/', 'ExamsController@index')->name('user.exams');
         Route::get('/test', 'ExamsController@testPage');
         Route::get('/analysis/{id}', 'ExamsController@analysis');
         Route::post('/test/{training}/check-exam', 'ExamsController@checkExam');

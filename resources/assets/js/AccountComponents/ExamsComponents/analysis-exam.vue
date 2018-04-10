@@ -4,7 +4,7 @@
             <ul>
                 <li><a href="/account">Главная</a></li>
                 <li><a href="/account/exams">Экзамены</a></li>
-                <li><a href="/account/exams.еуые">Пройти экзамен</a></li>
+                <li><a href="/account/exams/test">Пройти экзамен</a></li>
                 <li>Разбор ошибок</li>
             </ul>
         </div>

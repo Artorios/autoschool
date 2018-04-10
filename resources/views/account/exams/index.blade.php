@@ -15,29 +15,37 @@
                 <span class="result">Результат</span>
                 <span>Дата</span>
             </div>
-            <div class="line">
-                <span class="name"><span class="number">01</span><a href="#">Пробный экзамен</a></span>
-                <span class="result">6 из 28<span class="refresh"></span></span>
-                <span class="date">27.11.2017</span>
-            </div>
-            <div class="line">
-                <span class="name"><span class="number">01</span><a href="#">Школьный</a></span>
-                <span class="result green">28 из 28<span class="refresh"></span></span>
-                <span class="date">27.11.2017</span>
-            </div>
-            <div class="line">
-                <span class="name"><span class="number">01</span><a href="#">Пробный</a></span>
-                <span class="result"></span>
-                <span class="date">29.11.2017</span>
-            </div>
+{{--            {{dd($exams)}}--}}
+            <?php $key_exam = 0; ?>
+            @foreach($exams as $exam)
+                <div class="line">
+                    <span class="name"><span class="number">{{++$key_exam+($exams->currentPage()-1)*8}}</span>
+                        @if($exam->type == "test")
+                        <a href="/account/exams/analysis/{{$exam->id}}">Пробный экзамен</a>
+                            @elseif($exam->type == "school")
+                            <a href="/account/exams/analysis/{{$exam->id}}">Школьный экзамен</a>
+
+                        @endif
+                    </span>
+                    @if($all_number[$exam->id] == $correct_number[$exam->id] && $all_number[$exam->id] != 0)
+                    <span class="result green">{{$correct_number[$exam->id]}} из {{$all_number[$exam->id]}}
+                        <a href="/account/exams/test"><span class="refresh"></span></a></span>
+                        @else
+                        <span class="result">{{$correct_number[$exam->id]}} из {{$all_number[$exam->id]}}
+                            <a href="/account/exams/test"><span class="refresh"></span></a></span>
+                    @endif
+                    <?php
+                        $date = explode(' ', $exam->updated_at);
+                        $date = explode('-', $date[0]);
+                    ?>
+                        <span class="date">{{$date[2].'.'.$date[1].'.'.$date[0]}}</span>
+                </div>
+            @endforeach
+
         </div>
         <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-            </ul>
+            <pages :page="{{json_encode($exams->currentPage())}}"
+                   :pages="{{json_encode($exams->total())}}"></pages>
         </nav>
     </div>
 @endsection
