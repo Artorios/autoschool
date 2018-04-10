@@ -96,7 +96,7 @@
                 <ul>
                     <li class="adress">
                         <div class="ico"><img src="img/location.png" alt=""></div>
-                        <span>Россия, г. Москва, ул. Условная, д. 8.</span>
+                        <span>Россия, г. Москва, ул. Неглинная, д.9.</span>
                     </li>
                     <li class="time">
                         <div class="ico"><img src="img/clock.png" alt=""></div>
@@ -104,11 +104,11 @@
                     </li>
                     <li class="tel">
                         <div class="ico"><img src="img/tel.png" alt=""></div>
-                        <a href="#">+7 (495) <span>725-56-76</span></a>
+                        <a href="#">+8 (495)<span>369-43-49</span></a>
                     </li>
                     <li class="mail">
                         <div class="ico"><img src="img/mail.png" alt=""></div>
-                        <a href="#">xxxxx@xxxxx.su</a>
+                        <a href="#">info@autotrener.com</a>
                     </li>
                 </ul>
             </div>

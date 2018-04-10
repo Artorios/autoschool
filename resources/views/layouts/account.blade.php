@@ -104,8 +104,8 @@
             <span>Единый сервис on-line обучения в автошколах</span>
         </div>
         <div class="right">
-            <span><img src="/img/mail.png" alt="">e-mail:<a href="#">хххххх@ххх.ru</a></span>
-            <a href="#">+7 (495)<span>725-56-76</span></a>
+            <span><img src="/img/mail.png" alt="">e-mail:<a href="#">info@autotrener.com</a></span>
+            <a href="#">+8 (495)<span>369-43-49</span></a>
         </div>
     </div>
 </footer>
