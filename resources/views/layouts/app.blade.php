@@ -68,7 +68,8 @@
                     <img src="/img/logo.png" alt="">
                     <span>Единый сервис on-line обучения в автошколах</span>
                 </div>
-                <a href="#" class="phone">+7 (495) <span>725-56-76</span></a>
+
+                <a href="#" class="phone">+8 (495) <span>369-43-49</span></a>
                 <modal-vue></modal-vue>
             </div>
         </div>
