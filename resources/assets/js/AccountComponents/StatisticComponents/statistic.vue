@@ -164,7 +164,7 @@
         data () {
             return {
                 currentPage: 1,
-                itemsPerPage: 3,
+                itemsPerPage: 10,
                 resultCount: 0,
                 number: '1',
             }

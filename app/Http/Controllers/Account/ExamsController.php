@@ -108,7 +108,7 @@ class ExamsController extends Controller
 
         $response['right_count'] = $exams->questions()->where('correct', 1)->count();
         $response['unright_count'] = $exams->questions()->where('correct', 0)->count();
-        if($response['unright_count'] == 0){
+        if($response['right_count'] == 60){
             $exams->status = '1';
             $response['status'] = 'passed';
         }
