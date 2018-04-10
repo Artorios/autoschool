@@ -2,7 +2,7 @@
 
 namespace App\Models\Training\Exam;
 
-use App\Models\Training\ExamQuestion\ExamQuestion;
+use App\Models\Training\Exam\ExamQuestion;
 use Illuminate\Database\Eloquent\Model;
 
 /**

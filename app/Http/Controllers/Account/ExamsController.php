@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Models\Training\ExamQuestion\ExamQuestion;
+use App\Models\Training\Exam\ExamQuestion;
 use App\Models\Training\Processing\Question;
 use App\Models\User\User;
 use Illuminate\Http\Request;

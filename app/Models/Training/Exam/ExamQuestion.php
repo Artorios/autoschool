@@ -1,15 +1,10 @@
 <?php
 
-namespace App\Models\Training\ExamQuestion;
+namespace App\Models\Training\Exam;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Training\Processing\Question;
 
-
-/**
- * Class LessonsSettings
- * @package App\Models\Training\Exam
- */
 class ExamQuestion extends Model
 {
     /**
