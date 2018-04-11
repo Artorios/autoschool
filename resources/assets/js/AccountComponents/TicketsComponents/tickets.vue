@@ -41,7 +41,13 @@
                         <span class="close" data-toggle="collapse" data-target="#ticket1"></span>
                     </div>
                 </div>
+
+
+
+
+
             </div>
+
         </div>
         <ul class="pagination" v-if="itemsPerPage < resultCount">
             <li class="page-item" v-for="pageNumber in totalPages">
