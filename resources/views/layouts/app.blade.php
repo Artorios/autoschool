@@ -69,7 +69,7 @@
                     <span>Единый сервис on-line обучения в автошколах</span>
                 </div>
 
-                <a href="#" class="phone">+8 (495) <span>369-43-49</span></a>
+                <a href="#" class="phone">8 (495) <span>369-43-49</span></a>
                 <modal-vue></modal-vue>
             </div>
         </div>
@@ -105,7 +105,7 @@
                     </li>
                     <li class="tel">
                         <div class="ico"><img src="img/tel.png" alt=""></div>
-                        <a href="#">+8 (495)<span>369-43-49</span></a>
+                        <a href="#">8 (495)<span>369-43-49</span></a>
                     </li>
                     <li class="mail">
                         <div class="ico"><img src="img/mail.png" alt=""></div>

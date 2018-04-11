@@ -105,7 +105,7 @@
         </div>
         <div class="right">
             <span><img src="/img/mail.png" alt="">e-mail:<a href="#">info@autotrener.com</a></span>
-            <a href="#">+8 (495)<span>369-43-49</span></a>
+            <a href="#">8 (495)<span>369-43-49</span></a>
         </div>
     </div>
 </footer>
