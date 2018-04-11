@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Models\Training\Processing\Answer;
 use App\Models\Training\Processing\Question;
 use App\Models\User\UserTicket;
+use App\Models\User\UserTicketsAnswer;
 use App\Services\AnswerCheck\Facade\AnswerCheck;
 use App\Services\Settings\Facade\Settings;
 use App\Services\Settings\SettingsException;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class TicketsController
@@ -234,4 +236,46 @@ class TicketsController extends Controller
             return response()->json(['status' => 0, 'msg' => $e->getMessage()], 406);
         }
     }
+
+    public function analysis($id)
+    {
+        $user = Auth::user();
+        $question = UserTicketsAnswer::all();
+        if ( ! $user->tickets()->find($id)) {
+            return redirect('/account');
+        }
+        $quests = Question::all();
+        $ticket = $user->tickets()->find($id);
+        $questions        = $ticket->answers()->get(); //$question->load('answers')->where(['exam_id' => $id])->get();
+        $question_list = [];
+        foreach ($questions as $question){
+            foreach ($quests as $quest) {
+                if($quest->id == $question->question_id){
+                    array_push($question_list,$quests->find($quest->id)->load('answers'));
+                }
+            }
+        }
+        $user_questions = $questions;
+        $questions = $question_list;
+        $return_questions = [];
+        foreach ($user_questions as $user_question) {
+            foreach ($questions as $question) {
+                if ($question->id == $user_question->question_id) {
+                    $question->correct        = (integer) $user_question->correct;
+                    $question->user_answer_id = (integer) $user_question->answer_id;
+
+                    if ( ! $user_question->correct) {
+                        $question->correct_answer = Answer::where(['question_id' => $question->id, 'correct' => 1])
+                            ->first()
+                            ->makeVisible('correct');
+                    }
+
+                    array_push($return_questions, $question);
+                }
+            }
+        }
+
+        return view('account.tickets.analysis', compact('return_questions', 'ticket'));
+    }
+
 }

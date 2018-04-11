@@ -36,7 +36,7 @@
                             <span class="mistakes">Ошибок<span
                                     class="red">{{history.incorrect_answers_count}}</span></span>
                             <span class="date">{{setDate(history.updated_at)}}</span>
-                            <a href="#">Разбор ошибок</a>
+                            <a :href="'/account/tickets/analysis/'+history.id">Разбор ошибок</a>
                         </div>
                         <span class="close" data-toggle="collapse" data-target="#ticket1"></span>
                     </div>

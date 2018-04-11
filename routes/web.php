@@ -137,6 +137,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::post('/{ticket}/check', 'TicketsController@checkAnswer');
         Route::post('/{ticket}/check-ticket', 'TicketsController@checkTicket');
         Route::get('/{ticket}', 'TicketsController@single');
+        Route::get('/analysis/{ticket}', 'TicketsController@analysis');
     });
     Route::group(['prefix' => 'exams'], function () {
         Route::get('/', 'ExamsController@index')->name('user.exams');
