@@ -71,7 +71,7 @@ class UserLessonController extends Controller
 
         $response = \AnswerCheck::check($answer);
 
-        $training->questions()->create(['question_id' => $answer->question_id, 'correct' => $response['correct'], 'answer_id' => $response['answer_id']]);
+        $training->questions()->create(['question_id' => $answer->question_id, 'correct' => $response['correct'], 'answer_id' => $answer->id]);
 
         return response()->json(['answer_id' => $response['answer_id'], 'correct' => $response['correct']], 200);
     }
