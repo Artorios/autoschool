@@ -33,7 +33,9 @@ class StatisticController extends Controller
                  $user_video          = $user->lessonsVideos()->where('lesson_id', $returnLessons[$key]['id'])->orderBy('id', 'DESC')->first();
                  $last_train          = $user->lessonsTrainings()->where(['lesson_id' => $returnLessons[$key]['id'], 'type' => 'training'])->where('status', '!=', null)->orderBy('id', 'DESC')->first();
                  $last_exam           = $user->lessonsTrainings()->where(['lesson_id' => $returnLessons[$key]['id'], 'type' => 'exam'])->where('status', '!=', null)->orderBy('id', 'DESC')->first();
-
+                if($lesson['isGroup']){
+                    $last_group           = $user->lessonsTrainings()->where(['lesson_id' => $returnLessons[$key]['id'], 'type' => 'group'])->where('status', '!=', null)->orderBy('id', 'DESC')->first();
+                }
 
 
                  $returnResult[$returnLessons[$key]['id']]['lesson'] = $returnLessons[$key]['id'];
@@ -87,6 +89,13 @@ class StatisticController extends Controller
                      $returnLessons[$key]['last_exam_date']        = explode(' ', $last_exam->updated_at)['0'];
                      $returnLessons[$key]['right_quest_exam'] = $last_exam->questions()->where('correct', 1)->count();
                      $returnLessons[$key]['all_quest_exam']   = $last_exam->questions()->count();
+                 }
+
+                 if (isset($last_group) && $last_group->status) {
+                     $returnLessons[$key]['last_group']     = $last_group->status;
+                     $returnLessons[$key]['last_group_date']     = explode(' ', $last_group->updated_at)['0'];
+                     $returnLessons[$key]['right_quest_group'] = $last_group->questions()->where('correct', 1)->count();
+                     $returnLessons[$key]['all_quest_group']   = $last_group->questions()->count();
                  }
              }
              $this->data['returnLessons'] = $returnLessons;

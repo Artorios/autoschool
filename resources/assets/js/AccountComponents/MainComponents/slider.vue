@@ -15,6 +15,7 @@
                     <a :href="'/account/lessons/training/' + lesson.id" class="btn-grey" v-if="lesson.training">Тренировка</a>
                     <a href="#" class="btn-grey" data-toggle="modal" data-target="#errorModalExam" v-if="!lesson.exam">Зачет</a>
                     <a :href="'/account/lessons/exam/' + lesson.id" class="btn-grey" v-if="lesson.exam">Зачет</a>
+                    <a :href="'/account/lessons/group-exam/' + lesson.id" class="btn-grey" v-if="lesson.isGroup">Групповой зачет</a>
                 </div>
             </div>
             <!--<div class="slide">-->

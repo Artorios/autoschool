@@ -5,12 +5,25 @@
                 <li><a href="/account">Главная</a></li>
                 <li><a href="/account/lessons">Уроки</a></li>
                 <li><a :href="'/account/lessons/' + lesson.id">Урок №{{lesson.lesson_num}}</a></li>
-                <li>Разбор ошибок {{training ? '( тренировка )' : '(зачет)'}}</li>
+
+                <li v-if="training === 'exam'">Разбор ошибок {{'(зачет)'}}</li>
+                <li v-if="training === 'training'">Разбор ошибок {{'(тренеровка)'}}</li>
+                <li v-if="training === 'group'">Разбор ошибок {{'(груповой зачет)'}}</li>
             </ul>
         </div>
-        <h4>Разбор ошибок по {{training ? 'тренировке' : 'зачету'}}:</h4>
-        <span>Урок № {{lesson.lesson_num}}</span>
-        <span class="ex-title">{{lesson.title}}</span>
+        <h4 v-if="training === 'exam'">Разбор ошибок по зачету:</h4>
+        <h4 v-if="training === 'training'">Разбор ошибок по тренировке: </h4>
+        <div v-if="training === 'group'">
+            <h4>Групповой зачет по темам:</h4>
+            <div v-for="lesson in lessons">
+                <span>Урок № {{lesson.lesson_num}}</span>
+                <span class="ex-title">{{lesson.title}}</span>
+            </div>
+        </div>
+        <div v-if="training ===  'exam' || training === 'training'">
+            <span>Урок № {{lesson.lesson_num}}</span>
+            <span class="ex-title">{{lesson.title}}</span>
+        </div>
         <div v-if="checkedQuestion">
             <div class="slick-wrapper">
                 <div class="slick-training">
@@ -70,7 +83,7 @@
                 questionStart: 0
             }
         },
-        props: ['questions', 'lesson', 'training'],
+        props: ['questions', 'lesson', 'training', 'lessons'],
         methods: {
             setQuestion (i) {
                 this.questionStart = i
