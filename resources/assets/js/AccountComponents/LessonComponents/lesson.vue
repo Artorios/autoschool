@@ -9,14 +9,28 @@
         </div>
         <span>Урок № {{lesson.lesson_num}}</span>
         <h4>{{lesson.title}}</h4>
-        <div class="video-wrapper">
-            <video-player v-if="lesson.videos.length"  class="vjs-custom-skin"
+
+        <div class="video-wrapper" v-if="lesson.videos[0].youtube">
+            <video   class=" video-js vjs-default-skin vjs-custom-skin"
+                     ref="videoPlayer"
+                     currentTime="100"
+                   :class="{'custom-video': !lesson.videos[0].viewed}"
+                     :data-setup="videoOptionsYT"
+                   :playsinline="false"
+                   width="650" height="360"
+                   @ended="onPlayerEnded($event)"
+            >
+            </video>
+        </div>
+        <div class="video-wrapper" v-if="!lesson.videos[0].youtube">
+            <video-player v-if="lesson.videos.length "  class="vjs-custom-skin"
                            ref="videoPlayer"
                            :options="videoOptions"
                            :class="{'custom-video': !lesson.videos[0].viewed}"
                            :playsinline="false"
                             @ended="onPlayerEnded($event)">
             </video-player>
+
             <!--@play="onPlayerPlay($event)"-->
                            <!--@pause="onPlayerPause($event)"-->
                            <!--@ended="onPlayerEnded($event)"-->
@@ -29,6 +43,10 @@
                            <!--@ready="playerReadied"-->
                            <!--@statechanged="playerStateChanged($event)"-->
         </div>
+        <div class="video-wrapper" v-if="!lesson.videos[0]">
+            <p>Нет видео!</p>
+        </div>
+
         <span>{{lesson.description}}</span>
         <div class="btn-wrapper" :class="{'disabled': !lessonTraining}">
             <a :href="'/account/lessons/training/' + lesson.id"
@@ -71,8 +89,10 @@
                         type: this.lesson.videos[0] ? this.lesson.videos[0].mime_type : '',
                         src: this.lesson.videos[0] ? this.lesson.videos[0].path : ''
                     }],
-                    poster: "/static/images/author.jpg",
+                    poster: "/static/images/author.jpg"
                 },
+                videoOptionsYT: '{ "techOrder": ["youtube"], "controls": "true", "playbackRates": ["0.7", "1.0", "1.5", "2.0"],   "language": "ru", "sources": [{ "type": "video/youtube", "src": "'+this.lesson.videos[0].youtube+'"}] }',
+
                 lessonTraining: this.lesson.videos[0].hasOwnProperty('viewed') ? 1 : 0
             }
         },

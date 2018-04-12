@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
         Route::post('/{lesson}/change-question', 'LessonsController@changeQuestion');
         Route::post('/load-video', 'LessonsController@loadVideo');
         Route::delete('/delete-video/{video}', 'LessonsController@delVideo');
+        Route::post('/youtube-video/{video}', 'LessonsController@youtube');
         Route::post('/create', 'LessonsController@create');
         Route::post('/{lesson}/get-questions', 'LessonsController@getQuestions');
     });
