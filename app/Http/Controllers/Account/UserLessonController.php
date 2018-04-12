@@ -141,7 +141,10 @@ class UserLessonController extends Controller
 
         $training->questions()->create(['question_id' => $answer->question_id, 'correct' => $response['correct'], 'answer_id' => $answer->id]);
 
-        return response()->json([], 200);
+        return response()->json([
+            'answer_id' => $response['answer_id'],
+            'correct' => $response['correct'],
+            'rightAnswer' => $response['answer_id']], 200);
     }
 
     /**
@@ -242,10 +245,22 @@ class UserLessonController extends Controller
             }
         }
 
-        shuffle($all_questions);
+        $temp_array = array();
+        $i = 0;
+        $key_array = array();
+
+        foreach($all_questions as $val) {
+            if (!in_array($val['id'], $key_array)) {
+                $key_array[$i] = $val['id'];
+                $temp_array[$i] = $val;
+            }
+            $i++;
+        }
+
+        shuffle($temp_array);
 
         $user_exam     = $user->lessonsTrainings()->create([ 'lesson_id' => $lesson->id, 'type' => 'group' ]);
-        $questions     = $all_questions;
+        $questions     = $temp_array;
         $settings_exam = LessonsSettings::where('key', 'exam_time')->first();
         $time          = (integer) $settings_exam->value * count($questions) ?? count($questions) * 1;
 

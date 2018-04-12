@@ -21,11 +21,8 @@
                 <div class="btn-wrapper">
                     <a :href="'/account/lessons/training/' + lesson.id" class="btn-grey">Тренировка</a>
                     <a :href="'/account/lessons/exam/' + lesson.id" class="btn-grey">Зачет</a>
+                    <a :href="'/account/lessons/group-exam/' + lesson.id" class="btn-grey" v-if="lesson.isGroup && !lesson.locked">Групповой зачет</a>
                 </div>
-
-            </div>
-            <div class="group-test">
-                <a href="" class="btn-grey">Груповой зачет</a>
             </div>
         </div>
         <ul class="pagination" v-if="itemsPerPage < resultCount">
@@ -43,6 +40,7 @@
                 currentPage: 1,
                 itemsPerPage: 10,
                 resultCount: 0,
+                type: ''
             }
         },
         props: ['lessons'],

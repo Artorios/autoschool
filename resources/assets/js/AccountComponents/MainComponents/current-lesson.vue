@@ -26,8 +26,10 @@
         <!--notExam type END        -->
 
         <!--notExam type-->
-        <span v-if="type === 'notGroup'">Пройдите групповой зачет по теме № {{lesson.lesson_num}}</span>
-        <span v-if="type === 'notGroup'">{{lesson.title}}</span>
+        <span v-if="type === 'notGroup'">Пройдите групповой зачет по темам</span>
+        <div v-if="type === 'notGroup'">
+            <span v-for="lesson in lessons">{{lesson.title}}</span>
+        </div>
         <a :href="'/account/lessons/group-exam/' + lesson.id" class="btn-red" v-if="type === 'notGroup'">Перейти к зачету</a>
         <!--notExam type END        -->
 
@@ -42,7 +44,8 @@
         data () {
             return {
                 lesson: null,
-                type: ''
+                type: '',
+                lessons: []
             }
         },
         created () {
@@ -53,6 +56,16 @@
                 this.$http.get('/account/get-current-lesson').then(res => {
                     this.lesson = res.data.lesson
                     this.type = res.data.type
+                        if(res.data.lesson.isGroup){
+                        this.getGroupLessons()
+                        }
+                })
+
+            },
+
+            getGroupLessons (){
+                this.$http.post('/account/get-group-lessons', this.lesson).then(res => {
+                    this.lessons = res.data.lessons
                 })
             }
         }

@@ -15,8 +15,9 @@
         </div>
         <questions-vue :questions="questions" :time="time" type="exam" v-if="!stopTrain"></questions-vue>
         <div v-if="stopTrain">
-            Правильных ответов {{rightAnswers}} из {{questions.length}}
-            Вы {{trainDone ? 'сдали' : 'не сдали'}}  групповой зачет.
+            <p>Правильных ответов {{rightAnswers}} из {{questions.length}}</p>
+            <p v-if="trainDone">Вы сдали групповой зачет.</p>
+            <p v-if="!trainDone">К сожалению, вы не сдали групповой зачёт. Допускается совершить не более одной ошибки. Попробуйте пересдать зачёт через час. Перед этим рекомендуем снова просмотреть соответствующие уроки и пройти тренировки.</p>
             <p v-if="!trainDone"><a :href="'/account/lessons/group-exam/' + lesson.id">Попробовать еще раз?</a></p>
             <a :href="'/account/lessons/analysis/' + userGroupExam.id">Перейти к разбору ошибок</a>
             <a :href="'/account/lessons/' + nextLesson" v-if="nextLesson">Перейти к новому уроку</a>
@@ -44,7 +45,7 @@
         created () {
             Events.$on('time-ended', () => {
                 this.checkTrain()
-            })
+            });
             Events.$on('set-answer', (userAnswer) => {
                 this.setAnswerFunc(userAnswer)
             });
@@ -80,7 +81,7 @@
             setAnswerFunc (answer) {
                 this.$http.post('/account/lessons/training/' + this.userGroupExam.id + '/send-answer', {answer_id: answer}).then(res => {
                     if (res.status == 200) {
-                        Events.$emit('get-answer-data', {});
+                        Events.$emit('get-answer-data', res.data);
                     }
                 })
             }

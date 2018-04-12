@@ -44,9 +44,12 @@ Route::group(['prefix' => 'user', 'namespace' => 'Auth'], function () {
 });
 
 Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => 'auth'], function () {
+
     Route::get('/', function () {
-        return view('account.main');
+        return view('account.main', []);
     })->name('user.account');
+
+    Route::post('/get-group-lessons', 'LessonController@getGroupLessons');
 
     Route::get('/get-count-lesson', function () {
         $user = Auth::user();
@@ -106,6 +109,11 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
             return view('account.lessons.banned');
         });
 
+        Route::get('/group/banned', function () {
+            return view('account.lessons.group-banned');
+        });
+
+
         Route::get('/{lesson}', 'LessonController@show')->name('user.lessons.demo');
 
         /*
@@ -119,7 +127,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::post('/training/{training}/send-answer', 'UserLessonController@checkAnswerExam');
         Route::post('/training/{training}/check-training', 'UserLessonController@checkTraining');
         Route::post('/training/{training}/check-exam', 'UserLessonController@checkExam');
-        Route::post('/training/{training}/check-group-exam', 'UserLessonController@checkGroupExam');
         Route::post('/training/{training}/check-group-exam', 'UserLessonController@checkGroupExam');
 
         Route::get('/analysis/{training}', 'LessonController@analysis');

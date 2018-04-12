@@ -48,9 +48,9 @@
                     <div class="group-exam">
                         <div v-if="lesson.isGroup">
                             <span class="mobile-title">Груп. зачет</span>
-                            <span v-if="!lesson.right_quest_group">-</span>
-                            <!--<span v-if="lesson.isGroup" class="refresh"></span>-->
-                            <!--<span v-if="lesson.isGroup">28.11.2017</span>-->
+                            <span v-if="lesson.right_quest_group">{{lesson.right_quest_group}} из {{lesson.all_quest_group}}</span>
+                            <span v-if="lesson.isGroup" class="refresh"></span>
+                            <span v-if="lesson.isGroup">{{editDate(lesson.last_group_date)}}</span>
                         </div>
                     </div>
                     <div class="toggle">
