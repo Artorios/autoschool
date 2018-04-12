@@ -4,6 +4,7 @@ namespace App\Models\Location;
 
 use App\Models\Location\Traits\Relationship\CityRelationship;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 /**
  * Class City
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     use CityRelationship;
+    use Searchable;
 
     /**
      * The table associated with the model.

@@ -22,6 +22,7 @@
         data () {
             return {
                 regions: null,
+                allCities: null,
                 showCityPopup: false,
                 checkedRegion: null,
                 showSchoolPopup: false,
@@ -36,7 +37,7 @@
             Events.$on('close-popup-city', (data) => {
                 this.showCityPopup = false
                 this.checkedRegion = data.region
-                this.userCity = data.city ? JSON.parse(localStorage.getItem('city')) : False
+                this.userCity = data.city ? JSON.parse(localStorage.getItem('city')) : Fasle
             })
             Events.$on('close-popup-school', () => {
                 this.showSchoolPopup = false
@@ -46,7 +47,8 @@
         methods: {
             getData () {
                 this.$http.get('/api/get-region-prices').then(res => {
-                    this.regions = res.data.regions
+                    this.regions   = res.data.regions
+                    this.allCities = res.data.allCities
                     if (this.userCity) {
                         this.regions.forEach(region => {
                             if (region.id == this.userCity.regions_id) {
