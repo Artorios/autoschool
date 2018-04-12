@@ -89,7 +89,7 @@
                 query: ''
             }
         },
-        props: ['regions', 'checkedRegion', 'cities'],
+        props: ['regions', 'checkedRegion'],
         mounted() {
             $('body').addClass('modal-open')
         },

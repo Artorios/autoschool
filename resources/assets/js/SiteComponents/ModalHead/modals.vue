@@ -37,7 +37,7 @@
             Events.$on('close-popup-city', (data) => {
                 this.showCityPopup = false
                 this.checkedRegion = data.region
-                this.userCity = data.city ? JSON.parse(localStorage.getItem('city')) : Fasle
+                this.userCity = data.city ? JSON.parse(localStorage.getItem('city')) : False
             })
             Events.$on('close-popup-school', () => {
                 this.showSchoolPopup = false
