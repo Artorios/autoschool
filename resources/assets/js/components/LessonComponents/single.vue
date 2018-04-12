@@ -33,25 +33,43 @@
             <div class="row invoice-info">
                 <div class="col-md-6">
                     <h2 class="title">Видео</h2>
-                    <video-player v-if="video"  class="vjs-custom-skin"
+                    <video-player v-if="!video.youtube && video.name"  class="vjs-custom-skin"
                                   ref="videoPlayer"
                                   :options="videoOptions"
                                   :class="{'custom-video': !lesson.videos[0].viewed}"
                                   :playsinline="false">
                     </video-player>
+                    <video v-if="video.youtube"   class=" video-js vjs-default-skin vjs-custom-skin"
+                             ref="videoPlayer"
+                             :class="{'custom-video': !lesson.videos[0].viewed}"
+                             :data-setup="videoOptionsYT"
+                             :playsinline="false"
+                    >
+                    </video>
                 </div>
                 <div class="col-md-6">
-                    <div v-if="video">
+                    <div v-if="video.name">
                         <p>
                             <small>Чтобы заменить видео удалите это видео и загрузите новое</small>
                         </p>
                         <button class="btn del-video" @click="deleteVideo(lesson.videos[0])">Удалить видео</button>
                     </div>
-                    <div v-if="!video">
+                    <div v-if="!video.name">
                         <p>
                             <small>Выберите новое видео и загрузите его</small>
                         </p>
                         <input type="file" class="btn" @change="loadFile" value="Загрузить видео">
+                    </div>
+                    <div >
+                        <p>
+                            <small>Вставить видео из YouTube</small>
+                        </p>
+                        <input type="text"
+                               class="form-control"
+                               v-model="youtube.video">
+                        <button class="btn" @click="addYoutube(video.id)">Додати</button>
+                    </div>
+                    <div >
                     </div>
                 </div>
             </div>
@@ -186,7 +204,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import paginate from 'vuejs-paginate'
     export default {
         data () {
@@ -205,6 +223,8 @@
                     poster: "/static/images/author.jpg",
 
                 },
+                youtube: {video: this.lesson.videos[0].youtube},
+                videoOptionsYT: '{ "techOrder": ["youtube"], "controls": "true", "playbackRates": ["0.7", "1.0", "1.5", "2.0"],   "language": "ru", "sources": [{ "type": "video/youtube", "src": "'+this.lesson.videos[0].youtube+'"}] }',
                 page: 0,
                 dataQuestions: this.questions,
                 showDescription: false,
@@ -307,6 +327,22 @@
                 this.$http.delete('/admin/lessons/delete-video/' + video.id, {}).then(res => {
                     if (res.status === 202) {
                         this.video = null
+                        location.reload()
+
+                    } else {
+                        this.errorEdit = true
+                    }
+                }, err => {
+                    this.errorEdit = true
+                })
+            },
+            addYoutube(id){
+                let data = {}
+                data.youtube = this.youtube.video
+                this.$http.post('/admin/lessons/youtube-video/' + id, data).then(res => {
+                    if (res.status === 202) {
+                        console.log(res.data)
+                        location.reload()
                     } else {
                         this.errorEdit = true
                     }
@@ -320,6 +356,7 @@
                 let data = new FormData()
                 data.append('video', file)
                 data.append('lesson_id', this.lesson.id)
+                data.append('video_id', this.video.id)
 
                 this.$http.post('/admin/lessons/load-video', data).then(res => {
                     if (res.status === 201) {
@@ -328,6 +365,7 @@
                         this.errorEdit = true
                     }
                 }, err => {
+                    console.log(err.data)
                     this.errorEdit = true
                 })
             },

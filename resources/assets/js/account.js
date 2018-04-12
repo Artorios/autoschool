@@ -25,7 +25,8 @@ import TestExam from './AccountComponents/ExamsComponents/exams-test.vue'
 import ExamAnalysis from './AccountComponents/ExamsComponents/analysis-exam.vue'
 import PaymentVariants from './AccountComponents/FinanceComponents/payment-variants'
 import TicketsAnalysis from './AccountComponents/TicketsComponents/tickets-analysis.vue'
-
+// import VideoYoutube from 'video '
+require('videojs-youtube/dist/Youtube.min.js')
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 Vue.use(VueResource);

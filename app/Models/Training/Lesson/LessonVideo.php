@@ -19,7 +19,7 @@ class LessonVideo extends Model
      *
      * @var array
      */
-    protected $fillable = ['mime_type', 'name', 'lesson_id'];
+    protected $fillable = ['mime_type', 'name', 'lesson_id', 'youtube'];
 
     /**
      * The accessors to append to the model's array form.

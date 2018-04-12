@@ -188,7 +188,6 @@
         },
         methods: {
             editDate(date){
-                console.log(date)
                 var dateT = date.split(' ')['0']
                 var dateTemp = dateT.split('-')
                 date = dateTemp['2'] + '.' + dateTemp['1'] + '.' + dateTemp['0']

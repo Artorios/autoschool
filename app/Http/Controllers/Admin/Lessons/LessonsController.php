@@ -80,17 +80,24 @@ class LessonsController extends Controller
 
             if ($request->input('lesson_id')) {
                 $lesson = Lesson::find($request->input('lesson_id'));
+                $video = LessonVideo::find($request->input('video_id'));
+                if($video->id){
+                    $video->update(['name' => $file_name, 'mime_type' => $file->getMimeType()]);
+                    Storage::putFileAs('public/lesson_video/' . $video->id . '/', $file, $file_name);
+                }
+                else{
+                    $tmp_video = $lesson->videos()->create(['name' => $file_name, 'mime_type' => $file->getMimeType()]);
+                    Storage::putFileAs('public/lesson_video/' . $tmp_video->id . '/', $file, $file_name);
+                }
 
-                $tmp_video = $lesson->videos()->create(['name' => $file_name, 'mime_type' => $file->getMimeType()]);
 
-                Storage::putFileAs('public/lesson_video/' . $tmp_video->id . '/', $file, $file_name);
             } else {
                 Storage::putFileAs('public/tmp', $file, $file_name);
             }
 
-            return response()->json(['image' => env('APP_URL') . '/storage/tmp/' . $file_name, 'name' => $file_name], 201);
+            return response()->json(['status' => 1], 201);
         } catch (ErrorException $e) {
-            return response()->json(['status' => 0], 400);
+            return response()->json(['status' => 0], 402);
         }
     }
 
@@ -251,11 +258,25 @@ class LessonsController extends Controller
         try {
             Storage::delete('public/lesson_video/' . $video->name);
 
-            $video->delete();
+            $video->update(['name' => '', 'mime_type' => '']);
 
             return response()->json([], 202);
         } catch (\ErrorException $e) {
             return response()->json([], 406);
         }
     }
+    public function youtube(LessonVideo $lessonVideo, Request $request, $id)
+    {
+        $item = $request->input();
+        if($lessonVideo->where(['id' => $id])->update(['youtube' => $item['youtube']])){
+            return response()->json(['status' => $item], 202);
+
+        }
+        else{
+            return response()->json(['status' => 0], 406);
+
+        }
+
+    }
+
 }
