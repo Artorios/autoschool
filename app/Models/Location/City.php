@@ -6,6 +6,7 @@ use App\Models\Location\Traits\Relationship\CityRelationship;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
+
 /**
  * Class City
  * @package App\Models\Location
