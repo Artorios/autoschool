@@ -400,6 +400,10 @@
             }
         }
     }
+    $(document).ready(function(){
+        $('.vjs-big-play-button').css({"top":"45%", "left": "45%"});
+    });
+
 </script>
 
 <style lang="scss" scoped>
@@ -410,5 +414,10 @@
             top: 0;
             right: 0px;
         }
+
+    }
+    .video-js{
+        width: 100% !important;
+        height: 360px!important;
     }
 </style>
