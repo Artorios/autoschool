@@ -30,7 +30,7 @@
         </div>
         <div class="btn-wrapper">
             <a href="#" class="btn-grey" @click.prevent="prevQuestion">Назад</a>
-            <a href="#" class="btn-grey" v-if="(type == 'training' || type == 'withComment') && setAnswer" @click.prevent="nextQuestion">Далее</a>
+            <a href="#" class="btn-grey" v-if="(type == 'training' || type == 'withComment' || type == 'exam') && checkedQuestion.has_answer" @click.prevent="nextQuestion">Далее</a>
             <a href="#" class="btn-grey" v-if="!setAnswer && !checkedQuestion.has_answer" @click.prevent="setAnswerFunc">Ответить</a>
         </div>
     </div>
@@ -116,7 +116,7 @@
                 }
             },
             setAnswerFunc () {
-                Events.$emit('set-answer', this.userAnswer, this.questionStart);
+                Events.$emit('set-answer', this.userAnswer);
             },
             setAnswerData (data) {
                 if (this.type === 'training' || this.type === 'withComment') {

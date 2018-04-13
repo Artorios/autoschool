@@ -152,8 +152,41 @@ class LessonController extends Controller
         $lesson           = Lesson::find($training->lesson_id);
         $questions        = $lesson->questions->load('answers');
         $user_questions   = $training->questions;
-        $training         = $training->type === 'exam' ? 0 : 1;
+        $training         = $training->type;
         $return_questions = [];
+        $lessons          = [];
+
+        if($training === "group"){
+            $group_limit = 3;
+            $lessons     = Lesson::with('questions')
+                ->where('id', '<=', $lesson->lesson_num)
+                ->limit($group_limit)
+                ->offset($lesson->lesson_num - $group_limit)
+                ->get();
+
+            $questions = [];
+
+            foreach ($lessons as $item) {
+                $question_per_lesson = $item->questions->load('answers');
+                foreach ($question_per_lesson as $one_question){
+                    array_push($questions, $one_question);
+                }
+
+            }
+
+            $temp_array = array();
+            $i = 0;
+            $key_array = array();
+
+            foreach($questions as $val) {
+                if (!in_array($val['id'], $key_array)) {
+                    $key_array[$i] = $val['id'];
+                    $temp_array[$i] = $val;
+                }
+                $i++;
+            }
+            $questions = $temp_array;
+        }
 
         foreach ($user_questions as $user_question) {
             foreach ($questions as $question) {
@@ -172,7 +205,7 @@ class LessonController extends Controller
             }
         }
 
-        return view('account.lessons.analysis', compact('return_questions', 'lesson', 'training'));
+        return view('account.lessons.analysis', compact('return_questions', 'lessons', 'lesson', 'training'));
     }
 
     /**
@@ -289,5 +322,17 @@ class LessonController extends Controller
         }
 
         return response()->json(['date' => $date, 'time' => $time, 'day' => $day, 'leftDay' => $leftDay]);
+    }
+
+    public function getGroupLessons(Request $request)
+    {
+        $group_limit = 3;
+        $lessons     = Lesson::with('questions')
+            ->where('id', '<=', $request->lesson_num)
+            ->limit($group_limit)
+            ->offset($request->lesson_num - $group_limit)
+            ->get();
+
+        return response()->json(['lessons' => $lessons], 200);
     }
 }
