@@ -31,8 +31,9 @@ class LessonsController extends Controller
             'title'         => 'required|string',
             'description'   => 'required|string',
             'lesson_num'    => 'required|integer',
-            'videos'        => 'required|array',
-            'videos.*.name' => 'required|string',
+            'youtube'    => 'required|string',
+            'videos'        => 'array',
+            'videos.*.name' => 'string',
         ]);
 
         if (count($validator->errors())) {
@@ -42,16 +43,22 @@ class LessonsController extends Controller
         $lesson = Lesson::create($request->only(['title', 'description', 'lesson_num']));
 
         $videos = $request->input('videos');
-
-        foreach ($videos as $video) {
-            $file_data              = [];
-            $file_data['mime_type'] = (string) Storage::disk('public')->mimeType('tmp/' . $video['name']);
-            $file_data['name']      = $video['name'];
-
-            $video_data = $lesson->videos()->create($file_data);
-
-            Storage::move('public/tmp/' . $video['name'], 'public/lesson_video/' . $video_data->id . '/' . $video['name']);
+        $youtube = $request->input('youtube');
+        if(!empty($youtube)){
+            $lesson->videos()->create(['youtube' => $youtube, ]);
         }
+        if(!empty($videos)){
+            foreach ($videos as $video) {
+                $file_data              = [];
+                $file_data['mime_type'] = (string) Storage::disk('public')->mimeType('tmp/' . $video['name']);
+                $file_data['name']      = $video['name'];
+
+                $video_data = $lesson->videos()->create($file_data);
+
+                Storage::move('public/tmp/' . $video['name'], 'public/lesson_video/' . $video_data->id . '/' . $video['name']);
+            }
+        }
+
 
         return response()->json(['status' => 1], 201);
     }

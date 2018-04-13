@@ -223,7 +223,7 @@
                     poster: "/static/images/author.jpg",
 
                 },
-                youtube: {video: this.lesson.videos[0].youtube},
+                youtube: this.lesson.videos[0].youtube ? {video: this.lesson.videos[0].youtube} : {video: ''},
                 videoOptionsYT: '{ "techOrder": ["youtube"], "controls": "true", "playbackRates": ["0.7", "1.0", "1.5", "2.0"],   "language": "ru", "sources": [{ "type": "video/youtube", "src": "'+this.lesson.videos[0].youtube+'"}] }',
                 page: 0,
                 dataQuestions: this.questions,

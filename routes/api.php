@@ -20,6 +20,7 @@ Route::get('/settings-all', function () {
 
 Route::get('/get-region-prices', 'HomeController@getRegionPrices');
 Route::post('/test-kassa', 'HomeController@testKassa');
+Route::get('/search', 'HomeController@search');
 
 Route::group(['prefix' => 'address'], function () {
     Route::post('/get-regions', 'AddressController@regions');

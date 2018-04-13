@@ -30,11 +30,11 @@ class UserLessonController extends Controller
         $user_training = $user->lessonsTrainings()->where([
             'lesson_id' => $lesson->id,
             'type'      => 'training',
-            'status'    => null,
+            'status'    => 'stop',
         ])->first();
 
         if ( ! $user_training) {
-            $user_training = $user->lessonsTrainings()->create(['lesson_id' => $lesson->id, 'type' => 'training']);
+            $user_training = $user->lessonsTrainings()->create(['lesson_id' => $lesson->id, 'type' => 'training', 'status' => 'stop']);
         } else {
             $done_questions = $user_training->questions()->get()->pluck('question_id');
         }
@@ -42,12 +42,12 @@ class UserLessonController extends Controller
         if (isset($done_questions) && count($done_questions)) {
             $questions = $lesson->questions()->whereNotIn('question_id', $done_questions)->get()->load('answers');
         } else {
-            $questions = $lesson->questions->load('answers');
+            $questions = $lesson->questions()->get()->load('answers');
         }
 
         $settings_training = LessonsSettings::where('key', 'training_time')->first();
         $time              = (integer) $settings_training->value * count($questions) ?? count($questions) * 1;
-
+//        $questions = $lesson->questions();
         return view('account.lessons.training', compact('questions', 'lesson', 'user_training', 'time'));
     }
 
@@ -88,11 +88,19 @@ class UserLessonController extends Controller
         if ( ! $user->lessonsTrainings()->find($training->id)) {
             return response()->json([], 406);
         }
-
-        $check_training          = new CheckTraining($training);
-        $response                = $check_training->check();
+        $lesson = Lesson::find($training->lesson_id);
         $response['right_count'] = $training->questions()->where('correct', 1)->count();
         $response['all_count']   = $training->questions()->count();
+        $response['errors_num'] =  $lesson->training_errors_num;
+
+        if($response['right_count'] >= $response['all_count']-$response['errors_num']){
+            $response['complete'] = 1;
+            $response['status']      = 'passed';
+        }
+        else{
+            $response['status']      = 'failed';
+
+        }
 
         $training->status = $response['status'];
 
@@ -171,11 +179,19 @@ class UserLessonController extends Controller
 
         $lesson = Lesson::find($training->lesson_id);
 
-        $check_training = new CheckTraining($training);
-
-        $response = $check_training->check($request->input('lesson_ids'));
-
         $response['right_count'] = $training->questions()->where('correct', 1)->count();
+        $response['all_count'] = $lesson->questions()->count();
+        $response['errors_num'] = $lesson->exam_errors_num;
+        if($response['all_count']-$response['errors_num'] <= $response['right_count']){
+            $response['status'] = 'passed';
+            $response['complete'] = 1;
+
+        }
+        else{
+            $response['status'] = 'failed';
+        }
+
+
 
         $training->status = $response['status'];
 

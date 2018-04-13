@@ -28,6 +28,10 @@
                                 <label>Загрузить видео к уроку*</label>
                                 <input type="file" @change="loadFile" class="form-control">
                             </div>
+                            <div class="form-group">
+                                <label>Видео YouTube*</label>
+                                <input type="text" class="form-control" v-model="data.youtube">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,7 +47,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import {Events} from "../../app";
     export default {
         data () {
@@ -52,6 +56,7 @@
                     title: '',
                     description: '',
                     lesson_num: '',
+                    youtube: '',
                     videos: []
                 },
                 errorEdit: false
