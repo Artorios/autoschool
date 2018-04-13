@@ -88,12 +88,13 @@ class UserLessonController extends Controller
         if ( ! $user->lessonsTrainings()->find($training->id)) {
             return response()->json([], 406);
         }
-
+        $lesson = Lesson::find($training->lesson_id);
         $response['right_count'] = $training->questions()->where('correct', 1)->count();
         $response['all_count']   = $training->questions()->count();
-        $response['errors_num'] = $lesson->training_errors_num;
+        $response['errors_num'] =  $lesson->training_errors_num;
 
         if($response['right_count'] >= $response['all_count']-$response['errors_num']){
+            $response['complete'] = 1;
             $response['status']      = 'passed';
         }
         else{
@@ -183,6 +184,8 @@ class UserLessonController extends Controller
         $response['errors_num'] = $lesson->exam_errors_num;
         if($response['all_count']-$response['errors_num'] <= $response['right_count']){
             $response['status'] = 'passed';
+            $response['complete'] = 1;
+
         }
         else{
             $response['status'] = 'failed';
