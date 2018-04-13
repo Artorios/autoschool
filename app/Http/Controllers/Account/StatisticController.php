@@ -40,7 +40,7 @@ class StatisticController extends Controller
                  $countTests = $user->lessonsTrainings()->where(['lesson_id' => $returnLessons[$key]['id']])->get();
                  $countTests = count($countTests);
                  if(!empty($countTests)){
-                     $idLessonTrains = $user->lessonsTrainings()->where(['lesson_id' => $returnLessons[$key]['id']])->get();
+                     $idLessonTrains = $user->lessonsTrainings()->where(['lesson_id' => $returnLessons[$key]['id']])->orderBy('id', 'ASC')->get();
                      foreach ($idLessonTrains as $key1 => $idLessonTrain){
                          $returnResult[$returnLessons[$key]['id']]['idLessonTrain'][$key1] = $idLessonTrain;
 
