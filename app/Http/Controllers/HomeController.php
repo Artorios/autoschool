@@ -31,8 +31,6 @@ class HomeController extends Controller
     {
         $regions = Region::with('citiesMain')->whereHas('citiesMain')->get();
 
-        //dd($regions->toArray());
-
         return response()->json(['regions' => $regions], 200);
     }
 
@@ -62,5 +60,25 @@ class HomeController extends Controller
         $response = $connect->get($url,$data);
 
         dd($response->getStatusCode());
+    }
+
+    /**
+     * Search by cities table.
+     *
+     * @param  Request $request
+     * @return mixed
+     */
+    public function search(Request $request)
+    {
+        $error = ['error' => 'Невозможно найти город!'];
+
+        if ($request->has('q')) {
+
+            $posts = City::search($request->get('q'))->where('show_city', 1)->get();
+
+            return $posts->count() ? $posts : $error;
+        }
+
+        return $error;
     }
 }
