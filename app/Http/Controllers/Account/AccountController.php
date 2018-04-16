@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 /**
  * Class AccountController
@@ -88,5 +89,46 @@ class AccountController extends Controller
 
         return response()->json(['status' => 0], 400);
 
+    }
+
+    public function saveProfileImage(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($request->hasFile('img')){
+            $file = $request->file('img');
+
+            $validator = Validator::make($request->all(), [
+                'img'     => 'required|mimes:jpeg,bmp,png',
+            ]);
+
+            if (count($validator->errors())) {
+                return response()->json(['errors' => $validator->errors()], 400);
+            }
+
+            try {
+                $file_name = sha1_file($file) . $file->getCTime() . '.' . $file->getClientOriginalExtension();
+                Storage::putFileAs('public/user', $file, $file_name);
+                if($user->image && 'public/user/' . $user->image){
+                   //delete photo
+                    Storage::delete('public/user/' . $user->image);
+//                    unlink('public/user' . $user->image);
+                }
+                $user->update(['image' => $file_name]);
+                return response()->json(['status' => 1], 201);
+            } catch (ErrorException $e) {
+                return response()->json(['status' => 0], 402);
+            }
+            return response()->json(['status' => 6], 200);
+        }
+
+
+
+
+
+
+
+
+//        return response()->json(['status' => 0], 200);
     }
 }

@@ -37,7 +37,8 @@ class User extends Authenticatable
         'confirmation_code',
         'auto_school_group_id',
         'license',
-        'city_id'
+        'city_id',
+        'image'
     ];
 
     /**

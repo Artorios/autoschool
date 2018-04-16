@@ -84,6 +84,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     Route::post('/edit-profile', 'AccountController@updateProfile');
     Route::post('/edit-pass', 'AccountController@updatePassword');
     Route::post('/edit-notify-settings', 'AccountController@editNotifySettings');
+    Route::post('/profile-save-image', 'AccountController@saveProfileImage');
 
     Route::get('/auth-info-acc', function (){
         $user = Auth::user();
@@ -97,8 +98,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::post('card-payment', 'OrderController@cardPayment')->name('account.finance.cardpayment');
 
     });
-
-
 
     Route::get('/lessons', 'LessonController@index')->name('user.lessons');
     Route::get('/get-count-lessons', 'LessonController@getCountLesson');
@@ -152,9 +151,9 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::get('/analysis/{id}', 'ExamsController@analysis');
         Route::post('/test/{training}/check-exam', 'ExamsController@checkExam');
         Route::post('/test/{training}/send-answer', 'ExamsController@checkAnswerExam');
-
-
     });
+
+
     });
 
 Route::post('get-price', 'Site\PriceController@getPrice');
