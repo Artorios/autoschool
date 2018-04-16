@@ -1,37 +1,13 @@
 @extends('layouts.autoschool')
 @section('content')
-
+{{--    {{dd(Auth::user()->autoschool)}}--}}
     <div class="content error profile autoschool">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="#">Главная</a></li>
+                <li><a href="/autoschool">Главная</a></li>
             </ul>
         </div>
-        <div class="numberpeople">
-            <div class="info row no-gutters-xs">
-                <div class="col-xs-6 col-md-4">
-                    <div class="block">
-                        <h3>Количество учеников:</h3>
-                        <span class="number">42</span>
-                    </div>
-
-                </div>
-                <div class="col-xs-6  col-md-4">
-                    <div class="block">
-                        <h3>Количество свободных купонов:</h3>
-                        <span class="number">15</span>
-                    </div>
-
-                </div>
-                <div class="col-xs-6 col-md-4">
-                    <div class="block">
-                        <h3>Общий доход филиала:</h3>
-                        <span class="number">1000000</span>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <block-statistic></block-statistic>
         <div class="blockgroupe">
             <h2>Группы:</h2>
 
@@ -70,10 +46,10 @@
         <div class="invitegroupe">
             <ul class="pagination">
                 <li class="page-item">
-                    <a :class="[{active: currentPage === 1}, 'page-link']" href="#">1</a>
-                    <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">2</a>
-                    <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">3</a>
-                    <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">4</a>
+                    {{--<a :class="[{active: currentPage === 1}, 'page-link']" href="#">1</a>--}}
+                    {{--<a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">2</a>--}}
+                    {{--<a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">3</a>--}}
+                    {{--<a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">4</a>--}}
                 </li>
             </ul>
             <div class="btn-wrapper">

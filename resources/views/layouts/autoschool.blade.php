@@ -27,67 +27,74 @@
     <![endif]-->
 </head>
 <body>
-<header class="inner">
-    <div class="container">
-        <div class="logo">
-            <a href="#"><img src="/img/logo.png" alt=""></a>
-        </div>
-        <div class="menu-toggle-wrapper">
-            <div class="menu-toggle" data-toggle="collapse" data-target="#sbMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        <div class="right">
-            <a href="{{route('autoschool.edit')}}" class="student-info" style="color: black">
-                <div class="student-info">
-                    <div class="img">
-                        <img src="/img/profile-photo.png" alt="">
-                    </div>
-                    <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschoolgroup()->first()->auto_school_id)->title}}<img src="/img/arrow-down.png"></h3>
-                    <span>Комиссия 10 000 руб.</span>
-                </div>
-            </a>
-            <a href="{{route('autoschool.notify')}}" class="notes">
-                <img src="/img/bell.png" alt="">
-                <span class="number">
+<div id="app">
+   <div>
+       <header class="inner">
+           <div class="container">
+               <div class="logo">
+                   <a href="/"><img src="/img/logo.png" alt=""></a>
+               </div>
+               <div class="menu-toggle-wrapper">
+                   <div class="menu-toggle" data-toggle="collapse" data-target="#sbMenu">
+                       <span></span>
+                       <span></span>
+                       <span></span>
+                   </div>
+               </div>
+               <div class="right">
+                   <a href="{{route('autoschool.edit')}}" class="student-info" style="color: black">
+                       <div class="student-info">
+                           <div class="img">
+                               <img src="/img/profile-photo.png" alt="">
+                           </div>
+                           <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->title}}<img src="/img/arrow-down.png"></h3>
+                           <span>Комиссия 10 000 руб.</span>
+                       </div>
+                   </a>
+                   <a href="{{route('autoschool.notify')}}" class="notes">
+                       <img src="/img/bell.png" alt="">
+                       <span class="number">
                     {{count(\App\Models\User\Notification::where(['user_id' => Auth::user()->id, 'status' => '1'])->get())}}</span>
-                <span class="title">Уведомления</span>
-            </a>
-            <a href="{{route('faq')}}" class="help">
-                <img src="/img/help.png" alt="">
-            </a>
-        </div>
-    </div>
-</header>
+                       <span class="title">Уведомления</span>
+                   </a>
+                   <a href="{{route('faq')}}" class="help">
+                       <img src="/img/help.png" alt="">
+                   </a>
+               </div>
+           </div>
+       </header>
 
-<div class="inner-main-content">
-    <div class="container">
-        <div class="sidebar collapse" id="sbMenu">
-            <ul>
-                <li class="{{Route::currentRouteName() === 'autoschool.index' ? 'active' : ''}}">
-                    <a href="{{route('autoschool.index')}}"><img src="/img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
-                </li>
-                <li class="{{
+       <div class="inner-main-content">
+           <div class="container">
+               <div class="sidebar collapse" id="sbMenu">
+                   <ul>
+                       <li class="{{Route::currentRouteName() === 'autoschool.index' ? 'active' : ''}}">
+                           <a href="{{route('autoschool.index')}}"><img src="/img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
+                       </li>
+                       <li class="{{
                                     Route::currentRouteName() === 'autoschool.branch' ? 'active' : ''}}">
-                    <a href="{{route('autoschool.branch')}}"><img src="/img/location.png" alt=""><span class="text">Филиалы</span></a>
-                </li>
-                <li class="{{Route::currentRouteName() === 'autoschool.coupons' ? 'active' : ''}}">
-                    <a href="{{route('autoschool.coupons')}}"><img src="/img/menu-ico4.png" alt=""><span class="text">Купоны</span></a>
-                </li>
-                <li class="{{
+                           <a href="{{route('autoschool.branch')}}"><img src="/img/location.png" alt=""><span class="text">Филиалы</span></a>
+                       </li>
+                       <li class="{{Route::currentRouteName() === 'autoschool.coupons' ? 'active' : ''}}">
+                           <a href="{{route('autoschool.coupons')}}"><img src="/img/menu-ico4.png" alt=""><span class="text">Купоны</span></a>
+                       </li>
+                       <li class="{{
                                     Route::currentRouteName() === 'autoschool.finance' ? 'active' : ''}}">
-                    <a href="{{route('autoschool.finance')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Финансы</span></a>
-                </li>
-                <li class="{{
+                           <a href="{{route('autoschool.finance')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Финансы</span></a>
+                       </li>
+                       <li class="{{
                                     Route::currentRouteName() === 'autoschool.history' ? 'active' : ''}}">
-                    <a href="{{route('autoschool.history')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">История</span></a>
-                </li>
-            </ul>
-        </div>
+                           <a href="{{route('autoschool.history')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">История</span></a>
+                       </li>
+                   </ul>
+               </div>
 
-@yield('content')
+               @yield('content')
+           </div>
+       </div>
+   </div>
+</div>
+
 
 
         <footer class="inner">
@@ -102,20 +109,21 @@
                 </div>
             </div>
         </footer>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/jquery.selectric.min.js"></script>
-        <script type="text/javascript" src="/js/slick.js"></script>
-        <script src="/js/scripts.js"></script>
-        <script src="/js/account.js"></script>
-        <script src="/less/less.js"></script>
-        @stack('scripts')
-        <script src="{{ asset('js/jquery.matchHeight-min.js') }}"></script>
-        <script>
-            $(document).ready(function(){
-                $('.ticket-inner').matchHeight();
-            });
-        </script>
+
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.selectric.min.js"></script>
+<script type="text/javascript" src="/js/slick.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/autoschool.js"></script>
+<script src="/less/less.js"></script>
+@stack('scripts')
+<script src="{{ asset('js/jquery.matchHeight-min.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $('.ticket-inner').matchHeight();
+    });
+</script>
 </html>

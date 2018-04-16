@@ -49,6 +49,11 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
 
 
+
+    Route::post('/get-count-main', 'AutoschoolController@getCountMain');
+
+
+
     Route::view('faq', 'autoschool.faq')->name('faq');
 
 });

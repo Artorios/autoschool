@@ -32,7 +32,7 @@
     <header class="inner">
         <div class="container">
             <div class="logo">
-                <a href="/account"><img src="/img/logo.png" alt=""></a>
+                <a href="/"><img src="/img/logo.png" alt=""></a>
             </div>
             <div class="menu-toggle-wrapper">
                 <div class="menu-toggle" data-toggle="collapse" data-target="#sbMenu">

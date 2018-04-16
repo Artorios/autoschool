@@ -25,15 +25,15 @@
         <div class="form-group">
             <label>Город: </label>
             <select class="select" id="city">
-                <option v-for="city in cities" :selected="city.id === user.city_id"  v-bind:value="city.id"  >{{city.name}}</option>
+                <option v-for="city in cities" :selected="city.id == user.city_id"  v-bind:value="city.id"  >{{city.name}}</option>
             </select>
         </div>
         <div class="form-group">
             <label>Категория:</label>
             <select class="select" id="license">
-                <option value="A" :selected="user.license == 'A'">A</option>
-                <option value="B" :selected="user.license == 'B'">B</option>
-                <option value="C" :selected="user.license == 'C'">C</option>
+                <option value="A" :selected="user.license === 'A'">A</option>
+                <option value="B" :selected="user.license === 'B'">B</option>
+                <option value="C" :selected="user.license === 'C'">C</option>
             </select>
         </div>
         <button type="submit" class="btn-grey">Сохранить изменения</button>

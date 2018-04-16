@@ -8,6 +8,9 @@ use App\Models\User\Traits\Relationship\UserRelationship;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Training\School\AutoSchool;
+use App\Models\Training\School\AutoSchoolGroup;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class User
@@ -46,9 +49,16 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $appends = ['autoschool'];
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    public function getAutoschoolAttribute()
+    {
+        $id = AutoSchool::find(AutoSchoolGroup::find(Auth::user()->auto_school_group_id)->first()->auto_school_id)->id;
+        return $id;
+    }
 
 }
