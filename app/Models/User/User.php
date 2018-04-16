@@ -56,8 +56,12 @@ class User extends Authenticatable
     ];
 
     public function getAutoschoolAttribute()
-    {
+    {   if(!empty(Auth::user()->auto_school_group_id)){
         $id = AutoSchool::find(AutoSchoolGroup::find(Auth::user()->auto_school_group_id)->first()->auto_school_id)->id;
+    }
+    else{
+        return false;
+    }
         return $id;
     }
 
