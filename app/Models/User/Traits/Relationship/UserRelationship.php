@@ -6,6 +6,7 @@ use App\Models\Location\City;
 use App\Models\Training\Exam\Exam;
 use App\Models\Training\Lesson\Lesson;
 use App\Models\Training\Lesson\LessonVideo;
+use App\Models\Training\School\AutoSchoolGroup;
 use App\Models\User\Contract;
 use App\Models\User\SocialAccount;
 use App\Models\User\UserSettings;
@@ -79,4 +80,12 @@ trait UserRelationship
     {
         return $this->hasOne(Contract::class);
     }
+
+    public function autoschoolgroup(){
+        return $this->hasOne(AutoSchoolGroup::class, 'id', 'auto_school_group_id');
+    }
+
+
+
+
 }

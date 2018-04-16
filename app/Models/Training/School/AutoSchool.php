@@ -6,7 +6,7 @@ use App\Models\Training\School\Traits\Relationship\AutoSchoolRelationship;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class AutoSchool
+ * Class Autoschool
  * @package App\Models\Training\School
  */
 class AutoSchool extends Model

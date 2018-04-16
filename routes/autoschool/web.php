@@ -17,11 +17,40 @@ use App\Models\User\UserLesson;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware' => 'auth'], function (){
+Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware' => ['auth', 'autoschool']], function (){
 
     Route::get('/', function () {
         return view('autoschool.index.index');
-        })->name('autoschool.index');
-    });
+    })->name('autoschool.index');
+
+    Route::get('/branch', function () {
+        return view('autoschool.index.index');
+    })->name('autoschool.branch');
+
+    Route::get('/coupons', function () {
+        return view('autoschool.index.index');
+    })->name('autoschool.coupons');
+
+    Route::get('/finance', function () {
+        return view('autoschool.index.index');
+    })->name('autoschool.finance');
+
+    Route::get('/history', function () {
+        return view('autoschool.index.index');
+    })->name('autoschool.history');
+
+    Route::get('/profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
+
+
+    Route::get('/notifications', 'NotificationController@getPageNew')->name('autoschool.notify');
+    Route::get('/notifications-all', 'NotificationController@getPageAll')->name('autoschool.notify.all');
+
+
+
+
+
+    Route::view('faq', 'autoschool.faq')->name('faq');
+
+});
 
 ?>
