@@ -44,7 +44,11 @@
             <div class="right">
                 <a href="{{route('user.edit')}}" class="student-info" style="color: black">
                     <div class="img">
-                        <img src="/img/profile-photo.png" alt="">
+                        @if(Auth::user()->image)
+                            <img src="/storage/user/{{Auth::user()->image}}" alt="">
+                            @else
+                            <img src="/img/profile-photo.png" alt="">
+                        @endif
                     </div>
                     <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="/img/arrow-down.png"></h3>
                     <span>Группа № {{Auth::user()->auto_school_group_id}}</span>

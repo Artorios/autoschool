@@ -30,7 +30,7 @@
 <header class="inner">
     <div class="container">
         <div class="logo">
-            <a href="#"><img src="img/logo.png" alt=""></a>
+            <a href="#"><img src="/img/logo.png" alt=""></a>
         </div>
         <div class="menu-toggle-wrapper">
             <div class="menu-toggle" data-toggle="collapse" data-target="#sbMenu">
@@ -40,20 +40,23 @@
             </div>
         </div>
         <div class="right">
-            <div class="student-info">
-                <div class="img">
-                    <img src="img/profile-photo.png" alt="">
+            <a href="{{route('autoschool.edit')}}" class="student-info" style="color: black">
+                <div class="student-info">
+                    <div class="img">
+                        <img src="/img/profile-photo.png" alt="">
+                    </div>
+                    <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschoolgroup()->first()->auto_school_id)->title}}<img src="/img/arrow-down.png"></h3>
+                    <span>Комиссия 10 000 руб.</span>
                 </div>
-                <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="img/arrow-down.png"></h3>
-                <span>Группа № 123</span>
-            </div>
-            <a href="#" class="notes">
-                <img src="img/bell.png" alt="">
-                <span class="number">25</span>
+            </a>
+            <a href="{{route('autoschool.notify')}}" class="notes">
+                <img src="/img/bell.png" alt="">
+                <span class="number">
+                    {{count(\App\Models\User\Notification::where(['user_id' => Auth::user()->id, 'status' => '1'])->get())}}</span>
                 <span class="title">Уведомления</span>
             </a>
-            <a href="#" class="help">
-                <img src="img/help.png" alt="">
+            <a href="{{route('faq')}}" class="help">
+                <img src="/img/help.png" alt="">
             </a>
         </div>
     </div>
@@ -63,20 +66,23 @@
     <div class="container">
         <div class="sidebar collapse" id="sbMenu">
             <ul>
-                <li class="active">
-                    <a href="#"><img src="img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
+                <li class="{{Route::currentRouteName() === 'autoschool.index' ? 'active' : ''}}">
+                    <a href="{{route('autoschool.index')}}"><img src="/img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
                 </li>
-                <li>
-                    <a href="#"><img src="img/menu-ico2.png" alt=""><span class="text">Филиалы</span></a>
+                <li class="{{
+                                    Route::currentRouteName() === 'autoschool.branch' ? 'active' : ''}}">
+                    <a href="{{route('autoschool.branch')}}"><img src="/img/location.png" alt=""><span class="text">Филиалы</span></a>
                 </li>
-                <li>
-                    <a href="#"><img src="img/menu-ico3.png" alt=""><span class="text">Купоны</span></a>
+                <li class="{{Route::currentRouteName() === 'autoschool.coupons' ? 'active' : ''}}">
+                    <a href="{{route('autoschool.coupons')}}"><img src="/img/menu-ico4.png" alt=""><span class="text">Купоны</span></a>
                 </li>
-                <li>
-                    <a href="#"><img src="img/menu-ico6.png" alt=""><span class="text">Финансы</span></a>
+                <li class="{{
+                                    Route::currentRouteName() === 'autoschool.finance' ? 'active' : ''}}">
+                    <a href="{{route('autoschool.finance')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Финансы</span></a>
                 </li>
-                <li>
-                    <a href="#"><img src="img/menu-ico5.png" alt=""><span class="text">История</span></a>
+                <li class="{{
+                                    Route::currentRouteName() === 'autoschool.history' ? 'active' : ''}}">
+                    <a href="{{route('autoschool.history')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">История</span></a>
                 </li>
             </ul>
         </div>

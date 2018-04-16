@@ -47,17 +47,20 @@
                 <div class="right">
                     @if(Auth::check())
                         @if(Auth::user()->isAdmin())
-                            <a href="{{route('admin.users')}}"><img src="img/lock.png" alt="">Админ панель</a>
+                            <a href="{{route('admin.users')}}"><img src="/img/lock.png" alt="">Админ панель</a>
+                            <a href="{{route('logout')}}">Выход</a>
+                            @elseif(Auth::user()->role == 'autoschool')
+                            <a href="{{route('autoschool.index')}}"><img src="/img/lock.png" alt="">Кабинет автошколы</a>
                             <a href="{{route('logout')}}">Выход</a>
                         @else
-                            <a href="{{route('user.account')}}"><img src="img/lock.png" alt="">Кабинет
+                            <a href="{{route('user.account')}}"><img src="/img/lock.png" alt="">Кабинет
                                 {{Auth::user()->name . ' ' . Auth::user()->last_name}}</a>
                             {{--<a href="#">Активировать купон</a>--}}
                             <a href="{{route('logout')}}">Выход</a>
                         @endif
 
                     @else
-                        <a href="{{route('authUser')}}"><img src="img/lock.png" alt="">Войти</a>
+                        <a href="{{route('authUser')}}"><img src="/img/lock.png" alt="">Войти</a>
                         <a href="#">Активировать купон</a>
                     @endif
                 </div>

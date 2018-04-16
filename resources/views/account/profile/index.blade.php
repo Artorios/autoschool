@@ -10,12 +10,7 @@
                 </ul>
             </div>
             <div class="info-card">
-                <div class="img">
-                    <img src="/img/img/prof-photo-full.png" alt="">
-                    <a href="#" class="photo-edit">
-                        <img src="/img/img/pencil.png" alt="">
-                    </a>
-                </div>
+                <profile-photo :user="{{json_encode(Auth::user())}}"></profile-photo>
                 <h3>{{Auth::user()->last_name.' '.Auth::user()->name}}<span>(ID {{Auth::user()->id}}) Группа №
                         @if(!empty(Auth::user()->auto_school_group_id))
                         {{Auth::user()->auto_school_group_id}}

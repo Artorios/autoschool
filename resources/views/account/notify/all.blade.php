@@ -3,7 +3,7 @@
     <div class="content error notice" id="app">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="#">Главная</a></li>
+                <li><a href="/account">Главная</a></li>
                 <li>Уведомления</li>
             </ul>
         </div>
