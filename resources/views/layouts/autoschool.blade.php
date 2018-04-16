@@ -67,19 +67,16 @@
                     <a href="#"><img src="img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
                 </li>
                 <li>
-                    <a href="#"><img src="img/menu-ico2.png" alt=""><span class="text">Успеваемость</span></a>
+                    <a href="#"><img src="img/menu-ico2.png" alt=""><span class="text">Филиалы</span></a>
                 </li>
                 <li>
-                    <a href="#"><img src="img/menu-ico3.png" alt=""><span class="text">Уроки</span><span class="number">25</span></a>
-                </li>
-                <li>
-                    <a href="#"><img src="img/menu-ico4.png" alt=""><span class="text">Билеты</span></a>
-                </li>
-                <li>
-                    <a href="#"><img src="img/menu-ico5.png" alt=""><span class="text">Экзамены</span></a>
+                    <a href="#"><img src="img/menu-ico3.png" alt=""><span class="text">Купоны</span></a>
                 </li>
                 <li>
                     <a href="#"><img src="img/menu-ico6.png" alt=""><span class="text">Финансы</span></a>
+                </li>
+                <li>
+                    <a href="#"><img src="img/menu-ico5.png" alt=""><span class="text">История</span></a>
                 </li>
             </ul>
         </div>
