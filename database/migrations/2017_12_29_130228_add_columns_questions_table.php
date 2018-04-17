@@ -14,8 +14,8 @@ class AddColumnsQuestionsTable extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->integer('ticket_num');
-            $table->integer('question_num');
+            $table->unsignedInteger('ticket_num');
+            $table->unsignedInteger('question_num');
         });
     }
 

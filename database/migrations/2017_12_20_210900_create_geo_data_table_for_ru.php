@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\{
+    DB, File, Schema
+};
 use Illuminate\Database\Migrations\Migration;
 
 class CreateGeoDataTableForRu extends Migration
@@ -15,7 +14,7 @@ class CreateGeoDataTableForRu extends Migration
      */
     public function up()
     {
-        DB::unprepared(File::get(database_path() . '/geo.sql'));
+        DB::unprepared(File::get(database_path() . '/sql/geo-structure.sql'));
     }
 
     /**

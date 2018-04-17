@@ -15,11 +15,10 @@ class CreateUserTicketsAnswersTable extends Migration
     {
         Schema::create('user_tickets_answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_tickets_id')->unsigned();
-            $table->foreign('user_tickets_id')->references('id')->on('user_tickets')->onDelete('cascade');
-            $table->tinyInteger('correct')->default(0);
-            $table->integer('question_id');
-            $table->integer('answer_id');
+            $table->unsignedInteger('user_tickets_id');
+            $table->unsignedTinyInteger('correct')->default(0);
+            $table->unsignedInteger('question_id');
+            $table->unsignedInteger('answer_id');
             $table->timestamps();
         });
     }

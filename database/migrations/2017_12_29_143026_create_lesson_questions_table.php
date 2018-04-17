@@ -15,10 +15,8 @@ class CreateLessonQuestionsTable extends Migration
     {
         Schema::create('lesson_questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('question_id')->unsigned();
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->integer('lesson_id')->unsigned();
-            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+            $table->unsignedInteger('question_id');
+            $table->unsignedInteger('lesson_id');
             $table->timestamps();
         });
     }

@@ -14,8 +14,8 @@ class AddColumnsForLessonsTable extends Migration
     public function up()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->integer('training_errors_num')->default(3);
-            $table->integer('exam_errors_num')->default(3);
+            $table->unsignedInteger('training_errors_num')->default(3);
+            $table->unsignedInteger('exam_errors_num')->default(3);
         });
     }
 

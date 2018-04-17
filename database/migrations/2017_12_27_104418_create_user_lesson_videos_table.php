@@ -15,12 +15,10 @@ class CreateUserLessonVideosTable extends Migration
     {
         Schema::create('user_lesson_videos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lesson_video_id')->unsigned();
-            $table->foreign('lesson_video_id')->references('id')->on('lesson_videos')->onDelete('cascade');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('lesson_video_id');
+            $table->unsignedInteger('user_id');
             $table->string('time_stop_view')->nullable();
-            $table->tinyInteger('viewed')->default(0);
+            $table->unsignedTinyInteger('viewed')->default(0);
             $table->timestamps();
         });
     }

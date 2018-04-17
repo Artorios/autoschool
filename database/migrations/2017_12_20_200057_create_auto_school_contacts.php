@@ -15,8 +15,7 @@ class CreateAutoSchoolContacts extends Migration
     {
         Schema::create('auto_school_contacts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('auto_school_id')->unsigned();
-            $table->foreign('auto_school_id')->references('id')->on('auto_schools')->onDelete('cascade');
+            $table->unsignedInteger('auto_school_id');
             $table->enum('type', ['address', 'phone']);
             $table->string('value');
             $table->timestamps();

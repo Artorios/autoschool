@@ -14,9 +14,9 @@ class AddGroupInUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('auto_school_group_id')->nullable();
+            $table->unsignedInteger('auto_school_group_id')->nullable();
             $table->string('license')->nullable();
-            $table->integer('city_id')->nullable();
+            $table->unsignedInteger('city_id')->nullable();
 
 
         });

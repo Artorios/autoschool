@@ -14,8 +14,7 @@ class AddCityForAutoSchools extends Migration
     public function up()
     {
         Schema::table('auto_schools', function (Blueprint $table) {
-            $table->integer('city_id')->nullable();
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->unsignedInteger('city_id')->nullable();
         });
     }
 

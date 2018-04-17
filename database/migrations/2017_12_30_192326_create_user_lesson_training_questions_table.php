@@ -15,11 +15,10 @@ class CreateUserLessonTrainingQuestionsTable extends Migration
     {
         Schema::create('user_lesson_training_questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_lesson_training_id')->unsigned();
-            $table->foreign('user_lesson_training_id')->references('id')->on('user_lesson_trainings')->onDelete('cascade');
-            $table->integer('question_id');
-            $table->integer('answer_id');
-            $table->tinyInteger('correct');
+            $table->unsignedInteger('user_lesson_training_id');
+            $table->unsignedInteger('question_id');
+            $table->unsignedInteger('answer_id');
+            $table->unsignedTinyInteger('correct');
             $table->timestamps();
         });
     }

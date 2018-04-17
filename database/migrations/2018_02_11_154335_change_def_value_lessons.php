@@ -14,7 +14,7 @@ class ChangeDefValueLessons extends Migration
     public function up()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->integer('exam_errors_num')->change()->default(10);
+            $table->unsignedInteger('exam_errors_num')->change()->default(10);
         });
     }
 

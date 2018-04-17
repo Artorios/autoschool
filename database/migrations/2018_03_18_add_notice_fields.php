@@ -14,8 +14,8 @@ class NoticeFields extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-			$table->char('email_notice', 1)->after('license_category');
-            $table->char('sms_notice', 1)->after('email_notice');
+			$table->char('email_notice', 1)->after('phone');
+            $table->char('sms_notice', 1)->after('phone');
 		});
     }
 

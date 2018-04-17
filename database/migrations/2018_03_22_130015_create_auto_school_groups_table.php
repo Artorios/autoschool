@@ -16,7 +16,7 @@ class CreateAutoSchoolGroupsTable extends Migration
         Schema::create('auto_school_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('auto_school_id');
+            $table->unsignedInteger('auto_school_id');
             $table->date('exam_date');
             $table->time('exam_time');
             $table->timestamps();

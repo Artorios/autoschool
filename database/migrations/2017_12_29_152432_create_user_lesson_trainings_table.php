@@ -15,11 +15,9 @@ class CreateUserLessonTrainingsTable extends Migration
     {
         Schema::create('user_lesson_trainings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lesson_id')->unsigned();
-            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->tinyInteger('complete')->default(0);
+            $table->unsignedInteger('lesson_id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedTinyInteger('complete')->default(0);
             $table->enum('type', ['training', 'exam']);
             $table->enum('status', ['passed', 'failed'])->nullable();
             $table->timestamps();

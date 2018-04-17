@@ -14,8 +14,7 @@ class AddLessonIdLessonVideos extends Migration
     public function up()
     {
         Schema::table('lesson_videos', function (Blueprint $table) {
-            $table->integer('lesson_id')->unsigned();
-            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+            $table->unsignedInteger('lesson_id');
         });
     }
 
