@@ -1,33 +1,26 @@
-# README #
-
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
 ### How do I get set up? ###
 
-* Для установки:
-	* composer install
-	* Создаем .env файл из образца
-	* php artisan key:gen
-	* npm i
-	* cd public/
-	* bower install (for AdminLTE template)
-	* php artisan migrate
-	* php artisan db:seed
+* Installation:
+	* install docker and docker-compose
+	* `docker-compose up -d`
+	* `npm i && npm watch`
+	* Create .env file from source
+	* `docker-compose exec php-fpm composer install`
+	* `docker-compose exec php-fpm php artisan key:gen`
+	* `docker-compose exec mysql mysql -u root -proot_passw -h 127.0.0.1 app_db < database/geo-data.sql`
+	* `cd public && bower i` (for AdminLTE template)
+	* `docker-compose exec php-fpm php artisan migrate`
+	* `docker-compose exec php-fpm php artisan db:seed`
+	
 * Done...
 
 ### Vuejs commands (webpack) ###
 
-* Для билда проекта
-	* npm run dev (development mode)
-	* npm run watch (watcher)
-	* npm run production (production mode)
-	* npm run hot (hot reload)
+* Vue app build
+	* npm run dev        (development build mode)
+	* npm run watch      (live watcher)
+	* npm run production (production build mode)
+	* npm run hot        (hot reload)
 
 ### Ссылки ###
 
