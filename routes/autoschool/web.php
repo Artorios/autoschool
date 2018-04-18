@@ -28,7 +28,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     })->name('autoschool.branch');
 
     Route::get('/coupons', function () {
-        return view('autoschool.index.index');
+        return view('autoschool.coupons.index');
     })->name('autoschool.coupons');
 
     Route::get('/finance', function () {
