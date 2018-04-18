@@ -7,9 +7,8 @@ import EditNotifySettings from './components/UserComponent/edit-notify-settings'
 import NotifyAll from './AccountComponents/NotifyComponents/notify-all';
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
 import ProfilePhoto from './components/UserComponent/profile-photo';
-import ButtonAddGroup from './AutoschoolComponents/button-add-group';
 import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
-// import VueInputMask from 'vue-inputmask'
+import FilialGroups from './AutoschoolComponents/filial-groups'
 const VueInputMask = require('vue-inputmask').default
 Vue.use(VueInputMask);
 Vue.use(VueResource);
@@ -31,7 +30,7 @@ const app = new Vue({
         NotifyNew,
         NotifyAll,
         ProfilePhoto,
-        ButtonAddGroup,
-        ButtonAddFilial
+        ButtonAddFilial,
+        FilialGroups
     }
 });

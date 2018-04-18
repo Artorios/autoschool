@@ -78,12 +78,20 @@ class FilialController extends Controller
         }
 
         $group = AutoSchoolGroup::create([
-           'auto_school_filial_id' => Auth::user()->autoschoolgroup->autoschoolfilial->id,
+           'auto_school_filial_id' => $request->input('id'),
            'name' => $request->input('name'),
            'exam_date' => $request->input('exam_date'),
            'exam_time' => $request->input('exam_time')
         ]);
 
         return response()->json(['status' => 1, 'group' => $group], 201);
+    }
+
+    public function show($id)
+    {
+        $filial = AutoSchoolFilial::findOrFail($id);
+//        dd($filial->autoschoolgroups);
+//        $groups[0] = AutoSchoolGroup::where('auto_school_filial_id', '=', $id)->get();
+        return view('autoschool.filials.filial_groups', compact('filial'));
     }
 }

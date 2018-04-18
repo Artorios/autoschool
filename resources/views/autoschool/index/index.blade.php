@@ -22,7 +22,7 @@
                 @foreach($filials as $filial)
                 <div class="line">
                         <div class="number">{{$filial->id}}</div>
-                        <div class="name"><a href="/autoschool/">{{$filial->name}}</a></div>
+                        <div class="name"><a href="/autoschool/filials/{{$filial->id}}/">{{$filial->name}}</a></div>
                         <div class="data-and-time">
                             <span>{{$filial->address}}</span>
                         </div>

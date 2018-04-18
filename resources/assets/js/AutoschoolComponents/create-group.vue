@@ -31,7 +31,7 @@
                 data:{
                     name: "",
                     exam_date: "",
-                    exam_time: ""
+                    exam_time: "",
                 },
                 errors:{
                     name: false,
@@ -42,13 +42,14 @@
                 createErrors: []
             }
         },
+        props: ['filial'],
         methods: {
             sendDataToServer () {
                 if (this.validate()) return false
-
+                this.data.id = this.filial.id
                 this.$http.post('/autoschool/groups/create', this.data).then(res => {
                     if (res.status === 201) {
-                        location.href = '/autoschool'
+                        location.href = '/autoschool/filials/' + this.filial.id
                     }
                 }, err => {
                     if (+err.status === 400) {
@@ -97,8 +98,7 @@
             checkTime (time){
                 let re = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/
                 return re.test(time);
-            },
-
+            }
         }
     }
 

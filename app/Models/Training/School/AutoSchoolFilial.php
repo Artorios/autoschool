@@ -28,5 +28,9 @@ class AutoSchoolFilial extends Model
         return $this->hasOne(AutoSchool::class, 'id', 'auto_school_id');
     }
 
+    public function autoschoolgroups(){
+        return $this->hasMany(AutoSchoolGroup::class);
+    }
+
 
 }
