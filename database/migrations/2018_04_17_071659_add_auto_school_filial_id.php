@@ -17,7 +17,7 @@ class AddAutoSchoolFilialId extends Migration
             $table->dropColumn('auto_school_id');
         });
         Schema::table('auto_school_groups', function (Blueprint $table) {
-            $table->integer('auto_school_filial_id');
+            $table->unsignedInteger('auto_school_filial_id');
         });
         //
     }

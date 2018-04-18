@@ -17,7 +17,7 @@ class CreateAutoSchoolFilials extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('address');
-            $table->integer('auto_school_id');
+            $table->unsignedInteger('auto_school_id');
             $table->timestamps();
         });
     }
@@ -30,7 +30,5 @@ class CreateAutoSchoolFilials extends Migration
     public function down()
     {
         Schema::dropIfExists('auto_school_filials');
-
-        //
     }
 }

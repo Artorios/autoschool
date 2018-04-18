@@ -3,8 +3,9 @@
 namespace App\Models\Training\School\Traits\Relationship;
 
 use App\Models\Location\City;
-use App\Models\Training\School\AutoSchoolContact;
-use App\Models\Training\School\AutoSchoolFilial;
+use App\Models\Training\School\{
+    AutoSchoolContact, AutoSchoolFilial
+};
 
 /**
  * Trait AutoSchoolRelationship
