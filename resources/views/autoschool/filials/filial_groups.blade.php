@@ -10,7 +10,6 @@
         <block-statistic-groups></block-statistic-groups>
         <div class="blockgroupe">
             <h2>Группы:</h2>
-
             <div class="table-wrapper">
                 <div class="title-line">
                     <span class="number">№</span>
@@ -27,7 +26,7 @@
                     </div>
                     <div class="count">
                         <span class="visible-xs hidden-sm">Количество учеников  8</span>
-                        <span class="visible-sm hidden-xs visible-lg visible-md">8</span>
+                        <span class="visible-sm hidden-xs visible-lg visible-md">{{$group->student_counts}}</span>
                     </div>
                 </div>
                 @endforeach
