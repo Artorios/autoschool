@@ -1,5 +1,6 @@
 @extends('layouts.autoschool')
 @section('content')
+
     <div class="content error profile autoschool">
         <div class="breadcrumbs">
             <ul>
