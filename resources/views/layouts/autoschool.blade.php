@@ -27,6 +27,7 @@
     <![endif]-->
 </head>
 <body>
+<div id="app">
 <header class="inner">
     <div class="container">
         <div class="logo">
@@ -45,7 +46,7 @@
                     <div class="img">
                         <img src="/img/profile-photo.png" alt="">
                     </div>
-                    <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschoolgroup()->first()->auto_school_id)->title}}<img src="/img/arrow-down.png"></h3>
+                    <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschoolgroup->autoschoolfilial()->first()->auto_school_id)->title}}<img src="/img/arrow-down.png"></h3>
                     <span>Комиссия 10 000 руб.</span>
                 </div>
             </a>
@@ -70,8 +71,8 @@
                     <a href="{{route('autoschool.index')}}"><img src="/img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
                 </li>
                 <li class="{{
-                                    Route::currentRouteName() === 'autoschool.branch' ? 'active' : ''}}">
-                    <a href="{{route('autoschool.branch')}}"><img src="/img/location.png" alt=""><span class="text">Филиалы</span></a>
+                                    Route::currentRouteName() === 'autoschool.filials' ? 'active' : ''}}">
+                    <a href="{{route('autoschool.filials')}}"><img src="/img/location.png" alt=""><span class="text">Филиалы</span></a>
                 </li>
                 <li class="{{Route::currentRouteName() === 'autoschool.coupons' ? 'active' : ''}}">
                     <a href="{{route('autoschool.coupons')}}"><img src="/img/menu-ico4.png" alt=""><span class="text">Купоны</span></a>
@@ -86,8 +87,11 @@
                 </li>
             </ul>
         </div>
+        @yield('content')
+    </div>
+</div>
 
-@yield('content')
+</div>
 
 
         <footer class="inner">
@@ -107,7 +111,7 @@
         <script src="/js/jquery.selectric.min.js"></script>
         <script type="text/javascript" src="/js/slick.js"></script>
         <script src="/js/scripts.js"></script>
-        <script src="/js/account.js"></script>
+        <script src="/js/autoschool.js"></script>
         <script src="/less/less.js"></script>
         @stack('scripts')
         <script src="{{ asset('js/jquery.matchHeight-min.js') }}"></script>

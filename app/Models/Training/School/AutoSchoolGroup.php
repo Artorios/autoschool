@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class AutoSchoolGroup extends Model
 {
-    public function autoschool(){
-        return $this->hasOne(AutoSchool::class, 'id', 'auto_school_id');
+    protected $fillable = ['name', 'auto_school_filial_id', 'exam_date', 'exam_time'];
+
+    public function autoschoolfilial(){
+        return $this->belongsTo(AutoSchoolFilial::class, 'id', 'auto_school_id');
     }
 }

@@ -14,6 +14,7 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/siteApp.js', 'public/js/distrib.js')
     .js('resources/assets/js/account.js', 'public/js/account.js')
+    .js('resources/assets/js/autoschool.js', 'public/js/autoschool.js')
    .less('resources/assets/less/style.less', 'public/css');
 
 mix.copy('resources/assets/public/selectric.css', 'public/css')
