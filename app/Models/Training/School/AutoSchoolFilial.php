@@ -20,7 +20,7 @@ class AutoSchoolFilial extends Model
         'address'
     ];
 
-    protected $appends = ['student_counts'];
+//    protected $appends = ['student_counts'];
 
     /**
      * @return mixed
