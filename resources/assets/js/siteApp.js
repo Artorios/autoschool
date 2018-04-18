@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import RegistrationVue from './SiteComponents/Registration.vue'
-import LoginVue from './SiteComponents/Login.vue'
-import ModalVue from './SiteComponents/ModalHead/modals.vue'
-import PriceVue from './SiteComponents/price'
-import YandexMap from './SiteComponents/yandex-map'
+import RegistrationVue from './SiteComponents/Registration.vue';
+import LoginVue from './SiteComponents/Login.vue';
+import ModalVue from './SiteComponents/ModalHead/modals.vue';
+import PriceVue from './SiteComponents/price';
+import YandexMap from './SiteComponents/yandex-map';
 
 Vue.use(VueResource);
 

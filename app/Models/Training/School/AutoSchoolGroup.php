@@ -21,6 +21,6 @@ class AutoSchoolGroup extends Model
      */
     public function autoschoolfilial()
     {
-        return $this->belongsTo(AutoSchoolFilial::class, 'id', 'auto_school_id');
+        return $this->belongsTo(AutoSchoolFilial::class, 'auto_school_filial_id', 'id');
     }
 }

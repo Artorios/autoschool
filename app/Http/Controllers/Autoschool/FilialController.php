@@ -19,7 +19,7 @@ class FilialController extends Controller
      */
     public function index()
     {
-        $filials = AutoSchoolFilial::where('auto_school_id', '=', Auth::user()->autoschoolgroup->auto_school_filial_id)->get();
+        $filials = AutoSchoolFilial::where('auto_school_id', '=', Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id)->get();
         return view('autoschool.index.index', compact('filials'));
     }
 
