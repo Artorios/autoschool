@@ -2964,7 +2964,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2981,7 +2981,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__create_filial_form__ = __webpack_require__(423);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__create_filial_form___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__create_filial_form__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__autoschool__ = __webpack_require__(15);
-//
 //
 //
 //
@@ -3441,9 +3440,15 @@ var render = function() {
                   _c("span", [_vm._v(_vm._s(filial.address))])
                 ]),
                 _vm._v(" "),
-                _vm._m(1, true),
+                _c("div", { staticClass: "count" }, [
+                  _c("span", { staticClass: "visible-xs hidden-sm" }, [
+                    _vm._v(
+                      "Количество учеников " + _vm._s(filial.student_count)
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
-                _vm._m(2, true)
+                _vm._m(1, true)
               ])
             })
           ],
@@ -3507,22 +3512,6 @@ var staticRenderFns = [
       _c("span", { staticClass: "kupons" }, [
         _vm._v("Купоны активные/неактивные/всего")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "count" }, [
-      _c("span", { staticClass: "visible-xs hidden-sm" }, [
-        _vm._v("Количество учеников  8")
-      ]),
-      _vm._v(" "),
-      _c(
-        "span",
-        { staticClass: "visible-sm hidden-xs visible-lg visible-md" },
-        [_vm._v("8")]
-      )
     ])
   },
   function() {
