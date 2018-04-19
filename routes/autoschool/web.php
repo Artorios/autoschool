@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Mail;
 
 Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware' => ['auth', 'autoschool']], function (){
 
-    Route::get('/', function () {
-        return view('autoschool.index.index');
-    })->name('autoschool.index');
+    Route::get('/', 'AutoschoolController@index')->name('autoschool.index');
 
-    Route::get('/branch', function () {
-        return view('autoschool.index.index');
-    })->name('autoschool.branch');
+    Route::get('/filials', 'FilialController@index')->name('autoschool.filials');
+    Route::get('/filials/{id}', 'FilialController@show');
+    Route::post('/filials/create', 'FilialController@createFilial');
+    Route::post('/groups/create', 'FilialController@createGroup');
+
 
     Route::get('/coupons', function () {
         return view('autoschool.coupons.index');

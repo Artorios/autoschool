@@ -59,7 +59,6 @@
                             <div class="status-free"><a href="">Свободный</a></div>
                             <div class="status-paid"><a href="">Выплачен</a> <img src="/img/attention.png" alt=""></div>
                         </div>
-                        <div></div>
                     </div>
                     <div class="line free">
                         <div class="coupons-cheskbox"><input type="checkbox"></div>
