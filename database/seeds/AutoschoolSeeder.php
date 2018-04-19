@@ -54,8 +54,21 @@ class AutoschoolSeeder extends Seeder
             ];
             AutoSchoolGroup::create($group);
         }
+        $group_id = AutoSchoolGroup::orderBy('id', 'desc')->first()->id;
 
+        $admin_data = [
+            'name' => 'user123',
+            'email' => 'user123@gmail.com',
+            'password' => 'adminadmin',
+            'role' => 'user',
+            'last_name' => 'Adminskiy',
+            'phone' => '0777777777',
+            'activated' => 1,
+            'auto_school_group_id' => $group_id,
+            'image' => 'gfdsg'
+        ];
 
+        $user = User::create($admin_data);
 
     }
 }
