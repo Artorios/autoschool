@@ -46,10 +46,10 @@
         methods: {
             sendDataToServer () {
                 if (this.validate()) return false
-                this.data.id = this.filial.id
+                this.data.id = this.filial
                 this.$http.post('/autoschool/groups/create', this.data).then(res => {
                     if (res.status === 201) {
-                        location.href = '/autoschool/filials/' + this.filial.id
+                        location.href = '/autoschool/filials/' + this.filial
                     }
                 }, err => {
                     if (+err.status === 400) {

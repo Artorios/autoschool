@@ -3,6 +3,7 @@
 namespace App\Models\Training\School;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Socialite\Contracts\User;
 
 /**
  * Class AutoSchoolFilial

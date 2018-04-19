@@ -2752,7 +2752,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-xs-6 col-md-4" }, [
         _c("div", { staticClass: "block" }, [
-          _c("h3", [_vm._v("Общий доход филиала:")]),
+          _c("h3", [_vm._v("Общий доход автошколы:")]),
           _vm._v(" "),
           _c("span", { staticClass: "number" }, [_vm._v(_vm._s(_vm.income))])
         ])
@@ -3632,7 +3632,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -3649,7 +3649,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__create_group__ = __webpack_require__(438);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__create_group___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__create_group__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__autoschool__ = __webpack_require__(15);
-//
 //
 //
 //
@@ -4050,10 +4049,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.validate()) return false;
-            this.data.id = this.filial.id;
+            this.data.id = this.filial;
             this.$http.post('/autoschool/groups/create', this.data).then(function (res) {
                 if (res.status === 201) {
-                    location.href = '/autoschool/filials/' + _this.filial.id;
+                    location.href = '/autoschool/filials/' + _this.filial;
                 }
             }, function (err) {
                 if (+err.status === 400) {
@@ -4320,7 +4319,13 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(1, true)
+                _c("div", { staticClass: "count" }, [
+                  _c("span", { staticClass: "visible-xs hidden-sm" }, [
+                    _vm._v(
+                      "Количество учеников  " + _vm._s(group.student_counts)
+                    )
+                  ])
+                ])
               ])
             })
           ],
@@ -4382,22 +4387,6 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("span", { staticClass: "count" }, [_vm._v("Кол-во учеников")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "count" }, [
-      _c("span", { staticClass: "visible-xs hidden-sm" }, [
-        _vm._v("Количество учеников  8")
-      ]),
-      _vm._v(" "),
-      _c(
-        "span",
-        { staticClass: "visible-sm hidden-xs visible-lg visible-md" },
-        [_vm._v("8")]
-      )
     ])
   }
 ]

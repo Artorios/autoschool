@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Autoschool;
 use App\Models\Training\School\{
     AutoSchool, AutoSchoolFilial, AutoSchoolGroup
 };
+use App\Models\User\User;
 use Illuminate\Support\Facades\{
     Auth, Validator
 };
@@ -90,8 +91,14 @@ class FilialController extends Controller
     public function show($id)
     {
         $filial = AutoSchoolFilial::findOrFail($id);
-//        dd($filial->autoschoolgroups);
-//        $groups[0] = AutoSchoolGroup::where('auto_school_filial_id', '=', $id)->get();
-        return view('autoschool.filials.filial_groups', compact('filial'));
+
+        $groups = [];
+        foreach ($filial->autoschoolgroups as $one){
+            array_push($groups, $one->setAttribute('student_counts', User::where('auto_school_group_id', '=', $one->id)
+                ->whereNotIn('role', ['admin','investor','autoschool'])
+                ->count()));
+        }
+
+        return view('autoschool.filials.filial_groups', compact('groups', 'filial'));
     }
 }

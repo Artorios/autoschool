@@ -17,7 +17,7 @@
             </div>
             <div class="col-xs-6 col-md-4">
                 <div class="block">
-                    <h3>Общий доход филиала:</h3>
+                    <h3>Общий доход автошколы:</h3>
                     <span class="number">{{income}}</span>
                 </div>
 

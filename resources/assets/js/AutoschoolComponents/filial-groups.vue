@@ -16,8 +16,7 @@
                         <img src="img/clock.png"> {{group.exam_date}} {{group.exam_time}}
                     </div>
                     <div class="count">
-                        <span class="visible-xs hidden-sm">Количество учеников  8</span>
-                        <span class="visible-sm hidden-xs visible-lg visible-md">8</span>
+                        <span class="visible-xs hidden-sm">Количество учеников  {{group.student_counts}}</span>
                     </div>
                 </div>
             </div>
