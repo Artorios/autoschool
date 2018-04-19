@@ -29,10 +29,9 @@ class AutoschoolController extends Controller
             if(!empty(AutoSchoolGroup::where('auto_school_filial_id', '=', $filial->id)->get()[0])){
                 array_push($groups, AutoSchoolGroup::where('auto_school_filial_id', '=', $filial->id)->get());
             }
-
-
         }
-        return view('autoschool.filials.filial_groups', compact('groups'));
+
+        return view('autoschool.filials.filial_groups', compact('groups', 'filials'));
     }
 
     /**

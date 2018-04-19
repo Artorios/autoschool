@@ -8,6 +8,7 @@ import NotifyAll from './AccountComponents/NotifyComponents/notify-all';
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
 import ProfilePhoto from './components/UserComponent/profile-photo';
 import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
+import SchoolFilials from './AutoschoolComponents/school-filials'
 import FilialGroups from './AutoschoolComponents/filial-groups'
 const VueInputMask = require('vue-inputmask').default
 Vue.use(VueInputMask);
@@ -31,6 +32,7 @@ const app = new Vue({
         NotifyAll,
         ProfilePhoto,
         ButtonAddFilial,
+        SchoolFilials,
         FilialGroups
     }
 });

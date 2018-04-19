@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Autoschool;
 
 use App\Models\Training\School\{
-    AutoSchoolFilial, AutoSchoolGroup
+    AutoSchool, AutoSchoolFilial, AutoSchoolGroup
 };
 use Illuminate\Support\Facades\{
     Auth, Validator
@@ -19,8 +19,8 @@ class FilialController extends Controller
      */
     public function index()
     {
-        $filials = AutoSchoolFilial::where('auto_school_id', '=', Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id)->get();
-        return view('autoschool.index.index', compact('filials'));
+        $autoschool = AutoSchool::findOrFail(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id);
+        return view('autoschool.filials.school_filials', compact('autoschool'));
     }
 
     /**
@@ -53,7 +53,7 @@ class FilialController extends Controller
         }
 
         $filial = AutoSchoolFilial::create([
-            'auto_school_id' => Auth::user()->autoschoolgroup->autoschoolfilial->autoschool->id,
+            'auto_school_id' => $request->input('id'),
             'name' => $request->input('name'),
             'address' => $request->input('address'),
         ]);
