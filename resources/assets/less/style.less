@@ -6441,7 +6441,7 @@ footer.inner {
   .container {
     .autoschool-coupons {
       .coupons-top-button {
-        .top-button{
+        .top-button {
           padding: 20px 0;
         }
         .btn-grey {
@@ -6487,14 +6487,22 @@ footer.inner {
               }
               &.status {
                 width: 90px;
+                .status-active {
+                  display: none;
+                }
               }
             }
           }
           .line {
+            padding: 20px 0 30px;
             & div {
               display: inline-block;
               color: black;
-              &.coupons-cheskbox{
+              a {
+                color: black;
+                text-decoration: underline;
+              }
+              &.coupons-cheskbox {
                 width: 20px;
               }
               &.number {
@@ -6502,7 +6510,7 @@ footer.inner {
                 text-align: center;
               }
               &.coupon {
-                width:60px;
+                width: 60px;
               }
               &.autoschool {
                 width: 120px;
@@ -6521,9 +6529,96 @@ footer.inner {
               }
               &.price {
                 width: 90px;
+                font-weight: 700;
               }
               &.status {
                 width: 90px;
+                .status-fee {
+                  font-weight: 700;
+                }
+              }
+            }
+            &.active {
+              background-color: #f8eeee;
+
+              .status {
+                position: relative;
+                .status-free, .status-paid {
+                  display: none;
+                }
+                .status-active {
+                  display: block;
+                  position: absolute;
+                  top: 16px;
+                  left: 0;
+                  padding-top: 10px;
+                  cursor: pointer;
+                  a {
+                    color: red;
+                  }
+                }
+              }
+            }
+            &.paid {
+              & div {
+                color: #949494;
+                a {
+                  color: #949494;
+                }
+                &.status {
+                  position: relative;
+                  .status-active {
+                    display: none;
+                  }
+                  .status-free {
+                    display: none;
+                  }
+                  .status-paid {
+                    display: block;
+                    position: absolute;
+                    top: 16px;
+                    left: 0;
+                    padding-top: 10px;
+                    cursor: pointer;
+                    img {
+                      height: 16px;
+                      cursor: pointer;
+                    }
+                  }
+                }
+              }
+            }
+            &.free {
+              background-color: #f1f8ed;
+              & div {
+                color: #32372e;
+                a {
+                  color: #32372e;
+                  text-decoration: none;
+                  &:hover {
+                    text-decoration: underline;
+                  }
+                }
+                &.status {
+                  position: relative;
+                  .status-active {
+                    display: none;
+                  }
+                  .status-paid {
+                    display: none;
+                  }
+                  .status-free {
+                    display: block;
+                    position: absolute;
+                    top: 16px;
+                    left: 0;
+                    padding-top: 10px;
+                    cursor: pointer;
+                    a {
+                      color: #648240;
+                    }
+                  }
+                }
               }
             }
           }
