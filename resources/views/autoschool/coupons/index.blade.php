@@ -36,7 +36,7 @@
                         <span class="price">Сумма<br> оплаты</span>
                         <span class="status">Комиссия<br>/статус</span>
                     </div>
-                    <div class="line ">
+                    <div class="line active">
                         <div class="coupons-cheskbox"><input type="checkbox"></div>
                         <div class="number">01</div>
                         <div class="coupon"><a href="#">ИД-21</a></div>
@@ -54,9 +54,11 @@
                         </div>
                         <div class="price">15 000</div>
                         <div class="status">
-                            6000
+                            <div class="status-fee">6000</div>
+                            <div class="status-active"><a href="">Активирован</a></div>
+                            <div class="status-free"><a href="">Свободный</a></div>
+                            <div class="status-paid"><a href="">Выплачен</a> <img src="/img/attention.png" alt=""></div>
                         </div>
-                        <div></div>
                     </div>
 
                 </div>

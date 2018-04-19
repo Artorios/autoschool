@@ -4,7 +4,7 @@
     <div class="content error profile autoschool">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/autoschool">Главная</a></li>
+                <li><a href="#">Главная</a> / Филиалы</li>
             </ul>
         </div>
         <block-statistic></block-statistic>
@@ -14,25 +14,29 @@
             <div class="table-wrapper">
                 <div class="title-line">
                     <span class="number">№</span>
-                    <span class="count">Филиал</span>
+                    <span class="name">Название филиала</span>
                     <span class="data-and-time">Адрес филиала</span>
                     <span class="count">Кол-во учеников</span>
-                    <span class="">Купоны активные/неактивные/всего</span>
+                    <span class="kupons">Купоны активные/неактивные/всего</span>
                 </div>
+                @foreach($filials as $filial)
                 <div class="line">
-                    <div class="number">01</div>
-                    <div class="count"><a href="#">ИД-21</a></div>
-                    <div class="data-and-time">
-                        <img src="img/clock.png"> 02.09.2017 18:00
-                    </div>
-                    <div class="count">
-                        <span class="visible-xs hidden-sm">Количество учеников  8</span>
-                        <span class="visible-sm hidden-xs visible-lg visible-md">8</span>
-                    </div>
+                        <div class="number">{{$filial->id}}</div>
+                        <div class="name"><a href="/autoschool/">{{$filial->name}}</a></div>
+                        <div class="data-and-time">
+                            <span>{{$filial->address}}</span>
+                        </div>
+                        <div class="count">
+                            <span class="visible-xs hidden-sm">Количество учеников  8</span>
+                            <span class="visible-sm hidden-xs visible-lg visible-md">8</span>
+                        </div>
+                        <div class="kupons">
+                            <span>24/ 34 / 50</span>
+                        </div>
                     <span class="name">24 / 12 / 36</span>
 
                 </div>
-
+                @endforeach
             </div>
         </div>
         <div class="invitegroupe">
@@ -44,11 +48,7 @@
                     {{--<a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">4</a>--}}
                 </li>
             </ul>
-            <div class="btn-wrapper">
-                <a href="#" class="btn-grey">
-                    Добавить филиал
-                </a>
-            </div>
+            <button-add-filial></button-add-filial>
         </div>
         <div class="blockform">
             <form action="">
