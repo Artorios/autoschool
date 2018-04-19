@@ -22,16 +22,7 @@ class AutoschoolController extends Controller
      */
     public function index()
     {
-//        return dd(Auth::user()->autoschoolgroup->autoschoolfilial);
-        $filials = AutoSchoolFilial::where('auto_school_id', '=', Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id)->get();
-        $groups = [];
-        foreach ($filials as $filial){
-            if(!empty(AutoSchoolGroup::where('auto_school_filial_id', '=', $filial->id)->get()[0])){
-                array_push($groups, AutoSchoolGroup::where('auto_school_filial_id', '=', $filial->id)->get());
-            }
-        }
-
-        return view('autoschool.filials.filial_groups', compact('groups', 'filials'));
+        return view('autoschool.index.index');
     }
 
     /**
@@ -56,10 +47,5 @@ class AutoschoolController extends Controller
         }
 
         return response()->json(['counts' => $counts, 'coupons' => 0, 'income' => 0]);
-    }
-
-    private function countOfStudent(){
-//        $users = User::all()->where('id', '=', );
-//        return $users;
     }
 }
