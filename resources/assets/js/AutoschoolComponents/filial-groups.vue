@@ -13,7 +13,7 @@
                     <div class="number">{{group.id}}</div>
                     <div class="name"><a href="#">{{group.name}}</a></div>
                     <div class="data-and-time">
-                        <img src="img/clock.png"> {{group.exam_date}} {{group.exam_time}}
+                        <img src="/img/clock.png"> {{group.exam_date}} {{group.exam_time}}
                     </div>
                     <div class="count">
                         <span class="visible-xs hidden-sm">Количество учеников  8</span>
