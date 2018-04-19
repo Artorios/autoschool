@@ -4,10 +4,10 @@
     <div class="content error profile autoschool">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="#">Главная</a> / Филиалы</li>
+                <li><a href="/autoschool">Главная</a> / Филиалы</li>
             </ul>
         </div>
-        <block-statistic></block-statistic>
+        <block-statistic-groups></block-statistic-groups>
         <div class="blockgroupe">
             <h2>Филиалы:</h2>
 
@@ -22,7 +22,7 @@
                 @foreach($filials as $filial)
                 <div class="line">
                         <div class="number">{{$filial->id}}</div>
-                        <div class="name"><a href="/autoschool/">{{$filial->name}}</a></div>
+                        <div class="name"><a href="/autoschool/filials/{{$filial->id}}/">{{$filial->name}}</a></div>
                         <div class="data-and-time">
                             <span>{{$filial->address}}</span>
                         </div>
@@ -33,8 +33,6 @@
                         <div class="kupons">
                             <span>24/ 34 / 50</span>
                         </div>
-                    <span class="name">24 / 12 / 36</span>
-
                 </div>
                 @endforeach
             </div>
@@ -49,23 +47,6 @@
                 </li>
             </ul>
             <button-add-filial></button-add-filial>
-        </div>
-        <div class="blockform">
-            <form action="">
-                <div class="row nero">
-                    <div class="col-xs-12 col-sm-4">
-                        <input id="name" type="text" class="name-group" placeholder="Название филиала" required="">
-                    </div>
-                    <div class="col-xs-6 col-sm-2">
-                        <input id="date" type="text" class="data" placeholder="Адрес" required="">
-                    </div>
-                    <div class="col-xs-6 col-sm-2">
-                        <input id="time" type="text" class="time" placeholder="Время" required="">
-                    </div>
-                    <div class="col-xs-12 col-sm-3"><a href="#" class="btn-grey">Сохранить</a></div>
-                  <span class="close"></span>
-                </div>
-            </form>
         </div>
     </div>
 

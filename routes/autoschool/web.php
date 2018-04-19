@@ -26,6 +26,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::post('/filials/create', 'FilialController@createFilial');
     Route::post('/groups/create', 'FilialController@createGroup');
 
+    Route::get('/filials/groups/{id}', 'FilialController@showStudents');
 
     Route::get('/coupons', function () {
         return view('autoschool.coupons.index');
@@ -50,7 +51,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
 
 
-    Route::post('/get-count-main', 'AutoschoolController@getCountMain');
+    Route::post('/get-count-main-groups', 'AutoschoolController@getCountMain');
 
 
 

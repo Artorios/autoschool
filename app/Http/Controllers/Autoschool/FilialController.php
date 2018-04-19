@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Autoschool;
 
 use App\Models\Training\School\{
-    AutoSchoolFilial, AutoSchoolGroup
+    AutoSchool, AutoSchoolFilial, AutoSchoolGroup
 };
+use App\Models\User\User;
 use Illuminate\Support\Facades\{
     Auth, Validator
 };
@@ -19,8 +20,8 @@ class FilialController extends Controller
      */
     public function index()
     {
-        $filials = AutoSchoolFilial::where('auto_school_id', '=', Auth::user()->autoschoolgroup->auto_school_filial_id)->get();
-        return view('autoschool.index.index', compact('filials'));
+        $autoschool = AutoSchool::findOrFail(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id);
+        return view('autoschool.filials.school_filials', compact('autoschool'));
     }
 
     /**
@@ -53,7 +54,7 @@ class FilialController extends Controller
         }
 
         $filial = AutoSchoolFilial::create([
-            'auto_school_id' => Auth::user()->autoschoolgroup->autoschoolfilial->autoschool->id,
+            'auto_school_id' => $request->input('id'),
             'name' => $request->input('name'),
             'address' => $request->input('address'),
         ]);
@@ -78,12 +79,27 @@ class FilialController extends Controller
         }
 
         $group = AutoSchoolGroup::create([
-           'auto_school_filial_id' => Auth::user()->autoschoolgroup->autoschoolfilial->id,
+           'auto_school_filial_id' => $request->input('id'),
            'name' => $request->input('name'),
            'exam_date' => $request->input('exam_date'),
            'exam_time' => $request->input('exam_time')
         ]);
 
         return response()->json(['status' => 1, 'group' => $group], 201);
+    }
+
+    public function show($id)
+    {
+        $filial = AutoSchoolFilial::findOrFail($id);
+//        dd($filial->autoschoolgroups);
+//        $groups[0] = AutoSchoolGroup::where('auto_school_filial_id', '=', $id)->get();
+        return view('autoschool.filials.filial_groups', compact('filial'));
+    }
+
+
+    public function showStudents($id, User $user){
+        $students = $user->where(['auto_school_group_id' => $id])->whereNotIn('role', ['admin','investor','autoschool'])->get();
+
+        return view('autoschool.filials.students_list');
     }
 }

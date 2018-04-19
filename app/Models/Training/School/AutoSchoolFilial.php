@@ -20,12 +20,18 @@ class AutoSchoolFilial extends Model
         'address'
     ];
 
+//    protected $appends = ['student_counts'];
+
     /**
      * @return mixed
      */
     public function autoschool()
     {
         return $this->hasOne(AutoSchool::class, 'id', 'auto_school_id');
+    }
+
+    public function autoschoolgroups(){
+        return $this->hasMany(AutoSchoolGroup::class);
     }
 
 
