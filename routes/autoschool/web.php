@@ -29,7 +29,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::get('/filials/groups/{id}', 'FilialController@showStudents');
 
     Route::get('/coupons', function () {
-        return view('autoschool.index.index');
+        return view('autoschool.coupons.index');
     })->name('autoschool.coupons');
 
     Route::get('/finance', function () {
