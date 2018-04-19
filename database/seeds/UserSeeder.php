@@ -23,7 +23,10 @@ class UserSeeder extends Seeder
                 'role' => 'admin',
                 'last_name' => 'Adminskiy',
                 'phone' => '0777777777',
-                'activated' => 1
+                'activated' => 1,
+                'image' => '',
+                'sms_notice' => '0',
+                'email_notice' => '0',
             ];
 
             $user = User::create($admin_data);
