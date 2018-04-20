@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers\Autoschool;
 
-use App\Models\Training\School\{
-    AutoSchool, AutoSchoolFilial, AutoSchoolGroup
-};
+use App\Models\Training\School\{AutoSchoolFilial , AutoSchool, AutoSchoolGroup};
+
 use App\Models\User\User;
-use Illuminate\Support\Facades\{
-    Auth, Validator
-};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class FilialController extends Controller
 {
-
-    /**
-     * @return mixed
-     */
     public function index()
     {
         $autoschool = AutoSchool::findOrFail(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id);
@@ -30,18 +24,10 @@ class FilialController extends Controller
         }
         return view('autoschool.filials.school_filials', compact('autoschool'));
     }
-
-    /**
-     * @return mixed
-     */
     public function editPage(){
         return view('autoschool.index.edit');
     }
 
-    /**
-     * @param Request $request
-     * @return mixed
-     */
     public function createFilial(Request $request){
 
         /**
@@ -69,10 +55,6 @@ class FilialController extends Controller
         return response()->json(['status' => 1, 'group' => $filial], 201);
     }
 
-    /**
-     * @param Request $request
-     * @return mixed
-     */
     public function createGroup(Request $request){
 
         $validator = Validator::make($request->all(), [
@@ -86,7 +68,7 @@ class FilialController extends Controller
         }
 
         $group = AutoSchoolGroup::create([
-           'auto_school_filial_id' => $request->input('id'),
+           'auto_school_filial_id' => Auth::user()->autoschoolgroup->autoschoolfilial->id,
            'name' => $request->input('name'),
            'exam_date' => $request->input('exam_date'),
            'exam_time' => $request->input('exam_time')
