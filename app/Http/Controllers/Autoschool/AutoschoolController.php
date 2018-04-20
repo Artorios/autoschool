@@ -20,7 +20,7 @@ class AutoschoolController extends Controller
     /**
      * @return mixed
      */
-    public function index()
+    public function index(AutoSchoolGroup $autoSchoolGroup, User $user)
     {
         return view('autoschool.index.index');
     }
@@ -42,8 +42,10 @@ class AutoschoolController extends Controller
         }
         $counts = 0;
 
-        foreach ($groups[0] as $group){
-            $counts += $user->where(['auto_school_group_id' => $group->id])->whereNotIn('role', ['admin','investor','autoschool'])->count();
+        foreach ($groups as $arrayGroup){
+            foreach ($arrayGroup as $group){
+                $counts += $user->where(['auto_school_group_id' => $group->id])->whereNotIn('role', ['admin','investor','autoschool'])->count();
+            }
         }
 
         return response()->json(['counts' => $counts, 'coupons' => 0, 'income' => 0]);

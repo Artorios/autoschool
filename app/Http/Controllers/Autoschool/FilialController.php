@@ -46,7 +46,7 @@ class FilialController extends Controller
     public function createFilial(Request $request){
 
         /**
-         * $this->validate($request->all(), [
+         $this->validate($request->all(), [
          *  'name'     => 'required|string|max:255',
          *  'address' => 'required|string|max:255',
          *  ])
