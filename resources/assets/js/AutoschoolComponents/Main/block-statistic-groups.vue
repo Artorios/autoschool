@@ -39,7 +39,7 @@
         },
         methods: {
             getData(){
-                this.$http.post('/autoschool/get-count-main').then(res => {
+                this.$http.post('/autoschool/get-count-main-groups').then(res => {
                     this.countStudents = res.data.counts
                     this.freeCoupons = res.data.coupons
                     this.income = res.data.income

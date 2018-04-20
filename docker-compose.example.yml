@@ -1,0 +1,40 @@
+version: "3.1"
+services:
+
+    mysql:
+      image: mysql:5.6
+      container_name: mysql-cont-avto
+      working_dir: /application
+      volumes:
+        - .:/application
+      environment:
+        - MYSQL_ROOT_PASSWORD=root_passw
+        - MYSQL_DATABASE=app_db
+        - MYSQL_USER=app_db_username
+        - MYSQL_PASSWORD=app_db_passw
+      ports:
+        - "10000:3306"
+
+    webserver:
+      image: nginx:alpine
+      container_name: webserver-cont-avto
+      working_dir: /application
+      volumes:
+          - .:/application
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "9998:80"
+      depends_on:
+       - php-fpm
+       - mysql
+
+    php-fpm:
+      build: phpdocker/php-fpm
+      container_name: php-fpm-cont-avto
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+      depends_on:
+        - mysql
+
