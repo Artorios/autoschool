@@ -98,7 +98,6 @@ class FilialController extends Controller
     public function show($id)
     {
         $filial = AutoSchoolFilial::findOrFail($id);
-
         $groups = [];
         foreach ($filial->autoschoolgroups as $one){
             array_push($groups, $one->setAttribute('student_counts', User::where('auto_school_group_id', '=', $one->id)

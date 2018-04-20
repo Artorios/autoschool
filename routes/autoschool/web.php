@@ -22,7 +22,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::get('/', 'AutoschoolController@index')->name('autoschool.index');
 
     Route::get('/filials', 'FilialController@index')->name('autoschool.filials');
-    Route::get('/filials/{id}', 'FilialController@show');
+    Route::get('/filials/{id}', 'FilialController@show')->middleware('user-belong-to-filial');
     Route::post('/filials/create', 'FilialController@createFilial');
     Route::post('/groups/create', 'FilialController@createGroup');
 
