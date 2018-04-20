@@ -109,10 +109,11 @@ class FilialController extends Controller
     }
 
 
-    public function showStudents($id, User $user){
-
-        $students = $user->where(['auto_school_group_id' => $id])->whereNotIn('role', ['admin','investor','autoschool'])->get();
-
-        return view('autoschool.filials.students_list');
+    public function showStudents($id, $group_id,  User $user){
+        $students = $user->where(['auto_school_group_id' => $group_id])
+            ->whereNotIn('role', ['admin','investor','autoschool'])
+            ->get();
+        $group = AutoSchoolGroup::where('id', '=', $group_id)->get()[0];
+        return view('autoschool.filials.students_list', compact('students', 'group'));
     }
 }

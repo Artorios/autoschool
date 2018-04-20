@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="studentgroupe">
-            <h4>Ученики группы ИД-21:</h4>
+            <h4>{{$group->name}}</h4>
             <ul>
                 <li><span>№</span>ФИО ученика</li>
                 <li>Группа</li>
@@ -40,13 +40,15 @@
                 <li>Успеваемость</li>
                 <li>Экзамен</li>
             </ul>
-            <ul>
-                <li><span>01</span><p><a href="#">Длиннофальмилильнов И. В.</a></p></li>
-                <li><span>Группа</span><a href="#">ИД-21 супер длинное</a></li>
-                <li><span>Текущий урок</span><p>Дорожные знаки. Предупреждающие знаки.</p></li>
-                <li><span>Успеваемость</span><p>80%</p></li>
-                <li><span>Экзамен</span><span>Экзамен в ГБДД</span> <a href="#">6 из 28</a></li>
-            </ul>
+            @foreach($students as $key => $student)
+                <ul>
+                    <li><span>{{++$key}}</span><p><a href="#">{{$student->full_name}}</a></p></li>
+                    <li><span>Группа</span><a href="">{{$student->autoschoolgroup->name}}</a></li>
+                    <li><span>Текущий урок</span><p>Дорожные знаки. Предупреждающие знаки.</p></li>
+                    <li><span>Успеваемость</span><p>80%</p></li>
+                    <li><span>Экзамен</span><span>Экзамен в ГБДД</span> <a href="#">6 из 28</a></li>
+                </ul>
+            @endforeach
             <ul>
                 <li><span>02</span><p><a href="#">Иванов И. В.</a></p></li>
                 <li><span>Группа</span><a href="#">ИД-21</a></li>
