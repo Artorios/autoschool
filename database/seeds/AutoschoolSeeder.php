@@ -16,7 +16,7 @@ class AutoschoolSeeder extends Seeder
     {
         if(empty(AutoSchool::find(1000))){
             $school = [
-                'id' => 1000,
+                'id' => 100,
                 'title' => 'GoodSchool',
                 'description' => 'Best of the best school',
                 'city_id' => 565
@@ -28,15 +28,15 @@ class AutoschoolSeeder extends Seeder
         $filial = [
             'name' => 'Filial',
             'address' => 'Бахарева 23',
-            'auto_school_id' => 1000
+            'auto_school_id' => 100
         ];
 
         AutoSchoolFilial::create($filial);
 
         $filial_id = AutoSchoolFilial::orderBy('id', 'desc')->first()->id;
-        if(empty(AutoSchoolGroup::find(1000))){
+        if(empty(AutoSchoolGroup::find(100))){
             $group = [
-                'id' => 1000,
+                'id' => 100,
                 'name' => 'Group',
                 'exam_date' => '2018-06-24',
                 'exam_time' => '10:00',
