@@ -21,11 +21,10 @@ class FilialController extends Controller
     public function index()
     {
         $autoschool = AutoSchool::findOrFail(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id);
-
         foreach ($autoschool->filials as $filial){
             $countOfUsers = 0;
             foreach (AutoSchoolGroup::where('auto_school_filial_id', '=', $filial->id)->get() as $group){
-                $countOfUsers += count($group->users);
+                $countOfUsers += count($group->users->whereNotIn('role', ['admin','investor','autoschool']));
             }
             $filial->setAttribute('student_count', $countOfUsers);
         }
