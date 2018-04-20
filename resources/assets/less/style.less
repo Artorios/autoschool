@@ -6441,22 +6441,268 @@ footer.inner {
   .container {
     .autoschool-coupons {
       .coupons-top-button {
-        .top-button{
+        .top-button {
           padding: 20px 0;
         }
         .btn-grey {
           margin-top: 0px;
           padding: 0 40px;
-
         }
         .selectric {
           width: 250px;
         }
+      }
+      .table-wrapper {
+        .coupons-cheskbox {
+          input[type=checkbox] {
+            display: inline-block;
+            content: "";
+            width: 25px;
+            height: 25px;
+            border: 2px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #333;
+            position: relative;
+            top: 7px;
+            margin-right: 10px;
+            background-color: white;
+
+            &:checked {
+              background: url(../img/ok-red.png) no-repeat center center;
+            }
+          }
+        }
+        .title-line {
+          line-height: 24px;
+          background: #ebebeb;
+          padding: 15px 5px;
+          & > span {
+            display: inline-block;
+            color: #666;
+            &.number {
+              padding-left: 20px;
+              width: 40px;
+            }
+            &.coupon {
+              width: 60px;
+            }
+            &.autoschool {
+              width: 120px;
+            }
+            &.city {
+              width: 130px;
+            }
+            &.name-student {
+              width: 140px;
+            }
+            &.generate-date {
+              width: 90px;
+            }
+            &.activate-date {
+              width: 90px;
+            }
+            &.price {
+              width: 90px;
+            }
+            &.status {
+              width: 90px;
+              .status-active {
+                display: none;
+              }
+            }
+          }
+        }
+        .block-media-768 {
+          display: none;
+        }
+        .line {
+          padding: 20px 5px 30px;
+          & div {
+            display: inline-block;
+            color: black;
+            a {
+              color: black;
+              text-decoration: underline;
+            }
+            &.coupons-cheskbox {
+              width: 20px;
+            }
+            &.number {
+              width: 20px;
+              text-align: center;
+            }
+            &.coupon {
+              width: 60px;
+            }
+            &.autoschool {
+              width: 120px;
+            }
+            &.city {
+              width: 130px;
+            }
+            &.name-student {
+              width: 140px;
+            }
+            &.generate-date {
+              width: 90px;
+            }
+            &.activate-date {
+              width: 90px;
+            }
+            &.price {
+              width: 90px;
+              font-weight: 700;
+            }
+            &.status {
+              width: 90px;
+              .status-fee {
+                font-weight: 700;
+              }
+            }
+          }
+          &.active {
+            background-color: #f8eeee;
+
+            .status {
+              position: relative;
+              .status-free, .status-paid {
+                display: none;
+              }
+              .status-active {
+                display: block;
+                position: absolute;
+                top: 16px;
+                left: 0;
+                padding-top: 10px;
+                cursor: pointer;
+                a {
+                  color: red;
+                }
+              }
+            }
+          }
+          &.paid {
+            & div {
+              color: #949494;
+              a {
+                color: #949494;
+              }
+              &.status {
+                position: relative;
+                .status-active {
+                  display: none;
+                }
+                .status-free {
+                  display: none;
+                }
+                .status-paid {
+                  display: block;
+                  position: absolute;
+                  top: 16px;
+                  left: 0;
+                  padding-top: 10px;
+                  cursor: pointer;
+                  img {
+                    height: 16px;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+          &.free {
+            background-color: #f1f8ed;
+            & div {
+              color: #32372e;
+              a {
+                color: #32372e;
+                text-decoration: none;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+              &.status {
+                position: relative;
+                .status-active {
+                  display: none;
+                }
+                .status-paid {
+                  display: none;
+                }
+                .status-free {
+                  display: block;
+                  position: absolute;
+                  top: 16px;
+                  left: 0;
+                  padding-top: 10px;
+                  cursor: pointer;
+                  a {
+                    color: green;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .blockform {
+        margin-bottom: 20px;
+        position: relative;
+        background-color: #ebebeb;
+        padding: 20px 10px;
+        .form-inline {
+          display: flex;
+
+          .btn-grey {
+            width: 30%;
+            height: 55px;
+            line-height: 56px;
+            margin: 5px 0;
+          }
+          input {
+            width: 60%;
+            height: 55px;
+            line-height: 55px;
+            border-radius: 30px;
+            padding: 0 10px;
+            border: 2px solid #ccc !important;
+            margin: 5px 10px 0 0;
+          }
+
+          .close {
+            position: absolute;
+            right: 15px;
+            display: block;
+            width: 26px;
+            height: 26px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: url("../img/x.png") no-repeat;
+            &:hover {
+              background: url("../img/x-active.png") no-repeat;
+            }
+          }
+        }
+
+        &.paid {
+          div {
+            padding: 0 20px;
+          }
+          .info {
+            a {
+              color: inherit;
+            }
+          }
+        }
+      }
+
+      @media screen and (min-width: 1024px) and (max-width: 1200px) {
         .table-wrapper {
           .title-line {
             line-height: 24px;
             background: #ebebeb;
-            padding: 15px 0;
+            padding: 15px 5px;
             & > span {
               display: inline-block;
               color: #666;
@@ -6465,36 +6711,45 @@ footer.inner {
                 width: 40px;
               }
               &.coupon {
-                width: 60px;
+                width: 55px;
               }
               &.autoschool {
-                width: 120px;
+                width: 100px;
               }
               &.city {
-                width: 130px;
+                width: 100px;
               }
               &.name-student {
-                width: 140px;
+                width: 115px;
               }
               &.generate-date {
-                width: 90px;
+                width: 75px;
               }
               &.activate-date {
-                width: 90px;
+                width: 75px;
               }
               &.price {
-                width: 90px;
+                width: 60px;
               }
               &.status {
-                width: 90px;
+                width: 60px;
+                .status-active {
+                  display: none;
+                }
               }
             }
           }
+
           .line {
+            padding: 20px 5px 30px;
             & div {
               display: inline-block;
               color: black;
-              &.coupons-cheskbox{
+              a {
+                color: black;
+                text-decoration: underline;
+              }
+              &.coupons-cheskbox {
                 width: 20px;
               }
               &.number {
@@ -6502,28 +6757,201 @@ footer.inner {
                 text-align: center;
               }
               &.coupon {
-                width:60px;
+                width: 55px;
               }
               &.autoschool {
-                width: 120px;
+                width: 100px;
               }
               &.city {
-                width: 130px;
+                width: 100px;
               }
               &.name-student {
-                width: 140px;
+                width: 115px;
               }
               &.generate-date {
-                width: 90px;
+                width: 75px;
               }
               &.activate-date {
-                width: 90px;
+                width: 75px;
               }
               &.price {
-                width: 90px;
+                width: 60px;
+                font-weight: 700;
               }
               &.status {
-                width: 90px;
+                width: 60px;
+              }
+            }
+            &.active {
+              background-color: #f8eeee;
+              .status {
+                .status-active {
+                  left: -45px;
+                }
+              }
+            }
+            &.paid {
+              & div {
+                &.status {
+                  .status-paid {
+                    left: -45px;
+                  }
+                }
+              }
+            }
+            &.free {
+              background-color: #f1f8ed;
+              & div {
+                &.status {
+                  .status-free {
+                    left: -45px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      @media screen and (min-width: 320px) and (max-width: 1023px) {
+        .coupon-table {
+          .table-wrapper {
+            .title-line {
+              display: none;
+            }
+            .line {
+              display: none;
+            }
+            .block-media-768 {
+              line-height: 2;
+              display: flex;
+              min-height: 200px;
+              padding: 20px 15px 40px;
+              &.active {
+                background-color: #f8eeee;
+
+                .status {
+                  position: relative;
+                  .status-free, .status-paid {
+                    display: none;
+                  }
+                  .status-active {
+                    display: inline-block;
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    padding-top: 0;
+                    cursor: pointer;
+                    a {
+                      color: red;
+                    }
+                  }
+                }
+              }
+              &.paid {
+                & div {
+                  color: #949494;
+                  a {
+                    color: #949494;
+                  }
+                  &.status {
+                    position: relative;
+                    .status-active {
+                      display: none;
+                    }
+                    .status-free {
+                      display: none;
+                    }
+                    .status-paid {
+                      display: inline-block;
+                      position: relative;
+                      top: 0;
+                      left: 0;
+                      padding-top: 0;
+                      cursor: pointer;
+                      img {
+                        height: 16px;
+                        cursor: pointer;
+                      }
+                    }
+                  }
+                }
+              }
+              &.free {
+                background-color: #f1f8ed;
+                & div {
+                  color: #32372e;
+                  a {
+                    color: #32372e;
+                    text-decoration: none;
+                    &:hover {
+                      text-decoration: underline;
+                    }
+                  }
+                  &.status {
+                    position: relative;
+                    .status-active {
+                      display: none;
+                    }
+                    .status-paid {
+                      display: none;
+                    }
+                    .status-free {
+                      display: inline-block;
+                      position: relative;
+                      top: 0;
+                      left: 0;
+                      padding-top: 0;
+                      cursor: pointer;
+                      a {
+                        color: green;
+                      }
+                    }
+                  }
+                }
+              }
+              div {
+                a {
+                  color: inherit;
+                }
+                .number {
+                  margin: 0 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+      @media screen and(min-width: 320px) and (max-width: 768px) {
+        .coupon-table {
+          .table-wrapper {
+
+            .blockform {
+              margin-bottom: 20px;
+              position: relative;
+              background-color: #ebebeb;
+              padding: 20px 10px;
+              .form-inline {
+                display: inline-block;
+
+                .btn-grey {
+                  width: 100%;
+                  height: 55px;
+                  line-height: 56px;
+                  margin: 10px 0;
+                }
+                input {
+                  width: 100%;
+                  height: 55px;
+                  line-height: 55px;
+                  border-radius: 30px;
+                  padding: 0 10px;
+                  border: 2px solid #ccc !important;
+                  margin: 5px 10px 0 0;
+                }
+
+                .close {
+                  display: none;
+                }
               }
             }
           }
@@ -6532,5 +6960,3 @@ footer.inner {
     }
   }
 }
-
-
