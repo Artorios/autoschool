@@ -159,8 +159,10 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
 Route::post('get-price', 'Site\PriceController@getPrice');
 Route::get('/schools', 'Site\SchoolsController@getSchools');
 Route::get('/schools/{city_id}', 'Site\SchoolsController@getSchools');
-Route::view('/filials', 'filials');
-Route::view('/finances', 'finances');
+
+Route::get('/students-list', function (){
+    return view('autoschool.filials.students_list');
+});
 
 require __DIR__ . '/admin/web.php';
 require __DIR__ . '/autoschool/web.php';

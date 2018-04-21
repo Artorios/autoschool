@@ -27,18 +27,16 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::post('/filials/create', 'FilialController@createFilial');
     Route::post('/groups/create', 'FilialController@createGroup');
 
-    Route::get('/filials/groups/{id}', 'FilialController@showStudents');
-
     Route::get('/coupons', function () {
         return view('autoschool.coupons.index');
     })->name('autoschool.coupons');
 
     Route::get('/finance', function () {
-        return view('autoschool.index.index');
+        return view('autoschool.finance.finance');
     })->name('autoschool.finance');
 
     Route::get('/history', function () {
-        return view('autoschool.index.index');
+        return view('autoschool.history.history');
     })->name('autoschool.history');
 
     Route::get('/profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
