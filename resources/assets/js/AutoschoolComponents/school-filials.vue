@@ -20,7 +20,8 @@
                     </div>
 
                     <div class="count">
-                        <span class="visible-xs hidden-sm">Количество учеников {{filial.student_count}}</span>
+                        <span class="visible-xs">Количество учеников {{filial.counts_students}}</span>
+                        <span class="hidden-sm"> {{filial.counts_students}}</span>
                     </div>
                     <div class="kupons">
                         <span>24/ 34 / 50</span>

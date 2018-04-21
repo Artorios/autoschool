@@ -45,11 +45,13 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::get('/notifications', 'NotificationController@getPageNew')->name('autoschool.notify');
     Route::get('/notifications-all', 'NotificationController@getPageAll')->name('autoschool.notify.all');
 
+    /////// For Viktoria
 
+    Route::get('/student-personal', function () {
+        return view('autoschool.filials.student_personal');
+    });
 
-
-
-
+    //////
     Route::post('/get-count-main-groups', 'AutoschoolController@getCountMain');
 
 

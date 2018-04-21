@@ -3194,7 +3194,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -3211,6 +3211,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__create_filial_form__ = __webpack_require__(424);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__create_filial_form___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__create_filial_form__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__autoschool__ = __webpack_require__(17);
+//
 //
 //
 //
@@ -3671,10 +3672,14 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "count" }, [
-                  _c("span", { staticClass: "visible-xs hidden-sm" }, [
+                  _c("span", { staticClass: "visible-xs" }, [
                     _vm._v(
-                      "Количество учеников " + _vm._s(filial.student_count)
+                      "Количество учеников " + _vm._s(filial.counts_students)
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "hidden-sm" }, [
+                    _vm._v(" " + _vm._s(filial.counts_students))
                   ])
                 ]),
                 _vm._v(" "),
@@ -3851,7 +3856,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -3868,6 +3873,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__create_group__ = __webpack_require__(439);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__create_group___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__create_group__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__autoschool__ = __webpack_require__(17);
+//
 //
 //
 //
@@ -3944,6 +3950,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         setPage: function setPage(pageNumber) {
             this.currentPage = pageNumber;
+        },
+        editDate: function editDate(date) {
+            if (date) {
+                var dateTemp = date.split('-');
+                date = dateTemp['2'] + '.' + dateTemp['1'] + '.' + dateTemp['0'];
+                return date;
+            }
+            return false;
+        },
+        dayOfweek: function dayOfweek(date) {
+            if (date) {
+                var dateTemp = date.split('-');
+                date = new Date(dateTemp['0'], dateTemp['1'] - 1, dateTemp['2']);
+                var day = date.getDay();
+                return ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'][day];
+            }
+            return false;
+        },
+        editTime: function editTime(time) {
+            if (time) {
+                var timeTemp = time.split(':');
+                time = timeTemp['0'] + ':' + timeTemp['1'];
+                return time;
+            }
+            return false;
         }
     },
     created: function created() {
@@ -4541,18 +4572,24 @@ var render = function() {
                   _c("img", { attrs: { src: "/img/clock.png" } }),
                   _vm._v(
                     " " +
-                      _vm._s(group.exam_date) +
-                      " " +
-                      _vm._s(group.exam_time) +
+                      _vm._s(_vm.editDate(group.exam_date)) +
+                      " (" +
+                      _vm._s(_vm.dayOfweek(group.exam_date)) +
+                      ") " +
+                      _vm._s(_vm.editTime(group.exam_time)) +
                       "\n                "
                   )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "count" }, [
-                  _c("span", { staticClass: "visible-xs hidden-sm" }, [
+                  _c("span", { staticClass: "visible-xs" }, [
                     _vm._v(
                       "Количество учеников  " + _vm._s(group.student_counts)
                     )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "hidden-sm" }, [
+                    _vm._v(" " + _vm._s(group.counts_students))
                   ])
                 ])
               ])

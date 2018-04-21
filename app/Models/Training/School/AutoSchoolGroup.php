@@ -9,6 +9,8 @@ class AutoSchoolGroup extends Model
 {
     protected $fillable = ['name', 'auto_school_filial_id', 'exam_date', 'exam_time'];
 
+
+    protected $appends = ['counts_students'];
     /**
      * @return mixed
      */
@@ -21,8 +23,11 @@ class AutoSchoolGroup extends Model
         return $this->hasMany(User::class, 'auto_school_group_id', 'id');
     }
 
-//    public function getStudentCountsAttribute(){
-//        $user = User::all();
-//        return $user->where('auto_school_group_id', '=', $this->attributes['id'])->whereNotIn('role', ['admin','investor','autoschool'])->count();
-//}
+
+
+    public function getCountsStudentsAttribute()
+    {
+        $counts = User::where('auto_school_group_id','=', $this->attributes['id'])->whereNotIn('role', ['admin','investor','autoschool'])->count();
+        return $counts;
+    }
 }
