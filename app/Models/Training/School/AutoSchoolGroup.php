@@ -5,18 +5,9 @@ namespace App\Models\Training\School;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class AutoSchoolGroup
- * @package App\Models\Training\School
- */
 class AutoSchoolGroup extends Model
 {
-
-    /**
-     * @var array
-     */
     protected $fillable = ['name', 'auto_school_filial_id', 'exam_date', 'exam_time'];
-//    protected $appends = ['student_counts'];
 
     /**
      * @return mixed
