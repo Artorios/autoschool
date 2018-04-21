@@ -6441,7 +6441,7 @@ footer.inner {
   .container {
     .autoschool-coupons {
       .coupons-top-button {
-        .top-button{
+        .top-button {
           padding: 20px 0;
         }
         .btn-grey {
@@ -6494,7 +6494,7 @@ footer.inner {
             & div {
               display: inline-block;
               color: black;
-              &.coupons-cheskbox{
+              &.coupons-cheskbox {
                 width: 20px;
               }
               &.number {
@@ -6502,7 +6502,7 @@ footer.inner {
                 text-align: center;
               }
               &.coupon {
-                width:60px;
+                width: 60px;
               }
               &.autoschool {
                 width: 120px;
@@ -6533,4 +6533,180 @@ footer.inner {
   }
 }
 
+/*-------------Автошкола\ Edit Profile--------------*/
+.inner-main-content {
+  .container {
+    .profile-edit {
+      .img-profile {
+        position: relative;
+        height: 200px;
+        width: 200px;
+        border: 2px solid #ccc;
+        color: #ccc;
+        line-height: 159px;
+        border-radius: 50%;
+        font-size: 160px;
+        text-align: center;
+        .pen-but {
+          position: absolute;
+          top: 30%;
+          right: 0;
+        }
+      }
+      h3 {
+        font-weight: bold;
+        font-size: 32px;
+      }
+      .btn-grey {
+        width: 28%;
+        img {
+          padding-right: 10px;
+        }
+      }
+      .requsites {
+        display: flex;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .radio-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+      }
 
+      .radio-button {
+        height: 46px;
+        padding: 0 10px;
+        width: 250px;
+        margin-bottom: 16px;
+      }
+
+      .radio-button input[type="radio"] {
+        padding: 0;
+        margin: 0;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .radio-button label {
+        display: block;
+        box-sizing: border-box;
+        cursor: pointer;
+        background-color: white;
+      }
+
+      .radio-button label {
+        font-size: 13px;
+        border: 1px solid #ccc;
+        width: 100%;
+        height: 100%;
+        line-height: 47px;
+        padding: 0 10px;
+        color: black;
+        border-radius: 23px;
+        text-align: center;
+        font-weight: 400;
+      }
+
+      .radio-button label:hover,
+      .radio-button label:active,
+      .radio-button label:focus {
+        border: 1px solid #ccc;
+      }
+
+      .radio-button input[type="radio"]:active ~ label {
+        opacity: 1;
+      }
+
+      .radio-button input[type="radio"]:checked ~ label {
+        opacity: 1;
+        background-color: #bababa;
+        font-weight: bold;
+      }
+    }
+    @media screen and(max-width: 767px) {
+      .profile-edit {
+        .img-profile {
+          margin: 0 auto;
+        }
+        h3 {
+          text-align: center;
+        }
+        .btn-grey {
+          width: 100%;
+        }
+        .select-wrapper {
+          width: 100%;
+        }
+        .selectric {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.selectric {
+  line-height: 55px;
+  height: 55px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  text-align: center;
+  display: block;
+  margin: 15px 0;
+  font-size: 14px;
+  background: #fff;
+  color: #333;
+}
+
+.selectric {
+  margin: 0;
+  .label {
+    font-weight: 400;
+    font-size: 14px;
+    color: #333;
+    line-height: 55px;
+    height: 55px;
+    padding: 0;
+    margin: 0;
+  }
+  .button {
+    height: 55px;
+    right: 25px;
+    background: url('../img/down.png') no-repeat center center;
+    &:after {
+      display: none;
+    }
+    &:hover {
+      background: url('../img/down-red.png') no-repeat center center;
+    }
+  }
+}
+
+.selectric-items {
+  border-radius: 0 0 30px 30px;
+  border-top: none;
+  background: #fff;
+  ul {
+    text-align: center;
+    li {
+      font-size: 16px;
+      &:last-child {
+        border-radius: 0 0 30px 30px;
+      }
+      &.disabled {
+        display: none;
+      }
+      &:hover {
+        background: #fff;
+        color: red;
+      }
+      &.selected {
+        background: #fff;
+      }
+    }
+  }
+}
