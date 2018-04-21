@@ -76,12 +76,12 @@ class AccountController extends Controller
 
     public function editNotifySettings(Request $request, User $user){
         $itempost = $request->input();
-        if(isset($itempost['notify_email']) or isset($itempost['notify_phone'])){
-            if(isset($itempost['notify_email'])){
-                $user->where(['id' => $itempost['id']])->update(['notify_email' => $itempost['notify_email']]);
+        if(isset($itempost['email_notice']) or isset($itempost['sms_notice'])){
+            if(isset($itempost['email_notice'])){
+                $user->where(['id' => $itempost['id']])->update(['email_notice' => $itempost['email_notice']]);
             }
-            if(isset($itempost['notify_phone'])){
-                $user->where(['id' => $itempost['id']])->update(['notify_phone' => $itempost['notify_phone']]);
+            if(isset($itempost['sms_notice'])){
+                $user->where(['id' => $itempost['id']])->update(['sms_notice' => $itempost['sms_notice']]);
             }
 
             return response()->json(['status' => 1], 204);
