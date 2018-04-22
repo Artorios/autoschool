@@ -42,18 +42,10 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
     Route::get('/profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
 
-
     Route::get('/notifications', 'NotificationController@getPageNew')->name('autoschool.notify');
     Route::get('/notifications-all', 'NotificationController@getPageAll')->name('autoschool.notify.all');
 
-
-
-
-
-
     Route::post('/get-count-main-groups', 'AutoschoolController@getCountMain');
-
-
 
     Route::view('faq', 'autoschool.faq')->name('faq');
 
