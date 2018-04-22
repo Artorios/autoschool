@@ -6560,12 +6560,12 @@ table.table.manage-grid {
   border: none;
   border-collapse: collapse;
 
-  thead {
+  thead, tfoot {
     background-color: #ebebeb;
 
     tr {
 
-      th {
+      th, td {
         border: none;
         line-height: 30px;
         vertical-align: middle;
@@ -6584,12 +6584,37 @@ table.table.manage-grid {
     tr {
       border: none;
 
-      &.free {
-        background-color: lightgreen;
+      &.status-free {
+        td {
+          background-color: lightgreen;
+          a.status {
+            color: limegreen;
+            border-color: limegreen;
+          }
+        }
       }
 
-      &.active {
-        background-color: lightcoral;
+      &.status-active {
+
+        td {
+          background-color: lightcoral;
+          a.status {
+            color: coral;
+            border-color: coral;
+          }
+        }
+      }
+
+      &.status-paid {
+
+        td {
+          color: darkgray;
+
+          a, span, a.bold {
+            color: darkgray;
+            border-color: darkgray;
+          }
+        }
       }
 
       td, th {
@@ -6597,6 +6622,10 @@ table.table.manage-grid {
         vertical-align: baseline;
         padding: 30px 8px;
         font-weight: 400;
+
+        table {
+          width: 100%;
+        }
 
         @media screen and (max-width: 991px) {
           & {
@@ -6629,12 +6658,12 @@ table.table.manage-grid {
           }
         }
 
-        a + span {
+        a + span, span + span, span + a {
           display: block;
         }
 
         @media screen and (max-width: 991px) {
-          a + span {
+          a + span, span + span, span + a {
             display: inline;
             padding-left: 8px;
           }
@@ -6745,4 +6774,20 @@ table.table.manage-grid {
     }
 
   }
+}
+
+.blockgroupe .search-form {
+  background-color: #ededed;
+  padding: 20px 10px;
+  margin: 15px 0;
+}
+
+/*==== utility ====*/
+
+.w-100 {
+  width: 100% !important;
+}
+
+.no-margin {
+  margin: 0 !important;
 }
