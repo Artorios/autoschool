@@ -1,11 +1,12 @@
-@extends('layouts.autoschool')
+@extends('layouts.investor')
 @section('content')
     <div class="content error profile">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/autoschool">Главная</a> /Карта ЮЛ</li>
+                <li><a href="/autoschool">Главная</a> / Карта ЮЛ</li>
             </ul>
         </div>
+
         <div class="profile-edit">
             <div class="row">
                 <div class="col-md-4 col-xs-12">
@@ -16,26 +17,11 @@
                 </div>
                 <div class="col-md-8 col-xs-12">
                     <h3>АШ "Старт"</h3>
-                    <div class="form-group">
-                        <div class="selectric-wrapper">
-                            <div class="selectric">
-                                <span class="label">Филиал Главный</span>
-                                <b class="button">▾</b>
-                                <select  class="select" id="fillials_select">
-                                    <option selected disabled>Филиал Главный</option>
-                                    <option>филиал1</option>
-                                    <option>филиал2</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                     <div>
                         <a href="" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
                     </div>
                 </div>
-
             </div>
-
             <div class="requsites">
                 <div class="radio-button">
                     <input type="radio" name="address-type" id="address-type-1">
@@ -130,10 +116,3 @@
 
 
 @endsection
-@push('scripts')
-<script>
-    (function ($) {
-        $('#fillials_select').selectric();
-    })(jQuery)
-</script>
-@endpush

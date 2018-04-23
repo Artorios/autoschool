@@ -7,19 +7,63 @@
                 <li><a href="/autoschool/coupons">Купоны</a></li>
             </ul>
         </div>
+        <div class="blockgroupe">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <select name="" id="type_filter" class="select">
+                            <option value="all">Все(25)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <button class="btn-grey w-100 no-margin">Генерация купонов</button>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <button class="btn-grey w-100 no-margin">Статистика купонов</button>
+                    </div>
+                </div>
+            </div>
 
-        {{--<div class="coupons-top-button">--}}
-            {{--<div class="form-inline top-button">--}}
-                {{--<div class="form-group">--}}
-                    {{--<select class="select" id="coupons">--}}
-                        {{--<option disabled value="">Все(444)</option>--}}
-                        {{--<option value="1">1</option>--}}
-
-        {{--</select>--}}
-        {{--</div>--}}
-        {{--<button href="" class="btn-grey form-control">Генератор купонов</button>--}}
-        {{--<button href="" class="btn-grey form-control">Статистика купонов</button>--}}
-        {{--</div>--}}
+            <div class="search-form blockforms finance">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <div class="search">
+                                <input type="text" placeholder="Введите что искать">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <select class="select">
+                                <option selected disabled>ФИО ученика</option>
+                                <option>Петров В.В.</option>
+                                <option>Сидоров Г.А.</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <select class="select">
+                                <option selected disabled>По дате</option>
+                                <option>21.01.15</option>
+                                <option>22.01.15</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="data">
+                                <input type="text" placeholder="Дата">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <div class="coupon-table">
             <div class="table-wrapper">
                 <div class="title-line">

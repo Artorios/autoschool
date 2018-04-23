@@ -4,7 +4,7 @@
     <div class="content error profile autoschool">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/autoschool">Главная</a> / Филиалы</li>
+                <li><a href="/autoschool">Главная</a>/ Филиалы</li>
             </ul>
         </div>
         <block-statistic-groups></block-statistic-groups>
@@ -18,7 +18,7 @@
                     <span class="data-and-time">Адрес филиала</span>
                     <span class="count">Кол-во учеников</span>
                     <span class="kupons">Купоны активные/неактивные/всего</span>
-                </div>
+            </div>
                 @foreach($filials as $filial)
                 <div class="line">
                         <div class="number">{{$filial->id}}</div>
