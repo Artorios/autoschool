@@ -12,10 +12,8 @@
 */
 
 use App\Models\Location\City;
-use App\Models\Location\PriceCity;
 use App\Models\User\UserLesson;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
 Route::get('/', 'HomeController@index');
 
@@ -44,7 +42,6 @@ Route::group(['prefix' => 'user', 'namespace' => 'Auth'], function () {
 });
 
 Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => 'auth'], function () {
-
     Route::get('/', function () {
         return view('account.main', []);
     })->name('user.account');
@@ -74,10 +71,11 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
 
     Route::get('/notifications-all', 'NotificationController@getPageAll')->name('user.notify.all');
 
-    Route::post('/notify-read', 'NotificationController@notifyRead' );
+    Route::post('/notify-read', 'NotificationController@notifyRead');
 
     Route::get('/edit-profile', function () {
         $cities = City::where('show_city', 1)->get();
+
         return view('account.profile.index', compact('cities'));
     })->name('user.edit');
 
@@ -86,7 +84,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     Route::post('/edit-notify-settings', 'AccountController@editNotifySettings');
     Route::post('/profile-save-image', 'AccountController@saveProfileImage');
 
-    Route::get('/auth-info-acc', function (){
+    Route::get('/auth-info-acc', function () {
         $user = Auth::user();
 
         return response()->json(['user' => $user]);
@@ -96,7 +94,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::get('/', 'FinanceController@index')->name('user.finance');
         Route::post('get-variants', 'FinanceController@getVariants')->name('account.finance.getvariants');
         Route::post('card-payment', 'OrderController@cardPayment')->name('account.finance.cardpayment');
-
     });
 
     Route::get('/lessons', 'LessonController@index')->name('user.lessons');
@@ -112,7 +109,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
             return view('account.lessons.group-banned');
         });
 
-
         Route::get('/{lesson}', 'LessonController@show')->name('user.lessons.demo');
 
         /*
@@ -122,11 +118,13 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::get('/exam/{lesson}', 'UserLessonController@getExam')->middleware(['training', 'exam']);
         Route::get('/group-exam/{lesson}', 'UserLessonController@getGroupExam')->middleware(['training', 'exam', 'group-exam']);
 
-        Route::post('/training/{training}/check', 'UserLessonController@checkAnswerTraining');
-        Route::post('/training/{training}/send-answer', 'UserLessonController@checkAnswerExam');
-        Route::post('/training/{training}/check-training', 'UserLessonController@checkTraining');
-        Route::post('/training/{training}/check-exam', 'UserLessonController@checkExam');
-        Route::post('/training/{training}/check-group-exam', 'UserLessonController@checkGroupExam');
+        Route::group(['prefix' => 'training/{training}'], function () {
+            Route::post('check', 'UserLessonController@checkAnswerTraining');
+            Route::post('send-answer', 'UserLessonController@checkAnswerExam');
+            Route::post('check-training', 'UserLessonController@checkTraining');
+            Route::post('check-exam', 'UserLessonController@checkExam');
+            Route::post('check-group-exam', 'UserLessonController@checkGroupExam');
+        });
 
         Route::get('/analysis/{training}', 'LessonController@analysis');
 
@@ -135,7 +133,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     });
 
     Route::view('faq', 'account.faq')->name('faq');
-
 
     Route::group(['prefix' => 'tickets'], function () {
         Route::get('/', 'TicketsController@index')->name('account.tickets');
@@ -152,13 +149,8 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
         Route::post('/test/{training}/check-exam', 'ExamsController@checkExam');
         Route::post('/test/{training}/send-answer', 'ExamsController@checkAnswerExam');
     });
-
-
-    });
+});
 
 Route::post('get-price', 'Site\PriceController@getPrice');
 Route::get('/schools', 'Site\SchoolsController@getSchools');
 Route::get('/schools/{city_id}', 'Site\SchoolsController@getSchools');
-
-require __DIR__ . '/admin/web.php';
-require __DIR__ . '/autoschool/web.php';
