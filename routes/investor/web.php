@@ -6,4 +6,5 @@ Route::group(['prefix' => 'investor', 'namespace' => 'Investor', 'as' => 'invest
     Route::view('/history', 'investor.history.index')->name('history.index');
     Route::view('/profile/edit', 'investor.profile.edit')->name('profile.edit');
     Route::view('/coupons', 'investor.coupons.index')->name('coupons.index');
+    Route::view('/coupons/add', 'investor.coupons.generate_coupon')->name('coupons.add');
 });

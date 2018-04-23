@@ -7286,15 +7286,15 @@ table.table.manage-grid {
 }
 
 /*==================== Автошкола Finance =================*/
-.finance{
-  tfoot{
-    .btn-grey{
+.finance {
+  tfoot {
+    .btn-grey {
       margin: 0;
       width: 100%;
     }
   }
- .finance-line-height{
-    .margin-12{
+  .finance-line-height {
+    .margin-12 {
       margin-top: 12px;
     }
   }
@@ -7347,6 +7347,7 @@ table.table.manage-grid {
     width: 100%;
   }
 }
+
 .checked-line {
   input[type=checkbox] {
     display: none;
@@ -7375,5 +7376,263 @@ table.table.manage-grid {
   a {
     color: #333;
 
+  }
+}
+
+/*-------------Автошкола\ Edit Profile--------------*/
+.inner-main-content {
+  .container {
+    .profile-edit {
+      .img-profile {
+        position: relative;
+        height: 200px;
+        width: 200px;
+        border: 2px solid #ccc;
+        color: #ccc;
+        line-height: 159px;
+        border-radius: 50%;
+        font-size: 160px;
+        text-align: center;
+        .pen-but {
+          position: absolute;
+          top: 30%;
+          right: 0;
+        }
+      }
+      h3 {
+        font-weight: bold;
+        font-size: 32px;
+      }
+      .btn-grey {
+        width: 28%;
+        img {
+          padding-right: 10px;
+        }
+      }
+      .requsites {
+        display: flex;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .radio-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+      }
+
+      .radio-button {
+        height: 46px;
+        padding: 0 10px;
+        width: 250px;
+        margin-bottom: 16px;
+      }
+
+      .radio-button input[type="radio"] {
+        padding: 0;
+        margin: 0;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .radio-button label {
+        display: block;
+        box-sizing: border-box;
+        cursor: pointer;
+        background-color: white;
+      }
+
+      .radio-button label {
+        font-size: 13px;
+        border: 1px solid #ccc;
+        width: 100%;
+        height: 100%;
+        line-height: 47px;
+        padding: 0 10px;
+        color: black;
+        border-radius: 23px;
+        text-align: center;
+        font-weight: 400;
+      }
+
+      .radio-button label:hover,
+      .radio-button label:active,
+      .radio-button label:focus {
+        border: 1px solid #ccc;
+      }
+
+      .radio-button input[type="radio"]:active ~ label {
+        opacity: 1;
+      }
+
+      .radio-button input[type="radio"]:checked ~ label {
+        opacity: 1;
+        background-color: #bababa;
+        font-weight: bold;
+      }
+    }
+    @media screen and(max-width: 767px) {
+      .profile-edit {
+        .img-profile {
+          margin: 0 auto;
+        }
+        h3 {
+          text-align: center;
+        }
+        .btn-grey {
+          width: 100%;
+        }
+        .select-wrapper {
+          width: 100%;
+        }
+        .selectric {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.selectric {
+  line-height: 55px;
+  height: 55px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  text-align: center;
+  display: block;
+  margin: 15px 0;
+  font-size: 14px;
+  background: #fff;
+  color: #333;
+}
+
+.selectric {
+  margin: 0;
+  .label {
+    font-weight: 400;
+    font-size: 14px;
+    color: #333;
+    line-height: 55px;
+    height: 55px;
+    padding: 0;
+    margin: 0;
+  }
+  .button {
+    height: 55px;
+    right: 25px;
+    background: url('../img/down.png') no-repeat center center;
+    &:after {
+      display: none;
+    }
+    &:hover {
+      background: url('../img/down-red.png') no-repeat center center;
+    }
+  }
+}
+
+.selectric-items {
+  border-radius: 0 0 30px 30px;
+  border-top: none;
+  background: #fff;
+  ul {
+    text-align: center;
+    li {
+      font-size: 16px;
+      &:last-child {
+        border-radius: 0 0 30px 30px;
+      }
+      &.disabled {
+        display: none;
+      }
+      &:hover {
+        background: #fff;
+        color: red;
+      }
+      &.selected {
+        background: #fff;
+      }
+    }
+  }
+}
+
+/*==========Генерацыя купонов=========*/
+.coupon-generate {
+  input {
+    height: 55px;
+  }
+  input, textarea {
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 0 20px;
+    color: black;
+    width: 100%;
+    &::placeholder {
+      color: black;
+    }
+  }
+}
+
+/*==========Автошкола Personal=========*/
+
+.personal {
+  .img-profile {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    border: 2px solid #ccc;
+    line-height: 159px;
+    border-radius: 50%;
+    text-align: center;
+  }
+  .btn-grey {
+    width: 100%;
+  }
+  .date-examination {
+    padding: 30px 10px;
+    background-color: #ebebeb;
+  }
+  .block-info {
+    margin: 30px 0;
+    .info {
+      padding: 10px 0;
+      span.address{
+        font-size: 18px;
+      }
+      span.number {
+        font-size: 26px;
+        span{
+          font-weight: 600;
+        }
+      }
+      span.mail {
+        font-size: 18px;
+        a {
+          color: black;
+        }
+      }
+      img{
+        margin-right: 20px;
+      }
+    }
+  }
+  .inner-block{
+    line-height: 55px;
+    .btn-grey {
+      width: 50%;
+    }
+  }
+  textarea {
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    color: black;
+    width: 100%;
+    &::placeholder {
+      color: black;
+    }
   }
 }

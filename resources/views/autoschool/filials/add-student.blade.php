@@ -33,14 +33,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <select class="select">
-                        <option selected disabled>Купон</option>
+                        <option selected disabled>Главный</option>
                         <option>156145</option>
                         <option>С845</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <select class="select">
-                        <option selected disabled>Група</option>
+                        <option selected disabled>ИД-23</option>
                         <option>555</option>
                         <option>5545</option>
                     </select>

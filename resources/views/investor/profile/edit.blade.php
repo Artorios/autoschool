@@ -45,6 +45,36 @@
                 </div>
             </div>
         </div>
+        <div class="details">
+            <h3>Реквизиты юр. лица:</h3>
+            <form>
+                <div class="form-group">
+                    <label>ИНН:</label>
+                    <input type="text" placeholder="*****">
+                </div>
+                <div class="form-group">
+                    <label>Сокращенное наименование организации: </label>
+                    <input type="text" placeholder="ООО Франчайзи ">
+                </div>
+                <div class="form-group">
+                    <label>Полное наименование организации:</label>
+                    <input type="text" placeholder="Общество с ограниченной ответвеностью Франчайзи ">
+                </div>
+                <div class="form-group">
+                    <label>КПП:</label>
+                    <input type="text" placeholder="*****">
+                </div>
+                <div class="form-group">
+                    <label>Дата государственной регистрации: </label>
+                    <input type="text" placeholder="01.12.2017">
+                </div>
+                <div class="form-group">
+                    <label>Ген. директор: </label>
+                    <input type="text" placeholder=" Иванов Иван Иванович">
+                </div>
+                <button type="submit" class="btn-grey">Сохранить изменения</button>
+            </form>
+        </div>
         <div class="pass-change">
             <h4>Смените пароль:</h4>
             <span>Внимание! Пароль должен содержать цифру, заглавную и строчную букву и иметь длинну от 8 до 25 символов</span>
