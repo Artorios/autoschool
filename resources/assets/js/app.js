@@ -1,25 +1,25 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
 
-import AuthVue from './components/AuthComponents/auth.vue'
-import UserVue from './components/UserComponent/user.vue'
-import SchoolVue from './components/ScoolComponents/index.vue'
-import RegionVue from './components/CityComponents/regions.vue'
-import DistrictVue from './components/CityComponents/districts.vue'
-import PriceVue from './components/CityComponents/price.vue'
-import LessonsVue from './components/LessonComponents/index.vue'
-import LessonVue from './components/LessonComponents/single.vue'
-import QuestionsVue from './components/QuestionComponents/questions.vue'
-import QuestionVue from './components/QuestionComponents/question.vue'
-import QuestionSingle from './components/QuestionComponents/question-single.vue'
-import LessonsSettings from './components/SettingsComponents/LessonsSettings.vue'
-import EditProfile from './components/UserComponent/edit-profile-form.vue'
-import VueVideoPlayer from 'vue-video-player'
+import AuthVue from './components/AuthComponents/auth.vue';
+import UserVue from './components/UserComponent/user.vue';
+import SchoolVue from './components/ScoolComponents/index.vue';
+import RegionVue from './components/CityComponents/regions.vue';
+import DistrictVue from './components/CityComponents/districts.vue';
+import PriceVue from './components/CityComponents/price.vue';
+import LessonsVue from './components/LessonComponents/index.vue';
+import LessonVue from './components/LessonComponents/single.vue';
+import QuestionsVue from './components/QuestionComponents/questions.vue';
+import QuestionVue from './components/QuestionComponents/question.vue';
+import QuestionSingle from './components/QuestionComponents/question-single.vue';
+import LessonsSettings from './components/SettingsComponents/LessonsSettings.vue';
+import EditProfile from './components/UserComponent/edit-profile-form.vue';
+import VueVideoPlayer from 'vue-video-player';
 import Toasted from 'vue-toasted';
-require('videojs-youtube/dist/Youtube.min.js')
+require('videojs-youtube/dist/Youtube.min.js');
+require('video.js/dist/video-js.css');
+require('vue-video-player/src/custom-theme.css');
 
-require('video.js/dist/video-js.css')
-require('vue-video-player/src/custom-theme.css')
 Vue.use(VueResource);
 Vue.use(VueVideoPlayer);
 Vue.use(Toasted, {iconPack : 'material'});
