@@ -35,8 +35,7 @@
     <div class="invitegroupe">
         <ul class="pagination">
             <li class="page-item">
-                <a class="[{active: currentPage === pageNumber}, 'page-link']" href="#"
-                   </a>
+                <a class="[{active: currentPage === pageNumber}, 'page-link']" href="#"</a>
             </li>
         </ul>
     </div>
