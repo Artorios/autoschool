@@ -1,58 +1,48 @@
 @extends('layouts.autoschool')
 
 @section('content')
-    <div class="content error profile investor">
+    <div class="content error profile finance">
         <div class="breadcrumbs">
             <ul>
                 <li><a href="{{ route('autoschool.index') }}">Главная</a> / Филиалы</li>
             </ul>
         </div>
+        <h3>Финансовая статистика:</h3>
+        @include('autoschool._statistics')
 
         <div class="blockgroupe">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <select name="" id="type_filter" class="select">
-                            <option value="all">Все(25)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="form-group">
-                        <button class="btn-grey w-100 no-margin">Генерация купонов</button>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="form-group">
-                        <button class="btn-grey w-100 no-margin">Статистика купонов</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="search-form">
+            <div class="search-form blockforms finance">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
-                            <input type="text" class="form-control">
+                            <div class="search">
+                                <input type="text" placeholder="Введите что искать">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <select name="" id="" class="select">
-                                <option value="" selected disabled>Название автошколы</option>
+                            <select class="select">
+                                <option selected disabled>ФИО ученика</option>
+                                <option>Петров В.В.</option>
+                                <option>Сидоров Г.А.</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <select name="" id="" class="select">
-                                <option value="" selected disabled>По дате</option>
+                            <select class="select">
+                                <option selected disabled>По дате</option>
+                                <option>21.01.15</option>
+                                <option>22.01.15</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input type="text" class="form-control">
+                            <div class="data">
+                                <input type="text" placeholder="Дата">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -61,35 +51,40 @@
             <table class="table manage-grid">
                 <thead>
                 <tr class="visible-md visible-lg">
+                    <th></th>
                     <th>№</th>
-                    <th>Автошкола/ID</th>
-                    <th>ФИО ученика/Группа</th>
+
+                    <th>ФИО ученика</th>
+                    <th>Группа</th>
                     <th>Тип оплаты</th>
                     <th>Дата оплаты</th>
                     <th>Сумма</th>
-                    <th>Комиссия</th>
-                    <th>Статус</th>
                 </tr>
                 </thead>
                 <tbody class="main">
-                <tr data-id="1" class="visible-md visible-lg status-active">
+                <tr data-id="1" class="visible-md visible-lg">
+                    <td>
+                        <div class="checked-line">
+                            <input type="checkbox" name="grid_selected[]">
+                            <label for="checked-line"></label>
+                        </div>
+                    </td>
                     <td>1</td>
-                    <td><a class="school-name">Автошкола АБВ</a><span class="school-id">ID 6507</span></td>
-                    <td><span class="student-name">Длиннофамильевский И.В.</span><span class="group-number">Группа <a href="javascript:">№123</a></span></td>
-                    <td>Длинный тип оплаты</td>
-                    <td>27.11.2017</td>
-                    <td><span class="bold big">160&nbsp;000</span></td>
+                    <td><span class="student-name">Длиннофамильевский И.В.</span></td>
+                    <td><span class="group-number">Группа <a
+                                    href="javascript:">№123</a></span></td>
+                    <td>Длинный тип олаты</td>
+                    <td>12.02.1254</td>
                     <td><a class="bold big" href="javascript:">6 000</a></td>
-                    <td><a href="javascript:" class="status">Активирован</a></td>
                 </tr>
-                <tr data-id="1" class="hidden-md hidden-lg status-active">
+                <tr data-id="1" class="hidden-md hidden-lg">
                     <td>
                         <table>
                             <tbody>
                             <tr>
+                                <td><input type="checkbox" name="grid_selected[]"></td>
                                 <td><span class="big bold">01</span></td>
-                                <td colspan="2">
-                                    <a class="school-name">Автошкола АБВ</a><span class="school-id">ID 6507</span>
+                                <td>
                                     <span class="student-name">Длиннофамильевский И.В.</span><span class="group-number">Группа <a href="javascript:">№123</a></span>
                                 </td>
                             </tr>
@@ -102,6 +97,7 @@
                             </tr>
                             <tr>
                                 <td></td>
+
                                 <th>Дата оплаты</th>
                                 <td>27.11.2017</td>
                             </tr>
@@ -110,154 +106,37 @@
                                 <th>Сумма</th>
                                 <td><span class="bold big">160&nbsp;000</span></td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <th>Комиссия</th>
-                                <td><a class="bold big" href="javascript:">6 000</a></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Статус</th>
-                                <td><a href="javascript:" class="status">Активирован</a></td>
-                            </tr>
                             </tbody>
                         </table>
                     </td>
                 </tr>
-                <tr data-id="2" class="visible-md visible-lg status-free">
-                    <td>1</td>
-                    <td><a class="school-name">Автошкола АБВ</a><span class="school-id">ID 6507</span></td>
-                    <td>{{--<span class="student-name">Длиннофамильевский И.В.</span><span class="group-number">Группа <a href="javascript:">№123</a></span>--}}</td>
-                    <td></td>
-                    <td>27.11.2017</td>
-                    <td><span class="bold big">160&nbsp;000</span></td>
-                    <td><a class="bold big" href="javascript:">6 000</a></td>
-                    <td><a href="javascript:" class="status">Свободный</a></td>
-                </tr>
-                <tr data-id="2" class="hidden-md hidden-lg status-free">
-                    <td>
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td><span class="big bold">01</span></td>
-                                <td colspan="2">
-                                    <a class="school-name">Автошкола АБВ</a><span class="school-id">ID 6507</span>
-                                    {{--<span class="student-name">Длиннофамильевский И.В.</span><span class="group-number">Группа <a href="javascript:">№123</a></span>--}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Тип оплаты</th>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Дата оплаты</th>
-                                <td>27.11.2017</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Сумма</th>
-                                <td><span class="bold big">160&nbsp;000</span></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Комиссия</th>
-                                <td><a class="bold big" href="javascript:">6 000</a></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Статус</th>
-                                <td><a href="javascript:" class="status">Свободный</a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr data-id="3" class="visible-md visible-lg status-paid">
-                    <td>1</td>
-                    <td><a class="school-name">Автошкола АБВ</a><span class="school-id">ID 6507</span></td>
-                    <td>{{--<span class="student-name">Длиннофамильевский И.В.</span><span class="group-number">Группа <a href="javascript:">№123</a></span>--}}</td>
-                    <td></td>
-                    <td>27.11.2017</td>
-                    <td><span class="bold big">160&nbsp;000</span></td>
-                    <td><a class="bold big" href="javascript:">6 000</a></td>
-                    <td><a href="javascript:" class="status">Свободный</a></td>
-                </tr>
-                <tr data-id="2" class="hidden-md hidden-lg status-paid">
-                    <td>
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td><span class="big bold">01</span></td>
-                                <td colspan="2">
-                                    <a class="school-name">Автошкола АБВ</a><span class="school-id">ID 6507</span>
-                                    {{--<span class="student-name">Длиннофамильевский И.В.</span><span class="group-number">Группа <a href="javascript:">№123</a></span>--}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Тип оплаты</th>
-                                <td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Дата оплаты</th>
-                                <td>27.11.2017</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Сумма</th>
-                                <td><span class="bold big">160&nbsp;000</span></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Комиссия</th>
-                                <td><a class="bold big" href="javascript:">6 000</a></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Статус</th>
-                                <td><a href="javascript:" class="status">Свободный</a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                {{--<tr data-id="1" class="payment-form" style="display: none">
-                    <td colspan="7">
-                        <form action="">
-                            <div class="close hidden-md hidden-lg"></div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <button class="btn-grey">Сохранить</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="close visible-md visible-lg"></div>
-                                </div>
-                            </div>
-                        </form>
-                    </td>
-                </tr>--}}
                 </tbody>
+                <tfoot class="finance-line-height">
+                <tr>
+                    <td colspan="9">
+                        <div class="row nero">
+                            <div class="col-md-2 margin-12">
+                                <input type="checkbox">  Для всех
+                            </div>
+                            <div class="col-md-2 margin-12">
+                                Отмечено 1 из 12
+                            </div>
+
+                            <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Анулировать</a></div>
+                            <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Удалить</a></div>
+                            <div class="col-xs-12 col-md-4">
+                                    <select class="select">
+                                        <option selected disabled>Виберите действие</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         </div>
-        <h3>Статистика купонов:</h3>
-        @include('investor._statistics')
 
         <div class="invitegroupe">
             <ul class="pagination">
@@ -273,7 +152,7 @@
 @endsection
 @push('scripts')
 <script>
-    (function($){
+    (function ($) {
         $('.select').selectric();
     })(jQuery)
 </script>

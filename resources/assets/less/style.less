@@ -6463,7 +6463,7 @@ footer.inner {
   .container {
     .autoschool-coupons {
       .coupons-top-button {
-        .top-button{
+        .top-button {
           padding: 20px 0;
         }
         .btn-grey {
@@ -6516,7 +6516,7 @@ footer.inner {
             & div {
               display: inline-block;
               color: black;
-              &.coupons-cheskbox{
+              &.coupons-cheskbox {
                 width: 20px;
               }
               &.number {
@@ -6524,7 +6524,7 @@ footer.inner {
                 text-align: center;
               }
               &.coupon {
-                width:60px;
+                width: 60px;
               }
               &.autoschool {
                 width: 120px;
@@ -6590,12 +6590,32 @@ footer.inner {
           }
         }
       }
-      .btn-grey{
+      .btn-grey {
         width: 30%;
-        @media screen and(max-width: 767px){
+        @media screen and(max-width: 767px) {
           width: 100%;
         }
+
       }
+    }
+  }
+}
+
+/*-------------Студент автошкола--------------*/
+
+.add-student {
+  input {
+    height: 55px;
+  }
+  input, textarea {
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 0 20px;
+    color: black;
+    width: 100%;
+    &::placeholder {
+      color: black;
     }
   }
 }
@@ -6704,8 +6724,8 @@ table.table.manage-grid {
         }
 
         a.success {
-            color: green;
-            border-color: green;
+          color: green;
+          border-color: green;
         }
 
         span.success {
@@ -6838,6 +6858,21 @@ table.table.manage-grid {
   margin: 15px 0;
 }
 
+/*==================== Автошкола Finance =================*/
+.finance{
+  tfoot{
+    .btn-grey{
+      margin: 0;
+      width: 100%;
+    }
+  }
+ .finance-line-height{
+    .margin-12{
+      margin-top: 12px;
+    }
+  }
+}
+
 /*==== utility ====*/
 
 .w-100 {
@@ -6846,4 +6881,72 @@ table.table.manage-grid {
 
 .no-margin {
   margin: 0 !important;
+}
+
+.blockforms {
+  margin: 20px 0 40px;
+  position: relative;
+  background-color: #ebebeb;
+  padding: 20px 10px;
+  input {
+    position: relative;
+    height: 55px;
+    line-height: 55px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    width: 100%;
+    padding: 0 15px;
+    text-indent: 20px;
+  }
+  .search {
+    & input {
+      background-image: url("../img/img/search.png");
+      background-repeat: no-repeat;
+      background-position: 95% 50%;
+    }
+  }
+  .data {
+    & input {
+      background-image: url("../img/img/date.png");
+      background-repeat: no-repeat;
+      background-position: 95% 50%;
+    }
+  }
+}
+
+.btn-grey {
+  width: 30%;
+  @media screen and(max-width: 767px) {
+    width: 100%;
+  }
+}
+.checked-line {
+  input[type=checkbox] {
+    display: none;
+  }
+  label {
+    font-weight: 400;
+  }
+  label:before {
+    display: inline-block;
+    content: "";
+    width: 25px;
+    height: 25px;
+    border: 2px solid #ccc;
+    background: white;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #333;
+    position: relative;
+    top: 7px;
+    margin-right: 10px;
+
+  }
+  input[type=checkbox]:checked + label:before {
+    background: white url(../img/ok-red.png) no-repeat center center;
+  }
+  a {
+    color: #333;
+
+  }
 }

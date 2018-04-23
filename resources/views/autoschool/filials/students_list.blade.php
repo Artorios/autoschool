@@ -36,8 +36,10 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="data">
-                        <input type="text" placeholder="Дата">
+                    <div class="form-group">
+                        <div class="data">
+                            <input type="text" placeholder="Дата">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -175,13 +177,13 @@
             </table>
         </div>
         <div class="addstudent">
-            <a href="#" class="btn-grey"> Добавить ученика</a>
+            <a href="{{ route('autoschool.add-student') }}" class="btn-grey"> Добавить ученика</a>
         </div>
     </div>
 @endsection
 @push('scripts')
 <script>
-    (function($){
+    (function ($) {
         $('.select').selectric();
     })(jQuery)
 </script>

@@ -40,7 +40,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
         return view('autoschool.index.index');
     })->name('autoschool.history');
 
-    Route::view('add-student', 'autoschool.filials.add-student');
+    Route::view('add-student', 'autoschool.filials.add-student')->name('autoschool.add-student');
 
     Route::get('/profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
 
