@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <a href="{{route('autoschool.edit')}}" class="student-info" style="color: black">
+                    <a href="{{route('investor.profile.edit')}}" class="student-info" style="color: black">
                         <div class="student-info">
                             <div class="img">
                                 <img src="/img/profile-photo.png" alt="">
@@ -52,7 +52,7 @@
                             <span>Комиссия 10 000 руб.</span>
                         </div>
                     </a>
-                    <a href="{{route('autoschool.notify')}}" class="notes">
+                    <a href="javascript:" class="notes">
                         <img src="/img/bell.png" alt="">
                         <span class="number">
                     {{count(\App\Models\User\Notification::where(['user_id' => Auth::user()->id, 'status' => '1'])->get())}}</span>
@@ -70,22 +70,18 @@
                 <div class="sidebar collapse" id="sbMenu">
                     <ul>
                         <li class="{{Route::currentRouteName() === 'investor.index' ? 'active' : ''}}">
-                            <a href="{{route('autoschool.index')}}"><img src="/img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
+                            <a href="{{route('investor.index')}}"><img src="/img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
+                        </li>
+                        <li class="{{Route::currentRouteName() === 'investor.coupons.index' ? 'active' : ''}}">
+                            <a href="{{route('investor.coupons.index')}}"><img src="/img/menu-ico4.png" alt=""><span class="text">Купоны</span></a>
                         </li>
                         <li class="{{
-                                    Route::currentRouteName() === 'investor.filials' ? 'active' : ''}}">
-                            <a href="{{route('autoschool.filials')}}"><img src="/img/location.png" alt=""><span class="text">Филиалы</span></a>
-                        </li>
-                        <li class="{{Route::currentRouteName() === 'investor.coupons' ? 'active' : ''}}">
-                            <a href="{{route('autoschool.coupons')}}"><img src="/img/menu-ico4.png" alt=""><span class="text">Купоны</span></a>
+                                    Route::currentRouteName() === 'investor.finance.index' ? 'active' : ''}}">
+                            <a href="{{route('investor.finance.index')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Финансы</span></a>
                         </li>
                         <li class="{{
-                                    Route::currentRouteName() === 'investor.finance' ? 'active' : ''}}">
-                            <a href="{{route('autoschool.finance')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Финансы</span></a>
-                        </li>
-                        <li class="{{
-                                    Route::currentRouteName() === 'investor.history' ? 'active' : ''}}">
-                            <a href="{{route('autoschool.history')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">История</span></a>
+                                    Route::currentRouteName() === 'investor.history.index' ? 'active' : ''}}">
+                            <a href="{{route('investor.history.index')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">История</span></a>
                         </li>
                     </ul>
                 </div>
