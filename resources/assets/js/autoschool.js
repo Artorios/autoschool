@@ -11,6 +11,7 @@ import ProfilePhoto from './components/UserComponent/profile-photo';
 import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
 import SchoolFilials from './AutoschoolComponents/school-filials'
 import FilialGroups from './AutoschoolComponents/filial-groups'
+import AutoschoolProfileEdit from './AutoschoolComponents/autoschool-profile-edit'
 const VueInputMask = require('vue-inputmask').default
 Vue.use(VueInputMask);
 Vue.use(VueResource);
@@ -35,6 +36,7 @@ const app = new Vue({
         ButtonAddFilial,
         SchoolFilials,
         FilialGroups,
-        BlockStatisticGroupsInFilial
+        BlockStatisticGroupsInFilial,
+        AutoschoolProfileEdit
     }
 });

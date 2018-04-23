@@ -35,7 +35,6 @@
                 </div>
 
             </div>
-
             <div class="requsites">
                 <div class="radio-button">
                     <input type="radio" name="address-type" id="address-type-1">
@@ -59,36 +58,7 @@
                 </div>
             </div>
         </div>
-        <div class="details">
-            <h3>Реквизиты юр. лица:</h3>
-            <form>
-                <div class="form-group">
-                    <label>ИНН:</label>
-                    <input type="text" placeholder="*****">
-                </div>
-                <div class="form-group">
-                    <label>Сокращенное наименование организации: </label>
-                    <input type="text" placeholder="ООО Франчайзи ">
-                </div>
-                <div class="form-group">
-                    <label>Полное наименование организации:</label>
-                    <input type="text" placeholder="Общество с ограниченной ответвеностью Франчайзи ">
-                </div>
-                <div class="form-group">
-                    <label>КПП:</label>
-                    <input type="text" placeholder="*****">
-                </div>
-                <div class="form-group">
-                    <label>Дата государственной регистрации: </label>
-                    <input type="text" placeholder="01.12.2017">
-                </div>
-                <div class="form-group">
-                    <label>Ген. директор: </label>
-                    <input type="text" placeholder=" Иванов Иван Иванович">
-                </div>
-                <button type="submit" class="btn-grey">Сохранить изменения</button>
-            </form>
-        </div>
+        <autoschool-profile-edit :profile="{{json_encode($info_about_school)}}"></autoschool-profile-edit>
         <edit-pass-form></edit-pass-form>
         <edit-notify-settings></edit-notify-settings>
     </div>

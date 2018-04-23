@@ -4,7 +4,7 @@ namespace App\Models\Training\School\Traits\Relationship;
 
 use App\Models\Location\City;
 use App\Models\Training\School\{
-    AutoSchoolContact, AutoSchoolFilial
+    AutoSchoolContact, AutoSchoolFilial, AutoSchoolInfo
 };
 
 /**
@@ -55,5 +55,13 @@ trait AutoSchoolRelationship
 
     public function filials(){
         return $this->hasMany(AutoSchoolFilial::class, 'auto_school_id', 'id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function info()
+    {
+        return $this->hasOne(AutoSchoolInfo::class, 'auto_school_id', 'id');
     }
 }
