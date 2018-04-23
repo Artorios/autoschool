@@ -1,8 +1,5 @@
 @extends('layouts.autoschool')
 @section('content')
-
-
-
     <div class="content error profile autoschool-coupons ">
         <div class="breadcrumbs">
             <ul>
@@ -62,5 +59,4 @@
                 </div>
             </div>
         </div>
-
 @endsection

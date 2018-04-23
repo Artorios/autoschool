@@ -11,6 +11,7 @@
         "barryvdh/laravel-debugbar": "v3.0.0",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
+        "hieu-le/active": "^3.5",
         "jhaoda/socialite-mailru": "^3.0",
         "jhaoda/socialite-odnoklassniki": "^3.0",
         "laravel/framework": "5.5.*",

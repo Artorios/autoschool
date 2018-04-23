@@ -6304,6 +6304,17 @@ footer.inner {
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
+  .no-gutters-sm {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
   .inner-main-content {
     .container {
       .autoschool {
@@ -6378,6 +6389,17 @@ footer.inner {
 }
 
 @media screen and (min-width: 992px) and (max-width: 1170px) {
+  .no-gutters-md {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
   .inner-main-content {
     .container {
       .autoschool {
@@ -6441,7 +6463,7 @@ footer.inner {
   .container {
     .autoschool-coupons {
       .coupons-top-button {
-        .top-button {
+        .top-button{
           padding: 20px 0;
         }
         .btn-grey {
@@ -6494,7 +6516,7 @@ footer.inner {
             & div {
               display: inline-block;
               color: black;
-              &.coupons-cheskbox {
+              &.coupons-cheskbox{
                 width: 20px;
               }
               &.number {
@@ -6502,7 +6524,7 @@ footer.inner {
                 text-align: center;
               }
               &.coupon {
-                width: 60px;
+                width:60px;
               }
               &.autoschool {
                 width: 120px;
@@ -6539,7 +6561,7 @@ footer.inner {
   .container {
     .autoschool-student {
       .blockforms {
-        margin-top: 20px;
+        margin: 20px 0 40px;
         position: relative;
         background-color: #ebebeb;
         padding: 20px 10px;
@@ -6568,6 +6590,260 @@ footer.inner {
           }
         }
       }
+      .btn-grey{
+        width: 30%;
+        @media screen and(max-width: 767px){
+          width: 100%;
+        }
+      }
     }
   }
+}
+
+/*====== Grid ======*/
+table.table.manage-grid {
+  border: none;
+  border-collapse: collapse;
+
+  thead, tfoot {
+    background-color: #ebebeb;
+
+    tr {
+
+      th, td {
+        border: none;
+        line-height: 30px;
+        vertical-align: middle;
+        font-weight: 400;
+      }
+    }
+  }
+
+  & > tbody > tr:not(:last-child) {
+    border-bottom: 1px solid #ededed;
+  }
+
+  tbody {
+    border: none;
+
+    tr {
+      border: none;
+
+      &.status-free {
+        td {
+          background-color: lightgreen;
+          a.status {
+            color: limegreen;
+            border-color: limegreen;
+          }
+        }
+      }
+
+      &.status-active {
+
+        td {
+          background-color: lightcoral;
+          a.status {
+            color: coral;
+            border-color: coral;
+          }
+        }
+      }
+
+      &.status-paid {
+
+        td {
+          color: darkgray;
+
+          a, span, a.bold {
+            color: darkgray;
+            border-color: darkgray;
+          }
+        }
+      }
+
+      td, th {
+        border: none;
+        vertical-align: baseline;
+        padding: 30px 8px;
+        font-weight: 400;
+
+        table {
+          width: 100%;
+        }
+
+        @media screen and (max-width: 991px) {
+          & {
+            padding: 15px 8px;
+          }
+        }
+
+        a {
+          color: black;
+          font-size: 14px;
+          text-decoration: none;
+          border-bottom: 1px solid black;
+
+          &.bold {
+            font-weight: 600;
+            border-bottom: 2px solid black;
+
+            &:hover {
+              border-bottom: 2px solid red;
+            }
+          }
+
+          &:hover {
+            color: red;
+            border-bottom: 1px solid red;
+          }
+
+          &.big {
+            font-size: 16px;
+          }
+        }
+
+        a.success {
+            color: green;
+            border-color: green;
+        }
+
+        span.success {
+          color: green;
+        }
+
+        a + span, span + span, span + a {
+          display: block;
+        }
+
+        @media screen and (max-width: 991px) {
+          a + span, span + span, span + a {
+            display: inline;
+            padding-left: 8px;
+          }
+        }
+
+        span {
+
+          &.bold {
+            font-weight: 600;
+          }
+
+          &.big {
+            font-size: 16px;
+          }
+        }
+      }
+
+      &.payment-form {
+
+        td {
+          background-color: #ebebeb;
+          vertical-align: middle;
+          padding: 30px 8px;
+
+          @media screen and (max-width: 991px) {
+            padding: 50px 8px 30px;
+          }
+
+          form {
+            position: relative;
+
+            .form-group {
+
+              input, button {
+                width: 100%;
+                margin: 0;
+                height: 50px;
+              }
+
+              input {
+                background-color: #f9f9f9;
+                height: 55px;
+                border-radius: 30px;
+              }
+            }
+
+            .close {
+              margin: 10px 0 0 0;
+              width: 30px;
+              height: 30px;
+              background: url("../img/x-active.png") no-repeat;
+              opacity: 0.4;
+              z-index: 50;
+
+              @media screen and (max-width: 991px) {
+                position: absolute;
+                right: 0;
+                top: -48px;
+              }
+
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*====== Блок статистики ======*/
+
+.numberpeople {
+  .info {
+    width: auto;
+    .block {
+      width: 100% !important;
+      border: 3px solid #cccccc;
+      display: inline-block;
+      padding: 10px 10px;
+      height: 170px;
+      margin: 0;
+
+      h3 {
+        margin-bottom: 15px;
+      }
+
+      h3 {
+        font-size: 20px;
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+
+      span {
+        color: #666666;
+      }
+
+      & > span {
+        display: block;
+      }
+
+      .number {
+        font-size: 30px;
+        font-weight: 400;
+        display: inline-block;
+        margin: 0 10px;
+        color: #000000;
+      }
+    }
+
+  }
+}
+
+.blockgroupe .search-form {
+  background-color: #ededed;
+  padding: 20px 10px;
+  margin: 15px 0;
+}
+
+/*==== utility ====*/
+
+.w-100 {
+  width: 100% !important;
+}
+
+.no-margin {
+  margin: 0 !important;
 }

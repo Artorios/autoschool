@@ -164,3 +164,4 @@ Route::view('/finances', 'finances');
 
 require __DIR__ . '/admin/web.php';
 require __DIR__ . '/autoschool/web.php';
+require __DIR__ . '/investor/web.php';
