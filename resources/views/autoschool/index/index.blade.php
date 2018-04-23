@@ -4,7 +4,7 @@
     <div class="content error profile autoschool">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/autoschool">Главная</a> /Филиалы</li>
+                <li><a href="/autoschool">Главная</a>/ Филиалы</li>
             </ul>
         </div>
         <block-statistic-groups></block-statistic-groups>
