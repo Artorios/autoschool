@@ -11,7 +11,7 @@
             </ul>
         </div>
 
-        <div class="coupons-top-button">
+        {{--<div class="coupons-top-button">--}}
             {{--<div class="form-inline top-button">--}}
                 {{--<div class="form-group">--}}
                     {{--<select class="select" id="coupons">--}}
