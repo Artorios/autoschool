@@ -6304,6 +6304,17 @@ footer.inner {
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
+  .no-gutters-sm {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
   .inner-main-content {
     .container {
       .autoschool {
@@ -6378,6 +6389,17 @@ footer.inner {
 }
 
 @media screen and (min-width: 992px) and (max-width: 1170px) {
+  .no-gutters-md {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
   .inner-main-content {
     .container {
       .autoschool {
@@ -6961,180 +6983,403 @@ footer.inner {
   }
 }
 
-/*-------------Автошкола\ Edit Profile--------------*/
+/*-------------Студент автошкола--------------*/
+
+
+
+
+
+
 .inner-main-content {
   .container {
-    .profile-edit {
-      .img-profile {
+    .autoschool-student {
+      .blockforms {
+        margin: 20px 0 40px;
         position: relative;
-        height: 200px;
-        width: 200px;
-        border: 2px solid #ccc;
-        color: #ccc;
-        line-height: 159px;
-        border-radius: 50%;
-        font-size: 160px;
-        text-align: center;
-        .pen-but {
-          position: absolute;
-          top: 30%;
-          right: 0;
+        background-color: #ebebeb;
+        padding: 20px 10px;
+        input {
+          position: relative;
+          height: 55px;
+          line-height: 55px;
+          border-radius: 30px;
+          border: 1px solid #ccc;
+          width: 100%;
+          padding: 0 15px;
+          text-indent: 20px;
         }
-      }
-      h3 {
-        font-weight: bold;
-        font-size: 32px;
+        .search {
+          & input {
+            background-image: url("../img/img/search.png");
+            background-repeat: no-repeat;
+            background-position: 95% 50%;
+          }
+        }
+        .data {
+          & input {
+            background-image: url("../img/img/date.png");
+            background-repeat: no-repeat;
+            background-position: 95% 50%;
+          }
+        }
       }
       .btn-grey {
-        width: 28%;
-        img {
-          padding-right: 10px;
+        width: 30%;
+        @media screen and(max-width: 767px) {
+          width: 100%;
         }
-      }
-      .requsites {
-        display: flex;
-        margin-top: 20px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .radio-button {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        position: relative;
-      }
 
-      .radio-button {
-        height: 46px;
-        padding: 0 10px;
-        width: 250px;
-        margin-bottom: 16px;
       }
+    }
+  }
+}
 
-      .radio-button input[type="radio"] {
-        padding: 0;
-        margin: 0;
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
+/*-------------Студент автошкола--------------*/
 
-      .radio-button label {
-        display: block;
-        box-sizing: border-box;
-        cursor: pointer;
-        background-color: white;
-      }
+.add-student {
+  input {
+    height: 55px;
+  }
+  input, textarea {
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 0 20px;
+    color: black;
+    width: 100%;
+    &::placeholder {
+      color: black;
+    }
+  }
+}
 
-      .radio-button label {
-        font-size: 13px;
-        border: 1px solid #ccc;
-        width: 100%;
-        height: 100%;
-        line-height: 47px;
-        padding: 0 10px;
-        color: black;
-        border-radius: 23px;
-        text-align: center;
+/*====== Grid ======*/
+table.table.manage-grid {
+  border: none;
+  border-collapse: collapse;
+
+  thead, tfoot {
+    background-color: #ebebeb;
+
+    tr {
+
+      th, td {
+        border: none;
+        line-height: 30px;
+        vertical-align: middle;
         font-weight: 400;
       }
-
-      .radio-button label:hover,
-      .radio-button label:active,
-      .radio-button label:focus {
-        border: 1px solid #ccc;
-      }
-
-      .radio-button input[type="radio"]:active ~ label {
-        opacity: 1;
-      }
-
-      .radio-button input[type="radio"]:checked ~ label {
-        opacity: 1;
-        background-color: #bababa;
-        font-weight: bold;
-      }
     }
-    @media screen and(max-width: 767px) {
-      .profile-edit {
-        .img-profile {
-          margin: 0 auto;
+  }
+
+  & > tbody > tr:not(:last-child) {
+    border-bottom: 1px solid #ededed;
+  }
+
+  tbody {
+    border: none;
+
+    tr {
+      border: none;
+
+      &.status-free {
+        td {
+          background-color: lightgreen;
+          a.status {
+            color: limegreen;
+            border-color: limegreen;
+          }
         }
-        h3 {
-          text-align: center;
+      }
+
+      &.status-active {
+
+        td {
+          background-color: lightcoral;
+          a.status {
+            color: coral;
+            border-color: coral;
+          }
         }
-        .btn-grey {
+      }
+
+      &.status-paid {
+
+        td {
+          color: darkgray;
+
+          a, span, a.bold {
+            color: darkgray;
+            border-color: darkgray;
+          }
+        }
+      }
+
+      td, th {
+        border: none;
+        vertical-align: baseline;
+        padding: 30px 8px;
+        font-weight: 400;
+
+        table {
           width: 100%;
         }
-        .select-wrapper {
-          width: 100%;
+
+        @media screen and (max-width: 991px) {
+          & {
+            padding: 15px 8px;
+          }
         }
-        .selectric {
-          width: 100%;
+
+        a {
+          color: black;
+          font-size: 14px;
+          text-decoration: none;
+          border-bottom: 1px solid black;
+
+          &.bold {
+            font-weight: 600;
+            border-bottom: 2px solid black;
+
+            &:hover {
+              border-bottom: 2px solid red;
+            }
+          }
+
+          &:hover {
+            color: red;
+            border-bottom: 1px solid red;
+          }
+
+          &.big {
+            font-size: 16px;
+          }
+        }
+
+        a.success {
+          color: green;
+          border-color: green;
+        }
+
+        span.success {
+          color: green;
+        }
+
+        a + span, span + span, span + a {
+          display: block;
+        }
+
+        @media screen and (max-width: 991px) {
+          a + span, span + span, span + a {
+            display: inline;
+            padding-left: 8px;
+          }
+        }
+
+        span {
+
+          &.bold {
+            font-weight: 600;
+          }
+
+          &.big {
+            font-size: 16px;
+          }
+        }
+      }
+
+      &.payment-form {
+
+        td {
+          background-color: #ebebeb;
+          vertical-align: middle;
+          padding: 30px 8px;
+
+          @media screen and (max-width: 991px) {
+            padding: 50px 8px 30px;
+          }
+
+          form {
+            position: relative;
+
+            .form-group {
+
+              input, button {
+                width: 100%;
+                margin: 0;
+                height: 50px;
+              }
+
+              input {
+                background-color: #f9f9f9;
+                height: 55px;
+                border-radius: 30px;
+              }
+            }
+
+            .close {
+              margin: 10px 0 0 0;
+              width: 30px;
+              height: 30px;
+              background: url("../img/x-active.png") no-repeat;
+              opacity: 0.4;
+              z-index: 50;
+
+              @media screen and (max-width: 991px) {
+                position: absolute;
+                right: 0;
+                top: -48px;
+              }
+
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+          }
         }
       }
     }
   }
 }
 
-.selectric {
-  line-height: 55px;
-  height: 55px;
-  border-radius: 30px;
-  border: 1px solid #ccc;
-  text-align: center;
-  display: block;
+/*====== Блок статистики ======*/
+
+.numberpeople {
+  .info {
+    width: auto;
+    .block {
+      width: 100% !important;
+      border: 3px solid #cccccc;
+      display: inline-block;
+      padding: 10px 10px;
+      height: 170px;
+      margin: 0;
+
+      h3 {
+        margin-bottom: 15px;
+      }
+
+      h3 {
+        font-size: 20px;
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+
+      span {
+        color: #666666;
+      }
+
+      & > span {
+        display: block;
+      }
+
+      .number {
+        font-size: 30px;
+        font-weight: 400;
+        display: inline-block;
+        margin: 0 10px;
+        color: #000000;
+      }
+    }
+
+  }
+}
+
+.blockgroupe .search-form {
+  background-color: #ededed;
+  padding: 20px 10px;
   margin: 15px 0;
-  font-size: 14px;
-  background: #fff;
-  color: #333;
 }
 
-.selectric {
-  margin: 0;
-  .label {
-    font-weight: 400;
-    font-size: 14px;
-    color: #333;
+/*==================== Автошкола Finance =================*/
+.finance{
+  tfoot{
+    .btn-grey{
+      margin: 0;
+      width: 100%;
+    }
+  }
+ .finance-line-height{
+    .margin-12{
+      margin-top: 12px;
+    }
+  }
+}
+
+/*==== utility ====*/
+
+.w-100 {
+  width: 100% !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.blockforms {
+  margin: 20px 0 40px;
+  position: relative;
+  background-color: #ebebeb;
+  padding: 20px 10px;
+  input {
+    position: relative;
+    height: 55px;
     line-height: 55px;
-    height: 55px;
-    padding: 0;
-    margin: 0;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    width: 100%;
+    padding: 0 15px;
+    text-indent: 20px;
   }
-  .button {
-    height: 55px;
-    right: 25px;
-    background: url('../img/down.png') no-repeat center center;
-    &:after {
-      display: none;
+  .search {
+    & input {
+      background-image: url("../img/img/search.png");
+      background-repeat: no-repeat;
+      background-position: 95% 50%;
     }
-    &:hover {
-      background: url('../img/down-red.png') no-repeat center center;
+  }
+  .data {
+    & input {
+      background-image: url("../img/img/date.png");
+      background-repeat: no-repeat;
+      background-position: 95% 50%;
     }
   }
 }
 
-.selectric-items {
-  border-radius: 0 0 30px 30px;
-  border-top: none;
-  background: #fff;
-  ul {
-    text-align: center;
-    li {
-      font-size: 16px;
-      &:last-child {
-        border-radius: 0 0 30px 30px;
-      }
-      &.disabled {
-        display: none;
-      }
-      &:hover {
-        background: #fff;
-        color: red;
-      }
-      &.selected {
-        background: #fff;
-      }
-    }
+.btn-grey {
+  width: 30%;
+  @media screen and(max-width: 767px) {
+    width: 100%;
+  }
+}
+.checked-line {
+  input[type=checkbox] {
+    display: none;
+  }
+  label {
+    font-weight: 400;
+  }
+  label:before {
+    display: inline-block;
+    content: "";
+    width: 25px;
+    height: 25px;
+    border: 2px solid #ccc;
+    background: white;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #333;
+    position: relative;
+    top: 7px;
+    margin-right: 10px;
+
+  }
+  input[type=checkbox]:checked + label:before {
+    background: white url(../img/ok-red.png) no-repeat center center;
+  }
+  a {
+    color: #333;
+
   }
 }

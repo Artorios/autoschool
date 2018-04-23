@@ -33,30 +33,22 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     })->name('autoschool.coupons');
 
     Route::get('/finance', function () {
-        return view('autoschool.index.index');
+        return view('autoschool.finance.index');
     })->name('autoschool.finance');
 
     Route::get('/history', function () {
         return view('autoschool.index.index');
     })->name('autoschool.history');
 
-    Route::get('/profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
+    Route::view('add-student', 'autoschool.filials.add-student')->name('autoschool.add-student');
 
+    Route::get('/profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
 
     Route::get('/notifications', 'NotificationController@getPageNew')->name('autoschool.notify');
     Route::get('/notifications-all', 'NotificationController@getPageAll')->name('autoschool.notify.all');
 
-
-
-
-
-
     Route::post('/get-count-main-groups', 'AutoschoolController@getCountMain');
-
-
 
     Route::view('faq', 'autoschool.faq')->name('faq');
 
 });
-
-?>
