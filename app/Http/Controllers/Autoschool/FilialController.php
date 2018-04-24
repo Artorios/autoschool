@@ -45,7 +45,7 @@ class FilialController extends Controller
     public function createFilial(Request $request){
 
         /**
-         $this->validate($request->all(), [
+         * $this->validate($request->all(), [
          *  'name'     => 'required|string|max:255',
          *  'address' => 'required|string|max:255',
          *  ])
@@ -107,7 +107,6 @@ class FilialController extends Controller
 
         return view('autoschool.filials.filial_groups', compact('groups', 'filial'));
     }
-
 
     public function showStudents($id, $group_id,  User $user){
         $students = $user->where(['auto_school_group_id' => $group_id])

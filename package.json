@@ -34,7 +34,7 @@
     "bower": "^1.8.4",
     "build": "^0.1.4",
     "chart.js": "1.0.*",
-    "ckeditor": "^4.9.1",
+    "ckeditor": "^4.9.2",
     "datatables.net": "^1.10.15",
     "datatables.net-bs": "^1.10.15",
     "fastclick": "^1.0.6",

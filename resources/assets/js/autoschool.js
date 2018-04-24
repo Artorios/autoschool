@@ -13,12 +13,11 @@ import SchoolFilials from './AutoschoolComponents/school-filials'
 import FilialGroups from './AutoschoolComponents/filial-groups'
 import AutoschoolProfileEdit from './AutoschoolComponents/autoschool-profile-edit'
 const VueInputMask = require('vue-inputmask').default
+
 Vue.use(VueInputMask);
 Vue.use(VueResource);
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 Vue.http.options.emulateJSON = true;
-
-
 
 export const Events = new Vue({});
 

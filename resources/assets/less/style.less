@@ -6304,6 +6304,17 @@ footer.inner {
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
+  .no-gutters-sm {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
   .inner-main-content {
     .container {
       .autoschool {
@@ -6378,6 +6389,17 @@ footer.inner {
 }
 
 @media screen and (min-width: 992px) and (max-width: 1170px) {
+  .no-gutters-md {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
   .inner-main-content {
     .container {
       .autoschool {
@@ -6447,16 +6469,262 @@ footer.inner {
         .btn-grey {
           margin-top: 0px;
           padding: 0 40px;
-
         }
         .selectric {
           width: 250px;
         }
+      }
+      .table-wrapper {
+        .coupons-cheskbox {
+          input[type=checkbox] {
+            display: inline-block;
+            content: "";
+            width: 25px;
+            height: 25px;
+            border: 2px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #333;
+            position: relative;
+            top: 7px;
+            margin-right: 10px;
+            background-color: white;
+
+            &:checked {
+              background: url(../img/ok-red.png) no-repeat center center;
+            }
+          }
+        }
+        .title-line {
+          line-height: 24px;
+          background: #ebebeb;
+          padding: 15px 5px;
+          & > span {
+            display: inline-block;
+            color: #666;
+            &.number {
+              padding-left: 20px;
+              width: 40px;
+            }
+            &.coupon {
+              width: 60px;
+            }
+            &.autoschool {
+              width: 120px;
+            }
+            &.city {
+              width: 130px;
+            }
+            &.name-student {
+              width: 140px;
+            }
+            &.generate-date {
+              width: 90px;
+            }
+            &.activate-date {
+              width: 90px;
+            }
+            &.price {
+              width: 90px;
+            }
+            &.status {
+              width: 90px;
+              .status-active {
+                display: none;
+              }
+            }
+          }
+        }
+        .block-media-768 {
+          display: none;
+        }
+        .line {
+          padding: 20px 5px 30px;
+          & div {
+            display: inline-block;
+            color: black;
+            a {
+              color: black;
+              text-decoration: underline;
+            }
+            &.coupons-cheskbox {
+              width: 20px;
+            }
+            &.number {
+              width: 20px;
+              text-align: center;
+            }
+            &.coupon {
+              width: 60px;
+            }
+            &.autoschool {
+              width: 120px;
+            }
+            &.city {
+              width: 130px;
+            }
+            &.name-student {
+              width: 140px;
+            }
+            &.generate-date {
+              width: 90px;
+            }
+            &.activate-date {
+              width: 90px;
+            }
+            &.price {
+              width: 90px;
+              font-weight: 700;
+            }
+            &.status {
+              width: 90px;
+              .status-fee {
+                font-weight: 700;
+              }
+            }
+          }
+          &.active {
+            background-color: #f8eeee;
+
+            .status {
+              position: relative;
+              .status-free, .status-paid {
+                display: none;
+              }
+              .status-active {
+                display: block;
+                position: absolute;
+                top: 16px;
+                left: 0;
+                padding-top: 10px;
+                cursor: pointer;
+                a {
+                  color: red;
+                }
+              }
+            }
+          }
+          &.paid {
+            & div {
+              color: #949494;
+              a {
+                color: #949494;
+              }
+              &.status {
+                position: relative;
+                .status-active {
+                  display: none;
+                }
+                .status-free {
+                  display: none;
+                }
+                .status-paid {
+                  display: block;
+                  position: absolute;
+                  top: 16px;
+                  left: 0;
+                  padding-top: 10px;
+                  cursor: pointer;
+                  img {
+                    height: 16px;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+          &.free {
+            background-color:#f1f8ed ;
+            & div {
+              color: #32372e;
+              a {
+                color: #32372e;
+                text-decoration: none;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+              &.status {
+                position: relative;
+                .status-active {
+                  display: none;
+                }
+                .status-paid {
+                  display: none;
+                }
+                .status-free {
+                  display: block;
+                  position: absolute;
+                  top: 16px;
+                  left: 0;
+                  padding-top: 10px;
+                  cursor: pointer;
+                  a {
+                    color: green;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .blockform {
+        margin-bottom: 20px;
+        position: relative;
+        background-color: #ebebeb;
+        padding: 20px 10px;
+        .form-inline {
+          display: flex;
+
+          .btn-grey {
+            width: 30%;
+            height: 55px;
+            line-height: 56px;
+            margin: 5px 0;
+          }
+          input {
+            width: 60%;
+            height: 55px;
+            line-height: 55px;
+            border-radius: 30px;
+            padding: 0 10px;
+            border: 2px solid #ccc !important;
+            margin: 5px 10px 0 0;
+          }
+
+          .close {
+            position: absolute;
+            right: 15px;
+            display: block;
+            width: 26px;
+            height: 26px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: url("../img/x.png") no-repeat;
+            &:hover {
+              background: url("../img/x-active.png") no-repeat;
+            }
+          }
+        }
+
+        &.paid {
+          div {
+            padding: 0 20px;
+          }
+          .info {
+            a {
+              color: inherit;
+            }
+          }
+        }
+      }
+
+      @media screen and (min-width: 1024px) and (max-width: 1200px) {
         .table-wrapper {
           .title-line {
             line-height: 24px;
             background: #ebebeb;
-            padding: 15px 0;
+            padding: 15px 5px;
             & > span {
               display: inline-block;
               color: #666;
@@ -6465,35 +6733,44 @@ footer.inner {
                 width: 40px;
               }
               &.coupon {
-                width: 60px;
+                width: 55px;
               }
               &.autoschool {
-                width: 120px;
+                width: 100px;
               }
               &.city {
-                width: 130px;
+                width: 100px;
               }
               &.name-student {
-                width: 140px;
+                width: 115px;
               }
               &.generate-date {
-                width: 90px;
+                width: 75px;
               }
               &.activate-date {
-                width: 90px;
+                width: 75px;
               }
               &.price {
-                width: 90px;
+                width: 60px;
               }
               &.status {
-                width: 90px;
+                width: 60px;
+                .status-active {
+                  display: none;
+                }
               }
             }
           }
+
           .line {
+            padding: 20px 5px 30px;
             & div {
               display: inline-block;
               color: black;
+              a {
+                color: black;
+                text-decoration: underline;
+              }
               &.coupons-cheskbox {
                 width: 20px;
               }
@@ -6502,34 +6779,603 @@ footer.inner {
                 text-align: center;
               }
               &.coupon {
-                width: 60px;
+                width: 55px;
               }
               &.autoschool {
-                width: 120px;
+                width: 100px;
               }
               &.city {
-                width: 130px;
+                width: 100px;
               }
               &.name-student {
-                width: 140px;
+                width: 115px;
               }
               &.generate-date {
-                width: 90px;
+                width: 75px;
               }
               &.activate-date {
-                width: 90px;
+                width: 75px;
               }
               &.price {
-                width: 90px;
+                width: 60px;
+                font-weight: 700;
               }
               &.status {
-                width: 90px;
+                width: 60px;
+              }
+            }
+            &.active {
+              background-color: #f8eeee;
+              .status {
+                .status-active {
+                  left: -45px;
+                }
+              }
+            }
+            &.paid {
+              & div {
+                &.status {
+                  .status-paid {
+                    left: -45px;
+                  }
+                }
+              }
+            }
+            &.free {
+              background-color: #f1f8ed;
+              & div {
+                &.status {
+                  .status-free {
+                    left: -45px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      @media screen and (min-width: 320px) and (max-width: 1023px) {
+        .coupon-table {
+          .table-wrapper {
+            .title-line {
+              display: none;
+            }
+            .line {
+              display: none;
+            }
+            .block-media-768 {
+              line-height: 2;
+              display: flex;
+              min-height: 200px;
+              padding: 20px 15px 40px;
+              &.active {
+                background-color: #f8eeee;
+
+                .status {
+                  position: relative;
+                  .status-free, .status-paid {
+                    display: none;
+                  }
+                  .status-active {
+                    display: inline-block;
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    padding-top: 0;
+                    cursor: pointer;
+                    a {
+                      color: red;
+                    }
+                  }
+                }
+              }
+              &.paid {
+                & div {
+                  color: #949494;
+                  a {
+                    color: #949494;
+                  }
+                  &.status {
+                    position: relative;
+                    .status-active {
+                      display: none;
+                    }
+                    .status-free {
+                      display: none;
+                    }
+                    .status-paid {
+                      display: inline-block;
+                      position: relative;
+                      top: 0;
+                      left: 0;
+                      padding-top: 0;
+                      cursor: pointer;
+                      img {
+                        height: 16px;
+                        cursor: pointer;
+                      }
+                    }
+                  }
+                }
+              }
+              &.free {
+                background-color: #f1f8ed;
+                & div {
+                  color: #32372e;
+                  a {
+                    color: #32372e;
+                    text-decoration: none;
+                    &:hover {
+                      text-decoration: underline;
+                    }
+                  }
+                  &.status {
+                    position: relative;
+                    .status-active {
+                      display: none;
+                    }
+                    .status-paid {
+                      display: none;
+                    }
+                    .status-free {
+                      display: inline-block;
+                      position: relative;
+                      top: 0;
+                      left: 0;
+                      padding-top: 0;
+                      cursor: pointer;
+                      a {
+                        color: green;
+                      }
+                    }
+                  }
+                }
+              }
+              div {
+                a {
+                  color: inherit;
+                }
+                .number {
+                  margin: 0 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+      @media screen and(min-width: 320px) and (max-width: 768px) {
+        .coupon-table {
+          .table-wrapper {
+
+            .blockform {
+              margin-bottom: 20px;
+              position: relative;
+              background-color: #ebebeb;
+              padding: 20px 10px;
+              .form-inline {
+                display: inline-block;
+
+                .btn-grey {
+                  width: 100%;
+                  height: 55px;
+                  line-height: 56px;
+                  margin: 10px 0;
+                }
+                input {
+                  width: 100%;
+                  height: 55px;
+                  line-height: 55px;
+                  border-radius: 30px;
+                  padding: 0 10px;
+                  border: 2px solid #ccc !important;
+                  margin: 5px 10px 0 0;
+                }
+
+                .close {
+                  display: none;
+                }
               }
             }
           }
         }
       }
     }
+  }
+}
+
+/*-------------Студент автошкола--------------*/
+.inner-main-content {
+  .container {
+    .autoschool-student {
+      .blockforms {
+        margin: 20px 0 40px;
+        position: relative;
+        background-color: #ebebeb;
+        padding: 20px 10px;
+        input {
+          position: relative;
+          height: 55px;
+          line-height: 55px;
+          border-radius: 30px;
+          border: 1px solid #ccc;
+          width: 100%;
+          padding: 0 15px;
+          text-indent: 20px;
+        }
+        .search {
+          & input {
+            background-image: url("../img/img/search.png");
+            background-repeat: no-repeat;
+            background-position: 95% 50%;
+          }
+        }
+        .data {
+          & input {
+            background-image: url("../img/img/date.png");
+            background-repeat: no-repeat;
+            background-position: 95% 50%;
+          }
+        }
+      }
+      .btn-grey {
+        width: 30%;
+        @media screen and(max-width: 767px) {
+          width: 100%;
+        }
+
+      }
+    }
+  }
+}
+
+/*-------------Студент автошкола--------------*/
+
+.add-student {
+  input {
+    height: 55px;
+  }
+  input, textarea {
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 0 20px;
+    color: black;
+    width: 100%;
+    &::placeholder {
+      color: black;
+    }
+  }
+}
+
+/*====== Grid ======*/
+table.table.manage-grid {
+  border: none;
+  border-collapse: collapse;
+
+  thead, tfoot {
+    background-color: #ebebeb;
+
+    tr {
+
+      th, td {
+        border: none;
+        line-height: 30px;
+        vertical-align: middle;
+        font-weight: 400;
+      }
+    }
+  }
+
+  & > tbody > tr:not(:last-child) {
+    border-bottom: 1px solid #ededed;
+  }
+
+  tbody {
+    border: none;
+
+    tr {
+      border: none;
+
+      &.status-free {
+        td {
+          background-color:#f1f8ed ;
+          a.status {
+            color: #32372e;
+            border-color: #32372e;
+          }
+        }
+      }
+
+      &.status-active {
+
+        td {
+          background-color: #f8eeee;
+          a.status {
+            color:red;
+            border-color:red;
+          }
+        }
+      }
+
+      &.status-paid {
+
+        td {
+          color:  #949494;
+
+          a, span, a.bold {
+            color:  #949494;
+            border-color: #949494;
+          }
+        }
+      }
+
+      td, th {
+        border: none;
+        vertical-align: baseline;
+        padding: 30px 8px;
+        font-weight: 400;
+
+        table {
+          width: 100%;
+        }
+
+        @media screen and (max-width: 991px) {
+          & {
+            padding: 15px 8px;
+          }
+        }
+
+        a {
+          color: black;
+          font-size: 14px;
+          text-decoration: none;
+          border-bottom: 1px solid black;
+
+          &.bold {
+            font-weight: 600;
+            border-bottom: 2px solid black;
+
+            &:hover {
+              border-bottom: 2px solid red;
+            }
+          }
+
+          &:hover {
+            color: red;
+            border-bottom: 1px solid red;
+          }
+
+          &.big {
+            font-size: 16px;
+          }
+        }
+
+        a.success {
+          color: green;
+          border-color: green;
+        }
+
+        span.success {
+          color: green;
+        }
+
+        a + span, span + span, span + a {
+          display: block;
+        }
+
+        @media screen and (max-width: 991px) {
+          a + span, span + span, span + a {
+            display: inline;
+            padding-left: 8px;
+          }
+        }
+
+        span {
+
+          &.bold {
+            font-weight: 600;
+          }
+
+          &.big {
+            font-size: 16px;
+          }
+        }
+      }
+
+      &.payment-form {
+
+        td {
+          background-color: #ebebeb;
+          vertical-align: middle;
+          padding: 30px 8px;
+
+          @media screen and (max-width: 991px) {
+            padding: 50px 8px 30px;
+          }
+
+          form {
+            position: relative;
+
+            .form-group {
+
+              input, button {
+                width: 100%;
+                margin: 0;
+                height: 50px;
+              }
+
+              input {
+                background-color: #f9f9f9;
+                height: 55px;
+                border-radius: 30px;
+              }
+            }
+
+            .close {
+              margin: 10px 0 0 0;
+              width: 30px;
+              height: 30px;
+              background: url("../img/x-active.png") no-repeat;
+              opacity: 0.4;
+              z-index: 50;
+
+              @media screen and (max-width: 991px) {
+                position: absolute;
+                right: 0;
+                top: -48px;
+              }
+
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*====== Блок статистики ======*/
+
+.numberpeople {
+  .info {
+    width: auto;
+    .block {
+      width: 100% !important;
+      border: 3px solid #cccccc;
+      display: inline-block;
+      padding: 10px 10px;
+      height: 170px;
+      margin: 0;
+
+      h3 {
+        margin-bottom: 15px;
+      }
+
+      h3 {
+        font-size: 20px;
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+
+      span {
+        color: #666666;
+      }
+
+      & > span {
+        display: block;
+      }
+
+      .number {
+        font-size: 30px;
+        font-weight: 400;
+        display: inline-block;
+        margin: 0 10px;
+        color: #000000;
+      }
+    }
+
+  }
+}
+
+.blockgroupe .search-form {
+  background-color: #ededed;
+  padding: 20px 10px;
+  margin: 15px 0;
+}
+
+/*==================== Автошкола Finance =================*/
+.finance {
+  tfoot {
+    .btn-grey {
+      margin: 0;
+      width: 100%;
+    }
+  }
+  .finance-line-height {
+    .margin-12 {
+      margin-top: 12px;
+    }
+  }
+}
+
+/*==== utility ====*/
+
+.w-100 {
+  width: 100% !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.blockforms {
+  margin: 20px 0 40px;
+  position: relative;
+  background-color: #ebebeb;
+  padding: 20px 10px;
+  input {
+    position: relative;
+    height: 55px;
+    line-height: 55px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    width: 100%;
+    padding: 0 15px;
+    text-indent: 20px;
+  }
+  .search {
+    & input {
+      background-image: url("../img/img/search.png");
+      background-repeat: no-repeat;
+      background-position: 95% 50%;
+    }
+  }
+  .data {
+    & input {
+      background-image: url("../img/img/date.png");
+      background-repeat: no-repeat;
+      background-position: 95% 50%;
+    }
+  }
+}
+
+.btn-grey {
+  width: 30%;
+  @media screen and(max-width: 767px) {
+    width: 100%;
+  }
+}
+
+.checked-line {
+  input[type=checkbox] {
+    display: none;
+  }
+  label {
+    font-weight: 400;
+  }
+  label:before {
+    display: inline-block;
+    content: "";
+    width: 25px;
+    height: 25px;
+    border: 2px solid #ccc;
+    background: white;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #333;
+    position: relative;
+    top: 7px;
+    margin-right: 10px;
+
+  }
+  input[type=checkbox]:checked + label:before {
+    background: white url(../img/ok-red.png) no-repeat center center;
+  }
+  a {
+    color: #333;
+
   }
 }
 
@@ -6707,6 +7553,86 @@ footer.inner {
       &.selected {
         background: #fff;
       }
+    }
+  }
+}
+
+/*==========Генерацыя купонов=========*/
+.coupon-generate {
+  input {
+    height: 55px;
+  }
+  input, textarea {
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 0 20px;
+    color: black;
+    width: 100%;
+    &::placeholder {
+      color: black;
+    }
+  }
+}
+
+/*==========Автошкола Personal=========*/
+
+.personal {
+  .img-profile {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    border: 2px solid #ccc;
+    line-height: 159px;
+    border-radius: 50%;
+    text-align: center;
+  }
+  .btn-grey {
+    width: 100%;
+  }
+  .date-examination {
+    padding: 30px 10px;
+    background-color: #ebebeb;
+  }
+  .block-info {
+    margin: 30px 0;
+    .info {
+      padding: 10px 0;
+      span.address{
+        font-size: 18px;
+      }
+      span.number {
+        font-size: 26px;
+        span{
+          font-weight: 600;
+        }
+      }
+      span.mail {
+        font-size: 18px;
+        a {
+          color: black;
+        }
+      }
+      img{
+        margin-right: 20px;
+      }
+    }
+  }
+  .inner-block{
+    line-height: 55px;
+    .btn-grey {
+      width: 50%;
+    }
+  }
+  textarea {
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    color: black;
+    width: 100%;
+    &::placeholder {
+      color: black;
     }
   }
 }
