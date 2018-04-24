@@ -10,6 +10,7 @@ import ProfilePhoto from './components/UserComponent/profile-photo';
 import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
 import SchoolFilials from './AutoschoolComponents/school-filials';
 import FilialGroups from './AutoschoolComponents/filial-groups';
+import FinanceStatisticMain from './AutoschoolComponents/finance-statistic-main';
 const VueInputMask = require('vue-inputmask').default
 
 Vue.use(VueInputMask);
@@ -32,6 +33,7 @@ const app = new Vue({
         ProfilePhoto,
         ButtonAddFilial,
         SchoolFilials,
-        FilialGroups
+        FilialGroups,
+        FinanceStatisticMain,
     }
 });

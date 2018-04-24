@@ -32,9 +32,9 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
         return view('autoschool.coupons.index');
     })->name('autoschool.coupons');
 
-    Route::get('/finance', function () {
-        return view('autoschool.index.index');
-    })->name('autoschool.finance');
+    Route::get('/finance', 'FinanceController@index')->name('autoschool.finance');
+    Route::post('/get-count-main-finance', 'FinanceController@getCountMain');
+
 
     Route::get('/history', function () {
         return view('autoschool.index.index');

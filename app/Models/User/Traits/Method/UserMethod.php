@@ -16,6 +16,4 @@ trait UserMethod
     {
         return $this->attributes['role'] === 'admin';
     }
-
-
 }

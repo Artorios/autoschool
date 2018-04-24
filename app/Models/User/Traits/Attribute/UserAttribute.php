@@ -17,4 +17,9 @@ trait UserAttribute
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->second_name} {$this->last_name}";
+    }
 }
