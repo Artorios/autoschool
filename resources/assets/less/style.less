@@ -7643,7 +7643,7 @@ table.table.manage-grid {
 
 .inner-block-investor {
   .row {
-    div {
+    div, select {
       margin: 10px 0;
       font-size: 18px;
     }
@@ -7653,8 +7653,8 @@ table.table.manage-grid {
 .investor-coupons {
   .bottom-form {
     .text-info {
-      margin: 10px 0;
-      line-height: 55px;
+      margin: 0;
+      line-height: 43px;
       color: inherit;
     }
     .all {
@@ -7662,7 +7662,105 @@ table.table.manage-grid {
     }
     .btn-grey {
       width: 100%;
-      margin: 10px 0;
+      margin: 0;
+    }
+  }
+
+}
+
+.modal-coupons-cancel {
+  background-color: white;
+  position: relative;
+  padding: 30px;
+  textarea {
+    width: 100%;
+    border-radius: 30px;
+    height: 55px;
+    border: 1px solid #ccc;
+    padding: 15px;
+  }
+  .btn-grey {
+    margin: 0;
+    width: 100%;
+  }
+  .close {
+    position: absolute;
+    right: 15px;
+    top: 40px;
+    width: 30px;
+    height: 30px;
+    background: url("../img/x-active.png") no-repeat;
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+}
+
+.modal-coupons-delete {
+  background-color: white;
+  padding: 40px 20px;
+  position: relative;
+  .text {
+    margin: 20px 0 30px;
+    font-size: 18px;
+
+  }
+  .btn-grey {
+    margin: 0;
+  }
+  .btn-link {
+    color: black;
+    text-decoration: underline;
+    font-size: 18px;
+    line-height: 55px;
+  }
+  .btn-grey {
+    margin: 0;
+    width: 100%;
+  }
+  .close {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+    width: 30px;
+    height: 30px;
+    background: url("../img/x-active.png") no-repeat;
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+@media screen and(max-width: 768px) and(min-width: 320px) {
+  .modal-coupons-cancel{
+    background-color: white;
+    position: relative;
+    padding: 30px;
+    textarea {
+      width: 100%;
+      border-radius: 30px;
+      height: 75px;
+      border: 1px solid #ccc;
+      padding: 15px;
+    }
+    .btn-grey {
+      margin: 0 auto;
+      width: 50%;
+    }
+    .close {
+      position: absolute;
+      right: 2px;
+      top: 10px;
+      width: 30px;
+      height: 30px;
+      background: url("../img/x-active.png") no-repeat;
+      opacity: 0.4;
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }

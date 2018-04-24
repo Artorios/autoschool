@@ -5,7 +5,6 @@
             <ul>
                 <li><a href="/autoschool">Главная</a></li>
                 <li><a href="/autoschool/coupons">Купоны</a></li>
-                investor-coupons
             </ul>
         </div>
         <div class="blockgroupe">
@@ -286,19 +285,19 @@
                     </div>
                     <div class="blockform bottom-form">
                         <div class="row nero">
-                            <div class="col-md-5 text-info">
+                            <div class="col-md-4 text-info">
                                 <input type="checkbox">
                                 <span class="all">Для всех</span>
-                               <span>Отмечено 1 из 12</span>
+                                <span>Отмечено 1 из 12</span>
                             </div>
                             <div class="col-md-2">
                                 <a href="" class="btn-grey">Анулировать</a>
                             </div>
                             <div class="col-md-2">
-                                <a href="" class="btn-grey">Удалить</a>
+                                <a href="" class="btn-grey" id="delete">Удалить</a>
 
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <select name="" id="type_filter" class="select">
                                         <option value="all">Выберите действие</option>
@@ -312,6 +311,46 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modal_dialog_cancel" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-coupons-cancel">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-7">
+                            <textarea name="" id="" rows="2" placeholder="Комментарий для истории причины действия">
+                            </textarea>
+                        </div>
+                        <div class="col-xs-11 col-sm-4">
+                            <a href="" class="btn-grey">Продолжить</a>
+                        </div>
+                    </div>
+                    <span class="close" data-dismiss="modal"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="modal fade" id="modal_dialog_delete" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-coupons-delete">
+                    <div>
+                        <div class="row">
+                            <div class="col-xs-12 text">
+                                Подтвердите действие для отмеченых элементов
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <a href="" class="btn-grey">Удалить</a>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <button class="btn-link" data-dismiss="modal">Отмена</button>
+                            </div>
+                        </div>
+                        <span class="close"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
