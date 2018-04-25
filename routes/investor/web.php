@@ -1,6 +1,11 @@
 <?php
 
-Route::group(['prefix' => 'investor', 'namespace' => 'Investor', 'as' => 'investor.'], function(){
+Route::group([
+    'prefix' => 'investor',
+    'namespace' => 'Investor',
+    'as' => 'investor.',
+    'middleware' => 'investor',
+], function () {
     Route::view('/', 'investor.index')->name('index');
     Route::view('/finance', 'investor.finance.index')->name('finance.index');
     Route::view('/history', 'investor.history.index')->name('history.index');
