@@ -60,9 +60,7 @@ class FilialController extends Controller
             ])
         );
 
-        // Return Resource instead of this
-        // https://laravel.com/docs/5.6/eloquent-resources
-        return response()->json(['status' => 1, 'group' => $filial], 201);
+        return response()->json(['status' => 1], 201);
     }
 
     /**
@@ -81,9 +79,7 @@ class FilialController extends Controller
             ])
         );
 
-        // Return Resource instead of this
-        // https://laravel.com/docs/5.6/eloquent-resources
-        return response()->json(['status' => 1, 'group' => $group], 201);
+        return response()->json(['status' => 1], 201);
     }
 
     /**
