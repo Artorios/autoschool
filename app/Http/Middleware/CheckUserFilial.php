@@ -16,11 +16,10 @@ class CheckUserFilial
      */
     public function handle($request, Closure $next)
     {
-        $groups_belonging_to_this_user = AutoSchoolFilial::where('auto_school_id', '=', auth()->user()->autoschoolgroup->autoschoolfilial->autoschool->id)->get();
-        $groups_id = [];
-        foreach ($groups_belonging_to_this_user as $group){
-            array_push($groups_id, $group->id);
-        }
+        $groups_belonging_to_this_user = AutoSchoolFilial::where('auto_school_id', '=', auth()->user()->autoschoolgroup->autoschoolfilial->autoschool->id)->get()->toArray();
+        $groups_id = array_map(function($array){
+            return $array['id'];
+        },$groups_belonging_to_this_user);
 
         if(!in_array($request->route('id'), $groups_id)){
             return abort(404);

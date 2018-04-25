@@ -30,20 +30,23 @@
     export default {
         data() {
             return {
-                countStudents: this.getCountStudent(),
+                countStudents: 0,
                 freeCoupons: 0,
                 income: 0
             }
         },
         props: ['groups'],
-        methods: {
-            getCountStudent(){
-                let Count = 0;
+        computed: {
+            countStudents(){
+                let count = 0;
                 for (let group in this.groups){
-                    Count += this.groups[group].student_counts;
+                    count += this.groups[group].student_counts;
                 }
-                return Count;
-            },
+                return this.countStudents = count;
+            }
+        },
+        methods: {
+
         },
     }
 </script>

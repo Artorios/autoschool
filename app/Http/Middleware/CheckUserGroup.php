@@ -17,11 +17,10 @@ class CheckUserGroup
      */
     public function handle($request, Closure $next)
     {
-        $groups_belonging_to_this_filial = AutoSchoolGroup::where('auto_school_filial_id', '=', $request->route('id'))->get();
-        $groups_id = [];
-        foreach ($groups_belonging_to_this_filial as $group){
-            array_push($groups_id, $group->id);
-        }
+        $groups_belonging_to_this_filial = AutoSchoolGroup::where('auto_school_filial_id', '=', $request->route('id'))->get()->toArray();
+        $groups_id = array_map(function($array){
+            return $array['id'];
+        }, $groups_belonging_to_this_filial);
 
         if(!in_array($request->route('group_id'), $groups_id)){
             return abort(404);

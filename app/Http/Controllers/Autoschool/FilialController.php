@@ -6,6 +6,7 @@ use App\Models\Training\School\{
     AutoSchool, AutoSchoolFilial, AutoSchoolGroup
 };
 use App\Models\User\User;
+use App\Services\CountersService;
 use Illuminate\Support\Facades\{
     Auth, Validator
 };
@@ -18,15 +19,16 @@ class FilialController extends Controller
     /**
      * @return mixed
      */
-    public function index()
+    public function index(CountersService $countersService)
     {
         $autoschool = AutoSchool::findOrFail(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id);
+        $collection = $countersService->getCountStudentInFilial($autoschool->id);
         foreach ($autoschool->filials as $filial){
-            $countOfUsers = 0;
-            foreach (AutoSchoolGroup::where('auto_school_filial_id', '=', $filial->id)->get() as $group){
-                $countOfUsers += count($group->users->whereNotIn('role', ['admin','investor','autoschool']));
+            if (in_array($filial->id, array_keys($collection))) {
+                $filial->setAttribute('student_count', count($collection[$filial->id]));
+            }else{
+                $filial->setAttribute('student_count', 0);
             }
-            $filial->setAttribute('student_count', $countOfUsers);
         }
         return view('autoschool.filials.school_filials', compact('autoschool'));
     }
@@ -98,13 +100,13 @@ class FilialController extends Controller
     public function show($id)
     {
         $filial = AutoSchoolFilial::findOrFail($id);
-        $groups = [];
-        foreach ($filial->autoschoolgroups as $one){
-            array_push($groups, $one->setAttribute('student_counts', User::where('auto_school_group_id', '=', $one->id)
-                ->whereNotIn('role', ['admin','investor','autoschool'])
-                ->count()));
-        }
 
+        foreach ($filial->autoschoolgroups as $one){
+            $one->setAttribute('student_counts', User::where('auto_school_group_id', '=', $one->id)
+                ->whereNotIn('role', ['admin','investor','autoschool'])
+                ->count());
+        }
+            $groups = $filial->autoschoolgroups;
         return view('autoschool.filials.filial_groups', compact('groups', 'filial'));
     }
 

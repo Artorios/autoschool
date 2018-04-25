@@ -15,11 +15,11 @@ class CreateAutoSchoolInfoTable extends Migration
     {
         Schema::create('auto_school_infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('taxpayerIdentificationNumber');
-            $table->string('abbreviatedNameOfTheOrganization');
-            $table->string('fullNameOfTheOrganization');
-            $table->string('codeOfReason');
-            $table->string('dateOfStateRegistration');
+            $table->string('taxpayer_identification_number');
+            $table->string('abbreviated_name_of_the_organization');
+            $table->string('full_name_of_the_organization');
+            $table->string('code_of_reason');
+            $table->string('date_of_state_registration');
             $table->string('director');
             $table->unsignedInteger('auto_school_id');
             $table->timestamps();
