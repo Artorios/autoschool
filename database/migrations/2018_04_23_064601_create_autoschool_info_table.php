@@ -13,7 +13,7 @@ class CreateAutoSchoolInfoTable extends Migration
      */
     public function up()
     {
-        Schema::create('auto_school_infos', function (Blueprint $table) {
+        Schema::create('auto_school_info', function (Blueprint $table) {
             $table->increments('id');
             $table->string('taxpayer_identification_number');
             $table->string('abbreviated_name_of_the_organization');
@@ -33,6 +33,6 @@ class CreateAutoSchoolInfoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auto_school_infos');
+        Schema::dropIfExists('auto_school_info');
     }
 }

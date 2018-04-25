@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Training\School\AutoSchoolFilial;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class CheckUserFilial
 {
@@ -16,12 +17,17 @@ class CheckUserFilial
      */
     public function handle($request, Closure $next)
     {
-        $groups_belonging_to_this_user = AutoSchoolFilial::where('auto_school_id', '=', auth()->user()->autoschoolgroup->autoschoolfilial->autoschool->id)->get()->toArray();
-        $groups_id = array_map(function($array){
-            return $array['id'];
-        },$groups_belonging_to_this_user);
+        $groupsBelongsToUser = AutoSchoolFilial::where(
+            'auto_school_id', '=', Auth::user()->autoschoolgroup->autoschoolfilial->autoschool->id
+        )->get()->toArray();
 
-        if(!in_array($request->route('id'), $groups_id)){
+        $groupsId = array_map(function ($item) {
+            return $item['id'];
+        }, $groupsBelongsToUser);
+
+        $belongs = in_array($request->route('id'), $groupsId);
+
+        if(!$belongs){
             return abort(404);
         }
 

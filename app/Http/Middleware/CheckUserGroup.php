@@ -2,10 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Training\School\AutoSchoolFilial;
 use App\Models\Training\School\AutoSchoolGroup;
 use Closure;
 
+/**
+ * Class CheckUserGroup
+ * @package App\Http\Middleware
+ */
 class CheckUserGroup
 {
     /**
@@ -17,14 +20,18 @@ class CheckUserGroup
      */
     public function handle($request, Closure $next)
     {
-        $groups_belonging_to_this_filial = AutoSchoolGroup::where('auto_school_filial_id', '=', $request->route('id'))->get()->toArray();
-        $groups_id = array_map(function($array){
-            return $array['id'];
-        }, $groups_belonging_to_this_filial);
+        $groupsRelatedToFilial = AutoSchoolGroup::where('auto_school_filial_id', $request->route('id'))->get()->toArray();
 
-        if(!in_array($request->route('group_id'), $groups_id)){
+        $groupsId = array_map(function($item){
+            return $item['id'];
+        }, $groupsRelatedToFilial);
+
+        $belongs = in_array($request->route('group_id'), $groupsId);
+
+        if(!$belongs){
             return abort(404);
         }
+
         return $next($request);
     }
 }
