@@ -133,7 +133,7 @@
     (function ($) {
         $('.select').selectric();
         $('#search-button').click(function(){
-            $('.search-form').toggle();
+            $('.search-form').stop().toggle();
         });
     })(jQuery)
 </script>

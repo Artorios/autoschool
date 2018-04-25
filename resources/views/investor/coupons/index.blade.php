@@ -354,3 +354,10 @@
     </div>
 
 @endsection
+@push('scripts')
+<script>
+    (function($){
+        $('.select').selectric();
+    })(jQuery)
+</script>
+@endpush
