@@ -2,7 +2,7 @@
 @section('content')
     <div class="content error profile">
         <div class="pass-change">
-            <h4>Введите старый пароль:</h4>
+            <h4>Ваш текущий пароль:</h4>
             <span>Внимание! Пароль должен содержать цифру, заглавную и строчную букву и иметь длинну от 8 до 25 символов</span>
             <form>
                 <div class="form-group">
