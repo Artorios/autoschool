@@ -1,7 +1,4 @@
 <template>
-    <!--<h2>{{countStudents}}</h2>-->
-    <!--<h2>{{paymentCart}}</h2>-->
-    <!--<h2>{{paymentCoupon}}</h2>-->
     <div>
         <h2>{{countStudents}}</h2>
         <h2>{{paymentCart}}</h2>

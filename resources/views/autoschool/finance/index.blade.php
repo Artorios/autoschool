@@ -1,8 +1,5 @@
 @extends('layouts.autoschool')
 @section('content')
-
-
-
     <div class="content error profile autoschool-coupons ">
         <div class="breadcrumbs">
             <ul>
@@ -10,19 +7,7 @@
                 <li><a href="/autoschool/finance">Финансы</a></li>
             </ul>
         </div>
-        <finance-statistic-main></finance-statistic-main>
-        {{--<div class="coupons-top-button">--}}
-            {{--<div class="form-inline top-button">--}}
-                {{--<div class="form-group">--}}
-                    {{--<select class="select" id="coupons">--}}
-                        {{--<option disabled value="">Все(444)</option>--}}
-                        {{--<option value="1">1</option>--}}
-
-        {{--</select>--}}
-        {{--</div>--}}
-        {{--<button href="" class="btn-grey form-control">Генератор купонов</button>--}}
-        {{--<button href="" class="btn-grey form-control">Статистика купонов</button>--}}
-        {{--</div>--}}
+        <finance-search-students></finance-search-students>
         <div class="coupon-table">
             <div class="table-wrapper">
                 <div class="title-line">
@@ -266,3 +251,9 @@
 
 
 @endsection
+<script>
+    import FinanceSearchStudents from "../../../assets/js/AutoschoolComponents/finance-search-students";
+    export default {
+        components: {FinanceSearchStudents}
+    }
+</script>
