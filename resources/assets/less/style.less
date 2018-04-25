@@ -6408,7 +6408,7 @@ footer.inner {
             width: auto;
             .block {
               &:last-child {
-                margin-bottom: 0px;
+                margin-bottom: 3px!important;
               }
               h3 {
                 margin-bottom: 15px;
@@ -6475,26 +6475,252 @@ footer.inner {
         }
       }
       .table-wrapper {
-        .coupons-cheskbox {
-          input[type=checkbox] {
-            display: inline-block;
-            content: "";
-            width: 25px;
-            height: 25px;
-            border: 2px solid #ccc;
-            border-radius: 3px;
-            cursor: pointer;
-            color: #333;
-            position: relative;
-            top: 7px;
-            margin-right: 10px;
-            background-color: white;
-
-            &:checked {
-              background: url(../img/ok-red.png) no-repeat center center;
+        //.coupons-cheskbox {
+        //  input[type=checkbox] {
+        //    display: inline-block;
+        //    content: "";
+        //    width: 25px;
+        //    height: 25px;
+        //    border: 2px solid #ccc;
+        //    border-radius: 3px;
+        //    cursor: pointer;
+        //    color: #333;
+        //    position: relative;
+        //    top: 7px;
+        //    margin-right: 10px;
+        //    background-color: white;
+        //
+        //    &:checked {
+        //      background: url(../img/ok-red.png) no-repeat center center;
+        //    }
+        //  }
+      }
+      .title-line {
+        line-height: 24px;
+        background: #ebebeb;
+        padding: 15px 5px;
+        & > span {
+          display: inline-block;
+          color: #666;
+          &.number {
+            padding-left: 20px;
+            width: 40px;
+          }
+          &.coupon {
+            width: 60px;
+          }
+          &.autoschool {
+            width: 120px;
+          }
+          &.city {
+            width: 130px;
+          }
+          &.name-student {
+            width: 140px;
+          }
+          &.generate-date {
+            width: 90px;
+          }
+          &.activate-date {
+            width: 90px;
+          }
+          &.price {
+            width: 90px;
+          }
+          &.status {
+            width: 90px;
+            .status-active {
+              display: none;
             }
           }
         }
+      }
+      .block-media-768 {
+        display: none;
+      }
+      .line {
+        padding: 20px 5px 30px;
+        & div {
+          display: inline-block;
+          color: black;
+          a {
+            color: black;
+            text-decoration: underline;
+          }
+          &.coupons-cheskbox {
+            width: 20px;
+          }
+          &.number {
+            width: 20px;
+            text-align: center;
+          }
+          &.coupon {
+            width: 60px;
+          }
+          &.autoschool {
+            width: 120px;
+          }
+          &.city {
+            width: 130px;
+          }
+          &.name-student {
+            width: 140px;
+          }
+          &.generate-date {
+            width: 90px;
+          }
+          &.activate-date {
+            width: 90px;
+          }
+          &.price {
+            width: 90px;
+            font-weight: 700;
+          }
+          &.status {
+            width: 90px;
+            .status-fee {
+              font-weight: 700;
+            }
+          }
+        }
+        &.active {
+          background-color: #f8eeee;
+
+          .status {
+            position: relative;
+            .status-free, .status-paid {
+              display: none;
+            }
+            .status-active {
+              display: block;
+              position: absolute;
+              top: 16px;
+              left: 0;
+              padding-top: 10px;
+              cursor: pointer;
+              a {
+                color: red;
+              }
+            }
+          }
+        }
+        &.paid {
+          & div {
+            color: #949494;
+            a {
+              color: #949494;
+            }
+            &.status {
+              position: relative;
+              .status-active {
+                display: none;
+              }
+              .status-free {
+                display: none;
+              }
+              .status-paid {
+                display: block;
+                position: absolute;
+                top: 16px;
+                left: 0;
+                padding-top: 10px;
+                cursor: pointer;
+                img {
+                  height: 16px;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+        &.free {
+          background-color: #f1f8ed;
+          & div {
+            color: #32372e;
+            a {
+              color: #32372e;
+              text-decoration: none;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+            &.status {
+              position: relative;
+              .status-active {
+                display: none;
+              }
+              .status-paid {
+                display: none;
+              }
+              .status-free {
+                display: block;
+                position: absolute;
+                top: 16px;
+                left: 0;
+                padding-top: 10px;
+                cursor: pointer;
+                a {
+                  color: green;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .blockform {
+      margin-bottom: 20px;
+      position: relative;
+      background-color: #ebebeb;
+      padding: 20px 10px;
+      .form-inline {
+        display: flex;
+
+        .btn-grey {
+          width: 30%;
+          height: 55px;
+          line-height: 56px;
+          margin: 5px 0;
+        }
+        input {
+          width: 60%;
+          height: 55px;
+          line-height: 55px;
+          border-radius: 30px;
+          padding: 0 10px;
+          border: 2px solid #ccc !important;
+          margin: 5px 10px 0 0;
+        }
+
+        .close {
+          position: absolute;
+          right: 15px;
+          display: block;
+          width: 26px;
+          height: 26px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: url("../img/x.png") no-repeat;
+          &:hover {
+            background: url("../img/x-active.png") no-repeat;
+          }
+        }
+      }
+
+      &.paid {
+        div {
+          padding: 0 20px;
+        }
+        .info {
+          a {
+            color: inherit;
+          }
+        }
+      }
+    }
+
+    @media screen and (min-width: 1024px) and (max-width: 1200px) {
+      .table-wrapper {
         .title-line {
           line-height: 24px;
           background: #ebebeb;
@@ -6507,37 +6733,35 @@ footer.inner {
               width: 40px;
             }
             &.coupon {
-              width: 60px;
+              width: 55px;
             }
             &.autoschool {
-              width: 120px;
+              width: 100px;
             }
             &.city {
-              width: 130px;
+              width: 100px;
             }
             &.name-student {
-              width: 140px;
+              width: 115px;
             }
             &.generate-date {
-              width: 90px;
+              width: 75px;
             }
             &.activate-date {
-              width: 90px;
+              width: 75px;
             }
             &.price {
-              width: 90px;
+              width: 60px;
             }
             &.status {
-              width: 90px;
+              width: 60px;
               .status-active {
                 display: none;
               }
             }
           }
         }
-        .block-media-768 {
-          display: none;
-        }
+
         .line {
           padding: 20px 5px 30px;
           & div {
@@ -6555,268 +6779,121 @@ footer.inner {
               text-align: center;
             }
             &.coupon {
-              width: 60px;
+              width: 55px;
             }
             &.autoschool {
-              width: 120px;
+              width: 100px;
             }
             &.city {
-              width: 130px;
+              width: 100px;
             }
             &.name-student {
-              width: 140px;
+              width: 115px;
             }
             &.generate-date {
-              width: 90px;
+              width: 75px;
             }
             &.activate-date {
-              width: 90px;
+              width: 75px;
             }
             &.price {
-              width: 90px;
+              width: 60px;
               font-weight: 700;
             }
             &.status {
-              width: 90px;
-              .status-fee {
-                font-weight: 700;
-              }
+              width: 60px;
             }
           }
           &.active {
             background-color: #f8eeee;
-
             .status {
-              position: relative;
-              .status-free, .status-paid {
-                display: none;
-              }
               .status-active {
-                display: block;
-                position: absolute;
-                top: 16px;
-                left: 0;
-                padding-top: 10px;
-                cursor: pointer;
-                a {
-                  color: red;
-                }
+                left: -45px;
               }
             }
           }
           &.paid {
             & div {
-              color: #949494;
-              a {
-                color: #949494;
-              }
               &.status {
-                position: relative;
-                .status-active {
-                  display: none;
-                }
-                .status-free {
-                  display: none;
-                }
                 .status-paid {
-                  display: block;
-                  position: absolute;
-                  top: 16px;
-                  left: 0;
-                  padding-top: 10px;
-                  cursor: pointer;
-                  img {
-                    height: 16px;
-                    cursor: pointer;
-                  }
+                  left: -45px;
                 }
               }
             }
           }
           &.free {
-            background-color:#f1f8ed ;
+            background-color: #f1f8ed;
             & div {
-              color: #32372e;
-              a {
-                color: #32372e;
-                text-decoration: none;
-                &:hover {
-                  text-decoration: underline;
-                }
-              }
               &.status {
-                position: relative;
-                .status-active {
-                  display: none;
-                }
-                .status-paid {
-                  display: none;
-                }
                 .status-free {
-                  display: block;
-                  position: absolute;
-                  top: 16px;
-                  left: 0;
-                  padding-top: 10px;
-                  cursor: pointer;
-                  a {
-                    color: green;
-                  }
+                  left: -45px;
                 }
               }
             }
           }
         }
       }
-      .blockform {
-        margin-bottom: 20px;
-        position: relative;
-        background-color: #ebebeb;
-        padding: 20px 10px;
-        .form-inline {
-          display: flex;
-
-          .btn-grey {
-            width: 30%;
-            height: 55px;
-            line-height: 56px;
-            margin: 5px 0;
-          }
-          input {
-            width: 60%;
-            height: 55px;
-            line-height: 55px;
-            border-radius: 30px;
-            padding: 0 10px;
-            border: 2px solid #ccc !important;
-            margin: 5px 10px 0 0;
-          }
-
-          .close {
-            position: absolute;
-            right: 15px;
-            display: block;
-            width: 26px;
-            height: 26px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: url("../img/x.png") no-repeat;
-            &:hover {
-              background: url("../img/x-active.png") no-repeat;
-            }
-          }
-        }
-
-        &.paid {
-          div {
-            padding: 0 20px;
-          }
-          .info {
-            a {
-              color: inherit;
-            }
-          }
-        }
-      }
-
-      @media screen and (min-width: 1024px) and (max-width: 1200px) {
+    }
+    @media screen and (min-width: 320px) and (max-width: 1023px) {
+      .coupon-table {
         .table-wrapper {
           .title-line {
-            line-height: 24px;
-            background: #ebebeb;
-            padding: 15px 5px;
-            & > span {
-              display: inline-block;
-              color: #666;
-              &.number {
-                padding-left: 20px;
-                width: 40px;
-              }
-              &.coupon {
-                width: 55px;
-              }
-              &.autoschool {
-                width: 100px;
-              }
-              &.city {
-                width: 100px;
-              }
-              &.name-student {
-                width: 115px;
-              }
-              &.generate-date {
-                width: 75px;
-              }
-              &.activate-date {
-                width: 75px;
-              }
-              &.price {
-                width: 60px;
-              }
-              &.status {
-                width: 60px;
-                .status-active {
-                  display: none;
-                }
-              }
-            }
+            display: none;
           }
-
           .line {
-            padding: 20px 5px 30px;
-            & div {
-              display: inline-block;
-              color: black;
-              a {
-                color: black;
-                text-decoration: underline;
-              }
-              &.coupons-cheskbox {
-                width: 20px;
-              }
-              &.number {
-                width: 20px;
-                text-align: center;
-              }
-              &.coupon {
-                width: 55px;
-              }
-              &.autoschool {
-                width: 100px;
-              }
-              &.city {
-                width: 100px;
-              }
-              &.name-student {
-                width: 115px;
-              }
-              &.generate-date {
-                width: 75px;
-              }
-              &.activate-date {
-                width: 75px;
-              }
-              &.price {
-                width: 60px;
-                font-weight: 700;
-              }
-              &.status {
-                width: 60px;
-              }
-            }
+            display: none;
+          }
+          .block-media-768 {
+            line-height: 2;
+            display: flex;
+            min-height: 200px;
+            padding: 20px 15px 40px;
             &.active {
               background-color: #f8eeee;
+
               .status {
+                position: relative;
+                .status-free, .status-paid {
+                  display: none;
+                }
                 .status-active {
-                  left: -45px;
+                  display: inline-block;
+                  position: relative;
+                  top: 0;
+                  left: 0;
+                  padding-top: 0;
+                  cursor: pointer;
+                  a {
+                    color: red;
+                  }
                 }
               }
             }
             &.paid {
               & div {
+                color: #949494;
+                a {
+                  color: #949494;
+                }
                 &.status {
+                  position: relative;
+                  .status-active {
+                    display: none;
+                  }
+                  .status-free {
+                    display: none;
+                  }
                   .status-paid {
-                    left: -45px;
+                    display: inline-block;
+                    position: relative;
+                    top: 0;
+                    left: 0;
+                    padding-top: 0;
+                    cursor: pointer;
+                    img {
+                      height: 16px;
+                      cursor: pointer;
+                    }
                   }
                 }
               }
@@ -6824,39 +6901,23 @@ footer.inner {
             &.free {
               background-color: #f1f8ed;
               & div {
-                &.status {
-                  .status-free {
-                    left: -45px;
+                color: #32372e;
+                a {
+                  color: #32372e;
+                  text-decoration: none;
+                  &:hover {
+                    text-decoration: underline;
                   }
                 }
-              }
-            }
-          }
-        }
-      }
-      @media screen and (min-width: 320px) and (max-width: 1023px) {
-        .coupon-table {
-          .table-wrapper {
-            .title-line {
-              display: none;
-            }
-            .line {
-              display: none;
-            }
-            .block-media-768 {
-              line-height: 2;
-              display: flex;
-              min-height: 200px;
-              padding: 20px 15px 40px;
-              &.active {
-                background-color: #f8eeee;
-
-                .status {
+                &.status {
                   position: relative;
-                  .status-free, .status-paid {
+                  .status-active {
                     display: none;
                   }
-                  .status-active {
+                  .status-paid {
+                    display: none;
+                  }
+                  .status-free {
                     display: inline-block;
                     position: relative;
                     top: 0;
@@ -6864,116 +6925,54 @@ footer.inner {
                     padding-top: 0;
                     cursor: pointer;
                     a {
-                      color: red;
+                      color: green;
                     }
                   }
                 }
               }
-              &.paid {
-                & div {
-                  color: #949494;
-                  a {
-                    color: #949494;
-                  }
-                  &.status {
-                    position: relative;
-                    .status-active {
-                      display: none;
-                    }
-                    .status-free {
-                      display: none;
-                    }
-                    .status-paid {
-                      display: inline-block;
-                      position: relative;
-                      top: 0;
-                      left: 0;
-                      padding-top: 0;
-                      cursor: pointer;
-                      img {
-                        height: 16px;
-                        cursor: pointer;
-                      }
-                    }
-                  }
-                }
+            }
+            div {
+              a {
+                color: inherit;
               }
-              &.free {
-                background-color: #f1f8ed;
-                & div {
-                  color: #32372e;
-                  a {
-                    color: #32372e;
-                    text-decoration: none;
-                    &:hover {
-                      text-decoration: underline;
-                    }
-                  }
-                  &.status {
-                    position: relative;
-                    .status-active {
-                      display: none;
-                    }
-                    .status-paid {
-                      display: none;
-                    }
-                    .status-free {
-                      display: inline-block;
-                      position: relative;
-                      top: 0;
-                      left: 0;
-                      padding-top: 0;
-                      cursor: pointer;
-                      a {
-                        color: green;
-                      }
-                    }
-                  }
-                }
-              }
-              div {
-                a {
-                  color: inherit;
-                }
-                .number {
-                  margin: 0 10px;
-                }
+              .number {
+                margin: 0 10px;
               }
             }
           }
         }
       }
-      @media screen and(min-width: 320px) and (max-width: 768px) {
-        .coupon-table {
-          .table-wrapper {
+    }
+    @media screen and(min-width: 320px) and (max-width: 768px) {
+      .coupon-table {
+        .table-wrapper {
 
-            .blockform {
-              margin-bottom: 20px;
-              position: relative;
-              background-color: #ebebeb;
-              padding: 20px 10px;
-              .form-inline {
-                display: inline-block;
+          .blockform {
+            margin-bottom: 20px;
+            position: relative;
+            background-color: #ebebeb;
+            padding: 20px 10px;
+            .form-inline {
+              display: inline-block;
 
-                .btn-grey {
-                  width: 100%;
-                  height: 55px;
-                  line-height: 56px;
-                  margin: 10px 0;
-                }
-                input {
-                  width: 100%;
-                  height: 55px;
-                  line-height: 55px;
-                  border-radius: 30px;
-                  padding: 0 10px;
-                  border: 2px solid #ccc !important;
-                  margin: 5px 10px 0 0;
-                }
+              .btn-grey {
+                width: 100%;
+                height: 55px;
+                line-height: 56px;
+                margin: 10px 0;
+              }
+              input {
+                width: 100%;
+                height: 55px;
+                line-height: 55px;
+                border-radius: 30px;
+                padding: 0 10px;
+                border: 2px solid #ccc !important;
+                margin: 5px 10px 0 0;
+              }
 
-                .close {
-                  display: none;
-                }
+              .close {
+                display: none;
               }
             }
           }
@@ -7004,9 +7003,7 @@ footer.inner {
         }
         .search {
           & input {
-            background-image: url("../img/img/search.png");
-            background-repeat: no-repeat;
-            background-position: 95% 50%;
+            background: url("../img/img/search.png") no-repeat 95% 50%;
           }
         }
         .data {
@@ -7078,7 +7075,7 @@ table.table.manage-grid {
 
       &.status-free {
         td {
-          background-color:#f1f8ed ;
+          background-color: #f1f8ed;
           a.status {
             color: #32372e;
             border-color: #32372e;
@@ -7091,8 +7088,8 @@ table.table.manage-grid {
         td {
           background-color: #f8eeee;
           a.status {
-            color:red;
-            border-color:red;
+            color: red;
+            border-color: red;
           }
         }
       }
@@ -7100,10 +7097,10 @@ table.table.manage-grid {
       &.status-paid {
 
         td {
-          color:  #949494;
+          color: #949494;
 
           a, span, a.bold {
-            color:  #949494;
+            color: #949494;
             border-color: #949494;
           }
         }
@@ -7243,7 +7240,7 @@ table.table.manage-grid {
     width: auto;
     .block {
       width: 100% !important;
-      border: 3px solid #cccccc;
+      border: 3px solid #cccccc!important;
       display: inline-block;
       padding: 10px 10px;
       height: 170px;
@@ -7285,6 +7282,50 @@ table.table.manage-grid {
   margin: 15px 0;
 }
 
+/*==================== Блок статистика Инвестор =================*/
+.investor{
+  .numberpeople {
+    .info {
+      width: auto;
+      .block {
+        width: 100% !important;
+        border: 3px solid #cccccc!important;
+        display: inline-block;
+        padding: 10px 10px;
+        height: 170px;
+        margin: 0;
+
+        h3 {
+          margin-bottom: 15px;
+        }
+
+        h3 {
+          font-size: 20px;
+          margin-top: 0;
+          margin-bottom: 10px;
+        }
+
+        span {
+          color: #666666;
+        }
+
+        & > span {
+          display: block;
+        }
+
+        .number {
+          font-size: 30px;
+          font-weight: 400;
+          display: inline-block;
+          margin: 0 10px;
+          color: #000000;
+        }
+      }
+
+    }
+  }
+}
+
 /*==================== Автошкола Finance =================*/
 .finance {
   tfoot {
@@ -7296,6 +7337,11 @@ table.table.manage-grid {
   .finance-line-height {
     .margin-12 {
       margin-top: 12px;
+    }
+    @media screen and(max-width: 991px) {
+      .margin-y-10 {
+        margin: 10px 0;
+      }
     }
   }
 }
@@ -7598,27 +7644,29 @@ table.table.manage-grid {
     margin: 30px 0;
     .info {
       padding: 10px 0;
-      span.address{
+      span.address {
         font-size: 18px;
       }
       span.number {
         font-size: 26px;
-        span{
+        span {
           font-weight: 600;
         }
       }
-      span.mail {
+      span.mail,
+      span.skype,
+      span.web {
         font-size: 18px;
         a {
           color: black;
         }
       }
-      img{
+      img {
         margin-right: 20px;
       }
     }
   }
-  .inner-block{
+  .inner-block {
     line-height: 55px;
     .btn-grey {
       width: 50%;
@@ -7633,6 +7681,130 @@ table.table.manage-grid {
     width: 100%;
     &::placeholder {
       color: black;
+    }
+  }
+}
+
+.inner-block-investor {
+  .row {
+    div, select {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+  }
+}
+
+.investor-coupons {
+  .bottom-form {
+    .text-info {
+      margin: 0;
+      line-height: 43px;
+      color: inherit;
+    }
+    .all {
+      margin: 0 15px;
+    }
+    .btn-grey {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+}
+
+.modal-coupons-cancel {
+  background-color: white;
+  position: relative;
+  padding: 30px;
+  textarea {
+    width: 100%;
+    border-radius: 30px;
+    height: 55px;
+    border: 1px solid #ccc;
+    padding: 15px;
+  }
+  .btn-grey {
+    margin: 0;
+    width: 100%;
+  }
+  .close {
+    position: absolute;
+    right: 15px;
+    top: 40px;
+    width: 30px;
+    height: 30px;
+    background: url("../img/x-active.png") no-repeat;
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+}
+
+.modal-coupons-delete {
+  background-color: white;
+  padding: 40px 20px;
+  position: relative;
+  .text {
+    margin: 20px 0 30px;
+    font-size: 18px;
+
+  }
+  .btn-grey {
+    margin: 0;
+  }
+  .btn-link {
+    color: black;
+    text-decoration: underline;
+    font-size: 18px;
+    line-height: 55px;
+  }
+  .btn-grey {
+    margin: 0;
+    width: 100%;
+  }
+  .close {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+    width: 30px;
+    height: 30px;
+    background: url("../img/x-active.png") no-repeat;
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+@media screen and(max-width: 768px) and(min-width: 320px) {
+  .modal-coupons-cancel{
+    background-color: white;
+    position: relative;
+    padding: 30px;
+    textarea {
+      width: 100%;
+      border-radius: 30px;
+      height: 75px;
+      border: 1px solid #ccc;
+      padding: 15px;
+    }
+    .btn-grey {
+      margin: 0 auto;
+      width: 50%;
+    }
+    .close {
+      position: absolute;
+      right: 2px;
+      top: 10px;
+      width: 30px;
+      height: 30px;
+      background: url("../img/x-active.png") no-repeat;
+      opacity: 0.4;
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }

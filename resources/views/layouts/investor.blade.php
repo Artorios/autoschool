@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <a href="{{route('investor.profile.edit')}}" class="student-info" style="color: black">
+                    <a href="{{route('investor.profile.edit')}}"  style="color: black">
                         <div class="student-info">
                             <div class="img">
                                 <img src="/img/profile-photo.png" alt="">
