@@ -42,7 +42,7 @@
         methods: {
             sendDataToServer () {
                 if (this.validate()) return false
-                this.data.id = this.autoschool.id
+                this.data.auto_school_id = this.autoschool.id
                 this.$http.post('/autoschool/filials/create', this.data).then(res => {
                     if (res.status === 201) {
                         location.href = '/autoschool/filials'

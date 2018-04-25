@@ -46,6 +46,12 @@ class FilialController extends Controller
      */
     public function createFilial(Request $request){
 
+        $test = $this->validate($request, [
+            'name'    => 'required|string|max:255',
+                           'address' => 'required|string|max:255',
+                           'auto_school_id' => 'required|integer',
+        ]);
+dd($test);
         /**
          * $this->validate($request->all(), [
          *  'name'     => 'required|string|max:255',
@@ -81,6 +87,8 @@ class FilialController extends Controller
             'name'     => 'required|string|max:255',
             'exam_date' => 'required|date',
             'exam_time' => 'required|date_format:H:i',
+            'auto_school_filial_id' => 'required|integer',
+
         ]);
 
         if (count($validator->errors())) {
