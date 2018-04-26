@@ -29,7 +29,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
     Route::get('results', 'ResultController')->name('autoschool.results');
 
-    Route::get('finances', 'FinanceController')->name('autoschool.finance');
+    Route::get('finances', 'FinanceController@index')->name('autoschool.finance');
     Route::post('/get-count-main-finance', 'FinanceController@getCountMain');
 
     Route::get('coupons', 'CouponController')->name('autoschool.coupons');

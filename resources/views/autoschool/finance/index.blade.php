@@ -11,7 +11,6 @@
         @include('autoschool._statistics')
 
 
-        <finance-search-students></finance-search-students>
 
 
         <div class="blockgroupe">
