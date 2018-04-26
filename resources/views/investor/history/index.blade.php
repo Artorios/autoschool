@@ -1,18 +1,15 @@
-@extends('layouts.autoschool')
+@extends('layouts.investor')
 
 @section('content')
     <div class="content error profile finance">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="{{ route('autoschool.index') }}">Главная</a> / Филиалы</li>
+                <li><a href="">Главная</a> / История</li>
             </ul>
         </div>
-        <h3>Финансовая статистика:</h3>
-        @include('autoschool._statistics')
-
-
-        <finance-search-students></finance-search-students>
-
+        <button href="" id="search-button" class="btn-grey visible-xs ">
+            <img src="/img/search.png" alt="">Поиск по параметрам
+        </button>
 
         <div class="blockgroupe">
             <div class="search-form blockforms finance">
@@ -27,7 +24,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <select class="select">
-                                <option selected disabled>ФИО ученика</option>
+                                <option selected disabled>Название автошколы</option>
                                 <option>Петров В.В.</option>
                                 <option>Сидоров Г.А.</option>
                             </select>
@@ -55,61 +52,38 @@
             <table class="table manage-grid">
                 <thead>
                 <tr class="visible-md visible-lg">
-                    <th></th>
                     <th>№</th>
-
-                    <th>ФИО ученика</th>
-                    <th>Группа</th>
-                    <th>Тип оплаты</th>
-                    <th>Дата оплаты</th>
-                    <th>Сумма</th>
+                    <th>Дата</th>
+                    <th>Вид операции</th>
+                    <th>Комментарий</th>
                 </tr>
                 </thead>
                 <tbody class="main">
                 <tr data-id="1" class="visible-md visible-lg">
-                    <td>
-                        <div class="checked-line">
-                            <input type="checkbox" name="grid_selected[]">
-                            <label for="checked-line"></label>
-                        </div>
-                    </td>
-                    <td>1</td>
-                    <td><span class="student-name">Длиннофамильевский И.В.</span></td>
-                    <td><span class="group-number">Группа <a
-                                    href="javascript:">№123</a></span></td>
-                    <td>Длинный тип олаты</td>
-                    <td>12.02.1254</td>
-                    <td><a class="bold big" href="javascript:">6 000</a></td>
+                    <td>01</td>
+                    <td>21,14,1112</td>
+                    <td>Генерация купонов</td>
+                    <td>Киров Автошкола</td>
+
                 </tr>
                 <tr data-id="1" class="hidden-md hidden-lg">
                     <td>
                         <table>
                             <tbody>
                             <tr>
-                                <td><input type="checkbox" name="grid_selected[]"></td>
-                                <td><span class="big bold">01</span></td>
-                                <td>
-                                    <span class="student-name">Длиннофамильевский И.В.</span><span class="group-number">Группа <a href="javascript:">№123</a></span>
-                                </td>
+                                <th><span class="big bold">01</span></th>
+                                <td>21,14,1112</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <th>Тип оплаты</th>
-                                <td>
-                                    Длинный тип оплаты
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
+                                <td>Генерация купонов</td>
 
-                                <th>Дата оплаты</th>
-                                <td>27.11.2017</td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <th>Сумма</th>
-                                <td><span class="bold big">160&nbsp;000</span></td>
+                                <td>Киров Автошкола</td>
                             </tr>
+
                             </tbody>
                         </table>
                     </td>
@@ -122,18 +96,18 @@
                             <div class="col-md-2 margin-12">
                                 <input type="checkbox">  Для всех
                             </div>
-                            <div class="col-md-2 margin-12">
+                            <div class="col-md-2 margin-12 margin-y-10">
                                 Отмечено 1 из 12
                             </div>
 
-                            <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Анулировать</a></div>
-                            <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Удалить</a></div>
-                            <div class="col-xs-12 col-md-4">
-                                    <select class="select">
-                                        <option selected disabled>Виберите действие</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                    </select>
+                            <div class="col-xs-12 col-md-2 margin-y-10"><a type="text" class="btn-grey">Анулировать</a></div>
+                            <div class="col-xs-12 col-md-2 margin-y-10"><a type="text" class="btn-grey">Удалить</a></div>
+                            <div class="col-xs-12 col-md-4 margin-y-10">
+                                <select class="select">
+                                    <option selected disabled>Виберите действие</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
                             </div>
                         </div>
                     </td>
@@ -158,6 +132,9 @@
 <script>
     (function ($) {
         $('.select').selectric();
+        $('#search-button').click(function(){
+            $('.search-form').stop().toggle();
+        });
     })(jQuery)
 </script>
 @endpush
