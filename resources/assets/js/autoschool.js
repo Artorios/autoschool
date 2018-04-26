@@ -11,8 +11,8 @@ import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
 import SchoolFilials from './AutoschoolComponents/school-filials';
 import FilialGroups from './AutoschoolComponents/filial-groups';
 import FinanceStatisticMain from './AutoschoolComponents/finance-statistic-main';
-import FinanceSelectStudents  from './AutoschoolComponents/finance-select-students';
 import FinanceSearchStudents from './AutoschoolComponents/finance-search-students'
+import FinanceSelectStudents from './AutoschoolComponents/finance-select-students'
 const VueInputMask = require('vue-inputmask').default
 
 Vue.use(VueInputMask);
@@ -37,7 +37,7 @@ const app = new Vue({
         SchoolFilials,
         FilialGroups,
         FinanceStatisticMain,
-        FinanceSelectStudents,
         FinanceSearchStudents,
+        FinanceSelectStudents,
     }
 });

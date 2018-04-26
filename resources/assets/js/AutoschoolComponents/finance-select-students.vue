@@ -1,5 +1,4 @@
 <template>
-    <h1>qwerty</h1>
     <!--<div class="coupon-table">-->
         <!--<div class="table-wrapper">-->
             <!--<div class="title-line">-->
@@ -69,11 +68,11 @@
 <script>
     export default {
         data (){
+
             return {
 
             }
         },
-        props: ['users'],
     }
 </script>
 

@@ -1,12 +1,17 @@
 <template>
-    <finance-select-students></finance-select-students>
+        <div class="blockform">
+
+        </div>
+
 </template>
 
 <script>
-    import FinanceSelectStudents from "./finance-select-students";
+    import FinanceSelectStudents from './finance-select-students'
+
     export default {
-        name: "finance-search-students",
-        components: {FinanceSelectStudents}
+        components: {
+            FinanceSelectStudents,
+        },
     }
 </script>
 
