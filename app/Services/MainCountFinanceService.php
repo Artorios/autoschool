@@ -9,11 +9,16 @@ class MainCountFinanceService
         return AutoSchool::join('auto_school_filials', 'auto_schools.id', '=', 'auto_school_filials.auto_school_id')
             ->join('auto_school_groups', 'auto_school_filials.id', '=', 'auto_school_groups.auto_school_filial_id')
             ->join('users', 'auto_school_groups.id', '=', 'users.auto_school_group_id')
-            ->join('cities', 'users.city_id', '=', 'cities.id')
+            ->join('orders', 'users.id', '=', 'orders.user_id')
+//            ->join('cities', 'users.city_id', '=', 'cities.id')
             ->where('auto_school_id', '=', auth()->user()->autoschoolgroup->autoschoolfilial->autoschool->id)
             ->whereNotIn('role', ['admin','investor','autoschool'])
-            ->select(['*', 'auto_school_groups.name as autoSchoolGroupName',
-                'users.name as studentName'])
+            ->select(['*',
+                'auto_school_groups.name as autoSchoolGroupName',
+                'users.name as studentName',
+                'users.last_name as studentLastName',
+                'users.second_name as studentSecondName'
+            ])
             ->get();
     }
 
