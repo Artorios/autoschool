@@ -33,21 +33,26 @@
             return {
                 countStudents: 0,
                 freeCoupons: 0,
-                income: 0
+                income: 0,
             }
         },
-        props: ['groups'],
-        computed: {
-            countStudents(){
-                let count = 0;
-                for (let group in this.groups){
-                    count += this.groups[group].student_counts;
-                }
-                return this.countStudents = count;
-            }
+        props:{
+            filial: {}
+        },
+        created (){
+            this.getData()
         },
         methods: {
-
+            getData(){
+                let data = {
+                    'id': this.filial.id
+                }
+                this.$http.post('/autoschool/get-count-main-filial', data).then(res => {
+                    this.countStudents = res.data.counts
+                    this.freeCoupons = res.data.coupons
+                    this.income = res.data.income
+                })
+            }
         },
     }
 </script>

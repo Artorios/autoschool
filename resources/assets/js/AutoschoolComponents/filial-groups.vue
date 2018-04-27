@@ -11,7 +11,7 @@
                 </div>
                 <div class="line" v-for="group in paginate">
                     <div class="number">{{group.id}}</div>
-                    <div class="name"><a :href="'/autoschool/filials/'+group.auto_school_filial_id+'/groups/'+group.id">{{group.name}}</a></div>
+                    <div class="name"><a :href="'/autoschool/filials/groups/'+group.id">{{group.name}}</a></div>
                     <div class="data-and-time">
                         <img src="/img/clock.png"> {{group.exam_date}} {{group.exam_time}}
                     </div>
@@ -45,7 +45,7 @@
             ButtonAddGroup,
             CreateGroup
         },
-        data() {
+        data: function () {
             return {
                 currentPage: 1,
                 itemsPerPage: 10,

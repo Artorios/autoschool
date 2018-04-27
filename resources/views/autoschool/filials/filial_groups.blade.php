@@ -8,11 +8,11 @@
             </ul>
         </div>
         <block-statistic-groups-in-filial
-                :groups="{{json_encode($groups)}}">
+                :filial="{{json_encode($filial)}}">
         </block-statistic-groups-in-filial>
 
         <filial-groups :filial="{{json_encode($filial)}}"
-                       :groups="{{json_encode($groups)}}">
+                       :groups="{{json_encode($filial->autoschoolgroups)}}">
         </filial-groups>
     </div>
 @endsection

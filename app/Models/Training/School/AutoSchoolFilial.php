@@ -2,8 +2,8 @@
 
 namespace App\Models\Training\School;
 
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Socialite\Contracts\User;
 
 /**
  * Class AutoSchoolFilial
@@ -26,13 +26,24 @@ class AutoSchoolFilial extends Model
     /**
      * @return mixed
      */
-    public function autoschool()
+    public function autoschool ()
     {
         return $this->hasOne(AutoSchool::class, 'id', 'auto_school_id');
     }
 
-    public function autoschoolgroups(){
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function autoschoolgroups (){
         return $this->hasMany(AutoSchoolGroup::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function users ()
+    {
+        return $this->hasManyThrough(User::class, AutoSchoolGroup::class);
     }
 
 

@@ -27,7 +27,7 @@ class FilialController extends Controller
     public function index(CountersService $countersService)
     {
         $autoschool = AutoSchool::findOrFail(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id);
-        $collection = $countersService->getCountStudentInFilial($autoschool->id);
+        $collection = $countersService->getCountStudentInFilials($autoschool->id);
         foreach ($autoschool->filials as $filial) {
             if (in_array($filial->id, array_keys($collection))) {
                 $filial->setAttribute('student_count', count($collection[$filial->id]));
@@ -86,16 +86,19 @@ class FilialController extends Controller
      * @param  integer                                                  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id, CountersService $countersService)
     {
         $filial = AutoSchoolFilial::findOrFail($id);
-
-        foreach ($filial->autoschoolgroups as $one) {
-            $one->setAttribute('student_counts', User::where('auto_school_group_id', '=', $one->id)
-                ->whereNotIn('role', ['admin', 'investor', 'autoschool'])
-                ->count());
+        $countStudentInGroups = $countersService->getCountStudentInEachGroup($filial->id);
+        foreach ($filial->autoschoolgroups as $group) {
+            if (in_array($group->id, array_keys($countStudentInGroups))) {
+                $group->setAttribute('student_counts', count($countStudentInGroups[$group->id]));
+            } else {
+                $group->setAttribute('student_counts', 0);
+            }
         }
-        $groups = $filial->autoschoolgroups;
+
+
         return view('autoschool.filials.filial_groups', compact('groups', 'filial'));
     }
 
@@ -105,12 +108,26 @@ class FilialController extends Controller
      * @param User                                                      $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showStudents($id, $group_id, User $user)
+    public function showStudents($group_id, User $user)
     {
         $students = $user->where(['auto_school_group_id' => $group_id])
             ->whereNotIn('role', ['admin', 'investor', 'autoschool'])
             ->get();
         $group = AutoSchoolGroup::where('id', '=', $group_id)->get()[0];
         return view('autoschool.filials.students_list', compact('students', 'group'));
+    }
+
+    /**
+     * @param CountersService $countersService
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCountFilial(CountersService $countersService, Request $request)
+    {
+        return response()->json([
+            'counts' => $countersService->getCountStudentsInGroups($request->input('id')),
+            'coupons' => $countersService->getCountFreeCupon(),
+            'income' => $countersService->getCountIncomeFilial()
+        ]);
     }
 }
