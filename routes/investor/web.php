@@ -10,6 +10,7 @@ Route::group([
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', 'ProfileController@show')->name('profile.index');
         Route::put('edit', 'ProfileController@update')->name('profile.edit');
+        Route::put('password/edit', 'ProfileController@update')->name('profile.password.edit');
     });
     Route::view('/finance', 'investor.finance.index')->name('finance.index');
     Route::view('/history', 'investor.history.index')->name('history.index');
