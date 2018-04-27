@@ -14,8 +14,8 @@ class AddDirectorAndInvestorToAutoschoolsTable extends Migration
     public function up()
     {
         Schema::table('auto_schools', function (Blueprint $table) {
-            $table->integer('director_id')->nullable();
-            $table->integer('investor_id')->nullable();
+            $table->integer('director_id')->unsigned();
+            $table->integer('investor_id')->unsigned();
         });
     }
 
