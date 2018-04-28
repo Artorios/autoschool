@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueResource  from 'vue-resource';
 import BlockStatisticGroups from './AutoschoolComponents/Main/block-statistic-groups.vue';
+import BlockStatisticFilials from './AutoschoolComponents/Main/block-statistic-filials.vue';
 import Pages from './AccountComponents/NotifyComponents/pages.vue';
 import EditPassForm from './components/UserComponent/edit-pass-form';
 import EditNotifySettings from './components/UserComponent/edit-notify-settings';
@@ -32,6 +33,7 @@ const app = new Vue({
         NotifyAll,
         ProfilePhoto,
         ButtonAddFilial,
-        FilialGroups
+        FilialGroups,
+        BlockStatisticFilials,
     }
 });

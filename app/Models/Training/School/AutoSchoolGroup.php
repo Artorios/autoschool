@@ -21,7 +21,7 @@ class AutoSchoolGroup extends Model
 
     public function getCountStudentAttribute(){
 
-        $counts = User::where('auto_school_group_id', $this->attributes['id'])->whereNotIn('role', ['admin','investor','autoschool'])->count();
+        $counts = User::where('auto_school_group_id', $this->attributes['id'])->whereIn('role', ['user'])->count();
 
         return $counts;
     }

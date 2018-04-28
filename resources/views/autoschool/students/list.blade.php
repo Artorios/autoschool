@@ -61,9 +61,11 @@
                 </tr>
                 </thead>
                 <tbody class="main">
+                {{dd($students)}}
+                @foreach($students as $student)
                 <tr data-id="1" class="visible-md visible-lg">
                     <td>01</td>
-                    <td><a href="#">Длиннофальмилильнов И. В.</a></td>
+                    <td><a href="#">{{$student->fio}}</a></td>
                     <td><a href="#">ИД-21 супер длинное</a></td>
                     <td>Дорожные знаки. Предупреждающие знаки.</td>
                     <td>80%</td>
@@ -75,7 +77,7 @@
                             <tbody>
                             <tr>
                                 <td><span class="big bold">01</span></td>
-                                <td colspan="2"><a href="#">Длиннофальмилильнов И. В.</a></td>
+                                <td colspan="2"><a href="#">{{$student->last_name}}</a></td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -104,6 +106,7 @@
                     </td>
                 </tr>
 
+
                 <tr data-id="1" class="payment-form" style="display: none">
                     <td colspan="6">
                         <form action="">
@@ -131,48 +134,8 @@
                         </form>
                     </td>
                 </tr>
-                <tr data-id="2" class="visible-md visible-lg">
-                    <td>02</td>
-                    <td><a href="#">Длиннофальмилильнов И. В.</a></td>
-                    <td><a href="#">ИД-21 супер длинное</a></td>
-                    <td>Дорожные знаки. Предупреждающие знаки.</td>
-                    <td>80%</td>
-                    <td><span>Экзамен в ГБДД</span><a class="success" href="#">28 из 28</a></td>
-                </tr>
-                <tr data-id="2" class="hidden-md hidden-lg">
-                    <td>
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td><span class="big bold">02</span></td>
-                                <td colspan="2"><a href="#">Длиннофальмилильнов И. В.</a></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Группа</th>
-                                <td>
-                                    <a href="#">ИД-21 супер длинное</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Текущий урок</th>
-                                <td>Дорожные знаки. Предупреждающие знаки.</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Успеваемость</th>
-                                <td>80%</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Экзамен</th>
-                                <td><span>Экзамен в ГБДД</span><a class="success" href="#">28 из 28</a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
+                @endforeach
+
                 </tbody>
             </table>
         </div>
