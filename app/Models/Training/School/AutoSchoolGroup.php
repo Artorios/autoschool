@@ -15,19 +15,16 @@ class AutoSchoolGroup extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'auto_school_filial_id', 'exam_date', 'exam_time'];
-//    protected $appends = ['student_counts'];
+    protected $fillable = ['name', 'auto_school_id', 'exam_date', 'exam_time'];
+    protected $appends = ['count_student'];
 
-    /**
-     * @return mixed
-     */
-    public function autoschoolfilial()
-    {
-        return $this->belongsTo(AutoSchoolFilial::class, 'auto_school_filial_id', 'id');
+
+    public function getCountStudentAttribute(){
+
+        $counts = User::where('auto_school_group_id', $this->attributes['id'])->whereNotIn('role', ['admin','investor','autoschool'])->count();
+
+        return $counts;
     }
 
-//    public function getStudentCountsAttribute(){
-//        $user = User::all();
-//        return $user->where('auto_school_group_id', '=', $this->attributes['id'])->whereNotIn('role', ['admin','investor','autoschool'])->count();
-//}
+
 }

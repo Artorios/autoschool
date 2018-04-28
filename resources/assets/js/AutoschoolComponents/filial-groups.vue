@@ -11,13 +11,13 @@
                 </div>
                 <div class="line" v-for="group in paginate">
                     <div class="number">{{group.id}}</div>
-                    <div class="name"><a href="#">{{group.name}}</a></div>
+                    <div class="name"><a :href="'/autoschool/filials/groups/'+group.id">{{group.name}}</a></div>
                     <div class="data-and-time">
-                        <img src="/img/clock.png"> {{group.exam_date}} {{group.exam_time}}
+                        <img src="/img/clock.png"> {{editDate(group.exam_date)}} ({{dayOfweek(group.exam_date)}}) {{editTime(group.exam_time)}}
                     </div>
                     <div class="count">
-                        <span class="visible-xs hidden-sm">Количество учеников  8</span>
-                        <span class="visible-sm hidden-xs visible-lg visible-md">8</span>
+                        <span class="visible-xs hidden-sm">Количество учеников  {{group.count_student}}</span>
+                        <span class="visible-sm hidden-xs visible-lg visible-md">{{group.count_student}}</span>
                     </div>
                 </div>
             </div>
@@ -30,8 +30,10 @@
                 </li>
             </ul>
         </div>
-        <button-add-group></button-add-group>
-        <create-group v-if="visible" :filial="filial"></create-group>
+        <div v-if="filial">
+            <button-add-group></button-add-group>
+            <create-group v-if="visible" :filial="filial"></create-group>
+        </div>
     </div>
 </template>
 
@@ -74,6 +76,32 @@
         methods: {
             setPage(pageNumber) {
                 this.currentPage = pageNumber
+            },
+            editDate(date){
+                if(date){
+                    var dateTemp = date.split('-')
+                    date = dateTemp['2'] + '.' + dateTemp['1'] + '.' + dateTemp['0']
+                    return date
+                }
+                return false
+
+            },
+            dayOfweek(date){
+                if(date){
+                    var dateTemp = date.split('-')
+                    date = new Date(dateTemp['0'],dateTemp['1']-1,dateTemp['2']);
+                    var day = date.getDay()
+                    return ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'][day]
+                }
+                return false
+            },
+            editTime(time){
+                if(time){
+                    var timeTemp = time.split(':')
+                    time = timeTemp['0'] + ':' + timeTemp['1']
+                    return time
+                }
+                return false
             }
         },
         created () {

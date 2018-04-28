@@ -53,7 +53,4 @@ trait AutoSchoolRelationship
         return $this->city()->region();
     }
 
-    public function filials(){
-        return $this->hasMany(AutoSchoolFilial::class, 'auto_school_id', 'id');
-    }
 }
