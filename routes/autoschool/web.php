@@ -17,10 +17,10 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
     Route::group(['prefix' => 'filials'], function () {
         Route::get('/', 'FilialController@index')->name('autoschool.filials');
-        Route::get('{id}', 'FilialController@show');
+        Route::get('{id}', 'FilialController@show')->middleware('filial');
         Route::post('create', 'FilialController@createFilial');
         Route::group(['prefix' => 'groups'], function () {
-            Route::get('{id}', 'FilialController@showStudents');
+            Route::get('{id}', 'FilialController@showStudents')->middleware('group');
             Route::post('create', 'FilialController@createGroup');
         });
     });
