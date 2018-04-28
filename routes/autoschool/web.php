@@ -44,6 +44,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::get('notifications-all', 'NotificationController@getPageAll')->name('autoschool.notify.all');
 
     Route::post('get-count-main-groups', 'AutoschoolController@getCountMain');
+    Route::post('get-count-main-filials/{filial}', 'AutoschoolController@getCountFilials');
 
     Route::view('faq', 'autoschool.faq')->name('faq'); //TODO rename 'autoschool.faq' need
 });

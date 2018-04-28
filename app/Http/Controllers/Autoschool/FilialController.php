@@ -7,8 +7,9 @@ use App\Models\Training\School\{
 };
 use App\Models\User\User;
 use Illuminate\Support\Facades\{
-    Auth, Validator
+    Auth, Validator, DB
 };
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,7 @@ class FilialController extends Controller
 {
 
     /**
-     * @return view autoschool.filials.school_filials($filials - filials list)
+     * @return mixed
      */
     public function index()
     {
@@ -43,22 +44,24 @@ class FilialController extends Controller
             'address' => 'required|string|max:255',
         ]);
 
-        if (count($validator->errors())) {
+        if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
         $autoschool = AutoSchool::where('id', $request->input('id'))->first();
-        $filial = AutoSchool::create([
-            'filial_name' => $request->input('name'),
-            'city_id' => $request->input('city_id'),
-            'title' => $autoschool->title,
-            'description' => $autoschool->description,
-            'director_id' => Auth::user()->id,
-            'investor_id' => 0,
-        ]);
 
-        $filial->contacts()->create(['type' => 'address', 'value' => $request->input('address')]);
+        DB::transaction(function() use($request,$autoschool) {
+            $filial = AutoSchool::create([
+                'filial_name' => $request->input('name'),
+                'city_id' => $request->input('city_id'),
+                'title' => $autoschool->title,
+                'description' => $autoschool->description,
+                'director_id' => Auth::user()->id,
+                'investor_id' => 0,
+            ]);
 
-        return response()->json(['status' => 1, 'group' => $filial], 201);
+            $filial->contacts()->create(['type' => 'address', 'value' => $request->input('address')]);
+        });
+        return response()->json(['status' => 1], 201);
     }
 
     /**
@@ -73,7 +76,7 @@ class FilialController extends Controller
             'exam_time' => 'required|date_format:H:i',
         ]);
 
-        if (count($validator->errors())) {
+        if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
@@ -86,6 +89,9 @@ class FilialController extends Controller
 
         return response()->json(['status' => 1, 'group' => $group], 201);
     }
+    /**
+     * @return mixed
+     */
 
     public function show($id, AutoSchoolGroup $group)
     {
@@ -94,11 +100,19 @@ class FilialController extends Controller
         return view('autoschool.filials.filial_groups', compact('filial', 'groups'));
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
 
     public function showStudents($id, User $user){
 
-//        $students = $user->where(['auto_school_group_id' => $id])->whereNotIn('role', ['admin','investor','autoschool'])->get();
+        $students = $user->where(['auto_school_group_id' => $id])->whereIn('role', ['user'])->count();
+        foreach ($students as $student){
+            $fio = $student->last_name[0];
+            $student->setAttribute('fio', $fio);
+        }
 
-        return view('autoschool.students.list');
+        return view('autoschool.students.list', compact('students'));
     }
 }

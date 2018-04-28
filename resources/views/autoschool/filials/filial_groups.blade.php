@@ -7,7 +7,7 @@
                 <li><a href="#">Главная</a> / Филиал {{$filial->title.' '.$filial->id}}</li>
             </ul>
         </div>
-        {{--<block-statistic-filial></block-statistic-filial>--}}
+        <block-statistic-filials :filial="{{json_encode($filial)}}"></block-statistic-filials>
         <filial-groups :filial="{{json_encode($filial)}}"
                        :groups="{{json_encode($groups)}}"></filial-groups>
     </div>

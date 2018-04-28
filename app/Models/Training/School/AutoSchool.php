@@ -34,12 +34,12 @@ class AutoSchool extends Model
 
 
     public function getCountStudentAttribute(){
-        $groups = AutoSchoolGroup::where('auto_school_id', $this->attributes['id'])->get();//->whereNotIn('role',['admin','investor','autoschool'])->count();
+        $groups = AutoSchoolGroup::where('auto_school_id', $this->attributes['id'])->get();
         $groups_id = [];
         foreach ($groups as $group){
             array_push($groups_id, $group->id);
         }
-        $counts = User::whereIn('auto_school_group_id',$groups_id)->whereNotIn('role', ['admin','investor','autoschool'])->count();
+        $counts = User::whereIn('auto_school_group_id',$groups_id)->whereIn('role', ['user'])->count();
         return $counts;
     }
 }
