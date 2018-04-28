@@ -80,8 +80,6 @@ class AutoschoolController extends Controller
         return response()->json(['counts' => $counts, 'coupons' => 0, 'income' => 0]);
     }
 
-
-
     private function countOfStudent(){
 //        $users = User::all()->where('id', '=', );
 //        return $users;
