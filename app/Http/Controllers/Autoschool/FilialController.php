@@ -16,12 +16,13 @@ class FilialController extends Controller
 {
 
     /**
-     * @return mixed
+     * @return view autoschool.filials.school_filials($filials - filials list)
      */
     public function index()
     {
-        $autoschool = AutoSchool::findOrFail(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id);
-        return view('autoschool.filials.school_filials', compact('autoschool'));
+        $filials = AutoSchool::orderBy('id','asc')->where('director_id', Auth::user()->id)->with('addresses')->with('city')->get();
+        $autoschool = AutoSchool::find(Auth::user()->autoschoolgroup->auto_school_id);
+        return view('autoschool.filials.school_filials', compact('filials', 'autoschool'));
     }
 
     /**
@@ -37,13 +38,6 @@ class FilialController extends Controller
      */
     public function createFilial(Request $request){
 
-        /**
-         * $this->validate($request->all(), [
-         *  'name'     => 'required|string|max:255',
-         *  'address' => 'required|string|max:255',
-         *  ])
-         */
-
         $validator = Validator::make($request->all(), [
             'name'     => 'required|string|max:255',
             'address' => 'required|string|max:255',
@@ -52,12 +46,17 @@ class FilialController extends Controller
         if (count($validator->errors())) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
-
-        $filial = AutoSchoolFilial::create([
-            'auto_school_id' => $request->input('id'),
-            'name' => $request->input('name'),
-            'address' => $request->input('address'),
+        $autoschool = AutoSchool::where('id', $request->input('id'))->first();
+        $filial = AutoSchool::create([
+            'filial_name' => $request->input('name'),
+            'city_id' => $request->input('city_id'),
+            'title' => $autoschool->title,
+            'description' => $autoschool->description,
+            'director_id' => Auth::user()->id,
+            'investor_id' => 0,
         ]);
+
+        $filial->contacts()->create(['type' => 'address', 'value' => $request->input('address')]);
 
         return response()->json(['status' => 1, 'group' => $filial], 201);
     }
@@ -79,27 +78,26 @@ class FilialController extends Controller
         }
 
         $group = AutoSchoolGroup::create([
-           'auto_school_filial_id' => $request->input('id'),
-           'name' => $request->input('name'),
-           'exam_date' => $request->input('exam_date'),
-           'exam_time' => $request->input('exam_time')
+            'auto_school_id' => $request->input('id'),
+            'name' => $request->input('name'),
+            'exam_date' => $request->input('exam_date'),
+            'exam_time' => $request->input('exam_time')
         ]);
 
         return response()->json(['status' => 1, 'group' => $group], 201);
     }
 
-    public function show($id)
+    public function show($id, AutoSchoolGroup $group)
     {
-        $filial = AutoSchoolFilial::findOrFail($id);
-//        dd($filial->autoschoolgroups);
-//        $groups[0] = AutoSchoolGroup::where('auto_school_filial_id', '=', $id)->get();
-        return view('autoschool.filials.filial_groups', compact('filial'));
+        $filial = AutoSchool::where('id', $id)->first();
+        $groups = $group->where(['auto_school_id' => $id])->get();
+        return view('autoschool.filials.filial_groups', compact('filial', 'groups'));
     }
 
 
     public function showStudents($id, User $user){
 
-        $students = $user->where(['auto_school_group_id' => $id])->whereNotIn('role', ['admin','investor','autoschool'])->get();
+//        $students = $user->where(['auto_school_group_id' => $id])->whereNotIn('role', ['admin','investor','autoschool'])->get();
 
         return view('autoschool.students.list');
     }

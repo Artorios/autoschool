@@ -4,11 +4,11 @@
     <div class="content error profile autoschool">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="#">Главная</a> / Филиал {{$filial->name}}</li>
+                <li><a href="#">Главная</a> / Филиал {{$filial->title.' '.$filial->id}}</li>
             </ul>
         </div>
-        <block-statistic-groups></block-statistic-groups>
+        {{--<block-statistic-filial></block-statistic-filial>--}}
         <filial-groups :filial="{{json_encode($filial)}}"
-                       :groups="{{json_encode($filial->autoschoolgroups)}}"></filial-groups>
+                       :groups="{{json_encode($groups)}}"></filial-groups>
     </div>
 @endsection
