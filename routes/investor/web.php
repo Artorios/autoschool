@@ -6,7 +6,7 @@ Route::group([
     'as' => 'investor.',
     'middleware' => 'investor',
 ], function () {
-    Route::view('/', 'investor.index')->name('index');
+    Route::get('/', 'DashboardController')->name('index');
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', 'ProfileController@show')->name('profile.index');
         Route::put('edit', 'ProfileController@update')->name('profile.edit');

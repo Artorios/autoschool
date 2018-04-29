@@ -12,7 +12,9 @@ class ProfileController extends Controller
     public function show()
     {
         return view('investor.profile.edit', [
-            'profile' => InvestorProfile::where('user_id', Auth::id())->first(),
+            'profile' => InvestorProfile::where('user_id', Auth::id())
+                ->with('legalEntity', 'individual', 'legalAddress', 'bankDetails', 'contact')
+                ->first(),
         ]);
     }
 

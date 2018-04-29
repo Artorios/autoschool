@@ -15,19 +15,16 @@ class CreateInvestorsProfilesTable extends Migration
     {
         Schema::create('investors_profiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unique();
+            $table->integer('user_id')->unsigned();
             $table->string('short_company_name');
             $table->string('company_name');
-            $table->enum('active_config', [
+            $table->enum('requisite_type', [
                 'legal_entity',
                 'individual',
                 'legal_address',
                 'bank_details',
                 'contacts'
             ])->default('legal_entity');
-            $table->string('id_number')->nullable();
-            $table->date('register_date')->nullable();
-            $table->string('director_name')->nullable();
             $table->timestamps();
         });
     }

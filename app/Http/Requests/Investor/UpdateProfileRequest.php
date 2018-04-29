@@ -2,20 +2,11 @@
 
 namespace App\Http\Requests\Investor;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Rule;
+use App\Http\Requests\BaseRequest;
 
-class UpdateProfileRequest extends FormRequest
+class UpdateProfileRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,14 +15,16 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'active_config' => Rule::in([
-                'legal_entity',
-                'individual',
-                'legal_address',
-                'bank_details',
-                'contacts'
-            ]),
-
+            'requisite_type' => [
+                'required',
+                Rule::in([
+                    'legal_entity',
+                    'individual',
+                    'legal_address',
+                    'bank_details',
+                    'contacts',
+                ]),
+            ],
         ];
     }
 }

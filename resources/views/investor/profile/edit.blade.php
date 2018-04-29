@@ -18,7 +18,7 @@
                 <div class="col-md-8 col-xs-12">
                     <h3>АШ "Старт"</h3>
                     <div>
-                        <a href="" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
+                        <a href="{{ route('logout') }}" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
                     </div>
                 </div>
             </div>

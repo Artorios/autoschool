@@ -3,19 +3,20 @@
 namespace App\Models\User\Traits\Relationship;
 
 use App\Models\Location\City;
+use App\Models\Training\School\AutoSchool;
+use App\Models\User\Contract;
+use App\Models\User\InvestorProfile;
+use App\Models\User\UserTicket;
+use App\Models\User\UserSettings;
 use App\Models\Training\Exam\Exam;
+use App\Models\User\SocialAccount;
 use App\Models\Training\Lesson\Lesson;
+use App\Models\User\UserLessonTraining;
 use App\Models\Training\Lesson\LessonVideo;
 use App\Models\Training\School\AutoSchoolGroup;
-use App\Models\User\Contract;
-use App\Models\User\SocialAccount;
-use App\Models\User\UserSettings;
-use App\Models\User\UserLessonTraining;
-use App\Models\User\UserTicket;
 
 /**
- * Trait UserRelationship
- * @package App\Models\User\Traits\Relationship
+ * Trait UserRelationship.
  */
 trait UserRelationship
 {
@@ -72,7 +73,8 @@ trait UserRelationship
         return $this->hasMany(Exam::class, 'user_id', 'id');
     }
 
-    public function city(){
+    public function city()
+    {
         return $this->belongsTo(City::class);
     }
 
@@ -81,11 +83,13 @@ trait UserRelationship
         return $this->hasOne(Contract::class);
     }
 
-    public function autoschoolgroup(){
+    public function autoschoolgroup()
+    {
         return $this->hasOne(AutoSchoolGroup::class, 'id', 'auto_school_group_id');
     }
 
-
-
-
+    public function investorProfile()
+    {
+        return $this->hasOne(InvestorProfile::class);
+    }
 }
