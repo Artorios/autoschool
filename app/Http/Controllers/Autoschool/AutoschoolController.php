@@ -18,7 +18,7 @@ class AutoschoolController extends Controller
 {
 
     /**
-     * @return array
+     * @return mixed
      */
     public function index(AutoSchoolGroup $group)
     {
