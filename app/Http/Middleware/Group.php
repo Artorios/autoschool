@@ -6,7 +6,7 @@ use App\Models\Training\School\{AutoSchoolGroup, AutoSchool};
 use Illuminate\Support\Facades\Auth;
 use Closure;
 
-class Group extends Middleware
+class Group
 {
     /**
      * Handle an incoming request.
