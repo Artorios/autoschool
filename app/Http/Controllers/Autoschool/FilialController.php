@@ -106,13 +106,13 @@ class FilialController extends Controller
      */
 
     public function showStudents($id, User $user){
-
-        $students = $user->where(['auto_school_group_id' => $id])->whereIn('role', ['user'])->count();
-        foreach ($students as $student){
-            $fio = $student->last_name[0];
-            $student->setAttribute('fio', $fio);
-        }
-
-        return view('autoschool.students.list', compact('students'));
+        /*
+                $students = $user->where(['auto_school_group_id' => $id])->whereIn('role', ['user'])->count();
+                foreach($students as $student){
+                    $fio = $student->last_name[0];
+                    $student->setAttribute('fio', $fio);
+                }
+        */
+        return view('autoschool.students.list');//, compact('students'));
     }
 }

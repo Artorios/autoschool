@@ -61,11 +61,11 @@
                 </tr>
                 </thead>
                 <tbody class="main">
-                {{dd($students)}}
-                @foreach($students as $student)
+{{--                {{dd($students)}}--}}
+{{--                @foreach($students as $student)--}}
                 <tr data-id="1" class="visible-md visible-lg">
                     <td>01</td>
-                    <td><a href="#">{{$student->fio}}</a></td>
+{{--                    <td><a href="#">{{$student->fio}}</a></td>--}}
                     <td><a href="#">ИД-21 супер длинное</a></td>
                     <td>Дорожные знаки. Предупреждающие знаки.</td>
                     <td>80%</td>
@@ -77,7 +77,7 @@
                             <tbody>
                             <tr>
                                 <td><span class="big bold">01</span></td>
-                                <td colspan="2"><a href="#">{{$student->last_name}}</a></td>
+                                {{--<td colspan="2"><a href="#">{{$student->last_name}}</a></td>--}}
                             </tr>
                             <tr>
                                 <td></td>
@@ -134,7 +134,7 @@
                         </form>
                     </td>
                 </tr>
-                @endforeach
+                {{--@endforeach--}}
 
                 </tbody>
             </table>
