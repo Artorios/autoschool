@@ -46,7 +46,7 @@
             ButtonAddGroup,
             CreateGroup
         },
-        data() {
+        data: function() {
             return {
                 currentPage: 1,
                 itemsPerPage: 10,
@@ -60,7 +60,7 @@
                 return Math.ceil(this.resultCount / this.itemsPerPage)
             },
             paginate: function () {
-                if (!this.groups || this.groups.length != this.groups.length) {
+                if (!this.groups || this.groups.length !== this.groups.length) {
                     return
                 }
                 this.resultCount = this.groups.length

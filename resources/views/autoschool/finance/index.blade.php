@@ -21,10 +21,3 @@
     })(jQuery)
 </script>
 @endpush
-
-<script>
-    import FinanceSearchStudents from "../../../assets/js/AutoschoolComponents/finance-search-students";
-    export default {
-        components: {FinanceSearchStudents}
-    }
-</script>

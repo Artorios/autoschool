@@ -29,7 +29,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="data">
-                            <input type="text" v-model="searchData" placeholder="Дата">
+                            <input type="text" placeholder="Дата">
                         </div>
                     </div>
                 </div>
@@ -114,46 +114,38 @@
         data() {
             return {
                 searchText: '',
-                searchData: '',
                 currentPage: 1,
                 itemsPerPage: 10,
                 resultCount: 0,
-                allStudents: this.students
             }
+        },
+        props: {
+            students: {},
         },
         computed: {
             totalPages: function () {
                 return Math.ceil(this.resultCount / this.itemsPerPage)
             },
             paginate: function () {
-                if (!this.allStudents || this.allStudents.length != this.allStudents.length) {
+                if (!this.students || this.students.length != this.students.length) {
                     return
                 }
-                this.resultCount = this.allStudents.length
+
+                this.resultCount = this.filterStudents.length
                 if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages
                 }
 
                 let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
 
-                // if(this.searchData !== ''){
-                //     this.searchData();
-                // }else {
-                //     this.allStudents = this.students
-                // }
-
-                return this.allStudents.slice(index, index + this.itemsPerPage)
+                return this.filterStudents.slice(index, index + this.itemsPerPage)
             },
-            getAllStudents() {
-                let allStudents = this.paginate.filter((student) => {
+            filterStudents() {
+                return this.students.filter((student) => {
                     return student.studentName.toLowerCase().includes(this.searchText.toLowerCase());
                 });
-                return allStudents;
             }
 
-        },
-        props: {
-            students: {},
         },
         methods: {
             fullName(item) {
