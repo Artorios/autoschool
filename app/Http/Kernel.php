@@ -62,6 +62,7 @@ class Kernel extends HttpKernel
         'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin'      => \App\Http\Middleware\Admin::class,
+        'investor'   => \App\Http\Middleware\InvestorMiddleware::class,
         'autoschool' => \App\Http\Middleware\Autoschool::class,
         'training'   => \App\Http\Middleware\Training\Training::class,
         'exam'       => \App\Http\Middleware\Training\Exam::class,
