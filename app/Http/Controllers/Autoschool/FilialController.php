@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\{
     Auth, DB
 };
 
+/**
+ * Class FilialController
+ * @package App\Http\Controllers\Autoschool
+ */
 class FilialController extends Controller
 {
 
