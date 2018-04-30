@@ -17,18 +17,10 @@ class Group
      */
     public function handle($request, Closure $next)
     {
-        $id = (integer)$request->id;
+        $schoolId = AutoSchoolGroup::where('id', $request->get('id'))->firstOrFail()->auto_school_id;
+        $director = AutoSchool::where('id', $schoolId)->firstOrFail()->director_id;
 
-
-        $autoschool_id = AutoSchoolGroup::where('id', $id)->firstOrFail()->auto_school_id;
-
-        $director = AutoSchool::where('id', $autoschool_id)->firstOrFail()->director_id;
-        if($director == Auth::user()->id){
-            return $next($request);
-        }
-        else{
-            return back();
-        }
+        return $director == Auth::user()->id ? $next($request) : back();
 
     }
 }
