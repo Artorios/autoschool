@@ -17,7 +17,7 @@ class Group
      */
     public function handle($request, Closure $next)
     {
-        $schoolId = AutoSchoolGroup::where('id', $request->get('id'))->firstOrFail()->auto_school_id;
+        $schoolId = AutoSchoolGroup::where('id',$request->route('id'))->firstOrFail()->auto_school_id;
         $director = AutoSchool::where('id', $schoolId)->firstOrFail()->director_id;
 
         return $director == Auth::user()->id ? $next($request) : back();

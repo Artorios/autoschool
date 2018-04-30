@@ -29,7 +29,8 @@ class AddAutoSchoolIdInAutoSchoolGroupsTable extends Migration
     public function down()
     {
         Schema::table('auto_school_groups', function (Blueprint $table) {
-            //
+            $table->dropColumn('auto_school_id');
+
         });
     }
 }

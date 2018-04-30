@@ -26,7 +26,8 @@ class AddFilialNameToAutoSchoolsTable extends Migration
     public function down()
     {
         Schema::table('auto_schools', function (Blueprint $table) {
-            //
+            $table->dropColumn('filial_name');
+
         });
     }
 }

@@ -22,10 +22,10 @@ class AutoschoolController extends Controller
      */
     public function index(AutoSchoolGroup $group)
     {
-        $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get();
+        $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
 
         $groups_id = array_map(function ($filial) {
-            return $filial->id;
+            return $filial['id'];
         }, $filials);
 
         $groups = AutoSchoolGroup::whereIn('auto_school_id', $groups_id)->get();
@@ -47,13 +47,13 @@ class AutoschoolController extends Controller
     public function getCountMain()
     {
 
-        $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get();
+        $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
         $filials_id = array_map(function ($filial) {
-            return $filial->id;
+            return $filial['id'];
         }, $filials);
-        $groups = AutoSchoolGroup::all()->whereIn('auto_school_id', $filials_id);
+        $groups = AutoSchoolGroup::all()->whereIn('auto_school_id', $filials_id)->toArray();
         $groups_id = array_map(function ($group) {
-            return $group->id;
+            return $group['id'];
         }, $groups);
 
         $counts = User::all()->whereIn('auto_school_group_id', $groups_id)
@@ -69,9 +69,9 @@ class AutoschoolController extends Controller
      */
     public function getCountFilials($filial_id)
     {
-        $groups = AutoSchoolGroup::where('auto_school_id', $filial_id)->get();
+        $groups = AutoSchoolGroup::where('auto_school_id', $filial_id)->get()->toArray();
         $groups_id = array_map(function ($group) {
-            return $group->id;
+            return $group['id'];
         }, $groups);
         $counts = User::all()->whereIn('auto_school_group_id', $groups_id)
             ->whereIn('role', ['user'])

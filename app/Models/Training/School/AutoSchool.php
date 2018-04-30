@@ -38,11 +38,10 @@ class AutoSchool extends Model
      * @return mixed
      */
     public function getCountStudentAttribute(){
-        $groups    = AutoSchoolGroup::where('auto_school_id', $this->attributes['id'])->get();
+        $groups    = AutoSchoolGroup::select('id')->where('auto_school_id', $this->attributes['id'])->get()->toArray();
         $groups_id = array_map(function ($group) {
-            return $group->id;
+            return $group['id'];
         }, $groups);
-
         return User::whereIn('auto_school_group_id', $groups_id)->whereIn('role', ['user'])->count();
     }
 }

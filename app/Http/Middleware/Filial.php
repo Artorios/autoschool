@@ -17,7 +17,7 @@ class Filial
      */
     public function handle($request, Closure $next)
     {
-        $autoschool = AutoSchool::where('id', $request->get('id'))->firstOrFail();
+        $autoschool = AutoSchool::where('id', $request->route('id'))->firstOrFail();
         return $autoschool->director_id === Auth::user()->id ? $next($request) : redirect('/autoschool/filials');
     }
 }
