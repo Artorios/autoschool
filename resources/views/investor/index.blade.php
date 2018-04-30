@@ -7,7 +7,7 @@
                 <li><a href="{{ route('investor.index') }}">Главная</a> / Филиалы</li>
             </ul>
         </div>
-        
+
         <div class="blockgroupe">
             <h2>Список автошкол:</h2>
             
@@ -99,7 +99,7 @@
         </div>
         <h3>Статистика купонов:</h3>
         @include('investor._statistics')
-        
+
         <div class="invitegroupe">
             <ul class="pagination">
                 <li class="page-item">

@@ -44,11 +44,13 @@
                     <a href="{{ route('investor.profile.index') }}" class="student-info" style="color: black">
                         <div class="student-info">
                             <div class="img">
-                                <img src="/img/profile-photo.png" alt="">
+                                @if(Auth::user()->image)
+                                    <img src="/storage/user/{{Auth::user()->image}}" alt="">
+                                @else
+                                    <img src="/img/profile-photo.png" alt="">
+                                @endif
                             </div>
-                            @if(! empty(Auth::user()->autoschool))
-                                <h3>{{ \App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->title }}<img src="/img/arrow-down.png"></h3>
-                            @endif
+                            <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="/img/arrow-down.png"></h3>
                             <span>Комиссия 10 000 руб.</span>
                         </div>
                     </a>
@@ -84,7 +86,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 @yield('content')
             </div>
         </div>
