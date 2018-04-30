@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Autoschool;
 
+use App\Http\Requests\{
+    StoreFilial, StoreGroup
+};
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreFilial;
-use App\Http\Requests\StoreGroup;
+use App\Models\User\User;
 use App\Models\Training\School\{
     AutoSchool, AutoSchoolGroup
 };
-use App\Models\User\User;
 use Illuminate\Support\Facades\{
-    Auth, Validator, DB
+    Auth, DB
 };
-use Illuminate\Http\Request;
 
 class FilialController extends Controller
 {
