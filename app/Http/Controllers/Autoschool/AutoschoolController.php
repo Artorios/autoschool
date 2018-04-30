@@ -18,15 +18,16 @@ class AutoschoolController extends Controller
 {
 
     /**
-     * @return mixed
+     * @param  AutoSchoolGroup $group
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(AutoSchoolGroup $group)
     {
         $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get();
-        $groups_id = [];
-        foreach ($filials as $filial){
-            array_push($groups_id, $filial->id);
-        }
+
+        $groups_id = array_map(function ($filial) {
+            return $filial->id;
+        }, $filials);
 
         $groups = AutoSchoolGroup::whereIn('auto_school_id', $groups_id)->get();
 
@@ -34,63 +35,58 @@ class AutoschoolController extends Controller
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editPage(){
+    public function editPage()
+    {
         return view('autoschool.index.edit');
     }
+
     /**
-     * @return array
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getCountMain(){
+    public function getCountMain()
+    {
 
         $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get();
-        $filials_id = [];
-        foreach ($filials as $filial){
-
-            array_push($filials_id, $filial->id);
-
-        }
+        $filials_id = array_map(function ($filial) {
+            return $filial->id;
+        }, $filials);
         $groups = AutoSchoolGroup::all()->whereIn('auto_school_id', $filials_id);
-        $groups_id = [];
-        foreach ($groups as $group){
-            array_push($groups_id, $group->id);
-        }
-        $counts = User::all()->whereIn('auto_school_group_id',$groups_id)->whereIn('role', ['user'])->count();
+        $groups_id = array_map(function ($group) {
+            return $group->id;
+        }, $groups);
 
-
+        $counts = User::all()->whereIn('auto_school_group_id', $groups_id)
+            ->whereIn('role', ['user'])
+            ->count();
 
         return response()->json(['counts' => $counts, 'coupons' => 0, 'income' => 0]);
     }
 
-    public function getCountFilials($filial_id){
-
-
+    /**
+     * @param  integer $filial_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCountFilials($filial_id)
+    {
         $groups = AutoSchoolGroup::where('auto_school_id', $filial_id)->get();
-        $groups_id = [];
-
-        foreach ($groups as $group){
-            array_push($groups_id, $group->id);
-        }
-
-        $counts = User::all()->whereIn('auto_school_group_id', $groups_id)->whereIn('role', ['user'])->count();
-
-
+        $groups_id = array_map(function ($group) {
+            return $group->id;
+        }, $groups);
+        $counts = User::all()->whereIn('auto_school_group_id', $groups_id)
+            ->whereIn('role', ['user'])
+            ->count();
 
         return response()->json(['counts' => $counts, 'coupons' => 0, 'income' => 0]);
     }
 
 
-
-    private function countOfStudent(){
+    private function countOfStudent()
+    {
 //        $users = User::all()->where('id', '=', );
 //        return $users;
     }
-
-
-
-
-
 
 
 }
