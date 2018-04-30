@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use App\Models\Training\School\AutoSchool;
 use Illuminate\Support\Facades\Auth;
 use Closure;
-use Illuminate\Http\Middleware;
 
 class Filial
 {
@@ -18,17 +17,7 @@ class Filial
      */
     public function handle($request, Closure $next)
     {
-        $id = (integer)$request->id;
-
-        $autoschool = AutoSchool::where('id', $id)->firstOrFail();
-        if($autoschool->director_id === Auth::user()->id){
-            return $next($request);
-        }
-        else{
-
-            return redirect('/autoschool/filials');
-        }
-
-
+        $autoschool = AutoSchool::where('id', $request->get('id'))->firstOrFail();
+        return $autoschool->director_id === Auth::user()->id ? $next($request) : redirect('/autoschool/filials');
     }
 }
