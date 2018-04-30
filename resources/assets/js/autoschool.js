@@ -1,16 +1,18 @@
 import Vue from 'vue';
 import VueResource  from 'vue-resource';
 import BlockStatisticGroups from './AutoschoolComponents/Main/block-statistic-groups.vue';
+import BlockStatisticFilials from './AutoschoolComponents/Main/block-statistic-filials.vue';
 import Pages from './AccountComponents/NotifyComponents/pages.vue';
 import EditPassForm from './components/UserComponent/edit-pass-form';
 import EditNotifySettings from './components/UserComponent/edit-notify-settings';
 import NotifyAll from './AccountComponents/NotifyComponents/notify-all';
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
 import ProfilePhoto from './components/UserComponent/profile-photo';
-import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
-import SchoolFilials from './AutoschoolComponents/school-filials';
 import FilialGroups from './AutoschoolComponents/filial-groups';
+import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
+
 const VueInputMask = require('vue-inputmask').default
+
 
 Vue.use(VueInputMask);
 Vue.use(VueResource);
@@ -31,7 +33,7 @@ const app = new Vue({
         NotifyAll,
         ProfilePhoto,
         ButtonAddFilial,
-        SchoolFilials,
-        FilialGroups
+        FilialGroups,
+        BlockStatisticFilials,
     }
 });

@@ -2,105 +2,100 @@
 
 namespace App\Http\Controllers\Autoschool;
 
-use App\Models\Training\School\{
-    AutoSchool, AutoSchoolFilial, AutoSchoolGroup
+use App\Http\Requests\{
+    StoreFilial, StoreGroup
 };
-use App\Models\User\User;
-use Illuminate\Support\Facades\{
-    Auth, Validator
-};
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User\User;
+use App\Models\Training\School\{
+    AutoSchool, AutoSchoolGroup
+};
+use Illuminate\Support\Facades\{
+    Auth, DB
+};
 
+/**
+ * Class FilialController
+ * @package App\Http\Controllers\Autoschool
+ */
 class FilialController extends Controller
 {
 
     /**
-     * @return mixed
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $autoschool = AutoSchool::findOrFail(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id);
-        return view('autoschool.filials.school_filials', compact('autoschool'));
+        $filials = AutoSchool::orderBy('id', 'asc')
+            ->where('director_id', Auth::user()->id)
+            ->with('addresses')
+            ->with('city')
+            ->get();
+        $autoschool = AutoSchool::find(Auth::user()->autoschoolgroup->auto_school_id);
+
+        return view('autoschool.filials.filials', compact('filials', 'autoschool'));
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editPage(){
+    public function editPage()
+    {
         return view('autoschool.index.edit');
     }
 
     /**
-     * @param Request $request
-     * @return mixed
+     * @param  StoreFilial $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function createFilial(Request $request){
-
-        /**
-         * $this->validate($request->all(), [
-         *  'name'     => 'required|string|max:255',
-         *  'address' => 'required|string|max:255',
-         *  ])
-         */
-
-        $validator = Validator::make($request->all(), [
-            'name'     => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-        ]);
-
-        if (count($validator->errors())) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
-        $filial = AutoSchoolFilial::create([
-            'auto_school_id' => $request->input('id'),
-            'name' => $request->input('name'),
-            'address' => $request->input('address'),
-        ]);
-
-        return response()->json(['status' => 1, 'group' => $filial], 201);
+    public function createFilial(StoreFilial $request)
+    {
+        DB::transaction(function () use ($request) {
+            $filial = AutoSchool::create($request->validated());
+            $filial->contacts()->create([
+                'type'  => 'address',
+                'value' => $request->post('address')
+            ]);
+        });
+        return response()->json(['status' => 1], 201);
     }
 
     /**
-     * @param Request $request
-     * @return mixed
+     * @param  StoreGroup $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function createGroup(Request $request){
-
-        $validator = Validator::make($request->all(), [
-            'name'     => 'required|string|max:255',
-            'exam_date' => 'required|date',
-            'exam_time' => 'required|date_format:H:i',
-        ]);
-
-        if (count($validator->errors())) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
-        $group = AutoSchoolGroup::create([
-           'auto_school_filial_id' => $request->input('id'),
-           'name' => $request->input('name'),
-           'exam_date' => $request->input('exam_date'),
-           'exam_time' => $request->input('exam_time')
-        ]);
-
+    public function createGroup(StoreGroup $request)
+    {
+        $group = AutoSchoolGroup::create($request->validated());
         return response()->json(['status' => 1, 'group' => $group], 201);
     }
 
-    public function show($id)
+    /**
+     * @param  integer $id
+     * @param  AutoSchoolGroup $group
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id, AutoSchoolGroup $group)
     {
-        $filial = AutoSchoolFilial::findOrFail($id);
-//        dd($filial->autoschoolgroups);
-//        $groups[0] = AutoSchoolGroup::where('auto_school_filial_id', '=', $id)->get();
-        return view('autoschool.filials.filial_groups', compact('filial'));
+        $filial = AutoSchool::where('id', $id)->first();
+        $groups = $group->where(['auto_school_id' => $id])->get();
+        return view('autoschool.filials.groups', compact('filial', 'groups'));
     }
 
-
-    public function showStudents($id, User $user){
-
-        $students = $user->where(['auto_school_group_id' => $id])->whereNotIn('role', ['admin','investor','autoschool'])->get();
-
-        return view('autoschool.students.list');
+    /**
+     * @param  integer $id
+     * @param  User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showStudents($id, User $user)
+    {
+        /*
+                $students = $user->where(['auto_school_group_id' => $id])->whereIn('role', ['user'])->count();
+                foreach($students as $student){
+                    $fio = $student->last_name[0];
+                    $student->setAttribute('fio', $fio);
+                }
+        */
+        return view('autoschool.students.list');//, compact('students'));
     }
 }

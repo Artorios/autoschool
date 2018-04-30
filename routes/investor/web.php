@@ -16,4 +16,7 @@ Route::group([
     Route::view('/history', 'investor.history.index')->name('history.index');
     Route::view('/coupons', 'investor.coupons.index')->name('coupons.index');
     Route::view('/coupons/add', 'investor.coupons.generate_coupon')->name('coupons.add');
+    Route::view('/school', 'investor.school.index')->name('school.index');
+    Route::view('/template-pass', 'investor.template-pass')->name('template-pass');
+    Route::view('/template-pass-2', 'investor.template-pass-2')->name('template-pass-2');
 });

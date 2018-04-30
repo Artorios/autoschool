@@ -38,7 +38,7 @@
             <div class="container">
                 <h2>5000 учеников «АвтоТренера» уже получили права.<br>99% сдали ПДД с 1-го раз.</h2>
                 <div class="video-wrapper">
-                    <iframe width="555" height="315" src="https://www.youtube.com/embed/Ul9sFd-mFCU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                    <iframe width="555" height="315" src="https://www.youtube.com/embed/-KBxKJKUVKM" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
                 </div>
                 <span>Смотрите все нюансы на видео</span>
             </div>
