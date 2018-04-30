@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Autoschool;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFilial;
+use App\Http\Requests\StoreGroup;
 use App\Models\Training\School\{
     AutoSchool, AutoSchoolGroup
 };
@@ -46,7 +47,7 @@ class FilialController extends Controller
     public function createFilial(StoreFilial $request)
     {
         DB::transaction(function () use ($request) {
-            $filial = AutoSchool::create($request);
+            $filial = AutoSchool::create($request->validated());
             $filial->contacts()->create([
                 'type'  => 'address',
                 'value' => $request->post('address')
@@ -56,35 +57,18 @@ class FilialController extends Controller
     }
 
     /**
-     * @param  Request $request
+     * @param  StoreGroup $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function createGroup(Request $request)
+    public function createGroup(StoreGroup $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'exam_date' => 'required|date',
-            'exam_time' => 'required|date_format:H:i',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
-        $group = AutoSchoolGroup::create([
-            'auto_school_id' => $request->input('id'),
-            'name' => $request->input('name'),
-            'exam_date' => $request->input('exam_date'),
-            'exam_time' => $request->input('exam_time')
-        ]);
-
+        $group = AutoSchoolGroup::create($request->validated());
         return response()->json(['status' => 1, 'group' => $group], 201);
     }
 
     /**
-     * @param $id
-     * @param AutoSchoolGroup $group
+     * @param  integer $id
+     * @param  AutoSchoolGroup $group
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id, AutoSchoolGroup $group)
