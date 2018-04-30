@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Lessons;
 
+use App\Http\Requests\StoreLesson;
 use App\Models\Training\Lesson\Lesson;
 use App\Models\Training\Lesson\LessonVideo;
 use App\Models\Training\Processing\Question;
@@ -27,38 +28,8 @@ class LessonsController extends Controller
      */
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title'         => 'required|string',
-            'description'   => 'required|string',
-            'lesson_num'    => 'required|integer',
-            'youtube'    => 'required|string',
-            'videos'        => 'array',
-            'videos.*.name' => 'string',
-        ]);
 
-        if (count($validator->errors())) {
-            return response()->json(['status' => 0, 'errors' => $validator->errors()], 400);
-        }
-
-        $lesson = Lesson::create($request->only(['title', 'description', 'lesson_num']));
-
-        $videos = $request->input('videos');
-        $youtube = $request->input('youtube');
-        if(!empty($youtube)){
-            $lesson->videos()->create(['youtube' => $youtube, ]);
-        }
-        if(!empty($videos)){
-            foreach ($videos as $video) {
-                $file_data              = [];
-                $file_data['mime_type'] = (string) Storage::disk('public')->mimeType('tmp/' . $video['name']);
-                $file_data['name']      = $video['name'];
-
-                $video_data = $lesson->videos()->create($file_data);
-
-                Storage::move('public/tmp/' . $video['name'], 'public/lesson_video/' . $video_data->id . '/' . $video['name']);
-            }
-        }
-
+        $lesson = Lesson::create($request->validated());
 
         return response()->json(['status' => 1], 201);
     }
@@ -70,7 +41,6 @@ class LessonsController extends Controller
      */
     public function loadVideo(Request $request)
     {
-        $file = $request->file('video');
 
         $validator = Validator::make($request->all(), [
             'video'     => 'required|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',

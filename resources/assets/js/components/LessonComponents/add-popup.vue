@@ -24,12 +24,12 @@
                                 <label>Номер урока*</label>
                                 <input type="text" class="form-control" v-model="data.lesson_num">
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label>Загрузить видео к уроку*</label>
                                 <input type="file" @change="loadFile" class="form-control">
-                            </div>
+                            </div>-->
                             <div class="form-group">
-                                <label>Видео YouTube*</label>
+                                <label>Видео YouTube</label>
                                 <input type="text" class="form-control" v-model="data.youtube">
                             </div>
                         </div>
@@ -82,8 +82,10 @@
                 this.$http.post('/admin/lessons/create', this.data).then(res => {
                     if (res.status === 201) {
                         location.href = '/admin/lessons'
+
                     } else {
                         this.errorEdit = true
+
                     }
                 }, err => {
                     this.errorEdit = true
