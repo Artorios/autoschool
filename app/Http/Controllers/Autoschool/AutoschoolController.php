@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Autoschool;
 
 use App\Models\Training\School\{
-    AutoSchoolFilial, AutoSchoolGroup, AutoSchool
+    AutoSchoolGroup, AutoSchool
 };
 use App\Models\User\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
