@@ -33,7 +33,7 @@ class FilialController extends Controller
             ->get();
         $autoschool = AutoSchool::find(Auth::user()->autoschoolgroup->auto_school_id);
 
-        return view('autoschool.filials.school_filials', compact('filials', 'autoschool'));
+        return view('autoschool.filials.filials', compact('filials', 'autoschool'));
     }
 
     /**
@@ -79,7 +79,7 @@ class FilialController extends Controller
     {
         $filial = AutoSchool::where('id', $id)->first();
         $groups = $group->where(['auto_school_id' => $id])->get();
-        return view('autoschool.filials.filial_groups', compact('filial', 'groups'));
+        return view('autoschool.filials.groups', compact('filial', 'groups'));
     }
 
     /**
