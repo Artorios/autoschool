@@ -29,17 +29,20 @@ class AutoSchool extends Model
         'investor_id'
     ];
 
-
+    /**
+     * @var array $appends
+     */
     protected $appends = ['count_student'];
 
-
+    /**
+     * @return mixed
+     */
     public function getCountStudentAttribute(){
-        $groups = AutoSchoolGroup::where('auto_school_id', $this->attributes['id'])->get();
-        $groups_id = [];
-        foreach ($groups as $group){
-            array_push($groups_id, $group->id);
-        }
-        $counts = User::whereIn('auto_school_group_id',$groups_id)->whereIn('role', ['user'])->count();
-        return $counts;
+        $groups    = AutoSchoolGroup::where('auto_school_id', $this->attributes['id'])->get();
+        $groups_id = array_map(function ($group) {
+            return $group->id;
+        }, $groups);
+
+        return User::whereIn('auto_school_group_id', $groups_id)->whereIn('role', ['user'])->count();
     }
 }
