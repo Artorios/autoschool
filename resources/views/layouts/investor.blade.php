@@ -114,7 +114,7 @@
 <script src="/js/jquery.selectric.min.js"></script>
 <script type="text/javascript" src="/js/slick.js"></script>
 <script src="/js/scripts.js"></script>
-<script src="/js/autoschool.js"></script>
+<script src="/js/investor.js"></script>
 
 @stack('scripts')
 
