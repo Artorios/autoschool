@@ -31,7 +31,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
     Route::get('coupons', 'CouponController')->name('autoschool.coupons');
 
-    Route::get('finances', 'FinanceController')->name('autoschool.finance');
+    Route::get('finances', 'FinanceController@index')->name('autoschool.finance');
 
     Route::get('histories', 'HistoryController')->name('autoschool.history');
 

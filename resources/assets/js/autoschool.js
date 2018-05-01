@@ -10,7 +10,6 @@ import NotifyAll from './AccountComponents/NotifyComponents/notify-all';
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
 import ProfilePhoto from './components/UserComponent/profile-photo';
 import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
-import SchoolFilials from './AutoschoolComponents/school-filials';
 import FilialGroups from './AutoschoolComponents/filial-groups';
 import FinanceStatisticMain from './AutoschoolComponents/finance-statistic-main';
 import FinanceSearchStudents from './AutoschoolComponents/finance-search-students'
@@ -37,9 +36,8 @@ const app = new Vue({
         NotifyAll,
         ProfilePhoto,
         ButtonAddFilial,
-        SchoolFilials,
         FilialGroups,
-        BlockStatisticGroupsInFilial
+        BlockStatisticGroupsInFilial,
         FinanceStatisticMain,
         FinanceSearchStudents,
         FinanceSelectStudents,
