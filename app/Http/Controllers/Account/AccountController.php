@@ -74,20 +74,10 @@ class AccountController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function editNotifySettings(Request $request, User $user){
-        $itempost = $request->input();
-        if(isset($itempost['email_notice']) or isset($itempost['sms_notice'])){
-            if(isset($itempost['email_notice'])){
-                $user->where(['id' => $itempost['id']])->update(['email_notice' => $itempost['email_notice']]);
-            }
-            if(isset($itempost['sms_notice'])){
-                $user->where(['id' => $itempost['id']])->update(['sms_notice' => $itempost['sms_notice']]);
-            }
-
-            return response()->json(['status' => 1], 204);
-        }
-
-        return response()->json(['status' => 0], 400);
+    public function editNotifySettings(Request $request){
+        User::where(['id' => $request->input('id')])->update(['email_notice' => $request->input('email_notice')]);
+        User::where(['id' => $request->input('id')])->update(['sms_notice' => $request->input('sms_notice')]);
+        return response()->json(['status' => 1], 204);
 
     }
 
