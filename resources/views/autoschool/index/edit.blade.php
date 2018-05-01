@@ -3,7 +3,7 @@
     <div class="content error profile">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/autoschool">Главная</a> /Карта ЮЛ</li>
+                <li><a href="/autoschool">Главная</a> / {{$info_about_school->autoschool->title}}</li>
             </ul>
         </div>
         <div class="profile-edit">

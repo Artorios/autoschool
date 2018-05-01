@@ -26,12 +26,9 @@ class AutoSchoolGroup extends Model
         return $counts;
     }
 
-    /**
-     * @return mixed
-     */
-    public function autoschoolfilial()
+    public function autoschool()
     {
-        return $this->belongsTo(AutoSchoolFilial::class, 'auto_school_filial_id', 'id');
+        return $this->belongsTo(AutoSchool::class, 'auto_school_id', 'id');
     }
 
     public function users(){

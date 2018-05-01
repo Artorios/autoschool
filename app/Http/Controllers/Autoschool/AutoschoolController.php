@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Autoschool;
 
 use App\Models\Training\School\{
-    AutoSchoolGroup, AutoSchoolFilial, AutoSchool, AutoSchoolInfo
+    AutoSchoolGroup, AutoSchool
 };
 use App\Models\User\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\CountersService;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -16,12 +16,10 @@ use Illuminate\Support\Facades\Auth;
  */
 class AutoschoolController extends Controller
 {
-
     /**
-     * @param  AutoSchoolGroup $group
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(AutoSchoolGroup $group)
+    public function index()
     {
         $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
 
@@ -39,30 +37,20 @@ class AutoschoolController extends Controller
      */
     public function editPage()
     {
-        $info_about_school = auth()->user()->autoschoolgroup->autoschoolfilial->autoschool->info;
+        $info_about_school = Auth::user()->autoschoolgroup->autoschool->info;
         return view('autoschool.index.edit', compact('info_about_school'));
     }
 
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getCountMain()
+    public function getCountMain(CountersService $countersService)
     {
-
-        $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
-        $filials_id = array_map(function ($filial) {
-            return $filial['id'];
-        }, $filials);
-        $groups = AutoSchoolGroup::all()->whereIn('auto_school_id', $filials_id)->toArray();
-        $groups_id = array_map(function ($group) {
-            return $group['id'];
-        }, $groups);
-
-        $counts = User::all()->whereIn('auto_school_group_id', $groups_id)
-            ->whereIn('role', ['user'])
-            ->count();
-
-        return response()->json(['counts' => $counts, 'coupons' => 0, 'income' => 0]);
+        return response()->json([
+            'counts' => $countersService->getCountStudentsInAutoSchool(),
+            'coupons' => $countersService->getCountFreeCupon(),
+            'income' => $countersService->getCountIncomeAutoSchool()
+        ]);
     }
 
     /**
@@ -81,16 +69,4 @@ class AutoschoolController extends Controller
 
         return response()->json(['counts' => $counts, 'coupons' => 0, 'income' => 0]);
     }
-
-
-    private function countOfStudent()
-    {
-//        $users = User::all()->where('id', '=', );
-//        return $users;
-    }
-
-
-
-
-
 }
