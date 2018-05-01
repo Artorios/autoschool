@@ -35,13 +35,11 @@
                 </div>
             </div>
         </div>
-
         <table class="table manage-grid">
             <thead>
             <tr class="visible-md visible-lg">
                 <th></th>
                 <th>№</th>
-
                 <th>ФИО ученика</th>
                 <th>Группа</th>
                 <th>Тип оплаты</th>
@@ -50,10 +48,10 @@
             </tr>
             </thead>
             <tbody class="main">
-            <tr data-id="1" class="visible-md visible-lg" v-for="student in paginate">
+            <tr data-id="1" class="visible-md visible-lg" v-for="student in filterStudents">
                 <td>
                     <div class="checked-line">
-                        <input type="checkbox" name="grid_selected[]">
+                        <input type="checkbox" name="grid_selected[]" v-model="gridSelected">
                         <label for="checked-line"></label>
                     </div>
                 </td>
@@ -77,7 +75,6 @@
                         <div class="col-md-2 margin-12">
                             Отмечено 1 из 12
                         </div>
-
                         <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Анулировать</a></div>
                         <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Удалить</a></div>
                         <div class="col-xs-12 col-md-4">
@@ -106,7 +103,6 @@
 
 <script>
     import FinanceSelectStudents from './finance-select-students'
-
     export default {
         components: {
             FinanceSelectStudents,
@@ -117,6 +113,7 @@
                 currentPage: 1,
                 itemsPerPage: 10,
                 resultCount: 0,
+                gridSelected: []
             }
         },
         props: {
@@ -126,32 +123,28 @@
             totalPages: function () {
                 return Math.ceil(this.resultCount / this.itemsPerPage)
             },
-            paginate: function () {
-                if (!this.students || this.students.length != this.students.length) {
-                    return
-                }
 
-                this.resultCount = this.filterStudents.length
-                if (this.currentPage >= this.totalPages) {
-                    this.currentPage = this.totalPages
-                }
-
-                let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
-
-                return this.filterStudents.slice(index, index + this.itemsPerPage)
-            },
             filterStudents() {
                 return this.students.filter((student) => {
                     return student.studentName.toLowerCase().includes(this.searchText.toLowerCase());
                 });
             }
-
         },
         methods: {
+            paginate: function () {
+                if (!this.students || this.students.length != this.students.length) {
+                    return
+                }
+                this.resultCount = this.filterStudents.length
+                if (this.currentPage >= this.totalPages) {
+                    this.currentPage = this.totalPages
+                }
+                let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+                return this.filterStudents.slice(index, index + this.itemsPerPage)
+            },
             fullName(item) {
                 return item.studentName + " " + item.studentSecondName + " " + item.studentLastName
             },
-
             getDate(item) {
                 let arrayItems = item.created_at.split(" ", 1);
                 let splitArray = arrayItems[0].split("-")
@@ -167,8 +160,9 @@
                 this.students = Date;
             }
         },
+        created:function(){this.paginate()},
+        beforeUpdate:function(){this.paginate()},
     }
-
 </script>
 
 <style scoped>
