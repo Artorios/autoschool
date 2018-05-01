@@ -11,13 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AutoSchoolGroup extends Model
 {
-
-    /**
-     * @var array
-     */
     protected $fillable = ['name', 'auto_school_filial_id', 'exam_date', 'exam_time'];
-//    protected $appends = ['student_counts'];
 
+
+    protected $appends = ['counts_students'];
     /**
      * @return mixed
      */
@@ -31,8 +28,10 @@ class AutoSchoolGroup extends Model
     }
 
 
-//    public function getStudentCountsAttribute(){
-//        $user = User::all();
-//        return $user->where('auto_school_group_id', '=', $this->attributes['id'])->whereNotIn('role', ['admin','investor','autoschool'])->count();
-//}
+
+    public function getCountsStudentsAttribute()
+    {
+        $counts = User::where('auto_school_group_id','=', $this->attributes['id'])->whereNotIn('role', ['admin','investor','autoschool'])->count();
+        return $counts;
+    }
 }

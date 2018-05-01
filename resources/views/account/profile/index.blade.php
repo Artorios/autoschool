@@ -20,7 +20,7 @@
 
                 <a href="#">
                     @if(!empty($auto_school_group_id))
-                    {{\App\Models\Training\School\AutoSchool::find(\App\Models\Training\School\AutoSchoolGroup::find($auto_school_group_id)->auto_school_id)->title }}
+                    {{\App\Models\Training\School\AutoSchool::find(\App\Models\User\User::find(Auth::user()->id)->autoschool)->title }}
                         @endif
                 </a>
                 <div class="btn-wrapper">

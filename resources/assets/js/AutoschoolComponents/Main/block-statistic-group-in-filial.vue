@@ -17,7 +17,7 @@
             </div>
             <div class="col-xs-6 col-md-4">
                 <div class="block">
-                    <h3>Общий доход автошколы:</h3>
+                    <h3>Общий доход филиала:</h3>
                     <span class="number">{{income}}</span>
                 </div>
 
@@ -25,26 +25,29 @@
         </div>
     </div>
 </template>
+
 <script type="text/babel">
     export default {
         data() {
             return {
-                countStudents: 0,
+                countStudents: this.getCountStudent(),
                 freeCoupons: 0,
                 income: 0
             }
         },
-        created (){
-            this.getData()
-        },
+        props: ['groups'],
         methods: {
-            getData(){
-                this.$http.post('/autoschool/get-count-main-groups').then(res => {
-                    this.countStudents = res.data.counts
-                    this.freeCoupons = res.data.coupons
-                    this.income = res.data.income
-                })
-            }
-        }
+            getCountStudent(){
+                let Count = 0;
+                for (let group in this.groups){
+                    Count += this.groups[group].student_counts;
+                }
+                return Count;
+            },
+        },
     }
 </script>
+
+<style scoped>
+
+</style>

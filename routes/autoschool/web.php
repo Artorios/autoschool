@@ -11,34 +11,46 @@
 |
 */
 
+use App\Models\Location\City;
+use App\Models\Location\PriceCity;
+use App\Models\User\UserLesson;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware' => ['auth', 'autoschool']], function () {
     Route::get('/', 'AutoschoolController@index')->name('autoschool.index');
 
-    Route::group(['prefix' => 'filials'], function () {
-        Route::get('/', 'FilialController@index')->name('autoschool.filials');
-        Route::get('{id}', 'FilialController@show');
-        Route::post('create', 'FilialController@createFilial');
-        Route::group(['prefix' => 'groups'], function () {
-            Route::get('{id}', 'FilialController@showStudents');
-            Route::post('create', 'FilialController@createGroup');
-        });
-    });
+    Route::get('/filials', 'FilialController@index')->name('autoschool.filials');
+    Route::get('/filials/{id}', 'FilialController@show')->middleware('user-belong-to-filial');
+    Route::get('/filials/{id}/groups/{group_id}', 'FilialController@showStudents')->middleware('user-belong-to-group');
+    Route::post('/filials/create', 'FilialController@createFilial');
+    Route::post('/groups/create', 'FilialController@createGroup');
+
+    Route::get('/coupons', function () {
+        return view('autoschool.coupons.index');
+    })->name('autoschool.coupons');
+
+    Route::get('/finance', function () {
+        return view('autoschool.finance.finance');
+    })->name('autoschool.finance');
+
+    Route::get('/history', function () {
+        return view('autoschool.history.history');
+    })->name('autoschool.history');
+
+    Route::get('/profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
+
 
     Route::get('achievement', 'AchievementController')->name('autoschool.achievement');
 
-    Route::get('results', 'ResultController')->name('autoschool.results');
+    /////// For Viktoria
 
-    Route::get('finances', 'FinanceController@index')->name('autoschool.finance');
-    Route::post('/get-count-main-finance', 'FinanceController@getCountMain');
+    Route::get('/student-personal', function () {
+        return view('autoschool.filials.student_personal');
+    });
 
-    Route::get('coupons', 'CouponController')->name('autoschool.coupons');
-
-
-    Route::get('histories', 'HistoryController')->name('autoschool.history');
-
-    Route::view('add-student', 'autoschool.filials.add-student')->name('autoschool.add-student');
-    Route::view('personal', 'autoschool.personal.index')->name('autoschool.personal');
+    //////
+    Route::post('/get-count-main-groups', 'AutoschoolController@getCountMain');
 
     Route::get('profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
 
