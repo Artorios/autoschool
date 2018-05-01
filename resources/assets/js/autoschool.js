@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueResource  from 'vue-resource';
 import BlockStatisticGroups from './AutoschoolComponents/Main/block-statistic-groups.vue';
+import BlockStatisticFilials from './AutoschoolComponents/Main/block-statistic-filials.vue';
 import BlockStatisticGroupsInFilial from './AutoschoolComponents/Main/block-statistic-group-in-filial';
 import Pages from './AccountComponents/NotifyComponents/pages.vue';
 import EditPassForm from './components/UserComponent/edit-pass-form';
@@ -15,6 +16,7 @@ import FinanceStatisticMain from './AutoschoolComponents/finance-statistic-main'
 import FinanceSearchStudents from './AutoschoolComponents/finance-search-students'
 import FinanceSelectStudents from './AutoschoolComponents/finance-select-students'
 const VueInputMask = require('vue-inputmask').default
+
 
 Vue.use(VueInputMask);
 Vue.use(VueResource);
@@ -41,5 +43,6 @@ const app = new Vue({
         FinanceStatisticMain,
         FinanceSearchStudents,
         FinanceSelectStudents,
+        BlockStatisticFilials,
     }
 });

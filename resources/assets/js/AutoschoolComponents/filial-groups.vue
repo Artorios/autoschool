@@ -11,13 +11,13 @@
                 </div>
                 <div class="line" v-for="group in paginate">
                     <div class="number">{{group.id}}</div>
-                    <div class="name"><a :href="'/autoschool/filials/'+group.auto_school_filial_id+'/groups/'+group.id">{{group.name}}</a></div>
+                    <div class="name"><a :href="'/autoschool/filials/groups/'+group.id">{{group.name}}</a></div>
                     <div class="data-and-time">
                         <img src="/img/clock.png"> {{editDate(group.exam_date)}} ({{dayOfweek(group.exam_date)}}) {{editTime(group.exam_time)}}
                     </div>
                     <div class="count">
-                        <span class="visible-xs">Количество учеников  {{group.student_counts}}</span>
-                        <span class="hidden-sm"> {{group.counts_students}}</span>
+                        <span class="visible-xs hidden-sm">Количество учеников  {{group.count_student}}</span>
+                        <span class="visible-sm hidden-xs visible-lg visible-md">{{group.count_student}}</span>
                     </div>
                 </div>
             </div>
@@ -30,8 +30,10 @@
                 </li>
             </ul>
         </div>
-        <button-add-group></button-add-group>
-        <create-group v-if="visible" :filial="filial"></create-group>
+        <div v-if="filial">
+            <button-add-group></button-add-group>
+            <create-group v-if="visible" :filial="filial"></create-group>
+        </div>
     </div>
 </template>
 

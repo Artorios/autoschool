@@ -11,27 +11,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AutoSchoolGroup extends Model
 {
-    protected $fillable = ['name', 'auto_school_filial_id', 'exam_date', 'exam_time'];
 
-
-    protected $appends = ['counts_students'];
     /**
-     * @return mixed
+     * @var array
      */
-    public function autoschoolfilial()
-    {
-        return $this->belongsTo(AutoSchoolFilial::class, 'auto_school_filial_id', 'id');
+    protected $fillable = ['name', 'auto_school_id', 'exam_date', 'exam_time'];
+    protected $appends = ['count_student'];
+
+
+    public function getCountStudentAttribute(){
+
+        $counts = User::where('auto_school_group_id', $this->attributes['id'])->whereIn('role', ['user'])->count();
+
+        return $counts;
     }
 
     public function users(){
         return $this->hasMany(User::class, 'auto_school_group_id', 'id');
     }
 
-
-
-    public function getCountsStudentsAttribute()
-    {
-        $counts = User::where('auto_school_group_id','=', $this->attributes['id'])->whereNotIn('role', ['admin','investor','autoschool'])->count();
-        return $counts;
-    }
 }
