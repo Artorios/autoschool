@@ -7,10 +7,10 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class StoreLesson
+ * Class StoreVideo
  * @package App\Http\Requests
  */
-class StoreLesson extends FormRequest
+class StoreVideo extends FormRequest
 {
 
     /**
@@ -31,13 +31,8 @@ class StoreLesson extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required|string',
-            'mime_type'     => 'required',
-            'description'   => 'required|string',
-            'lesson_num'    => 'required|integer',
-            'youtube'       => 'string|nullable',
-            'videos_name'   => 'string|nullable',
-            'videos_type'   => 'string|nullable',
+            'video'     => 'required|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
+            'lesson_id' => 'sometimes|exists:lessons,id',
         ];
     }
 

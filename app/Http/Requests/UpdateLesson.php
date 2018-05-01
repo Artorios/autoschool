@@ -2,15 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Training\School\AutoSchool;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 /**
- * Class StoreLesson
+ * Class UpdateLesson
  * @package App\Http\Requests
  */
-class StoreLesson extends FormRequest
+class UpdateLesson extends FormRequest
 {
 
     /**
@@ -31,13 +29,10 @@ class StoreLesson extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required|string',
-            'mime_type'     => 'required',
-            'description'   => 'required|string',
-            'lesson_num'    => 'required|integer',
-            'youtube'       => 'string|nullable',
-            'videos_name'   => 'string|nullable',
-            'videos_type'   => 'string|nullable',
+            'title'               => 'string',
+            'description'         => 'string',
+            'training_errors_num' => 'integer',
+            'exam_errors_num'     => 'integer',
         ];
     }
 
