@@ -26,8 +26,11 @@ class AutoSchoolGroup extends Model
         return $counts;
     }
 
+    public function autoschool()
+    {
+        return $this->belongsTo(AutoSchool::class, 'auto_school_id', 'id');
+    }
+
     public function users(){
         return $this->hasMany(User::class, 'auto_school_group_id', 'id');
     }
-
-}

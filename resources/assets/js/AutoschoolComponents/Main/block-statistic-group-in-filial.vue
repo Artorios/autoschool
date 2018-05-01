@@ -1,49 +1,58 @@
 <template>
     <div class="numberpeople">
+
         <div class="info row no-gutters-xs">
             <div class="col-xs-6 col-md-4">
                 <div class="block">
                     <h3>Количество учеников:</h3>
-                    <span class="number">{{countStudents}}</span>
+                    <span class="number" v-text="countStudents"></span>
                 </div>
-
             </div>
+
             <div class="col-xs-6  col-md-4">
                 <div class="block">
                     <h3>Количество свободных купонов:</h3>
-                    <span class="number">{{freeCoupons}}</span>
+                    <span class="number" v-text="freeCoupons"></span>
                 </div>
-
             </div>
+
             <div class="col-xs-6 col-md-4">
                 <div class="block">
                     <h3>Общий доход филиала:</h3>
-                    <span class="number">{{income}}</span>
+                    <span class="number" v-text="income"></span>
                 </div>
-
             </div>
         </div>
+
     </div>
 </template>
 
 <script type="text/babel">
     export default {
-        data() {
+        data: function () {
             return {
-                countStudents: this.getCountStudent(),
+                countStudents: 0,
                 freeCoupons: 0,
-                income: 0
+                income: 0,
             }
         },
-        props: ['groups'],
+        props:{
+            filial: {}
+        },
+        created (){
+            this.getData()
+        },
         methods: {
-            getCountStudent(){
-                let Count = 0;
-                for (let group in this.groups){
-                    Count += this.groups[group].student_counts;
+            getData(){
+                let data = {
+                    'id': this.filial.id
                 }
-                return Count;
-            },
+                this.$http.post('/autoschool/get-count-main-filial', data).then(res => {
+                    this.countStudents = res.data.counts
+                    this.freeCoupons = res.data.coupons
+                    this.income = res.data.income
+                })
+            }
         },
     }
 </script>

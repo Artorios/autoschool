@@ -1,13 +1,14 @@
 <template>
     <div class="pass-change notes-config">
         <h4>Настройка уведомлений:</h4>
+        <span style="color: green" v-if="success">Изменения успешно сохранены</span>
         <form v-on:submit.prevent="getNotifySettings">
             <div class="form-group">
-                <input type="checkbox" true-value="1" false-value="0" id="mail" v-model="user.notify_email">
+                <input type="checkbox" true-value="1" false-value="0" id="mail" v-model="user.email_notice">
                 <label for="mail">Получать уведомления на почту</label>
             </div>
             <div class="form-group">
-                <input type="checkbox" true-value="1" false-value="0" id="tel" v-model="user.notify_phone">
+                <input type="checkbox" true-value="1" false-value="0" id="tel" v-model="user.sms_notice">
                 <label for="tel">Получать уведомления на телефон</label>
             </div>
             <button type="submit" class="btn-grey">Сохранить изменения</button>
@@ -21,10 +22,10 @@
             return {
                 user: {
                     id: '',
-                    notify_email: '',
-                    notify_phone: ''
+                    email_notice: '',
+                    sms_notice: ''
                 },
-
+                success: false,
             }
         },
         created () {
@@ -41,7 +42,7 @@
             getNotifySettings () {
                 this.$http.post('/account/edit-notify-settings', this.user).then(res => {
                     if (res.status === 204) {
-                        location.href = '/account/edit-profile'
+                        this.success = true
                     }
                 })
 
