@@ -24,10 +24,10 @@
                                 <label>Номер урока*</label>
                                 <input type="text" class="form-control" v-model="data.lesson_num">
                             </div>
-                            <!--<div class="form-group">
-                                <label>Загрузить видео к уроку*</label>
+                            <div class="form-group">
+                                <label>Загрузить видео к уроку</label>
                                 <input type="file" @change="loadFile" class="form-control">
-                            </div>-->
+                            </div>
                             <div class="form-group">
                                 <label>Видео YouTube</label>
                                 <input type="text" class="form-control" v-model="data.youtube">
@@ -57,7 +57,8 @@
                     description: '',
                     lesson_num: '',
                     youtube: '',
-                    videos: []
+                    videos: [],
+                    videos_name: ''
                 },
                 errorEdit: false
             }
@@ -100,6 +101,13 @@
                 this.$http.post('/admin/lessons/load-video', data).then(res => {
                     if (res.status === 201) {
                         this.data.videos.push(res.data)
+                        if(res.data.name && res.data.type) {
+                            this.data.videos_name = res.data.name
+                            this.data.videos_type = res.data.type
+                        }
+                        if(this.data.videos_name && this.data.videos_type){
+                            alert('Видео загружено!')
+                        }
                     } else {
                         this.errorEdit = true
                     }

@@ -35,6 +35,8 @@ class StoreLesson extends FormRequest
             'description'   => 'required|string',
             'lesson_num'    => 'required|integer',
             'youtube'       => 'string|nullable',
+            'videos_name'       => 'string|nullable',
+            'videos_type'       => 'string|nullable',
         ];
     }
 
@@ -57,6 +59,8 @@ class StoreLesson extends FormRequest
             'description'       => $this->request->get('description'),
             'lesson_num'       => $this->request->get('lesson_num'),
             'youtube'       => $this->request->get('youtube'),
+            'videos_name'       => $this->request->get('videos_name'),
+            'videos_type'       => $this->request->get('videos_type'),
         ]);
     }
 

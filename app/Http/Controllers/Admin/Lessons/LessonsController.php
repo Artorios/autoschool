@@ -3,17 +3,14 @@
 namespace App\Http\Controllers\Admin\Lessons;
 
 use App\Http\Requests\StoreLesson;
-use App\Models\Training\Lesson\Lesson;
-use App\Models\Training\Lesson\LessonVideo;
+use App\Models\Training\Lesson\{Lesson, LessonVideo};
 use App\Models\Training\Processing\Question;
 use ErrorException;
-use Illuminate\Http\File;
-use Illuminate\Http\Request;
+use Illuminate\Http\{File, Request};
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Input, Storage, Validator, DB};
 use Illuminate\Validation\Rule;
+use Mockery\Exception;
 
 /**
  * Class LessonsController
@@ -26,12 +23,46 @@ class LessonsController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function create(StoreLesson $request)
     {
+        $file_data = [];
+        if(!empty($request->get('videos_name')) && !empty($request->get('videos_type'))) {
+            $file_data['mime_type'] = $request->get('videos_type');
+            $file_data['name'] = $request->get('videos_name');
 
-        $lesson = Lesson::create($request->validated());
+        }
 
-        return response()->json(['status' => 1], 201);
+        $video_data = [];
+        try {
+            DB::transaction(function () use ($request, $file_data) {
+
+                $lesson = Lesson::create($request->only(['title', 'description', 'lesson_num']));
+                if (!empty($request->only('youtube')) && empty($file_data)) {
+                    $video_data = $lesson->videos()->create($request->only('youtube'));
+
+
+                }
+                elseif (!empty($file_data) && empty($request->only('youtube'))) {
+                    $video_data = $lesson->videos()->create($file_data);
+                    Storage::move('public/tmp/' . $file_data['name'], 'public/lesson_video/' . $video_data->id . '/' . $file_data['name']);
+                }
+                elseif (!empty($file_data) && !empty($request->only('youtube'))){
+                    $file_data['youtube'] = $request->get('youtube');
+                    $video_data = $lesson->videos()->create($file_data);
+                    Storage::move('public/tmp/' . $file_data['name'], 'public/lesson_video/' . $video_data->id . '/' . $file_data['name']);
+
+                }
+
+            });
+            if(!empty($video_data)){
+                Storage::move('public/tmp/' . $file_data['name'], 'public/lesson_video/' . $video_data->id . '/' . $file_data['name']);
+            }
+            return response()->json(['status' => 1, 'name' => $file_data['name'], 'type' => $file_data['mime_type']], 201);
+        }
+
+        catch (Exception $e){
+            return response()->json(['status' => 0], 402);
+        }
     }
 
     /**
@@ -41,41 +72,42 @@ class LessonsController extends Controller
      */
     public function loadVideo(Request $request)
     {
+         $validator = Validator::make($request->all(), [
+                'video'     => 'required|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
+                'lesson_id' => 'sometimes|exists:lessons,id',
+            ]);
+            if (count($validator->errors())) {
+                return response()->json(['errors' => $validator->errors()], 400);
+            }
+            try {
+                $file      = $request->file('video');
+                $file_name = sha1_file($file) . $file->getCTime() . '.' . $file->getClientOriginalExtension();
 
-        $validator = Validator::make($request->all(), [
-            'video'     => 'required|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
-            'lesson_id' => 'sometimes|exists:lessons,id',
-        ]);
+                if ($request->input('lesson_id')) {
+                    $lesson = Lesson::find($request->input('lesson_id'));
+                    $video = LessonVideo::find($request->input('video_id'));
 
-        if (count($validator->errors())) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
+                    if($video->id){
+                        $video->update(['name' => $file_name, 'mime_type' => $file->getMimeType()]);
+                        Storage::putFileAs('public/lesson_video/' . $video->id . '/', $file, $file_name);
+                    }
+                    else{
+                        $tmp_video = $lesson->videos()->create(['name' => $file_name, 'mime_type' => $file->getMimeType()]);
+                        Storage::putFileAs('public/lesson_video/' . $tmp_video->id . '/', $file, $file_name);
+                    }
 
-        try {
-            $file      = $request->file('video');
-            $file_name = sha1_file($file) . $file->getCTime() . '.' . $file->getClientOriginalExtension();
 
-            if ($request->input('lesson_id')) {
-                $lesson = Lesson::find($request->input('lesson_id'));
-                $video = LessonVideo::find($request->input('video_id'));
-                if($video->id){
-                    $video->update(['name' => $file_name, 'mime_type' => $file->getMimeType()]);
-                    Storage::putFileAs('public/lesson_video/' . $video->id . '/', $file, $file_name);
+                } else {
+                    Storage::putFileAs('public/tmp', $file, $file_name);
                 }
-                else{
-                    $tmp_video = $lesson->videos()->create(['name' => $file_name, 'mime_type' => $file->getMimeType()]);
-                    Storage::putFileAs('public/lesson_video/' . $tmp_video->id . '/', $file, $file_name);
-                }
 
-
-            } else {
-                Storage::putFileAs('public/tmp', $file, $file_name);
+                return response()->json(['status' => 1, 'name' => $file_name, 'type' => $file->getMimeType()], 201);
+            } catch (ErrorException $e) {
+                return response()->json(['status' => 0], 402);
             }
 
-            return response()->json(['status' => 1], 201);
-        } catch (ErrorException $e) {
-            return response()->json(['status' => 0], 402);
-        }
+
+
     }
 
     /**
