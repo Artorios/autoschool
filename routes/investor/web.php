@@ -12,6 +12,10 @@ Route::group([
         Route::put('edit', 'ProfileController@update')->name('profile.edit');
         Route::put('password/edit', 'PasswordController')->name('profile.password.edit');
     });
+    Route::group(['prefix' => 'notifications'], function () {
+        Route::get('/', 'NotificationController@index')->name('notifications.index');
+        Route::put('{notification}', 'NotificationController@update')->name('notification.read');
+    });
     Route::view('/finance', 'investor.finance.index')->name('finance.index');
     Route::view('/history', 'investor.history.index')->name('history.index');
     Route::view('/coupons', 'investor.coupons.index')->name('coupons.index');

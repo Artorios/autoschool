@@ -54,7 +54,7 @@
                             <span>Комиссия 10 000 руб.</span>
                         </div>
                     </a>
-                    <a href="javascript:" class="notes">
+                    <a href="{{ route('investor.notifications.index', ['show' => 'new']) }}" class="notes">
                         <img src="/img/bell.png" alt="">
                         <span class="number">
                             {{ \App\Models\User\Notification::where(['user_id' => Auth::id(), 'status' => '1'])->count() }}
