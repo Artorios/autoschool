@@ -2,9 +2,21 @@
 
 namespace App\Models\Finance;
 
+use App\Models\Training\School\AutoSchool;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User\User;
 
 class Coupon extends Model
 {
-    //
+    protected $fillable = ['name','investor_id', 'auto_school_id','user_id',
+        'generation_date','activation_date','sale_date','total','commission','status','comment_investor','comment_director'];
+
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function school(){
+        return $this->belongsTo(AutoSchool::class, 'auto_school_id', 'id');
+
+    }
 }
