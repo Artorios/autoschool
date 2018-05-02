@@ -21,9 +21,10 @@ class CreateCouponsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->date('generation_date');
             $table->date('activation_date')->nullable();
-            $table->integer('total');
+            $table->date('sale_date')->nullable();
+            $table->integer('total')->unsigned();
             $table->integer('commission');
-            $table->smallInteger('status')->comment('1-free; 2-sale;3-active;4-canceled');
+            $table->smallInteger('status')->comment('1-free; 2-sale;3-active;4-canceled')->default('1');
             $table->text('comment_investor')->nullable();
             $table->text('comment_director')->nullable();
             $table->timestamps();

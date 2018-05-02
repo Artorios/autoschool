@@ -10,6 +10,7 @@ import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
 import ProfilePhoto from './components/UserComponent/profile-photo';
 import FilialGroups from './AutoschoolComponents/filial-groups';
 import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
+import Coupons from './AutoschoolComponents/Coupons/coupons.vue';
 
 const VueInputMask = require('vue-inputmask').default
 
@@ -35,5 +36,6 @@ const app = new Vue({
         ButtonAddFilial,
         FilialGroups,
         BlockStatisticFilials,
+        Coupons,
     }
 });
