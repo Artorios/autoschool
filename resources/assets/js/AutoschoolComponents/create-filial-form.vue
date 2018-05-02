@@ -4,14 +4,12 @@
         <form action="">
             <div class="row nero">
                 <div class="col-xs-12 col-sm-4">
-                    <input v-model.trim="data.name" v-bind:class="{'input-error': errors.name}" id="name" type="text" class="name-group" placeholder="Название группы" required="">
+                    <span class="error" v-if="errors.name">Введите имя филиала</span>
+                    <input v-model.trim="data.name" v-bind:class="{'input-error': errors.name}" id="name" type="text" class="name-group" placeholder="Название филиала" required="">
                 </div>
                 <div class="col-xs-6 col-sm-2">
-                    <input v-model.trim="data.exam_date" v-bind:class="{'input-error': errors.exam_date}" v-mask="'9999-99-99'" id="date" type="text" class="data" placeholder="Дата" required="">
-                </div>
-                <div class="col-xs-6 col-sm-2">
-                    <span class="error" v-if="errors.exam_time">Время должно быть в формате ЧЧ:ММ</span>
-                    <input v-model.trim="data.exam_time" v-bind:class="{'input-error': errors.exam_time}" v-mask="'99:99'" id="time" type="text" class="time" placeholder="Время" required="">
+                    <span class="error" v-if="errors.address">Введите адрес филиала</span>
+                    <input v-model.trim="data.address" v-bind:class="{'input-error': errors.address}" id="date" type="text" class="data" placeholder="Адрес филиала" required="">
                 </div>
                 <div class="col-xs-12 col-sm-3">
                     <a href="#" class="btn-grey" v-on:click.prevent="sendDataToServer()">Сохранить</a>
@@ -25,31 +23,29 @@
 <script>
     import {Events} from '../autoschool'
     export default {
-        name: "create-group",
+        name: "create-filial-form",
         data (){
             return{
                 data:{
                     name: "",
-                    exam_date: "",
-                    exam_time: "",
+                    address: "",
                 },
                 errors:{
                     name: false,
-                    exam_date: false,
-                    exam_time: false
+                    address: false,
                 },
                 serverError: false,
                 createErrors: []
             }
         },
-        props: ['filial'],
+        props: ['autoschool'],
         methods: {
             sendDataToServer () {
                 if (this.validate()) return false
-                this.data.auto_school_filial_id = this.filial.id
-                this.$http.post('/autoschool/filials/groups/create', this.data).then(res => {
+                this.data.auto_school_id = this.autoschool.id
+                this.$http.post('/autoschool/filials/create', this.data).then(res => {
                     if (res.status === 201) {
-                        location.href = '/autoschool/filials/' + this.filial.id
+                        location.href = '/autoschool/filials'
                     }
                 }, err => {
                     if (+err.status === 400) {
@@ -57,9 +53,6 @@
                         this.createErrors = err.data['errors']
                     }
                 })
-            },
-            closeForm (){
-                Events.$emit('close-form');
             },
             validate () {
                 for (let key in this.data) {
@@ -71,15 +64,8 @@
                                 this.errors[key] = false
                             }
                             break
-                        case 'exam_date':
+                        case 'address':
                             if (!this.data[key]) {
-                                this.errors[key] = true
-                            } else {
-                                this.errors[key] = false
-                            }
-                            break
-                        case 'exam_time':
-                            if (!this.checkTime(this.data[key])) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
@@ -95,13 +81,12 @@
                 }
                 return hasError
             },
-            checkTime (time){
-                let re = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/
-                return re.test(time);
-            }
+            closeForm (){
+                Events.$emit('close-form');
+            },
+
         }
     }
-
 </script>
 
 <style scoped>

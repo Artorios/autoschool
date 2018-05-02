@@ -5,18 +5,19 @@
         <span style="color: red" v-if="passError === true">Неверно указан старый пароль</span>
         <span style="color: red" v-if="passConfirmError === true">Содержание полей должно быть одинаковым</span>
         <span style="color: red" v-if="passNullError === true">Не все данные введены</span>
+        <span style="color: green" v-if="success">Пароль успешно изменён</span>
         <form v-on:submit.prevent="editing_pass">
             <div class="form-group">
                 <label>Старый пароль </label>
-                <input type="password"   v-model="password" v-bind:class="{ 'input-error': errors.password}">
+                <input type="password" placeholder="*******"  v-model="password" v-bind:class="{ 'input-error': errors.password}">
             </div>
             <div class="form-group">
                 <label>Новый пароль </label>
-                <input v-bind:class="{ 'input-error': errors.new_password}" type="password" minlength="8" maxlength="25"  v-model="new_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).{8,25}$">
+                <input v-bind:class="{ 'input-error': errors.new_password}" type="password" placeholder="*******" minlength="8" maxlength="25"  v-model="new_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).{8,25}$">
             </div>
             <div class="form-group">
                 <label>Подтверждение</label>
-                <input v-bind:class="{ 'input-error': errors.confirm_password}" type="password" minlength="8" maxlength="25"  v-model="confirm_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).{8,25}$">
+                <input v-bind:class="{ 'input-error': errors.confirm_password}" type="password" placeholder="*******" minlength="8" maxlength="25"  v-model="confirm_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).{8,25}$">
             </div>
             <button type="submit" class="btn-grey">Сохранить изменения</button>
         </form>
@@ -32,6 +33,7 @@
                 passError: false,
                 passConfirmError: false,
                 passNullError: false,
+                success: false,
                 pass: {
                     password: '',
                     new_password: ''
@@ -104,7 +106,7 @@
                 this.pass.new_password = this.new_password
                 this.$http.post('/account/edit-pass', this.pass).then(res => {
                 if (res.status === 205) {
-                        location.href = '/account/edit-profile'
+                    this.success = true
                     }
                 }, err => {
                     if (+err.status === 400) {
