@@ -63,10 +63,10 @@ class LessonsController extends Controller
                 }
 
             });
-            if(!empty($video_data)){
+            if(!empty($video_data && $file_data['name'])){
                 Storage::move('public/tmp/' . $file_data['name'], 'public/lesson_video/' . $video_data->id . '/' . $file_data['name']);
             }
-            return response()->json(['status' => 1, 'name' => $file_data['name'], 'type' => $file_data['mime_type']], 201);
+            return response()->json(['status' => 1], 201);
         }
 
         catch (Exception $e){

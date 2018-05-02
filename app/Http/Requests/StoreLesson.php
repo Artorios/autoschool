@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Training\School\AutoSchool;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class StoreLesson
@@ -32,7 +30,6 @@ class StoreLesson extends FormRequest
     {
         return [
             'title'         => 'required|string',
-            'mime_type'     => 'required',
             'description'   => 'required|string',
             'lesson_num'    => 'required|integer',
             'youtube'       => 'string|nullable',
