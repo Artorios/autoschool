@@ -39,6 +39,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::view('personal', 'autoschool.personal.index')->name('autoschool.personal');
 
     Route::get('profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
+    Route::post('profile-logo-edit', 'AutoschoolController@saveProfileLogo');
 
     Route::get('notifications', 'NotificationController@getPageNew')->name('autoschool.notify');
     Route::get('notifications-all', 'NotificationController@getPageAll')->name('autoschool.notify.all');

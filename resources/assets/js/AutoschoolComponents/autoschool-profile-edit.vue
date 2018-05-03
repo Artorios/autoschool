@@ -8,22 +8,17 @@
         <div class="profile-edit">
             <div class="row">
                 <div class="col-md-4 col-xs-12">
-                    <div class="img-profile text-center" >
-                        <img src="" alt="">c
-                        <a class="pen-but" href="#"><img src="/img/penbut.png"></a>
-                    </div>
+                    <autoschool-profile-logo :filial="filial"></autoschool-profile-logo>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <!--<h3>{{autoschools.title}}</h3>-->
-                    <div class="form-group" >
-                                <span class="label">Филиал Главный</span>
-                                <select class="select" id="fillials_select" v-model="selected">
-                                    <option
-                                            v-for="(autoschool, index) in autoschools"
-                                            v-text="autoschool.title"
-                                            v-bind:value="index">
-                                    </option>
-                                </select>
+                    <div class="form-group">
+                        <span class="label">Филиал Главный</span>
+                        <select class="select" id="fillials_select" v-model="selected">
+                            <option v-for="(autoschool, index) in autoschools"
+                                    v-text="autoschool.title"
+                                    v-bind:value="index">
+                            </option>
+                        </select>
                     </div>
                     <div>
                         <a href="/logout" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
@@ -67,7 +62,8 @@
                     </div>
                     <div class="form-group">
                         <label>Полное наименование организации:</label>
-                        <input type="text" :value="[filial.info ? filial.info.full_name_of_the_organization : '']" placeholder="Общество с ограниченной ответвеностью Франчайзи">
+                        <input type="text" :value="[filial.info ? filial.info.full_name_of_the_organization : '']"
+                               placeholder="Общество с ограниченной ответвеностью Франчайзи">
                     </div>
                     <div class="form-group">
                         <label>КПП:</label>
@@ -172,7 +168,11 @@
 </template>
 
 <script>
+    import AutoschoolProfileLogo from './autoschool-profile-logo'
     export default {
+        components: {
+            AutoschoolProfileLogo
+        },
         data() {
             return {
                 tab: 'addressType1',
@@ -181,17 +181,15 @@
             }
         },
         props: {
-            autoschools: []
+            autoschools: {}
         },
-
-        created () {
+        created() {
             this.filial = this.autoschools[0];
         },
-
-        mounted () {
+        mounted() {
             let vm = this
             $('#fillials_select').selectric({
-                onChange: function(element) {
+                onChange: function (element) {
                     vm.selected = $(element).val()
                     vm.filial = vm.autoschools[vm.selected]
                 },
