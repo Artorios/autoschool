@@ -19,9 +19,6 @@ trait UserAttribute
         $this->attributes['password'] = bcrypt($value);
     }
 
-    public function getGroupNameAttribute()
-    {
-        return AutoSchoolGroup::select('name')->where('id',$this->attributes['auto_school_group_id'])->firstOrFail()->name;
-    }
+
 
 }

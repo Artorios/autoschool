@@ -1,6 +1,6 @@
 @extends('layouts.autoschool')
 @section('content')
-    <div class="content error profile autoschool-coupons ">
+    <div class="content error profile autoschool-coupons investor-coupons">
         <div class="breadcrumbs">
             <ul>
                 <li><a href="/autoschool">Главная</a></li>

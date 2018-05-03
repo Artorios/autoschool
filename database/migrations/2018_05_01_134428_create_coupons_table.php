@@ -16,17 +16,19 @@ class CreateCouponsTable extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('investor_id');
-            $table->integer('auto_school_id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('investor_id')->unsigned();
+            $table->integer('auto_school_id')->unsigned();
+            $table->integer('auto_school_group_id')->unsigned();
+            $table->integer('student_id')->unsigned();
             $table->date('generation_date');
-            $table->date('activation_date')->nullable();
+            $table->date('activated_at')->nullable();
             $table->date('sale_date')->nullable();
-            $table->integer('total')->unsigned();
-            $table->integer('commission');
+            $table->integer('payment_amount')->unsigned()->nullable();
+            $table->integer('commision_amount');
             $table->smallInteger('status')->comment('1-free; 2-sale;3-active;4-canceled')->default('1');
             $table->text('comment_investor')->nullable();
             $table->text('comment_director')->nullable();
+            $table->text('comment_coupon')->nullable();
             $table->timestamps();
         });
     }

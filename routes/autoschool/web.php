@@ -30,6 +30,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::get('results', 'ResultController')->name('autoschool.results');
 
     Route::get('coupons', 'CouponController@index')->name('autoschool.coupons');
+    Route::post('coupons/sell', 'CouponController@sell');
 
     Route::get('finances', 'FinanceController')->name('autoschool.finance');
 
