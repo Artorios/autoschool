@@ -17,11 +17,15 @@ class CreateCouponsTable extends Migration
             $table->increments('id');
             $table->integer('investor_id')->unsigned();
             $table->integer('auto_school_id')->unsigned();
-            $table->integer('city_id')->unsigned();
-            $table->integer('group_id')->unsigned()->nullable();
+            $table->integer('auto_school_group_id')->unsigned()->nullable();
             $table->integer('student_id')->unsigned()->nullable();
             $table->integer('payment_amount')->nullable();
             $table->integer('commision_amount');
+            $table->enum('status', [
+                'activated',
+                'free',
+                'paid',
+            ])->default('activated');
             $table->timestamp('activated_at')->nullable();
             $table->timestamps();
         });
