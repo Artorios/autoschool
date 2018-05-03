@@ -45,6 +45,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
     Route::post('get-count-main-groups', 'AutoschoolController@getCountMain');
     Route::post('get-count-main-filials/{filial}', 'AutoschoolController@getCountFilials');
+    Route::post('get-count-main-finance', 'FinanceController@getCountMain');
 
     Route::view('faq', 'autoschool.faq')->name('faq'); //TODO rename 'autoschool.faq' need
 });
