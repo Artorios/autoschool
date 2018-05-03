@@ -27,7 +27,8 @@ class AutoSchool extends Model
         'city_id',
         'filial_name',
         'director_id',
-        'investor_id'
+        'investor_id',
+        'logo'
     ];
 
     /**
