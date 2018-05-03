@@ -29,6 +29,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('read-notification', function ($user, $notification) {
+            return $user->id == $notification->user_id;
+        });
     }
 }

@@ -6,7 +6,6 @@ use App\Models\Training\School\Traits\Relationship\AutoSchoolRelationship;
 use App\Models\User\User;
 use App\Models\Training\School\Traits\Scope\AutoSchoolScope;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Training\School\AutoSchoolGroup;
 
 /**
  * Class Autoschool
