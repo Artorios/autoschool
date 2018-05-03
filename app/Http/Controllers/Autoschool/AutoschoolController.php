@@ -9,6 +9,8 @@ use App\Models\User\User;
 use App\Http\Controllers\Controller;
 use App\Services\CountersService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 
 /**
  * Class AutoschoolController
@@ -37,7 +39,7 @@ class AutoschoolController extends Controller
      */
     public function editPage()
     {
-        $info_about_school = Auth::user()->autoschoolgroup->autoschool->info;
+        $info_about_school = AutoSchool::where('director_id', Auth::user()->id)->with('info')->get();
         return view('autoschool.index.edit', compact('info_about_school'));
     }
 

@@ -1,27 +1,29 @@
 <template>
     <div>
+        <div class="breadcrumbs">
+            <ul>
+                <li><a href="/autoschool">Главная</a> / {{filial.title}}</li>
+            </ul>
+        </div>
         <div class="profile-edit">
             <div class="row">
                 <div class="col-md-4 col-xs-12">
-                    <div class="img-profile text-center">
+                    <div class="img-profile text-center" >
                         <img src="" alt="">c
                         <a class="pen-but" href="#"><img src="/img/penbut.png"></a>
                     </div>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <h3>АШ "Старт"</h3>
-                    <div class="form-group">
-                        <div class="selectric-wrapper">
-                            <div class="selectric">
+                    <!--<h3>{{autoschools.title}}</h3>-->
+                    <div class="form-group" >
                                 <span class="label">Филиал Главный</span>
-                                <b class="button">▾</b>
-                                <select class="select" id="fillials_select">
-                                    <option selected disabled>Филиал Главный</option>
-                                    <option>филиал1</option>
-                                    <option>филиал2</option>
+                                <select class="select" id="fillials_select" v-model="selected">
+                                    <option
+                                            v-for="(autoschool, index) in autoschools"
+                                            v-text="autoschool.title"
+                                            v-bind:value="index">
+                                    </option>
                                 </select>
-                            </div>
-                        </div>
                     </div>
                     <div>
                         <a href="/logout" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
@@ -57,111 +59,111 @@
                     <h3>Реквизиты юр. лица:</h3>
                     <div class="form-group">
                         <label>ИНН:</label>
-                        <input type="text" :value="profile.taxpayerIdentificationNumber" placeholder="*****">
+                        <input type="text" :value="[filial.info ? filial.info.taxpayer_identification_number : '']" placeholder="*****">
                     </div>
                     <div class="form-group">
                         <label>Сокращенное наименование организации:</label>
-                        <input type="text" :value="profile.abbreviatedNameOfTheOrganization" placeholder="ООО Франчайзи">
+                        <input type="text" :value="[filial.info ? filial.info.abbreviated_name_of_the_organization : '']" placeholder="ООО Франчайзи">
                     </div>
                     <div class="form-group">
                         <label>Полное наименование организации:</label>
-                        <input type="text" :value="profile.fullNameOfTheOrganization" placeholder="Общество с ограниченной ответвеностью Франчайзи">
+                        <input type="text" :value="[filial.info ? filial.info.full_name_of_the_organization : '']" placeholder="Общество с ограниченной ответвеностью Франчайзи">
                     </div>
                     <div class="form-group">
                         <label>КПП:</label>
-                        <input :value="profile.codeOfReason" type="text" placeholder="*****">
+                        <input :value="[filial.info ? filial.info.code_of_reason : '']" type="text" placeholder="*****">
                     </div>
                     <div class="form-group">
                         <label>ОГРН:</label>
-                        <input :value="profile.dateOfStateRegistration" type="text" placeholder="01.12.2017">
+                        <input :value="[filial.info ? filial.info.date_of_state_registration  : '']" type="text" placeholder="01.12.2017">
                     </div>
                     <div class="form-group">
                         <label>Ген. директор:</label>
-                        <input :value="profile.director" type="text" placeholder="Иванов Иван Иванович">
+                        <input :value="[filial.info ? filial.info.director  : '']" type="text" placeholder="Иванов Иван Иванович">
                     </div>
                     <div class="form-group">
                         <label>Дополнительная информация:</label>
-                        <input :value="test" type="text" placeholder="Дополнительная информация">
+                        <input :value="[filial.info ? filial.info.additional_information  : '']" type="text" placeholder="Дополнительная информация">
                     </div>
                 </div>
                 <div v-show="tab==='addressType2'">
                     <h3>Фактический адрес:</h3>
                     <div class="form-group">
                         <label>Город:</label>
-                        <input type="text" :value="test" placeholder="Город">
+                        <input type="text" :value="[filial.info ? filial.info.actual_city : '']" placeholder="Город">
                     </div>
                     <div class="form-group">
                         <label>Индекс:</label>
-                        <input type="text" :value="test" placeholder="Индекс">
+                        <input type="text" :value="[filial.info ? filial.info.actual_index : '']" placeholder="Индекс">
                     </div>
                     <div class="form-group">
                         <label>Адрес:</label>
-                        <input type="text" :value="test" placeholder="Адрес">
+                        <input type="text" :value="[filial.info ? filial.info.actual_address : '']" placeholder="Адрес">
                     </div>
                     <div class="form-group">
                         <label>Почтовый адрес:</label>
-                        <input :value="test" type="text" placeholder="Почтовый адрес">
+                        <input :value="[filial.info ? filial.info.actual_post_index : '']" type="text" placeholder="Почтовый адрес">
                     </div>
                 </div>
                 <div v-show="tab==='addressType3'">
                     <h3>Юридический адрес:</h3>
                     <div class="form-group">
                         <label>Город:</label>
-                        <input type="text" :value="test" placeholder="Город">
+                        <input type="text" :value="[filial.info ? filial.info.legal_city : '']" placeholder="Город">
                     </div>
                     <div class="form-group">
                         <label>Индекс:</label>
-                        <input type="text" :value="test" placeholder="Индекс">
+                        <input type="text" :value="[filial.info ? filial.info.legal_index : '']" placeholder="Индекс">
                     </div>
                     <div class="form-group">
                         <label>Адрес:</label>
-                        <input type="text" :value="test" placeholder="Адрес">
+                        <input type="text" :value="[filial.info ? filial.info.legal_address : '']" placeholder="Адрес">
                     </div>
                 </div>
                 <div v-show="tab==='addressType4'">
                     <h3>Банк:</h3>
                     <div class="form-group">
                         <label>БИК:</label>
-                        <input type="text" :value="test" placeholder="БИК">
+                        <input type="text" :value="[filial.info ? filial.info.bank_identification_code : '']" placeholder="БИК">
                     </div>
                     <div class="form-group">
                         <label>Наименование банка:</label>
-                        <input type="text" :value="test" placeholder="Наименование банка">
+                        <input type="text" :value="[filial.info ? filial.info.bank_name : '']" placeholder="Наименование банка">
                     </div>
                     <div class="form-group">
                         <label>Кор счет:</label>
-                        <input type="text" :value="test" placeholder="Кор счет">
+                        <input type="text" :value="[filial.info ? filial.info.bank_correspondent_account : '']" placeholder="Кор счет">
                     </div>
                     <div class="form-group">
                         <label>Расчетный счет:</label>
-                        <input :value="test" type="text" placeholder="Расчетный счет">
+                        <input :value="[filial.info ? filial.info.bank_settlement_account : '']" type="text" placeholder="Расчетный счет">
                     </div>
                 </div>
                 <div v-show="tab==='addressType5'">
                     <h3>Контакты:</h3>
                     <div class="form-group">
                         <label>Телефон:</label>
-                        <input type="text" :value="test" placeholder="Телефон">
+                        <input type="text" :value="[filial.info ? filial.info.contact_phone : '']" placeholder="Телефон">
                     </div>
                     <div class="form-group">
                         <label>Доп. телефон:</label>
-                        <input type="text" :value="test" placeholder="Доп. телефон">
+                        <input type="text" :value="[filial.info ? filial.info.contact_reserve_phone : '']" placeholder="Доп. телефон">
                     </div>
                     <div class="form-group">
                         <label>Факс:</label>
-                        <input type="text" :value="test" placeholder="Факс">
+                        <input type="text" :value="[filial.info ? filial.info.fax : '']" placeholder="Факс">
                     </div>
                     <div class="form-group">
                         <label>Скайп:</label>
-                        <input :value="test" type="text" placeholder="Скайп">
+                        <input :value="[filial.info ? filial.info.skype : '']" type="text" placeholder="Скайп">
                     </div>
                     <div class="form-group">
                         <label>Емайл:</label>
-                        <input :value="test" type="text" placeholder="Емайл">
+                        <input :value="[filial.info ? filial.info.email : '']" type="text" placeholder="Емайл">
                     </div>
                     <div class="form-group">
                         <label>Дополнительная информация:</label>
-                        <input :value="test" type="text" placeholder="Дополнительная информация">
+                        <input :value="[filial.info ? filial.info.contact_additional_information : '']" type="text" placeholder="Дополнительная информация">
                     </div>
                 </div>
             </form>
@@ -173,11 +175,28 @@
     export default {
         data() {
             return {
-                test: '',
-                tab: 'addressType1'
+                tab: 'addressType1',
+                selected: '',
+                filial: {},
             }
         },
-        props: ['profile']
+        props: {
+            autoschools: []
+        },
+
+        created () {
+            this.filial = this.autoschools[0];
+        },
+
+        mounted () {
+            let vm = this
+            $('#fillials_select').selectric({
+                onChange: function(element) {
+                    vm.selected = $(element).val()
+                    vm.filial = vm.autoschools[vm.selected]
+                },
+            })
+        },
     }
 </script>
 
