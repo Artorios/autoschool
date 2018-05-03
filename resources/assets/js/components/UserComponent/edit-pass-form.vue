@@ -100,19 +100,19 @@
                 else {
                     this.errors.confirm_password = false
                 }
-                this.pass.password = this.password
-                this.pass.new_password = this.new_password
-                this.$http.post('/account/edit-pass', this.pass).then(res => {
-                if (res.status === 205) {
-                        location.href = '/account/edit-profile'
-                    }
-                }, err => {
-                    if (+err.status === 400) {
-                            this.password = +err.data.password
-                            this.passError = true
-
-                    }
-                })
+//                this.pass.password = this.password
+//                this.pass.new_password = this.new_password
+//                this.$http.post('/account/edit-pass', this.pass).then(res => {
+//                if (res.status === 205) {
+////                        location.href = '/account/edit-profile'
+//                    }
+//                }, err => {
+//                    if (+err.status === 400) {
+//                            this.password = +err.data.password
+//                            this.passError = true
+//
+//                    }
+//                })
             },
 
         },
