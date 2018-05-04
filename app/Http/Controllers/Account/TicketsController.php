@@ -92,7 +92,7 @@ class TicketsController extends Controller
                                         ->limit(5)
                                         ->get();
             } else {
-                $stop_test = true;
+                $stop_test = false;
             }
         } elseif ( ! $response['correct'] && $position <= 10) {
             if ($incorrect_answers <= 2) {
@@ -102,7 +102,7 @@ class TicketsController extends Controller
                     ->limit(5)
                     ->get();
             } else {
-                $stop_test = true;
+                $stop_test = false;
             }
         }  elseif ( ! $response['correct'] && $position <= 15) {
             if ($incorrect_answers <= 2) {
@@ -112,7 +112,7 @@ class TicketsController extends Controller
                     ->limit(5)
                     ->get();
             } else {
-                $stop_test = true;
+                $stop_test = false;
             }
         } elseif ( ! $response['correct'] && $position <= 20) {
             if ($incorrect_answers <= 2) {
@@ -122,7 +122,7 @@ class TicketsController extends Controller
                     ->limit(5)
                     ->get();
             } else {
-                $stop_test = true;
+                $stop_test = false;
             }
         } elseif ( ! $response['correct'] && $position <= 25) {
             if ($incorrect_answers <= 1) {
@@ -132,7 +132,7 @@ class TicketsController extends Controller
                     ->limit(5)
                     ->get();
             } else {
-                $stop_test = true;
+                $stop_test = false;
             }
         } elseif ( ! $response['correct'] && $position <= 30) {
             if ($incorrect_answers <= 1) {
@@ -142,10 +142,10 @@ class TicketsController extends Controller
                     ->limit(5)
                     ->get();
             } else {
-                $stop_test = true;
+                $stop_test = false;
             }
         } elseif ($incorrect_answers >= 3) {
-            $stop_test = true;
+            $stop_test = false;
         }
 
         $with_comment = Settings::get('show_comm_question', 0, 1);
@@ -158,7 +158,7 @@ class TicketsController extends Controller
             }
 
             if ($stop_test) {
-                $res['stop_test'] = true;
+                $res['stop_test'] = false;
             }
 
             return response()->json($res, 200);
@@ -170,7 +170,7 @@ class TicketsController extends Controller
             }
 
             if ($stop_test) {
-                $res['stop_test'] = true;
+                $res['stop_test'] = false;
             }
 
             return response()->json($res, 200);
