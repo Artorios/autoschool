@@ -154,8 +154,8 @@
                 </div>
                 <div class="blockform active hidden-sale"  :id="'sale'+coupon.id" v-if="coupon.status == 1">
                     <div class="form-inline">
-                        <input type="text"  placeholder="Комментарий">
-                        <a  class="btn-grey">Выплатить</a>
+                        <input type="text" :id="'sale-form'+coupon.id" placeholder="Комментарий">
+                        <a  class="btn-grey" @click="sellOne(coupon.id)">Выплатить</a>
                         <a  class="close" @click="this.document.getElementById('sale'+coupon.id).classList.add('hidden-sale')"></a>
                     </div>
                 </div>
@@ -185,11 +185,20 @@
                 <a  class="btn-grey" @click="sellPopup">Продать</a>
             </div>
         </div>
-        <div class="blockform active hidden-sale"  id="sale" >
-            <div class="form-inline">
-                <input type="text"  placeholder="Комментарий">
-                <a  class="btn-grey" @click="sell(checkedCoupons)">Выплатить</a>
-                <a  class="close" @click="this.document.getElementById('sale').classList.add('hidden-sale')"></a>
+
+        <div class="hidden-sale" id="sale">
+            <span v-if="this.createErrors.coupon == true" class="coupon-error">Не выбрано свободного купона<br></span>
+
+            <span v-if="this.createErrors.comment_director" class="coupon-error">{{this.createErrors.comment_director[0]}} <br></span>
+
+            <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
+            <div class="blockform active "   >
+
+                <div class="form-inline">
+                    <input type="text" v-model="data.comment_director"  placeholder="Комментарий">
+                    <a  class="btn-grey" @click="sell(checkedCoupons)">Выплатить</a>
+                    <a  class="close" @click="this.document.getElementById('sale').classList.add('hidden-sale')"></a>
+                </div>
             </div>
         </div>
     </div>
@@ -204,7 +213,19 @@
                 itemsPerPage: 10,
                 resultCount: 0,
                 checkedAll: 'true',
-                data: {}
+                data: {
+                    comment_director: ''
+                },
+                createErrors: {
+                    comment_director: '',
+                    id: '',
+                    coupon: false
+                },
+                sellArray: {
+                    comment_director: '',
+                    id: []
+                },
+                comment: {}
             }
         },
         props: ['coupons'],
@@ -274,18 +295,33 @@
             },
 
             sell(id){
+                this.createErrors.comment_director = ''
+                this.createErrors.id = ''
                 this.data.id = id
                 this.$http.post('/autoschool/coupons/sell', this.data).then(res => {
                     if (res.status === 201) {
+                        console.log(res.data.count);
+                        if(res.data.count === 0){
+                            this.createErrors.coupon = true
+                        }
+                        else {
                         location.href = '/autoschool/coupons'
+                        }
                     }
                 }, err => {
-                    if (+err.status === 400) {
+                    if (+err.status === 422) {
+                        console.log(err.data)
                         this.serverError = true
                         this.createErrors = err.data['errors']
                     }
                 })
+            },
+            sellOne(coupon){
+                this.sellArray.comment_director = document.getElementById('sale-form'+coupon).value
+                this.sellArray.id.push(coupon)
+                console.log(this.sellArray)
             }
+
 
         }
     }
@@ -300,5 +336,11 @@
     }
     .hidden-comment {
         display: none;
+    }
+    .coupon-error{
+        color:red;
+    }
+    .form-error{
+        border-color: red;
     }
 </style>

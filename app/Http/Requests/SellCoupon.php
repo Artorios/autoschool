@@ -31,10 +31,9 @@ class SellCoupon extends FormRequest
     public function rules()
     {
         return [
-            'auto_school_id' => 'required|integer',
-            'name'           => 'required|string|max:255',
-            'exam_date'      => 'required|date',
-            'exam_time'      => 'required|date_format:H:i',
+            'id' => 'required|array',
+            'comment_director' => 'required|string|min:5'
+
         ];
     }
 
@@ -44,6 +43,9 @@ class SellCoupon extends FormRequest
     public function messages()
     {
         return [
+            'id.required' => 'Выберите свободный купон.',
+            'comment_director.required' => 'Введите комментарий.',
+            'comment_director.min' => 'Комментарий должен иметь больше 5 символов.',
         ];
     }
 
