@@ -66,4 +66,18 @@ class CountersService
     {
         return AutoSchool::PaymentBy('online')->count();
     }
+
+    public function getStudentsFromSchool($id_school)
+    {
+        return AutoSchool::join('auto_school_groups', 'auto_schools.id', 'auto_school_groups.auto_school_id')
+            ->join('users', 'auto_school_groups.id', 'users.auto_school_group_id')
+            ->join('orders', 'users.id', 'orders.user_id')
+            ->where('auto_schools.id', $id_school)
+            ->whereNotIn('role', ['admin','investor','autoschool'])
+            ->select(['*',
+                'users.name as studentName',
+                'auto_school_groups.name as autoSchoolGroupName'
+            ])
+            ->get();
+    }
 }

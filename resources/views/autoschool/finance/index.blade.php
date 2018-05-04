@@ -9,8 +9,7 @@
         </div>
         <h3>Финансовая статистика:</h3>
         <finance-statistic-main></finance-statistic-main>
-
-        {{--<finance-search-students :students="{{json_encode($users)}}"></finance-search-students>--}}
+        <finance-search-students :students="{{json_encode($users)}}"></finance-search-students>
 
     </div>
 @endsection

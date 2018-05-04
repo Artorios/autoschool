@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers\Autoschool;
 
-use App\Models\Finance\Order;
 use App\Models\Training\School\AutoSchool;
-use App\Models\Training\School\AutoSchoolFilial;
-use App\Models\Training\School\AutoSchoolGroup;
-use App\Models\User\User;
 use App\Services\CountersService;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class FinanceController extends Controller
 {
-    public function index(){
-        $users = User::all(); //todo
+    public function index(CountersService $countersService){
+        $users = $countersService
+            ->getStudentsFromSchool(AutoSchool::where('director_id', Auth::user()->id)
+                ->first()->id);
         return view('autoschool.finance.index', compact('users'));
     }
 
