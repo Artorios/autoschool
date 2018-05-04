@@ -39,7 +39,9 @@
         </div>
 -->
 
-
+    <div v-for="error in createErrorsTop">
+        <span if="error[0]" class="coupon-error">{{error[0]}} <br></span>
+    </div>
     <div class="coupon-table">
         <div class="table-wrapper autoschool-student profile" >
             <div class="title-line">
@@ -160,11 +162,16 @@
                     </div>
                 </div>
                 <div class="blockform active hidden-active"  :id="'active'+coupon.id" v-if="coupon.status == 3">
-                    <div class="form-inline">
-                        <input type="text"  placeholder="Комментарий">
-                        <a  class="btn-grey">Сохранить</a>
+                    <div v-if="coupon.comment_coupon">
+                        <span>{{coupon.comment_coupon}}</span>
+                    </div>
+                    <br>
+                    <div class="form-inline" >
+                        <input type="text" :id="'comment-form'+coupon.id" placeholder="Комментарий">
+                        <a  class="btn-grey" @click="commentSave(coupon.id)">Сохранить</a>
                         <a  class="close" @click="this.document.getElementById('active'+coupon.id).classList.add('hidden-active')"></a>
                     </div>
+
                 </div>
             </div>
 
@@ -181,7 +188,7 @@
             <div class="form-inline">
                     <input type="checkbox" style="width: 12px"  true-value="false" false-value="true"  v-model="checkedAll" @click="checkedCouponsAll(checkedAll)">
             <div class="info">Отмечено {{ checkedCoupons.length }} из {{coupons.length}}</div>
-                <a  class="btn-grey" @click="">Анулировать</a>
+                <a  class="btn-grey" @click="anull(checkedCoupons)">Анулировать</a>
                 <a  class="btn-grey" @click="sellPopup">Продать</a>
             </div>
         </div>
@@ -219,6 +226,9 @@
                 createErrors: {
                     comment_director: '',
                     id: '',
+                    coupon: false
+                },
+                createErrorsTop: {
                     coupon: false
                 },
                 sellArray: {
@@ -316,14 +326,65 @@
                     }
                 })
             },
+            anull(coupons){
+                this.data.id = coupons
+                this.$http.post('/autoschool/coupons/canceled', this.data).then(res => {
+                    if (res.status === 201) {
+                        console.log(res.data.count);
+
+                        location.href = '/autoschool/coupons'
+
+                    }
+                }, err => {
+                    if (+err.status === 422) {
+                        console.log(err.data)
+                        this.createErrorsTop = err.data['errors']
+                    }
+                })
+            },
             sellOne(coupon){
                 this.sellArray.comment_director = document.getElementById('sale-form'+coupon).value
                 this.sellArray.id.push(coupon)
-                console.log(this.sellArray)
+                this.$http.post('/autoschool/coupons/sell', this.sellArray).then(res => {
+                    if (res.status === 201) {
+                        console.log(res.data.count);
+                        if(res.data.count === 0){
+                            this.createErrors.coupon = true
+                        }
+                        else {
+                            location.href = '/autoschool/coupons'
+                        }
+                    }
+                }, err => {
+                    if (+err.status === 422) {
+                        console.log(err.data)
+                        this.serverError = true
+                        this.createErrorsTop = err.data['errors']
+                    }
+                })
+            },
+            commentSave(coupon){
+                this.comment.comment_director = document.getElementById('comment-form' + coupon).value
+                this.comment.id = []
+                this.comment.id.push(coupon)
+                this.$http.post('/autoschool/coupons/comment', this.comment).then(res => {
+                    if (res.status === 201) {
+                        console.log(res.data.count);
+                            location.href = '/autoschool/coupons'
+
+                    }
+                }, err => {
+                    if (+err.status === 422) {
+                        console.log(err.data)
+                        this.createErrorsTop = err.data['errors']
+                    }
+                })
+                console.log(this.comment)
+
             }
 
 
-        }
+            }
     }
 </script>
 <style>
