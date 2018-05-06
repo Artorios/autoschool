@@ -25,7 +25,6 @@ class StoreCouponRequest extends FormRequest
     public function rules()
     {
         return [
-            'city' => 'required|exists:cities,id',
             'auto_school' => 'required|exists:auto_schools,id',
             'count' => 'integer|min:1',
             'commision_amount' => 'integer|min:1',
