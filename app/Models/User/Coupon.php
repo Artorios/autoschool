@@ -12,11 +12,12 @@ class Coupon extends Model
     protected $fillable = [
         'investor_id',
         'auto_school_id',
-        'city_id',
-        'group_id',
+        'auto_school_group_id',
+        'code',
         'student_id',
         'payment_amount',
         'commision_amount',
+        'status',
         'activated_at',
     ];
 }
