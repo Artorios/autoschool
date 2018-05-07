@@ -64,7 +64,7 @@ class User extends Authenticatable
     {
         if (!empty(Auth::user()->auto_school_group_id))
         {
-            return AutoSchool::find(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id)->id;
+            return AutoSchool::find(Auth::user()->autoschoolgroup->auto_school_id)->id;
         }
         return FALSE;
     }

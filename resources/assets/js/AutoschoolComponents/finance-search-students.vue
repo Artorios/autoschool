@@ -12,25 +12,26 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <select class="select">
+                        <select class="select user">
                             <option selected disabled>ФИО ученика</option>
-                            <option v-for="(item, index) in students" v-text="fullName(item)"></option>
+                            <option value="acs">От А-Я</option>
+                            <option value="desc">От Я-А</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <p class="select" ></p>
-                        <!--<select >-->
-                            <!--<option selected disabled>По дате</option>-->
-                            <!--<option v-for="(item, index) in students" v-text="getDate(item)"></option>-->
-                        <!--</select>-->
+                        <select class="select">
+                            <option selected disabled>По дате</option>
+                            <option value="data-desc">От начала</option>
+                            <option value="data-acs">От конца</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="data">
-                            <input type="text" placeholder="Дата">
+                            <input type="text" v-model="searchByData" placeholder="Дата">
                         </div>
                     </div>
                 </div>
@@ -97,7 +98,7 @@
 </template>
 
 <script>
-    import FinanceSelectStudents from './finance-select-students'
+    import FinanceSelectStudents from './finance-select-students';
     export default {
         components: {
             FinanceSelectStudents,
@@ -105,12 +106,14 @@
         data() {
             return {
                 searchText: '',
+                searchByData: '',
                 currentPage: 1,
                 itemsPerPage: 10,
                 resultCount: 0,
                 gridSelected: [],
                 gridSelectedAll: '',
-                errorDelete: false
+                errorDelete: false,
+                selected: ''
             }
         },
         props: {
@@ -122,15 +125,37 @@
             },
 
             filterStudents() {
-                return this.students.filter((student) => {
-                    return student.studentName.toLowerCase().includes(this.searchText.toLowerCase());
-                });
-            },
+                if(this.searchText !== "") {
+                    return this.students.filter((student) => {
+                        return student.studentName.toLowerCase().includes(this.searchText
+                            .toLowerCase());
+                    });
+                }
+                else if (this.searchByData !== "") {
+                    return this.students.filter((student) => {
+                         return student.updated_at.toLowerCase().includes(this.searchByData.toLowerCase());
+                     });
+                }
+                else if(this.selected === "desc"){
+                    return this.students.reverse(function(a,b){return b - a});
+                }
 
-            filterData(){
-                return this.students.filter((student) => {
-                    return student.updated_at.toLowerCase().includes(this.searchText.toLowerCase());
-                });
+                else if(this.selected === "acs"){
+                    return this.students.sort(function(a,b){return a.studentName < b.studentName ? -1 : 1}
+                    );
+                }
+                else if(this.selected === "data-desc"){
+                    return this.students.reverse(function(a,b){return b - a});
+                }
+                else if(this.selected === "data-acs"){
+                    return this.students.sort(function(a,b){return a.created_at < b.created_at ? -1 : 1});
+                }
+                else {
+                    return this.students.filter((student) => {
+                        return student.studentName.toLowerCase().includes(this.searchText
+                            .toLowerCase());
+                    });
+                }
             },
 
             totalSelectedStudents() {
@@ -143,6 +168,7 @@
                     return this.gridSelected.length
                 }
             },
+
 
         },
         methods: {
@@ -191,7 +217,24 @@
 
             serverError(){
                 this.errorDelete = true
+            },
+
+            selectByName(type){
+                if(type === "desk"){
+
+                } else if(type === "desk") {
+
+                } else {}
             }
+        },
+        mounted () {
+            let vm = this
+            $('.select ').selectric({
+                onChange: function (element) {
+                    vm.selected = $(element).val()
+                    vm.selectByName(vm.selected)
+                },
+            })
         },
         created:function(){this.paginate()},
         beforeUpdate:function(){this.paginate()},
