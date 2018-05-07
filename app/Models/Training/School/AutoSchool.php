@@ -60,7 +60,7 @@ class AutoSchool extends Model
      */
     public function scopeStudent($query)
     {
-        return $query->whereIn('role', ['user']);
+        return $query->whereIn('role', ['user'])->whereNull('deleted_at');
     }
 
     /**

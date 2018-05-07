@@ -20,10 +20,11 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <select class="select">
-                            <option selected disabled>По дате</option>
-                            <option v-for="(item, index) in students" v-text="getDate(item)"></option>
-                        </select>
+                        <p class="select" ></p>
+                        <!--<select >-->
+                            <!--<option selected disabled>По дате</option>-->
+                            <!--<option v-for="(item, index) in students" v-text="getDate(item)"></option>-->
+                        <!--</select>-->
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -48,14 +49,14 @@
             </tr>
             </thead>
             <tbody class="main">
-            <tr data-id="1" class="visible-md visible-lg" v-for="student in filterStudents">
+            <tr data-id="1" class="visible-md visible-lg" v-for="(student, index) in filterStudents">
                 <td>
                     <div class="checked-line">
-                        <input type="checkbox" name="grid_selected[]" v-model="gridSelected">
+                        <input type="checkbox" v-bind:value="`${student.userId}`"  v-model="gridSelected">
                         <label for="checked-line"></label>
                     </div>
                 </td>
-                <td>1</td>
+                <td>{{++index}}</td>
                 <td><span class="student-name" v-text="fullName(student)"></span></td>
                 <td><span class="group-number">Группа <a
                         href="javascript:" v-text="student.autoSchoolGroupName"></a></span></td>
@@ -70,26 +71,20 @@
                 <td colspan="9">
                     <div class="row nero">
                         <div class="col-md-2 margin-12">
-                            <input type="checkbox"> Для всех
+                            <input type="checkbox" v-model="gridSelectedAll"> Для всех
                         </div>
                         <div class="col-md-2 margin-12">
-                            Отмечено 1 из 12
+                            Отмечено {{totalSelectedStudents}}
                         </div>
-                        <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Анулировать</a></div>
-                        <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Удалить</a></div>
-                        <div class="col-xs-12 col-md-4">
-                            <select class="select">
-                                <option selected disabled>Виберите действие</option>
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
-                        </div>
+                        <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey" @click="delateData()">Удалить</a></div>
+
                     </div>
                 </td>
             </tr>
             </tfoot>
         </table>
     </div>
+        <h2 v-if="this.errorDelete">Выберете учеников</h2>
         <div class="invitegroupe">
             <ul class="pagination" v-if="itemsPerPage < resultCount">
                 <li class="page-item" v-for="pageNumber in totalPages">
@@ -113,7 +108,9 @@
                 currentPage: 1,
                 itemsPerPage: 10,
                 resultCount: 0,
-                gridSelected: []
+                gridSelected: [],
+                gridSelectedAll: '',
+                errorDelete: false
             }
         },
         props: {
@@ -128,7 +125,25 @@
                 return this.students.filter((student) => {
                     return student.studentName.toLowerCase().includes(this.searchText.toLowerCase());
                 });
-            }
+            },
+
+            filterData(){
+                return this.students.filter((student) => {
+                    return student.updated_at.toLowerCase().includes(this.searchText.toLowerCase());
+                });
+            },
+
+            totalSelectedStudents() {
+                if(this.gridSelectedAll){
+                    if(this.resultCount < this.itemsPerPage){
+                        return this.resultCount
+                    }
+                    return this.itemsPerPage
+                }else {
+                    return this.gridSelected.length
+                }
+            },
+
         },
         methods: {
             paginate: function () {
@@ -158,6 +173,24 @@
                     return student.created_at.toLowerCase().includes(this.searchText.toLowerCase());
                 });
                 this.students = Date;
+            },
+            delateData(){
+                if(this.gridSelected.length < 1){
+                   this.errorDelete = true
+                }else {
+                    this.errorDelete = false
+                        let data = {
+                            'id': this.gridSelected
+                        }
+                            this.$http.post('delete-users', data).then(res => {
+                                (res.status == 201) ? location.href = '/autoschool/finances' : this.serverError
+                            });
+
+                }
+            },
+
+            serverError(){
+                this.errorDelete = true
             }
         },
         created:function(){this.paginate()},

@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Training\School\AutoSchool;
 use App\Models\Training\School\AutoSchoolGroup;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class User
@@ -28,6 +29,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'name',
         'email',
@@ -43,6 +47,7 @@ class User extends Authenticatable
         'city_id',
         'image'
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.
