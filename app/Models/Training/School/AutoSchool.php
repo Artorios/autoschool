@@ -4,6 +4,7 @@ namespace App\Models\Training\School;
 
 use App\Models\Training\School\Traits\Relationship\AutoSchoolRelationship;
 use App\Models\User\User;
+use App\Models\Training\School\Traits\Scope\AutoSchoolScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 class AutoSchool extends Model
 {
     use AutoSchoolRelationship;
+    use AutoSchoolScope;
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +28,8 @@ class AutoSchool extends Model
         'city_id',
         'filial_name',
         'director_id',
-        'investor_id'
+        'investor_id',
+        'logo'
     ];
 
     /**

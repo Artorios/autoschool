@@ -16,4 +16,9 @@ trait UserMethod
     {
         return $this->attributes['role'] === 'admin';
     }
+
+    public function isInvestor()
+    {
+        return $this->attributes['role'] === 'investor';
+    }
 }

@@ -13,7 +13,7 @@
             <span v-if="rightAnswers">Правильных ответов {{rightAnswers}} из {{questions.length}}</span>
             Вы {{trainDone ? 'сдали' : 'не сдали'}}  билет.
             <a href="/account/tickets">Перейти к билетам</a>
-            <a :href="'/account/training/analysis/' + userTicket">Перейти к разбору ошибок</a>
+            <a :href="'/account/tickets/analysis/' + userTicket">Перейти к разбору ошибок</a>
         </div>
 
     </div>

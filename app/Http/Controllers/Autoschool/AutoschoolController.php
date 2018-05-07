@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Autoschool;
 
+use App\Http\Requests\LogoRequest;
 use App\Models\Training\School\{
     AutoSchoolGroup, AutoSchool
 };
@@ -9,6 +10,10 @@ use App\Models\User\User;
 use App\Http\Controllers\Controller;
 use App\Services\CountersService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+
 
 /**
  * Class AutoschoolController
@@ -37,7 +42,7 @@ class AutoschoolController extends Controller
      */
     public function editPage()
     {
-        $info_about_school = Auth::user()->autoschoolgroup->autoschool->info;
+        $info_about_school = AutoSchool::where('director_id', Auth::user()->id)->with('info')->get();
         return view('autoschool.index.edit', compact('info_about_school'));
     }
 
@@ -68,5 +73,30 @@ class AutoschoolController extends Controller
             ->count();
 
         return response()->json(['counts' => $counts, 'coupons' => 0, 'income' => 0]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function saveProfileLogo(LogoRequest $request)
+    {
+        $filial = AutoSchool::where('id', $request->get('filialId'))->first();
+
+        if ($request->hasFile('img')){
+            $file = $request->file('img');
+
+            try {
+                $file_name = sha1_file($file) . $file->getCTime() . '.' . $file->getClientOriginalExtension();
+                Storage::putFileAs('public/school', $file, $file_name);
+                if($filial->logo && 'public/school/' . $filial->logo){
+                    Storage::delete('public/school/' . $filial->logo);
+                }
+                $filial->update(['logo' => $file_name]);
+                return response()->json(['status' => 1], 201);
+            } catch (ErrorException $e) {
+                return response()->json(['status' => 0], 402);
+            }
+        }
     }
 }

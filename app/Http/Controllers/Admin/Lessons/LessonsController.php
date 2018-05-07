@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin\Lessons;
 
-use App\Models\Training\Lesson\Lesson;
-use App\Models\Training\Lesson\LessonVideo;
-use App\Models\Training\Processing\Question;
-use ErrorException;
-use Illuminate\Http\File;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\{
+    StoreLesson, StoreVideo, UpdateLesson, UpdateQuestion
+};
+use App\Models\Training\Processing\Question;
+use App\Models\Training\Lesson\{
+    Lesson, LessonVideo
+};
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\{
+    Storage, DB
+};
 
 /**
  * Class LessonsController
@@ -20,92 +21,93 @@ use Illuminate\Validation\Rule;
  */
 class LessonsController extends Controller
 {
+
     /**
-     * @param Request $request
+     * @var int $perPage
+     */
+    private $perPage = 20;
+
+    /**
+     * @param StoreLesson $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function create(StoreLesson $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title'         => 'required|string',
-            'description'   => 'required|string',
-            'lesson_num'    => 'required|integer',
-            'youtube'    => 'required|string',
-            'videos'        => 'array',
-            'videos.*.name' => 'string',
-        ]);
+        $file_data = [];
+        if(!empty($request->get('videos_name')) && !empty($request->get('videos_type'))) {
+            $file_data['mime_type'] = $request->get('videos_type');
+            $file_data['name'] = $request->get('videos_name');
 
-        if (count($validator->errors())) {
-            return response()->json(['status' => 0, 'errors' => $validator->errors()], 400);
         }
 
-        $lesson = Lesson::create($request->only(['title', 'description', 'lesson_num']));
+        $video_data = [];
+        try {
+            DB::transaction(function () use ($request, $file_data) {
 
-        $videos = $request->input('videos');
-        $youtube = $request->input('youtube');
-        if(!empty($youtube)){
-            $lesson->videos()->create(['youtube' => $youtube, ]);
-        }
-        if(!empty($videos)){
-            foreach ($videos as $video) {
-                $file_data              = [];
-                $file_data['mime_type'] = (string) Storage::disk('public')->mimeType('tmp/' . $video['name']);
-                $file_data['name']      = $video['name'];
+                $lesson = Lesson::create($request->only(['title', 'description', 'lesson_num']));
+                if (!empty($request->only('youtube')) && empty($file_data)) {
+                    $video_data = $lesson->videos()->create($request->only('youtube'));
 
-                $video_data = $lesson->videos()->create($file_data);
 
-                Storage::move('public/tmp/' . $video['name'], 'public/lesson_video/' . $video_data->id . '/' . $video['name']);
+                }
+                elseif (!empty($file_data) && empty($request->only('youtube'))) {
+                    $video_data = $lesson->videos()->create($file_data);
+                    Storage::move('public/tmp/' . $file_data['name'], 'public/lesson_video/' . $video_data->id . '/' . $file_data['name']);
+                }
+                elseif (!empty($file_data) && !empty($request->only('youtube'))){
+                    $file_data['youtube'] = $request->get('youtube');
+                    $video_data = $lesson->videos()->create($file_data);
+                    Storage::move('public/tmp/' . $file_data['name'], 'public/lesson_video/' . $video_data->id . '/' . $file_data['name']);
+
+                }
+
+            });
+            if(!empty($video_data && $file_data['name'])){
+                Storage::move('public/tmp/' . $file_data['name'], 'public/lesson_video/' . $video_data->id . '/' . $file_data['name']);
             }
+            return response()->json(['status' => 1], 201);
         }
 
-
-        return response()->json(['status' => 1], 201);
+        catch (Exception $e){
+            return response()->json(['status' => 0], 402);
+        }
     }
 
     /**
-     * @param Request $request
+     * @param StoreVideo $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function loadVideo(Request $request)
+    public function loadVideo(StoreVideo $request)
     {
         $file = $request->file('video');
+        $file_name = sprintf(
+            "%s%s.%s",
+            sha1_file($file),
+            $file->getCTime(),
+            $file->getClientOriginalExtension()
+        );
 
-        $validator = Validator::make($request->all(), [
-            'video'     => 'required|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
-            'lesson_id' => 'sometimes|exists:lessons,id',
-        ]);
+        if ($request->get('lesson_id')) {
+            $lesson = Lesson::find($request->get('lesson_id'))->with('videos');
+            $source = ['name' => $file_name, 'mime_type' => $file->getMimeType()];
 
-        if (count($validator->errors())) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
-        try {
-            $file      = $request->file('video');
-            $file_name = sha1_file($file) . $file->getCTime() . '.' . $file->getClientOriginalExtension();
-
-            if ($request->input('lesson_id')) {
-                $lesson = Lesson::find($request->input('lesson_id'));
-                $video = LessonVideo::find($request->input('video_id'));
-                if($video->id){
-                    $video->update(['name' => $file_name, 'mime_type' => $file->getMimeType()]);
-                    Storage::putFileAs('public/lesson_video/' . $video->id . '/', $file, $file_name);
-                }
-                else{
-                    $tmp_video = $lesson->videos()->create(['name' => $file_name, 'mime_type' => $file->getMimeType()]);
-                    Storage::putFileAs('public/lesson_video/' . $tmp_video->id . '/', $file, $file_name);
-                }
-
-
+            if ($video = $lesson->videos()->get($request->file('video_id'))) {
+                $video->update($source);
             } else {
-                Storage::putFileAs('public/tmp', $file, $file_name);
+                $video = $lesson->videos()->create($source);
             }
 
-            return response()->json(['status' => 1], 201);
-        } catch (ErrorException $e) {
-            return response()->json(['status' => 0], 402);
+            Storage::putFileAs(sprintf('public/lesson_video/%s/', $video->id), $file, $file_name);
+
+
+        } else {
+            Storage::putFileAs('public/tmp', $file, $file_name);
         }
+
+        return response()->json(['status' => 1, 'name' => $file_name, 'type' => $file->getMimeType()], 201);
+
     }
 
     /**
@@ -113,9 +115,7 @@ class LessonsController extends Controller
      */
     public function index()
     {
-        $per_page = 20;
-        $lessons  = Lesson::with('videos')->paginate($per_page);
-
+        $lessons = Lesson::with('videos')->paginate(20);
         return view('admin.lesson.index', compact('lessons'));
     }
 
@@ -126,18 +126,13 @@ class LessonsController extends Controller
      */
     public function single(Lesson $lesson)
     {
-        $per_page = 20;
-
         $lesson->load('videos', 'questions');
+        $questions = Question::paginate($this->perPage);
 
-        $questions = Question::paginate($per_page);
-
-        if (count($lesson->questions)) {
-            foreach ($lesson->questions as $lesson_question) {
-                foreach ($questions as $question) {
-                    if ($question->id === $lesson_question->id) {
-                        $question->checked = 1;
-                    }
+        foreach ($lesson->questions as $lesson_question) {
+            foreach ($questions as $question) {
+                if ($question->id === $lesson_question->id) {
+                    $question->checked = 1;
                 }
             }
         }
@@ -148,17 +143,16 @@ class LessonsController extends Controller
     }
 
     /**
-     * @param Lesson  $lesson
+     * @param Lesson $lesson
      * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function getQuestions(Lesson $lesson, Request $request)
     {
-        $per_page = 20;
-        $q        = $request->input('q');
-        $ticket   = $request->input('ticket');
-        $search   = [];
+        $q = $request->get('q');
+        $ticket = $request->get('ticket');
+        $search = [];
 
         if ($ticket && $ticket !== 'all') {
             array_push($search, ['ticket_num', '=', $ticket]);
@@ -168,10 +162,10 @@ class LessonsController extends Controller
             array_push($search, ['description', 'like', '%' . $q . '%']);
         }
 
-        if ( ! count($search)) {
-            $questions = Question::paginate($per_page);
+        if (!count($search)) {
+            $questions = Question::paginate($this->perPage);
         } else {
-            $questions = Question::where($search)->paginate($per_page);
+            $questions = Question::where($search)->paginate($this->perPage);
         }
 
         if (count($lesson->questions)) {
@@ -188,29 +182,19 @@ class LessonsController extends Controller
     }
 
     /**
-     * @param Lesson  $lesson
-     * @param Request $request
+     * @param Lesson $lesson
+     * @param UpdateQuestion $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function changeQuestion(Lesson $lesson, Request $request)
+    public function changeQuestion(Lesson $lesson, UpdateQuestion $request)
     {
-        $validator = Validator::make($request->all(), [
-            'question_id' => 'required|exists:questions,id',
-            'checked'     => ['required', Rule::in([1,0])],
-        ]);
+        $questions = $lesson->questions();
+        $request->get('checked') ?
+            $questions->attach($request->input('question_id')) :
+            $questions->detach($request->input('question_id'));
 
-        if (count($validator->errors())) {
-            return response()->json(['status' => 0], 400);
-        }
-
-        if ($request->input('checked')) {
-            $lesson->questions()->attach($request->input('question_id'));
-        } else {
-            $lesson->questions()->detach($request->input('question_id'));
-        }
-
-        return response()->json(['status' => 1], 201);
+        return response()->json(['status' => 1], \Illuminate\Http\Response::HTTP_OK);
     }
 
     /**
@@ -222,36 +206,19 @@ class LessonsController extends Controller
     public function delete(Lesson $lesson)
     {
         $lesson->delete();
-
         return response()->json([], 202);
     }
 
     /**
-     * @param Lesson  $lesson
-     * @param Request $request
+     * @param Lesson $lesson
+     * @param UpdateLesson $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function editLesson(Lesson $lesson, Request $request)
+    public function editLesson(Lesson $lesson, UpdateLesson $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title'               => 'string',
-            'description'         => 'string',
-            'training_errors_num' => 'integer',
-            'exam_errors_num'     => 'integer',
-        ]);
-
-        if (count($validator->errors())) {
-            return response()->json(['status' => 0], 400);
-        }
-
-        try {
-            $lesson->update($request->only(['description', 'exam_errors_num', 'training_errors_num', 'title']));
-
-            return response()->json(['status' => 1], 202);
-        } catch (ErrorException $e) {
-            return response()->json(['status' => 0], 406);
-        }
+        $lesson->update($request->validated());
+        return response()->json(['status' => 1], 202);
     }
 
     /**
@@ -262,28 +229,25 @@ class LessonsController extends Controller
      */
     public function delVideo(LessonVideo $video)
     {
-        try {
-            Storage::delete('public/lesson_video/' . $video->name);
+        Storage::delete(sprintf('public/lesson_video/%s', $video->name));
+        $video->update(['name' => '', 'mime_type' => '']);
 
-            $video->update(['name' => '', 'mime_type' => '']);
-
-            return response()->json([], 202);
-        } catch (\ErrorException $e) {
-            return response()->json([], 406);
-        }
+        return response()->json([], 202);
     }
+
+    /**
+     * @param LessonVideo $lessonVideo
+     * @param Request $request
+     * @param integer $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function youtube(LessonVideo $lessonVideo, Request $request, $id)
     {
-        $item = $request->input();
-        if($lessonVideo->where(['id' => $id])->update(['youtube' => $item['youtube']])){
-            return response()->json(['status' => $item], 202);
+        $response = $lessonVideo->where(['id' => $id])->update($request->all()) ?
+            [['status' => $request->get('youtube')], 202] :
+            [['status' => 0], 406];
 
-        }
-        else{
-            return response()->json(['status' => 0], 406);
-
-        }
-
+        return response()->json(...$response);
     }
 
 }
