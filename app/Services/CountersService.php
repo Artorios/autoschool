@@ -7,7 +7,8 @@ use App\Models\Training\School\AutoSchoolGroup;
 use App\Models\User\User;
 use Illuminate\Support\Facades\Auth;
 
-class CountersService{
+class CountersService
+{
 
     /**
      * @return int, count of students in AutoSchool
@@ -39,6 +40,51 @@ class CountersService{
         return 0;
     }
 
+    /**
+     * @return int
+     */
+    public function getSumIncome()
+    {
+        return AutoSchool::payment()
+            ->director()
+            ->student()
+            ->sum('amount');
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getCountUserPaymentByCupon()
+    {
+        return AutoSchool::PaymentBy('coupon')->count();
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getCountUserPaymentByCard()
+    {
+        return AutoSchool::PaymentBy('online')->count();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllStudentsFromSchool()
+    {
+        return AutoSchool::payment()
+            ->director()
+            ->student()
+            ->select(['*',
+                'users.name as studentName',
+                'auto_school_groups.name as autoSchoolGroupName',
+                'users.id as userId'
+            ])
+            ->get();
+    }
+
+    public function getStudents()
+    {
+        $data = $this->getAllStudentsFromSchool();
+    }
 }

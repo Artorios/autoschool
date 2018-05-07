@@ -9,10 +9,13 @@ import EditNotifySettings from './components/UserComponent/edit-notify-settings'
 import NotifyAll from './AccountComponents/NotifyComponents/notify-all';
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
 import ProfilePhoto from './components/UserComponent/profile-photo';
-import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
 import SchoolFilials from './AutoschoolComponents/school-filials'
-import FilialGroups from './AutoschoolComponents/filial-groups'
 import AutoschoolProfileEdit from './AutoschoolComponents/autoschool-profile-edit'
+import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
+import FilialGroups from './AutoschoolComponents/filial-groups';
+import FinanceStatisticMain from './AutoschoolComponents/finance-statistic-main';
+import FinanceSearchStudents from './AutoschoolComponents/finance-search-students'
+import FinanceSelectStudents from './AutoschoolComponents/finance-select-students'
 const VueInputMask = require('vue-inputmask').default
 
 Vue.use(VueInputMask);
@@ -35,10 +38,12 @@ const app = new Vue({
         ProfilePhoto,
         ButtonAddFilial,
         FilialGroups,
+        BlockStatisticGroupsInFilial,
+        FinanceStatisticMain,
+        FinanceSearchStudents,
+        FinanceSelectStudents,
         BlockStatisticFilials,
         SchoolFilials,
-        FilialGroups,
-        BlockStatisticGroupsInFilial,
         AutoschoolProfileEdit
     }
 });

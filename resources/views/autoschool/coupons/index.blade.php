@@ -9,11 +9,11 @@
         </div>
 
         {{--<div class="coupons-top-button">--}}
-            {{--<div class="form-inline top-button">--}}
-                {{--<div class="form-group">--}}
-                    {{--<select class="select" id="coupons">--}}
-                        {{--<option disabled value="">Все(444)</option>--}}
-                        {{--<option value="1">1</option>--}}
+        {{--<div class="form-inline top-button">--}}
+        {{--<div class="form-group">--}}
+        {{--<select class="select" id="coupons">--}}
+        {{--<option disabled value="">Все(444)</option>--}}
+        {{--<option value="1">1</option>--}}
 
         {{--</select>--}}
         {{--</div>--}}
@@ -65,6 +65,33 @@
                             <input type="checkbox"></div>
                     </div>
                     <div>
+=========
+            {{--<div class="form-inline top-button">--}}
+                {{--<div class="form-group">--}}
+                    {{--<select class="select" id="coupons">--}}
+                        {{--<option disabled value="">Все(444)</option>--}}
+                        {{--<option value="1">1</option>--}}
+
+                    {{--</select>--}}
+                {{--</div>--}}
+                {{--<button href="" class="btn-grey form-control">Генератор купонов</button>--}}
+                {{--<button href="" class="btn-grey form-control">Статистика купонов</button>--}}
+            {{--</div>--}}
+            <div class="coupon-table ">
+                <div class="table-wrapper">
+                    <div class="title-line">
+                        <span class="number">№</span>
+                        <span class="coupon">Купон</span>
+                        <span class="autoschool">Автошкола<br>/ID</span>
+                        <span class="city">Филиал<br>/Город</span>
+                        <span class="name-student">ФИО ученика<br>/група</span>
+                        <span class="generate-date">Дата<br>генерации</span>
+                        <span class="activate-date">Дата<br> активации</span>
+                        <span class="price">Сумма<br> оплаты</span>
+                        <span class="status">Комиссия<br>/статус</span>
+                    </div>
+                    <div class="line ">
+                        <div class="coupons-cheskbox"><input type="checkbox"></div>
                         <div class="number">01</div>
                     </div>
                     <div>
