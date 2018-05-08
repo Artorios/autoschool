@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Autoschool;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CanceledCoupon;
-use App\Http\Requests\SellCoupon;
+use App\Http\Requests\{CanceledCoupon, SellCoupon};
 use App\Models\Finance\Coupon;
-use App\Models\Location\City;
 use App\Models\Training\School\AutoSchool;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 
 class CouponController extends Controller
 {
