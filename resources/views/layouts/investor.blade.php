@@ -41,21 +41,24 @@
                     </div>
                 </div>
                 <div class="right">
-                    <a href="{{route('investor.profile.edit')}}"  style="color: black">
+                    <a href="{{ route('investor.profile.index') }}" class="student-info" style="color: black">
                         <div class="student-info">
                             <div class="img">
-                                <img src="/img/profile-photo.png" alt="">
+                                @if(Auth::user()->image)
+                                    <img src="/storage/user/{{Auth::user()->image}}" alt="">
+                                @else
+                                    <img src="/img/profile-photo.png" alt="">
+                                @endif
                             </div>
-                            @if(!empty(Auth::user()->autoschool))
-                                <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->title}}<img src="/img/arrow-down.png"></h3>
-                            @endif
+                            <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="/img/arrow-down.png"></h3>
                             <span>Комиссия 10 000 руб.</span>
                         </div>
                     </a>
-                    <a href="javascript:" class="notes">
+                    <a href="{{ route('investor.notifications.index', ['show' => 'new']) }}" class="notes">
                         <img src="/img/bell.png" alt="">
                         <span class="number">
-                    {{count(\App\Models\User\Notification::where(['user_id' => Auth::user()->id, 'status' => '1'])->get())}}</span>
+                            {{ \App\Models\User\Notification::where(['user_id' => Auth::id(), 'status' => '1'])->count() }}
+                        </span>
                         <span class="title">Уведомления</span>
                     </a>
                     <a href="{{route('faq')}}" class="help">
@@ -75,17 +78,15 @@
                         <li class="{{Route::currentRouteName() === 'investor.coupons.index' ? 'active' : ''}}">
                             <a href="{{route('investor.coupons.index')}}"><img src="/img/menu-ico4.png" alt=""><span class="text">Купоны</span></a>
                         </li>
-                        <li class="{{
-                                    Route::currentRouteName() === 'investor.finance.index' ? 'active' : ''}}">
+                        <li class="{{Route::currentRouteName() === 'investor.finance.index' ? 'active' : ''}}">
                             <a href="{{route('investor.finance.index')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Финансы</span></a>
                         </li>
-                        <li class="{{
-                                    Route::currentRouteName() === 'investor.history.index' ? 'active' : ''}}">
+                        <li class="{{Route::currentRouteName() === 'investor.history.index' ? 'active' : ''}}">
                             <a href="{{route('investor.history.index')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">История</span></a>
                         </li>
                     </ul>
                 </div>
-                
+
                 @yield('content')
             </div>
         </div>
@@ -113,7 +114,7 @@
 <script src="/js/jquery.selectric.min.js"></script>
 <script type="text/javascript" src="/js/slick.js"></script>
 <script src="/js/scripts.js"></script>
-<script src="/js/autoschool.js"></script>
+<script src="/js/investor.js"></script>
 
 @stack('scripts')
 

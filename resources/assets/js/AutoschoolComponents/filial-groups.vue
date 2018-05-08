@@ -48,7 +48,7 @@
             ButtonAddGroup,
             CreateGroup
         },
-        data() {
+        data: function () {
             return {
                 currentPage: 1,
                 itemsPerPage: 10,

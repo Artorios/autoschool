@@ -19,12 +19,21 @@ class AutoSchoolGroup extends Model
     protected $appends = ['count_student'];
 
 
-    public function getCountStudentAttribute(){
+    public function getCountStudentAttribute()
+    {
 
         $counts = User::where('auto_school_group_id', $this->attributes['id'])->whereIn('role', ['user'])->count();
 
         return $counts;
     }
 
+    public function autoschool()
+    {
+        return $this->belongsTo(AutoSchool::class, 'auto_school_id', 'id');
+    }
 
+    public function users()
+    {
+        return $this->hasMany(User::class, 'auto_school_group_id', 'id');
+    }
 }

@@ -34,7 +34,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::post('coupons/comment', 'CouponController@commentDirector');
     Route::post('coupons/canceled', 'CouponController@canceled');
 
-    Route::get('finances', 'FinanceController')->name('autoschool.finance');
+    Route::get('finances', 'FinanceController@index')->name('autoschool.finance');
 
     Route::get('histories', 'HistoryController')->name('autoschool.history');
 
@@ -42,12 +42,15 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::view('personal', 'autoschool.personal.index')->name('autoschool.personal');
 
     Route::get('profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
+    Route::post('profile-logo-edit', 'AutoschoolController@saveProfileLogo');
 
     Route::get('notifications', 'NotificationController@getPageNew')->name('autoschool.notify');
     Route::get('notifications-all', 'NotificationController@getPageAll')->name('autoschool.notify.all');
 
     Route::post('get-count-main-groups', 'AutoschoolController@getCountMain');
     Route::post('get-count-main-filials/{filial}', 'AutoschoolController@getCountFilials');
+    Route::post('get-count-main-finance', 'FinanceController@getCountMain');
+    Route::post('delete-users', 'FinanceController@deleteUser');
 
     Route::view('faq', 'autoschool.faq')->name('faq'); //TODO rename 'autoschool.faq' need
 });

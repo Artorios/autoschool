@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group">
-                        <a class="btn-grey w-100 no-margin" href="{{route('investor.coupons.add')}}">Генерация
+                        <a class="btn-grey w-100 no-margin" href="{{route('investor.coupons.create')}}">Генерация
                             купонов</a>
                     </div>
                 </div>

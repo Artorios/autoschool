@@ -7,6 +7,10 @@
             </ul>
         </div>
 
+        @include('partials.messages')
+
+        @include('partials.errors')
+
         <div class="profile-edit">
             <div class="row">
                 <div class="col-md-4 col-xs-12">
@@ -16,9 +20,9 @@
                     </div>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <h3>OOO Франчази</h3>
+                    <h3>{{ $profile->short_company_name }}</h3>
                     <div>
-                        <a href="" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
+                        <a href="{{ route('logout') }}" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
                     </div>
                 </div>
             </div>
@@ -75,7 +79,27 @@
                 <button type="submit" class="btn-grey">Сохранить изменения</button>
             </form>
         </div>
-        <edit-pass-form></edit-pass-form>
+        <div class="pass-change">
+            <h4>Смените пароль:</h4>
+            <span>Внимание! Пароль должен содержать цифру, заглавную и строчную букву и иметь длинну от 8 до 25 символов</span>
+            <form action="{{ route('investor.profile.password.edit') }}" method="post">
+                {{ method_field('PUT') }}
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label>Старый пароль</label>
+                    <input type="password" placeholder="*******" name="old_password">
+                </div>
+                <div class="form-group">
+                    <label>Новый пароль</label>
+                    <input type="password" placeholder="*******" name="password">
+                </div>
+                <div class="form-group">
+                    <label>Подтверждение</label>
+                    <input type="password" placeholder="*******" name="password_confirmation">
+                </div>
+                <button type="submit" class="btn-grey">Сохранить изменения</button>
+            </form>
+        </div>
         <div class="pass-change notes-config">
             <h4>Настройка уведомлений:</h4>
             <form>

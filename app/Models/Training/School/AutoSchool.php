@@ -4,9 +4,10 @@ namespace App\Models\Training\School;
 
 use App\Models\Training\School\Traits\Relationship\AutoSchoolRelationship;
 use App\Models\User\User;
+use App\Models\Training\School\Traits\Scope\AutoSchoolScope;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Training\School\AutoSchoolGroup;
-use App\Models\Location\City;
+use Illuminate\Support\Facades\Auth;
+
 /**
  * Class Autoschool
  * @package App\Models\Training\School
@@ -14,6 +15,7 @@ use App\Models\Location\City;
 class AutoSchool extends Model
 {
     use AutoSchoolRelationship;
+    use AutoSchoolScope;
 
     /**
      * The attributes that are mass assignable.
@@ -26,13 +28,14 @@ class AutoSchool extends Model
         'city_id',
         'filial_name',
         'director_id',
-        'investor_id'
+        'investor_id',
+        'logo'
     ];
 
     /**
      * @var array $appends
      */
-    protected $appends = ['count_student', 'city_name'];
+    protected $appends = ['count_student'];
 
     /**
      * @return mixed
@@ -44,11 +47,51 @@ class AutoSchool extends Model
         }, $groups);
         return User::whereIn('auto_school_group_id', $groups_id)->whereIn('role', ['user'])->count();
     }
-    public function getCityNameAttribute(){
-        if(!empty($this->attributes['city_id'])) {
-            $name = City::where('id', $this->attributes['city_id'])->firstOrFail()->name;
-        return $name;
-        }
 
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeDirector($query)
+    {
+        return $query->where('director_id', Auth::user()->id);
     }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeStudent($query)
+    {
+        return $query->whereIn('role', ['user'])->whereNull('deleted_at');
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopePayment($query)
+    {
+        return $query->join('auto_school_groups', 'auto_schools.id', 'auto_school_groups.auto_school_id')
+            ->join('users', 'auto_school_groups.id', 'users.auto_school_group_id')
+            ->join('orders', 'users.id', 'orders.user_id');
+    }
+
+    /**
+     * @param $query
+     * @param $paymentType
+     * @return mixed
+     */
+    public function scopePaymentBy($query, $paymentType)
+    {
+        return $query->payment()
+            ->director()
+            ->where('payment_option', $paymentType)
+            ->student()
+            ->get();
+    }
+
+
+
+
 }

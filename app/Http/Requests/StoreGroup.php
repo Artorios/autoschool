@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Training\School\AutoSchool;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class StoreGroup

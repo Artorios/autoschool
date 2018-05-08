@@ -8,152 +8,110 @@
             </ul>
         </div>
         <h3>Финансовая статистика:</h3>
-        @include('autoschool._statistics')
+        <finance-statistic-main></finance-statistic-main>
+        <finance-search-students :students="{{json_encode($users)}}"></finance-search-students>
 
-        <div class="blockgroupe">
-            <div class="search-form blockforms finance">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <div class="search">
-                                <input type="text" placeholder="Введите что искать">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <select class="select">
-                                <option selected disabled>ФИО ученика</option>
-                                <option>Петров В.В.</option>
-                                <option>Сидоров Г.А.</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <select class="select">
-                                <option selected disabled>По дате</option>
-                                <option>21.01.15</option>
-                                <option>22.01.15</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="data">
-                                <input type="text" placeholder="Дата">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <table class="table manage-grid">
-                <thead>
-                <tr class="visible-md visible-lg">
-                    <th></th>
-                    <th>№</th>
-
-                    <th>ФИО ученика</th>
-                    <th>Группа</th>
-                    <th>Тип оплаты</th>
-                    <th>Дата оплаты</th>
-                    <th>Сумма</th>
-                </tr>
-                </thead>
-                <tbody class="main">
-                <tr data-id="1" class="visible-md visible-lg">
-                    <td>
-                        <div class="checked-line">
-                            <input type="checkbox" name="grid_selected[]">
-                            <label for="checked-line"></label>
-                        </div>
-                    </td>
-                    <td>1</td>
-                    <td><span class="student-name">Длиннофамильевский И.В.</span></td>
-                    <td><span class="group-number">Группа <a
-                                    href="javascript:">№123</a></span></td>
-                    <td>Длинный тип олаты</td>
-                    <td>12.02.1254</td>
-                    <td><a class="bold big" href="javascript:">6 000</a></td>
-                </tr>
-                <tr data-id="1" class="hidden-md hidden-lg">
-                    <td>
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td><input type="checkbox" name="grid_selected[]"></td>
-                                <td><span class="big bold">01</span></td>
-                                <td>
-                                    <span class="student-name">Длиннофамильевский И.В.</span><span class="group-number">Группа <a href="javascript:">№123</a></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Тип оплаты</th>
-                                <td>
-                                    Длинный тип оплаты
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-
-                                <th>Дата оплаты</th>
-                                <td>27.11.2017</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <th>Сумма</th>
-                                <td><span class="bold big">160&nbsp;000</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot class="finance-line-height">
-                <tr>
-                    <td colspan="9">
-                        <div class="row nero">
-                            <div class="col-md-2 margin-12">
-                                <input type="checkbox">  Для всех
-                            </div>
-                            <div class="col-md-2 margin-12">
-                                Отмечено 1 из 12
-                            </div>
-
-                            <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Анулировать</a></div>
-                            <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey">Удалить</a></div>
-                            <div class="col-xs-12 col-md-4">
-                                    <select class="select">
-                                        <option selected disabled>Виберите действие</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                    </select>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
-
-        <div class="invitegroupe">
-            <ul class="pagination">
-                <li class="page-item">
-                    {{--<a :class="[{active: currentPage === 1}, 'page-link']" href="#">1</a>--}}
-                    {{--<a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">2</a>--}}
-                    {{--<a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">3</a>--}}
-                    {{--<a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#">4</a>--}}
-                </li>
-            </ul>
-        </div>
     </div>
 @endsection
 @push('scripts')
-<script>
-    (function ($) {
-        $('.select').selectric();
-    })(jQuery)
-</script>
+    <script>
+        (function ($) {
+            $('.select').selectric();
+        })(jQuery)
+    </script>
 @endpush
+
+
+
+
+<p>17318&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17319&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;17320&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; 17318<br/><a target="_blank" title="Шпалери BN International колекція Texture Stories 17318"
+                               href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17318-16857"><img alt=""
+                                                                                                                                               style="width: 78px; height: 94px;"
+                                                                                                                                               src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 17319"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17319-16858"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16858/228x228/oboi-bn-international-kol-texture-stories-art-17319-16858.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 17320"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17320-16859"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16859/228x228/oboi-bn-international-kol-texture-stories-art-17320-16859.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 17323"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17323-16860"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16860/228x228/oboi-bn-international-kol-texture-stories-art-17323-16860.jpg"/></a>&nbsp;
+</p><p>17324&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;17326&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17332&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; 17334<br/><a target="_blank" title="Шпалери BN International колекція Texture Stories 17324"
+                               href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17324-16861"><img alt=""
+                                                                                                                                               style="width: 78px; height: 94px;"
+                                                                                                                                               src="http://prof-decor.com.ua/photos/16861/350x350/oboi-bn-international-kol-texture-stories-art-17324-16861.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 17326"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17326-16862"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16862/350x350/oboi-bn-international-kol-texture-stories-art-17326-16862.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 17332"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17332-16863"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16863/350x350/oboi-bn-international-kol-texture-stories-art-17332-16863.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 17334"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17334-16864"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16864/350x350/oboi-bn-international-kol-texture-stories-art-17334-16864.jpg"/></a>
+</p><p>17334&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;17728&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17729&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; 17732<br/><a target="_blank" title="Шпалери BN International колекція Texture Stories 17337"
+                               href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17337-16865"><img alt=""
+                                                                                                                                               style="width: 78px; height: 94px;"
+                                                                                                                                               src="http://prof-decor.com.ua/photos/16865/350x350/oboi-bn-international-kol-texture-stories-art-17337-16865.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 17728"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17728-16866"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16866/350x350/oboi-bn-international-kol-texture-stories-art-17728-16866.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 17729"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17729-16867"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16867/350x350/oboi-bn-international-kol-texture-stories-art-17729-16867.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 17732"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-17732-16868"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16868/350x350/oboi-bn-international-kol-texture-stories-art-17732-16868.jpg"/></a>
+</p><p>18403&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;18447&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 18451&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; 18455<br/><a target="_blank" title="Шпалери BN International колекція Texture Stories 18403"
+                               href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-18403-16869"><img alt=""
+                                                                                                                                               style="width: 78px; height: 94px;"
+                                                                                                                                               src="http://prof-decor.com.ua/photos/16869/350x350/oboi-bn-international-kol-texture-stories-art-18403-16869.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 18447"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-18447-16870"><img alt=""
+                                                                                                                            style="width: 78px; height: 95px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16870/350x350/oboi-bn-international-kol-texture-stories-art-18447-16870.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 18451"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-18451-16871"><img alt=""
+                                                                                                                            style="width: 78px; height: 94px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16871/350x350/oboi-bn-international-kol-texture-stories-art-18451-16871.jpg"/></a>&nbsp;<a
+            target="_blank" title="Шпалери BN International колекція Texture Stories 18455"
+            href="http://prof-decor.com.ua/product/shpaleri/oboi-bn-international-kol-texture-stories-art-18455-16872"><img alt=""
+                                                                                                                            style="width: 78px; height: 95px;"
+                                                                                                                            src="http://prof-decor.com.ua/photos/16872/350x350/oboi-bn-international-kol-texture-stories-art-18455-16872.jpg"/></a>
+</p><p>17318&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;17318&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;17318&nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; 17318&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;17318&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;17318&nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 17318&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;17318&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp;17318<br/><img alt="" style="width: 78px; height: 94px;"
+                                src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/>&nbsp;<img
+            alt="" style="width: 78px; height: 94px;"
+            src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/>&nbsp;<img alt=""
+                                                                                                                                          style="width: 78px; height: 94px;"
+                                                                                                                                          src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/>&nbsp;<img
+            alt="" style="width: 78px; height: 94px;"
+            src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/>&nbsp;<img alt=""
+                                                                                                                                          style="width: 78px; height: 94px;"
+                                                                                                                                          src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/>&nbsp;<img
+            alt="" style="width: 78px; height: 94px;"
+            src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/>&nbsp;<img alt=""
+                                                                                                                                          style="width: 78px; height: 94px;"
+                                                                                                                                          src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/>&nbsp;<img
+            alt="" style="width: 78px; height: 94px;"
+            src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/>&nbsp;<img alt=""
+                                                                                                                                          style="width: 78px; height: 94px;"
+                                                                                                                                          src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/>&nbsp;<img
+            alt="" style="width: 78px; height: 94px;"
+            src="http://prof-decor.com.ua/photos/16857/228x228/oboi-bn-international-kol-texture-stories-art-17318-16857.jpg"/></p>

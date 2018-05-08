@@ -2,18 +2,21 @@ import Vue from 'vue';
 import VueResource  from 'vue-resource';
 import BlockStatisticGroups from './AutoschoolComponents/Main/block-statistic-groups.vue';
 import BlockStatisticFilials from './AutoschoolComponents/Main/block-statistic-filials.vue';
+import BlockStatisticGroupsInFilial from './AutoschoolComponents/Main/block-statistic-group-in-filial';
 import Pages from './AccountComponents/NotifyComponents/pages.vue';
 import EditPassForm from './components/UserComponent/edit-pass-form';
 import EditNotifySettings from './components/UserComponent/edit-notify-settings';
 import NotifyAll from './AccountComponents/NotifyComponents/notify-all';
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
 import ProfilePhoto from './components/UserComponent/profile-photo';
-import FilialGroups from './AutoschoolComponents/filial-groups';
+import SchoolFilials from './AutoschoolComponents/school-filials'
+import AutoschoolProfileEdit from './AutoschoolComponents/autoschool-profile-edit'
 import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
-import Coupons from './AutoschoolComponents/Coupons/coupons.vue';
-
+import FilialGroups from './AutoschoolComponents/filial-groups';
+import FinanceStatisticMain from './AutoschoolComponents/finance-statistic-main';
+import FinanceSearchStudents from './AutoschoolComponents/finance-search-students'
+import FinanceSelectStudents from './AutoschoolComponents/finance-select-students'
 const VueInputMask = require('vue-inputmask').default
-
 
 Vue.use(VueInputMask);
 Vue.use(VueResource);
@@ -35,7 +38,12 @@ const app = new Vue({
         ProfilePhoto,
         ButtonAddFilial,
         FilialGroups,
+        BlockStatisticGroupsInFilial,
+        FinanceStatisticMain,
+        FinanceSearchStudents,
+        FinanceSelectStudents,
         BlockStatisticFilials,
-        Coupons,
+        SchoolFilials,
+        AutoschoolProfileEdit
     }
 });

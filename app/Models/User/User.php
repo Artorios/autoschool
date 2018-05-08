@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Training\School\AutoSchool;
 use App\Models\Training\School\AutoSchoolGroup;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class User
@@ -28,6 +29,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'name',
         'email',
@@ -44,6 +48,7 @@ class User extends Authenticatable
         'image'
     ];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -56,13 +61,11 @@ class User extends Authenticatable
     ];
 
     public function getAutoschoolAttribute()
-    {   if(!empty(Auth::user()->auto_school_group_id)){
-        $id = AutoSchool::find(Auth::user()->autoschoolgroup->auto_school_id)->id;
+    {
+        if (!empty(Auth::user()->auto_school_group_id))
+        {
+            return AutoSchool::find(Auth::user()->autoschoolgroup->autoschoolfilial->auto_school_id)->id;
+        }
+        return FALSE;
     }
-    else{
-        return false;
-    }
-        return $id;
-    }
-
 }

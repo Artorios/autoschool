@@ -2,7 +2,6 @@
 
 namespace App\Models\User\Traits\Attribute;
 
-use App\Models\Training\School\AutoSchoolGroup;
 /**
  * Trait UserAttribute
  * @package App\Models\User\Traits\Attribute
@@ -19,6 +18,8 @@ trait UserAttribute
         $this->attributes['password'] = bcrypt($value);
     }
 
-
-
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->second_name} {$this->last_name}";
+    }
 }
