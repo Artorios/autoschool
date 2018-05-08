@@ -219,13 +219,6 @@
                 this.errorDelete = true
             },
 
-            selectByName(type){
-                if(type === "desk"){
-
-                } else if(type === "desk") {
-
-                } else {}
-            }
         },
         mounted () {
             let vm = this
