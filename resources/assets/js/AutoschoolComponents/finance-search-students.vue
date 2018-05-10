@@ -12,25 +12,26 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <select class="select">
+                        <select class="select user">
                             <option selected disabled>ФИО ученика</option>
-                            <option v-for="(item, index) in students" v-text="fullName(item)"></option>
+                            <option value="acs">От А-Я</option>
+                            <option value="desc">От Я-А</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <p class="select" ></p>
-                        <!--<select >-->
-                            <!--<option selected disabled>По дате</option>-->
-                            <!--<option v-for="(item, index) in students" v-text="getDate(item)"></option>-->
-                        <!--</select>-->
+                        <select class="select">
+                            <option selected disabled>По дате</option>
+                            <option value="data-acs">От начала</option>
+                            <option value="data-desc">От конца</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="data">
-                            <input type="text" placeholder="Дата">
+                            <input type="text" v-model="searchByData" placeholder="Дата">
                         </div>
                     </div>
                 </div>
@@ -57,7 +58,9 @@
                     </div>
                 </td>
                 <td>{{++index}}</td>
-                <td><span class="student-name" v-text="fullName(student)"></span></td>
+                <td>
+                    <span class="student-name" v-text="fullName(student)"></span>
+                </td>
                 <td><span class="group-number">Группа <a
                         href="javascript:" v-text="student.autoSchoolGroupName"></a></span></td>
                 <td v-text="student.payment_option"></td>
@@ -97,7 +100,7 @@
 </template>
 
 <script>
-    import FinanceSelectStudents from './finance-select-students'
+    import FinanceSelectStudents from './finance-select-students';
     export default {
         components: {
             FinanceSelectStudents,
@@ -105,12 +108,14 @@
         data() {
             return {
                 searchText: '',
+                searchByData: '',
                 currentPage: 1,
                 itemsPerPage: 10,
                 resultCount: 0,
                 gridSelected: [],
                 gridSelectedAll: '',
-                errorDelete: false
+                errorDelete: false,
+                selected: ''
             }
         },
         props: {
@@ -122,15 +127,27 @@
             },
 
             filterStudents() {
-                return this.students.filter((student) => {
-                    return student.studentName.toLowerCase().includes(this.searchText.toLowerCase());
-                });
-            },
-
-            filterData(){
-                return this.students.filter((student) => {
-                    return student.updated_at.toLowerCase().includes(this.searchText.toLowerCase());
-                });
+                if(this.searchText !== "") {
+                    return this.filterStudentName()
+                }
+                else if (this.searchByData !== "") {
+                    return this.filterStudentDate()
+                }
+                else if(this.selected === "desc"){
+                    return this.filterStudentByDesk('studentName')
+                }
+                else if(this.selected === "acs"){
+                    return this.filterStudentByASC('studentName')
+                }
+                else if(this.selected === "data-desc"){
+                    return this.filterStudentByDesk('created_at')
+                }
+                else if(this.selected === "data-acs"){
+                    return this.filterStudentByASC('created_at')
+                }
+                else {
+                    return this.filterStudentName()
+                }
             },
 
             totalSelectedStudents() {
@@ -143,6 +160,7 @@
                     return this.gridSelected.length
                 }
             },
+
 
         },
         methods: {
@@ -157,44 +175,84 @@
                 let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
                 return this.filterStudents.slice(index, index + this.itemsPerPage)
             },
+
             fullName(item) {
                 return item.studentName + " " + item.studentSecondName + " " + item.studentLastName
             },
+
+            createProperty() {
+                for (let i = 0; i <= this.students.length; i++) {
+                    Object.defineProperty(this.students[i], 'data_create', {
+                        value: this.getDate(this.students[i]),
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    });
+                }
+            },
+
             getDate(item) {
                 let arrayItems = item.created_at.split(" ", 1);
                 let splitArray = arrayItems[0].split("-")
                 return splitArray[2] + "-" + splitArray[1] + "-" + splitArray[0]
             },
+
             setPage(pageNumber) {
                 this.currentPage = pageNumber
             },
-            searchData(){
-                let Date = this.students.filter((student) => {
-                    return student.created_at.toLowerCase().includes(this.searchText.toLowerCase());
-                });
-                this.students = Date;
-            },
-            delateData(){
-                if(this.gridSelected.length < 1){
-                   this.errorDelete = true
-                }else {
-                    this.errorDelete = false
-                        let data = {
-                            'id': this.gridSelected
-                        }
-                            this.$http.post('delete-users', data).then(res => {
-                                (res.status == 201) ? location.href = '/autoschool/finances' : this.serverError
-                            });
 
+            delateData() {
+                if (this.gridSelected.length < 1) {
+                    this.errorDelete = true
+                } else {
+                    this.errorDelete = false
+                    let data = {
+                        'id': this.gridSelected
+                    }
+                    this.$http.post('delete-users', data).then(res => {
+                        (res.status == 201) ? location.href = '/autoschool/finances' : this.serverError
+                    });
                 }
+            },
+
+            filterStudentName() {
+                return this.students.filter((student) => {
+                    return student.studentName.toLowerCase().includes(this.searchText
+                        .toLowerCase());
+                });
+            },
+
+            filterStudentDate(){
+                return this.students.filter((student) => {
+                    return student.created_at.split(" ", 1)[0].toLowerCase().includes(this.searchByData.toLowerCase());
+                });
+            },
+
+            filterStudentByDesk(type_select){
+                return this.students.sort((a, b) => a[type_select].localeCompare(b[type_select])).reverse();
+            },
+
+            filterStudentByASC(type_select){
+                return this.students.sort((a, b) => a[type_select].localeCompare(b[type_select]))
             },
 
             serverError(){
                 this.errorDelete = true
-            }
+            },
         },
-        created:function(){this.paginate()},
-        beforeUpdate:function(){this.paginate()},
+        mounted () {
+            let vm = this
+            $('.select ').selectric({
+                onChange: function (element) {
+                    vm.selected = $(element).val()
+                },
+            })
+        },
+        created:function(){
+            this.paginate()
+        },
+        beforeUpdate:function(){this.paginate()
+        },
     }
 </script>
 
