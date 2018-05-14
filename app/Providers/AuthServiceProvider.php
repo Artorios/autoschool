@@ -32,5 +32,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('read-notification', function ($user, $notification) {
             return $user->id == $notification->user_id;
         });
+        Gate::define('investor-autoschool', function ($user, $autoschool) {
+            return $user->id == $autoschool->investor_id;
+        });
     }
 }
