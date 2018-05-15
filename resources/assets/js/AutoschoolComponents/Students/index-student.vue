@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="img-profile">
-                    <img v-bind:src="student_with_orders.image" alt="" class="img-profile">
+                    <img v-bind:src="`/img/${student_with_orders.image}`" alt="" class="img-profile">
                 </div>
             </div>
             <div class="col-md-8">
