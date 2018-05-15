@@ -4,57 +4,17 @@
     <div class="content error profile autoschool-student">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="#">Главная</a> / Ученики / Добавить студента</li>
+                <li><a href="{{route('autoschool.index')}}">Главная</a></li>
+                <li><a href="{{route('autoschool.index')}}">Ученики</a></li>
+                <li><a href="">Добавить студента</a></li>
             </ul>
         </div>
-
         <h3>
             Добавить ученика
         </h3>
-        <div class="row add-student">
-            <div class="col-md-6">
-                <div class="form-group">
-                        <input type="text"  class="form-control" placeholder="Имя*">
-                </div>
-                <div class="form-group">
-                    <input type="text"  class="form-control" placeholder="Фамилия*">
-                </div>
-                <div class="form-group">
-                    <input type="text"  class="form-control" placeholder="Отчество">
-                </div>
-
-                <div class="form-group">
-                        <input type="text"  class="form-control" placeholder="Электронная почта*">
-                </div>
-                <div class="form-group">
-                        <input type="text"  class="form-control" placeholder="Телефон*">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <select class="select">
-                        <option selected disabled>Главный</option>
-                        <option>156145</option>
-                        <option>С845</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select class="select">
-                        <option selected disabled>ИД-23</option>
-                        <option>555</option>
-                        <option>5545</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <textarea name="" id="" class="form-control" rows="10"></textarea>
-                </div>
-            </div>
-        </div>
-
-        <div class="addstudent">
-            <a href="#" class="btn-grey"> Добавить</a>
-        </div>
+        <add-student :schools="{{json_encode($autoschool)}}"></add-student>
     </div>
+
 @endsection
 @push('scripts')
 <script>

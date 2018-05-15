@@ -50,7 +50,7 @@
             </tr>
             </thead>
             <tbody class="main">
-            <tr data-id="1" class="visible-md visible-lg" v-for="(student, index) in filterStudents">
+            <tr data-id="1" class="visible-md visible-lg" v-for="(student, index) in pagination()">
                 <td>
                     <div class="checked-line">
                         <input type="checkbox" v-bind:value="`${student.userId}`"  v-model="gridSelected">
@@ -61,8 +61,8 @@
                 <td>
                     <span class="student-name" v-text="fullName(student)"></span>
                 </td>
-                <td><span class="group-number">Группа <a
-                        href="javascript:" v-text="student.autoSchoolGroupName"></a></span></td>
+                <td><span class="group-number">Группа
+                    <a :href="`filials/groups/${student.auto_school_group_id}`" v-text="student.autoSchoolGroupName"></a></span></td>
                 <td v-text="student.payment_option"></td>
                 <td v-text="getDate(student)"></td>
                 <td>
@@ -164,16 +164,18 @@
 
         },
         methods: {
-            paginate: function () {
-                if (!this.students || this.students.length != this.students.length) {
+            paginate(data) {
+                if (!data || data.length != data.length) {
                     return
                 }
-                this.resultCount = this.filterStudents.length
+                this.resultCount = data.length
                 if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages
+                }else {
+                    this.currentPage = 1;
                 }
                 let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
-                return this.filterStudents.slice(index, index + this.itemsPerPage)
+                return data.slice(index, index + this.itemsPerPage)
             },
 
             fullName(item) {
@@ -236,6 +238,10 @@
                 return this.students.sort((a, b) => a[type_select].localeCompare(b[type_select]))
             },
 
+            pagination() {
+                return this.paginate(this.filterStudents);
+            },
+
             serverError(){
                 this.errorDelete = true
             },
@@ -248,10 +254,11 @@
                 },
             })
         },
-        created:function(){
-            this.paginate()
+        created(){
+            this.pagination()
         },
-        beforeUpdate:function(){this.paginate()
+        updated(){
+            this.pagination()
         },
     }
 </script>

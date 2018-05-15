@@ -12,6 +12,11 @@ import ProfilePhoto from './components/UserComponent/profile-photo';
 import SchoolFilials from './AutoschoolComponents/school-filials'
 import AutoschoolProfileEdit from './AutoschoolComponents/autoschool-profile-edit'
 import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
+
+import StudentList from './AutoschoolComponents/Students/student-list.vue';
+import IndexStudent from './AutoschoolComponents/Students/index-student.vue'
+import AddStudent from './AutoschoolComponents/Students/add-student.vue'
+
 import FilialGroups from './AutoschoolComponents/filial-groups';
 import FinanceStatisticMain from './AutoschoolComponents/finance-statistic-main';
 import FinanceSearchStudents from './AutoschoolComponents/finance-search-students'
@@ -38,6 +43,9 @@ const app = new Vue({
         ProfilePhoto,
         ButtonAddFilial,
         FilialGroups,
+        StudentList,
+        AddStudent,
+        IndexStudent,
         BlockStatisticGroupsInFilial,
         FinanceStatisticMain,
         FinanceSearchStudents,
