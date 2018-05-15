@@ -20,7 +20,8 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
         Route::get('{id}', 'FilialController@show')->middleware('filial');
         Route::post('create', 'FilialController@createFilial');
         Route::group(['prefix' => 'groups'], function () {
-            Route::get('{id}', 'FilialController@showStudents')->middleware('group');
+            Route::get('{id}', 'StudentController@index')->middleware('group');
+            Route::get('{id}/{student}', 'StudentController@indexStudent')->middleware('group');
             Route::post('create', 'FilialController@createGroup');
         });
     });
@@ -29,13 +30,17 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
     Route::get('results', 'ResultController')->name('autoschool.results');
 
-    Route::get('coupons', 'CouponController')->name('autoschool.coupons');
+    Route::get('coupons', 'CouponController@index')->name('autoschool.coupons');
+    Route::post('coupons/sell', 'CouponController@sell');
+    Route::post('coupons/comment', 'CouponController@commentDirector');
+    Route::post('coupons/canceled', 'CouponController@canceled');
 
     Route::get('finances', 'FinanceController@index')->name('autoschool.finance');
 
     Route::get('histories', 'HistoryController')->name('autoschool.history');
 
-    Route::view('add-student', 'autoschool.filials.add-student')->name('autoschool.add-student');
+    Route::get('add-student', 'StudentController@addStudent')->name('autoschool.add-student');
+    Route::post('save-new-student', 'StudentController@saveNewStudent')->name('autoschool.save-new-student');
     Route::view('personal', 'autoschool.personal.index')->name('autoschool.personal');
 
     Route::get('profile-edit', 'AutoschoolController@editPage')->name('autoschool.edit');
