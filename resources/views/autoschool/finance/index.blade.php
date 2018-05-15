@@ -4,7 +4,7 @@
     <div class="content error profile finance">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="{{ route('autoschool.index') }}">Главная</a> / Филиалы</li>
+                <li><a href="{{ route('autoschool.index') }}">Главная</a> / Финансы</li>
             </ul>
         </div>
         <h3>Финансовая статистика:</h3>

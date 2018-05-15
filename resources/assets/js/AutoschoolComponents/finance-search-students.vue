@@ -66,7 +66,7 @@
                 <td v-text="student.payment_option"></td>
                 <td v-text="getDate(student)"></td>
                 <td>
-                    <a class="bold big" href="javascript:" v-text="student.amount"></a></td>
+                    <a class="bold big" href="#" v-text="student.amount"></a></td>
             </tr>
             </tbody>
             <tfoot class="finance-line-height">
@@ -151,17 +151,23 @@
             },
 
             totalSelectedStudents() {
-                if(this.gridSelectedAll){
-                    if(this.resultCount < this.itemsPerPage){
-                        return this.resultCount
-                    }
-                    return this.itemsPerPage
-                }else {
-                    return this.gridSelected.length
-                }
+                return this.gridSelectedAll ?  this.pagination().length : this.gridSelected.length
+            }
+
             },
-
-
+        watch: {
+            gridSelectedAll() {
+                if(this.gridSelectedAll){
+                    if(this.gridSelected.length > 0) {
+                        this.gridSelected = []
+                    }
+                    for (let index in this.pagination()) {
+                        this.gridSelected.push(this.pagination()[index].userId)
+                    }
+                }else {
+                    this.gridSelected = []
+                }
+            }
         },
         methods: {
             paginate(data) {
@@ -182,17 +188,6 @@
                 return item.studentName + " " + item.studentSecondName + " " + item.studentLastName
             },
 
-            createProperty() {
-                for (let i = 0; i <= this.students.length; i++) {
-                    Object.defineProperty(this.students[i], 'data_create', {
-                        value: this.getDate(this.students[i]),
-                        writable: true,
-                        enumerable: true,
-                        configurable: true
-                    });
-                }
-            },
-
             getDate(item) {
                 let arrayItems = item.created_at.split(" ", 1);
                 let splitArray = arrayItems[0].split("-")
@@ -207,7 +202,7 @@
                 if (this.gridSelected.length < 1) {
                     this.errorDelete = true
                 } else {
-                    this.errorDelete = false
+
                     let data = {
                         'id': this.gridSelected
                     }
