@@ -110,6 +110,6 @@ class StudentController extends Controller
 
     public function getGroupsAutoSchool(Request $request)
     {
-        return AutoSchoolGroup::where('id', $request->input('id'))->get();
+        return AutoSchoolGroup::where('auto_school_id', $request->input('id'))->get();
     }
 }
