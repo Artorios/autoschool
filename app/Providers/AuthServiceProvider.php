@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id == $notification->user_id;
         });
         Gate::define('investor-autoschool', function ($user, $autoschool) {
-            return $user->id == $autoschool->investor_id;
+            return $user->id === $autoschool->investor_id;
         });
     }
 }
