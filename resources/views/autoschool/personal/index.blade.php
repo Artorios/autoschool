@@ -3,10 +3,10 @@
     <div class="content error">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="{{ route('autoschool.filials') }}">Главная</a></li>
+                <li><a href="{{ route('autoschool.index') }}">Главная</a></li>
                 <li>
                     <a href="{{'/autoschool/filials/groups/' .$studentWithOrders->auto_school_group_id}}"> Ученики</a></li>
-                <li><a href="">Карточка ученика</a></li>
+                <li>Карточка ученика</li>
             </ul>
         </div>
 
