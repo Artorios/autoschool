@@ -4,7 +4,7 @@
     <div class="content error profile autoschool">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="#">Главная</a> / Филиал {{$filial->title.' '.$filial->id}}</li>
+                <li><a href="{{route('autoschool.index')}}">Главная</a> / Филиал {{$filial->title.' '.$filial->id}}</li>
             </ul>
         </div>
         <block-statistic-filials :filial="{{json_encode($filial)}}"></block-statistic-filials>

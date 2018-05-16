@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="content error profile">
-        <h1><a href="#">Главная</a> / Ученики</h1>
+        <h1><a href="{{route('autoschool.index')}}">Главная</a> / Ученики</h1>
         <div class="blockforms student">
             <div class="searchform">
                 <form>

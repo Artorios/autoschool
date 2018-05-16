@@ -122,7 +122,6 @@
             $('#coupon').selectric({
                 onChange: function(element) {
                     vm.data.coupon = $(element).val()
-                    console.log($(element).val())
                 },
             })
             $('#auto_school_group_id').selectric({

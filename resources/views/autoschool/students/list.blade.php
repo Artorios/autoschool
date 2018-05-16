@@ -4,7 +4,7 @@
     <div class="content error profile autoschool-student">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="{{route('autoschool.filials')}}">Главная</a> / Ученики</li>
+                <li><a href="{{route('autoschool.index')}}">Главная</a> / Ученики</li>
             </ul>
         </div>
         <div class="studentgroupe">
