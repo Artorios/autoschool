@@ -32,7 +32,7 @@
                         <input type="text"  class="form-control" placeholder="Телефон*" v-model="data.phone" v-bind:class="{ 'input-error': errors.phone}">
                     </div>
                     <div class="form-group">
-                    <p class="error" v-if="errors.license">Выбирите категорию</p>
+                    <p class="error" v-if="errors.license">Выберите категорию</p>
                         <select class="select" id="license" v-model="data.license">
                             <option disabled value="">Категория*</option>
                             <option value="A" >A</option>
@@ -43,16 +43,18 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <p class="error" v-if="errors.auto_school_id">Выбирите автошколу</p>
-                    <select class="select" id="auto_school_id" v-model="data.auto_school_id">
-                        <option selected disabled>Главный</option>
-                        <option  v-for="(item, index) in schools" v-text="item.title" v-bind:value="item.id">Главный</option>
+                    <p class="error" v-if="errors.coupon">Выберите купон</p>
+                    <select class="select" id="coupon" v-model="data.coupon">
+                        <option disabled value="">Купон*</option>
+                        <option v-if="coupons" v-for="(item, index) in coupons" v-text="item.name" v-bind:value="item.id"></option>
+                        <option v-else v-text="'Нет купонов'" v-bind:value="'0'"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <p class="error" v-if="errors.auto_school_id">Выбирите групу</p>
+                    <p class="error" v-if="errors.auto_school_id">Выберите групу</p>
                     <select class="select" id="auto_school_group_id" v-model="data.auto_school_group_id">
-                        <option selected disabled>Групы</option>
+                        <option disabled value="">Група*</option>
+                        <option v-for="(item, index) in getGroups" v-bind:value="getGroups[index].id" v-text="getGroups[index].name"></option>
                     </select>
                 </div>
             </div>
@@ -75,7 +77,7 @@
                     email: '',
                     phone: '',
                     password: '',
-                    auto_school_id: '',
+                    coupon: '',
                     auto_school_group_id: '',
                     license: '',
                 },
@@ -86,7 +88,7 @@
                     email: false,
                     password: false,
                     phone: false,
-                    auto_school_id: false,
+                    coupon: false,
                     auto_school_group_id: false,
                     license: false
                 },
@@ -97,15 +99,29 @@
         },
         props: {
             schools: {},
+            coupons: {}
+        },
+
+        computed: {
+            getGroups(){
+                let titles = [];
+                for(let i = 0; i < this.schools.length; i++){
+                    for(let k = 0; k < this.schools[i].autoschool_groups.length; k++){
+                        titles.push({
+                            'id': this.schools[i].autoschool_groups[k].id,
+                            'name': this.schools[i].autoschool_groups[k].name
+                        });
+                    }
+                }
+                return titles;
+            }
         },
 
         mounted () {
             let vm = this
-            $('#auto_school_id').selectric({
+            $('#coupon').selectric({
                 onChange: function(element) {
-                    vm.data.auto_school_id = $(element).val()
-                    vm.getGroupInAutoSchool(vm.data.auto_school_id)
-
+                    vm.data.coupon = $(element).val()
                 },
             })
             $('#auto_school_group_id').selectric({
@@ -172,7 +188,7 @@
                                 this.errors[key] = false
                             }
                             break
-                        case 'auto_school_id':
+                        case 'coupon':
                             if (!this.data[key]) {
                                 this.errors[key] = true
                             } else {
@@ -222,26 +238,6 @@
                 return re.test(phone);
 
             },
-            getGroupInAutoSchool(auto_school_id){
-                let data = {
-                    'id': auto_school_id
-                };
-                this.$http.post('/autoschool/get-autoschool-group', data).then(res => {
-                    $('#auto_school_group_id')
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append(this.getOption(res))
-                        .selectric('refresh')
-                })
-            },
-            getOption(res){
-                let option = ''
-                res.data.forEach(function(element){
-                    option += `<option value="${element.id}">${element.name}</option>`
-                });
-                return option
-            }
         }
     }
 </script>

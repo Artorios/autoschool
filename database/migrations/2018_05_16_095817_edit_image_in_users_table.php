@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnCitiesTable extends Migration
+class EditImageInUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class AddColumnCitiesTable extends Migration
      */
     public function up()
     {
-        Schema::table('cities', function (Blueprint $table) {
-//            $table->integer('price')->default(1500);
-//            $table->unsignedTinyInteger('show_city')->default(0);
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('image');
         });
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('image')->nullable();
+        });
+
     }
 
     /**
@@ -26,8 +29,8 @@ class AddColumnCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::table('cities', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('image');
         });
     }
 }

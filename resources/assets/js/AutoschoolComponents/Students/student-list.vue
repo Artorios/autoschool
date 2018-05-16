@@ -54,14 +54,17 @@
                 <td v-text="++index"></td>
                 <td>
                     <a v-bind:href="`${student.auto_school_group_id}/${student.id}`" v-if="student.second_name">{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>
-                    <a v-bind:href="`${student.auto_school_group_id}/${student.id}`" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>
+                    <a v-bind:href="`${student.auto_school_group_id}/${student.id}`" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}.</a>
                 </td>
                 <td>
                     <a v-bind:href="group.id">{{group.name}}</a>
                 </td>
-                <td>Дорожные знаки. Предупреждающие знаки.</td>
-                <td>80%</td>
-                <td><span>Экзамен в ГБДД</span><a href="#">6 из 28</a></td>
+                <td>{{student.lesson_now.lesson_num}} {{student.lesson_now.title}}</td>
+                <td>{{student.progress}}%</td>
+                <td v-if="student.last_exam">
+                    <span v-if="student.last_exam.type == 'test'">Тестовый экзамен</span>
+                    <a href="#">{{student.last_exam.right_answer_count}} из {{student.last_exam.all_answer_count}}</a></td>
+                <td v-if="!student.last_exam">--</td>
             </tr>
         <div>
             <tr data-id="1" class="hidden-md hidden-lg" v-for="(student, index) in filterStudents">
@@ -73,8 +76,10 @@
                                 <span class="big bold" v-text="++index"></span>
                             </td>
                             <td colspan="2">
-                                <a href="#" v-if="student.second_name">{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>
-                                <a href="#" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>
+                                <!--<a href="#" v-if="student.second_name">{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>-->
+                                <!--<a href="#" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}.</a>-->
+                                <a href="#" v-if="student.second_name">{{student.last_name}} {{student.name}} {{student.second_name}}</a>
+                                <a href="#" v-else>{{student.last_name}} {{student.name}}.</a>
                             </td>
                         </tr>
                         <tr>
@@ -87,17 +92,20 @@
                         <tr>
                             <td></td>
                             <th>Текущий урок</th>
-                            <td>Дорожные знаки. Предупреждающие знаки.</td>
+                            <td>{{student.lesson_now.lesson_num}} {{student.lesson_now.title}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <th>Успеваемость</th>
-                            <td>80%</td>
+                            <td>{{student.progress}}%</td>
                         </tr>
                         <tr>
                             <td></td>
                             <th>Экзамен</th>
-                            <td><span>Экзамен в ГБДД</span><a href="#">6 из 28</a></td>
+                            <td v-if="student.last_exam">
+                                <span v-if="student.last_exam.type == 'test'">Тестовый экзамен</span>
+                                <a href="#">{{student.last_exam.right_answer_count}} из {{student.last_exam.all_answer_count}}</a></td>
+                            <td v-if="!student.last_exam">--</td>
                         </tr>
                         </tbody>
                     </table>
