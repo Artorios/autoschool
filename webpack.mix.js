@@ -20,4 +20,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 mix.copy('resources/assets/public/selectric.css', 'public/css')
     .copy('resources/assets/public/slick.css', 'public/css')
-    .copy('resources/assets/public/slick-theme.css', 'public/css');
+    .copy('resources/assets/public/slick-theme.css', 'public/css')
+    .copy('resources/assets/public/AdminLTE.min.css', 'public/css')
+    .copy('resources/assets/public/skins/_all-skins.min.css', 'public/css/skins');
