@@ -55,12 +55,12 @@
                         @else
                             <a href="{{route('user.account')}}"><img src="/img/lock.png" alt="">Кабинет
                                 {{Auth::user()->name . ' ' . Auth::user()->last_name}}</a>
-                            {{--<a href="#">Активировать купон</a>--}}
+                            <a href="{{route('user.finance')}}">Активировать купон</a>
                         @endif
                             <a href="{{route('logout')}}">Выход</a>
                     @else
                         <a href="{{route('authUser')}}"><img src="/img/lock.png" alt="">Войти</a>
-                        <a href="#">Активировать купон</a>
+                        <a href="{{route('authUser')}}">Активировать купон</a>
                     @endif
                 </div>
             </div>
