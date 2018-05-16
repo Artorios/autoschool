@@ -360,6 +360,9 @@
 
                 this.$http.post('/admin/lessons/load-video', data).then(res => {
                     if (res.status === 201) {
+                        if(res.data.name && res.data.type) {
+                            alert('Видео загружено!')
+                        }
                         location.reload()
                     } else {
                         this.errorEdit = true
