@@ -75,7 +75,7 @@
                             <td colspan="2">
                                 <!--<a href="#" v-if="student.second_name">{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>-->
                                 <!--<a href="#" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}.</a>-->
-                                <a href="#" v-if="student.second_name">{{student.last_name}} {{student.name}}. {{student.second_name}}.</a>
+                                <a href="#" v-if="student.second_name">{{student.last_name}} {{student.name}} {{student.second_name}}</a>
                                 <a href="#" v-else>{{student.last_name}} {{student.name}}.</a>
                             </td>
                         </tr>

@@ -7,7 +7,6 @@
                 <li><a href="{{route('autoschool.filials')}}">Главная</a> / Ученики</li>
             </ul>
         </div>
-
         <div class="studentgroupe">
             <h4>Ученики группы {{$group->name}}:</h4>
             <student-list   :students="{{json_encode($students)}}"

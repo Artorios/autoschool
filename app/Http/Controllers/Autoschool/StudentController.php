@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Autoschool;
 
-use App\Models\Training\School\AutoSchool;
-use App\Models\Training\School\AutoSchoolGroup;
+use App\Models\Finance\Coupon;
+use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
 use App\Models\User\Contract;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Auth, Validator, DB};
 use Psy\Exception\ErrorException;
 
 class StudentController extends Controller
@@ -22,7 +21,7 @@ class StudentController extends Controller
     public function index($id, User $user)
     {
         $students = $user->where(['auto_school_group_id' => $id])->whereIn('role', ['user'])->get();
-        $group = AutoSchoolGroup::where('id',$id)->first();
+        $group    = AutoSchoolGroup::where('id',$id)->first();
 
         return view('autoschool.students.list', compact('students', 'group'));
     }
@@ -61,7 +60,12 @@ class StudentController extends Controller
         $autoschool = AutoSchool::where('director_id', Auth::user()->id)
             ->with('autoschoolGroups')
             ->get();
-        return view('autoschool.filials.add-student', compact('autoschool'));
+        $schools   = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
+        $schools_id = array_map(function ($school) {
+            return $school['id'];
+        }, $schools);
+        $coupons = Coupon::whereIn('auto_school_id', $schools_id)->where('status', 1)->get();
+        return view('autoschool.filials.add-student', compact('autoschool', 'coupons'));
     }
 
     public function saveNewStudent(Request $request)
@@ -72,7 +76,7 @@ class StudentController extends Controller
             'second_name' => 'string|min:3',
             'email'       => 'required|email|unique:users,email',
             'phone'       => 'required',
-            'auto_school_id' 		  => 'required|exists:auto_schools,id',
+            'coupon' 		  => 'required|exists:coupons,id',
             'auto_school_group_id' 		  => 'required|exists:auto_school_groups,id',
         ]);
 
@@ -87,7 +91,6 @@ class StudentController extends Controller
             'email',
             'phone',
             'password',
-            'auto_school_id',
             'license',
             'auto_school_group_id'
         ]);
@@ -95,13 +98,22 @@ class StudentController extends Controller
         try {
             $data['role']              = 'user';
             $data['confirmation_code'] = str_random(30);
-            $user                      = User::create($data);
 
-            $contract = Contract::create([
-                'name' => generateContractNumber($user),
-                'user_id' => $user->id
-            ]);
-            return response()->json(['status' => 1, 'group' => $user['auto_school_group_id']], 201);
+            DB::transaction(function () use ($data, $request) {
+
+                $user = User::create($data);
+                $coupon = Coupon::where('id', $request->coupon)->update([
+                    'status' => 3,
+                    'student_id' => $user->id
+                ]);
+                $contract = Contract::create([
+                    'name' => generateContractNumber($user),
+                    'user_id' => $user->id
+                ]);
+
+            });
+
+            return response()->json(['status' => 1, 'group' => $data['auto_school_group_id']], 201);
 
         }catch (ErrorException $e){
             return response(['status' => 0], 400);
