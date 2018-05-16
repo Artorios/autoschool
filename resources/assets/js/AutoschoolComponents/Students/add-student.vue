@@ -138,8 +138,7 @@
 
                 this.$http.post('/autoschool/save-new-student', this.data).then(res => {
                     if (res.status === 201) {
-                        alert('Пользователь добавлен');
-                        location.href = '/autoschool/add-student'
+                        location.href = '/autoschool/filials/groups/' + res.data.group
                     }
                 }, err => {
                     if (+err.status === 400) {

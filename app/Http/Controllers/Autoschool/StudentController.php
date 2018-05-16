@@ -101,7 +101,7 @@ class StudentController extends Controller
                 'name' => generateContractNumber($user),
                 'user_id' => $user->id
             ]);
-            return response()->json(['status' => 1], 201);
+            return response()->json(['status' => 1, 'group' => $user['auto_school_group_id']], 201);
 
         }catch (ErrorException $e){
             return response(['status' => 0], 400);
