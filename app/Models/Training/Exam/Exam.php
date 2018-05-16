@@ -23,9 +23,19 @@ class Exam extends Model
         'status',
         'id'
     ];
+
+    protected $appends = ['right_answer_count','all_answer_count'];
+
     public function questions()
     {
         return $this->hasMany(ExamQuestion::class, 'exam_id', 'id');
     }
-
+    public function getRightAnswerCountAttribute()
+    {
+        return $this->questions()->where('correct', 1)->count();
+    }
+    public function getAllAnswerCountAttribute()
+    {
+        return $this->questions()->count();
+    }
 }

@@ -54,7 +54,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = ['autoschool'];
+    protected $appends = ['autoschool', 'lesson_now', 'progress', 'last_exam'];
     protected $hidden = [
         'password',
         'remember_token',
