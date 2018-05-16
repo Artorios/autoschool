@@ -90,10 +90,10 @@ class LessonsController extends Controller
         );
 
         if ($request->get('lesson_id')) {
-            $lesson = Lesson::find($request->get('lesson_id'))->with('videos');
+            $lesson = Lesson::find($request->get('lesson_id'));
             $source = ['name' => $file_name, 'mime_type' => $file->getMimeType()];
 
-            if ($video = $lesson->videos()->get($request->file('video_id'))) {
+            if ($video = $lesson->videos()->where('lesson_id', $request->get('lesson_id'))->firstOrFail()) {
                 $video->update($source);
             } else {
                 $video = $lesson->videos()->create($source);
