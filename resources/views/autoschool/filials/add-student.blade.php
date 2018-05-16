@@ -15,6 +15,7 @@
         <add-student
                 :schools="{{json_encode($autoschool)}}"
                 :coupons="{{json_encode($coupons)}}"
+                :cities="{{json_encode($cities)}}"
         ></add-student>
     </div>
 

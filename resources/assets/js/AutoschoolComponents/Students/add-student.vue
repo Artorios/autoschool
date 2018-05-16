@@ -39,7 +39,7 @@
                             <option value="B" >B</option>
                             <option value="C" >C</option>
                         </select>
-                </div>
+                    </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -51,10 +51,17 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <p class="error" v-if="errors.auto_school_id">Выберите групу</p>
+                    <p class="error" v-if="errors.auto_school_group_id">Выберите групу</p>
                     <select class="select" id="auto_school_group_id" v-model="data.auto_school_group_id">
                         <option disabled value="">Група*</option>
                         <option v-for="(item, index) in getGroups" v-bind:value="getGroups[index].id" v-text="getGroups[index].name"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <p class="error" v-if="errors.city_id">Выбирите город</p>
+                    <select class="select"  id="city_id" v-model="data.city_id">
+                        <option disabled value="">Ваш город*</option>
+                        <option :value="city.id" v-for="city in cities">{{city.name}}</option>
                     </select>
                 </div>
             </div>
@@ -80,6 +87,7 @@
                     coupon: '',
                     auto_school_group_id: '',
                     license: '',
+                    city_id: '',
                 },
                 errors: {
                     name: false,
@@ -90,7 +98,8 @@
                     phone: false,
                     coupon: false,
                     auto_school_group_id: false,
-                    license: false
+                    license: false,
+                    city_id: false,
                 },
                 serverError: false,
                 registerErrors: false,
@@ -99,7 +108,8 @@
         },
         props: {
             schools: {},
-            coupons: {}
+            coupons: {},
+            cities: {}
         },
 
         computed: {
@@ -132,6 +142,12 @@
             $('#license').selectric({
                 onChange: function(element) {
                     vm.data.license = $(element).val()
+                },
+            })
+
+            $('#city_id').selectric({
+                onChange: function(element) {
+                    vm.data.city_id = $(element).val()
                 },
             })
         },
@@ -212,6 +228,13 @@
                             break
                         case 'email':
                             if (!this.checkEmail(this.data[key])) {
+                                this.errors[key] = true
+                            } else {
+                                this.errors[key] = false
+                            }
+                            break
+                        case 'city_id':
+                            if (!this.data[key]) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false

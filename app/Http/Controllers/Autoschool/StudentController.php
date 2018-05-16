@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Autoschool;
 
 use App\Models\Finance\Coupon;
+use App\Models\Location\City;
 use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
 use App\Models\User\Contract;
 use Illuminate\Http\Request;
@@ -68,7 +69,8 @@ class StudentController extends Controller
             return $school['id'];
         }, $schools);
         $coupons = Coupon::whereIn('auto_school_id', $schools_id)->where('status', 1)->get();
-        return view('autoschool.filials.add-student', compact('autoschool', 'coupons'));
+        $cities = City::where('show_city', 1)->get();
+        return view('autoschool.filials.add-student', compact('autoschool', 'coupons', 'cities'));
     }
 
     public function saveNewStudent(Request $request)
@@ -81,6 +83,7 @@ class StudentController extends Controller
             'phone'       => 'required',
             'coupon' 		  => 'required|exists:coupons,id',
             'auto_school_group_id' 		  => 'required|exists:auto_school_groups,id',
+            'city_id' 		  => 'required|exists:cities,id',
         ]);
 
         if (count($validator->errors())) {
@@ -95,6 +98,7 @@ class StudentController extends Controller
             'phone',
             'password',
             'license',
+            'city_id',
             'auto_school_group_id'
         ]);
 
