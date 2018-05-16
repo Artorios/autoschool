@@ -5,8 +5,8 @@
         <div class="breadcrumbs">
             <ul>
                 <li><a href="{{route('autoschool.index')}}">Главная</a></li>
-                <li><a href="{{route('autoschool.index')}}">Ученики</a></li>
-                <li><a href="">Добавить студента</a></li>
+                <li><a href="{{ url()->previous() }}">Ученики</a></li>
+                <li><a href="#">Добавить студента</a></li>
             </ul>
         </div>
         <h3>

@@ -4,7 +4,7 @@
         <div class="breadcrumbs">
             <ul>
                 <li><a href="/autoschool">Главная</a></li>
-                <li><a href="/autoschool/coupons">Купоны</a></li>
+                <li>Купоны</li>
             </ul>
         </div>
 
