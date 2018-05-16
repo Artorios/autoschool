@@ -21,6 +21,9 @@ class StudentController extends Controller
     public function index($id, User $user)
     {
         $students = $user->where(['auto_school_group_id' => $id])->whereIn('role', ['user'])->get();
+        /*foreach ($students as $student){
+            return dd($student->progress);
+        }*/
         $group    = AutoSchoolGroup::where('id',$id)->first();
 
         return view('autoschool.students.list', compact('students', 'group'));

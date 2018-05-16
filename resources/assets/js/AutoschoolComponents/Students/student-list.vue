@@ -59,9 +59,12 @@
                 <td>
                     <a v-bind:href="group.id">{{group.name}}</a>
                 </td>
-                <td>Дорожные знаки. Предупреждающие знаки.</td>
-                <td>80%</td>
-                <td><span>Экзамен в ГБДД</span><a href="#">6 из 28</a></td>
+                <td>{{student.lesson_now.lesson_num}} {{student.lesson_now.title}}</td>
+                <td>{{student.progress}}%</td>
+                <td v-if="student.last_exam">
+                    <span v-if="student.last_exam.type == 'test'">Тестовый экзамен</span>
+                    <a href="#">{{student.last_exam.right_answer_count}} из {{student.last_exam.all_answer_count}}</a></td>
+                <td v-if="!student.last_exam">--</td>
             </tr>
         <div>
             <tr data-id="1" class="hidden-md hidden-lg" v-for="(student, index) in filterStudents">
@@ -89,17 +92,20 @@
                         <tr>
                             <td></td>
                             <th>Текущий урок</th>
-                            <td>Дорожные знаки. Предупреждающие знаки.</td>
+                            <td>{{student.lesson_now.lesson_num}} {{student.lesson_now.title}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <th>Успеваемость</th>
-                            <td>80%</td>
+                            <td>{{student.progress}}%</td>
                         </tr>
                         <tr>
                             <td></td>
                             <th>Экзамен</th>
-                            <td><span>Экзамен в ГБДД</span><a href="#">6 из 28</a></td>
+                            <td v-if="student.last_exam">
+                                <span v-if="student.last_exam.type == 'test'">Тестовый экзамен</span>
+                                <a href="#">{{student.last_exam.right_answer_count}} из {{student.last_exam.all_answer_count}}</a></td>
+                            <td v-if="!student.last_exam">--</td>
                         </tr>
                         </tbody>
                     </table>
