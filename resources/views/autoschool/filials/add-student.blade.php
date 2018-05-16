@@ -12,7 +12,10 @@
         <h3>
             Добавить ученика
         </h3>
-        <add-student :schools="{{json_encode($autoschool)}}"></add-student>
+        <add-student
+                :schools="{{json_encode($autoschool)}}"
+                :coupons="{{json_encode($coupons)}}"
+        ></add-student>
     </div>
 
 @endsection

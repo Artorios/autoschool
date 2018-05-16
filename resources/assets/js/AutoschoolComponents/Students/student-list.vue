@@ -54,7 +54,7 @@
                 <td v-text="++index"></td>
                 <td>
                     <a v-bind:href="`${student.auto_school_group_id}/${student.id}`" v-if="student.second_name">{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>
-                    <a v-bind:href="`${student.auto_school_group_id}/${student.id}`" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>
+                    <a v-bind:href="`${student.auto_school_group_id}/${student.id}`" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}.</a>
                 </td>
                 <td>
                     <a v-bind:href="group.id">{{group.name}}</a>
@@ -73,8 +73,10 @@
                                 <span class="big bold" v-text="++index"></span>
                             </td>
                             <td colspan="2">
-                                <a href="#" v-if="student.second_name">{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>
-                                <a href="#" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>
+                                <!--<a href="#" v-if="student.second_name">{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>-->
+                                <!--<a href="#" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}.</a>-->
+                                <a href="#" v-if="student.second_name">{{student.last_name}} {{student.name}} {{student.second_name}}</a>
+                                <a href="#" v-else>{{student.last_name}} {{student.name}}.</a>
                             </td>
                         </tr>
                         <tr>
