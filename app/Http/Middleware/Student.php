@@ -24,7 +24,7 @@ class Student
         $activeByCard = false;
         $activeBytransaction = false;
 
-        if($activeByCupon || $activeByCard || $activeBytransaction){
+        if($activeByCupon->status == 3 || $activeByCard || $activeBytransaction){
             $paid = true;
         }
 
