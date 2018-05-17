@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Finance\Coupon;
 use App\Models\Training\School\AutoSchool;
 use App\Models\Training\School\AutoSchoolGroup;
 use App\Models\User\User;
@@ -32,12 +33,22 @@ class CountersService
 
     public function getCountFreeCupon()
     {
-        return 0;
+        $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
+        $filials_id = array_map(function ($filial) {
+            return $filial['id'];
+        }, $filials);
+        $count = Coupon::whereIn('auto_school_id', $filials_id)->where('status', 1)->count();
+        return $count;
     }
 
     public function getCountIncomeAutoSchool()
     {
-        return 0;
+        $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
+        $filials_id = array_map(function ($filial) {
+            return $filial['id'];
+        }, $filials);
+        $income = Coupon::whereIn('auto_school_id', $filials_id)->where('status', 3)->sum('commision_amount');
+        return $income;
     }
 
     /**
