@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'group-exam' => \App\Http\Middleware\Training\GroupExam::class,
         'group'      => \App\Http\Middleware\Group::class,
         'filial'      => \App\Http\Middleware\Filial::class,
+        'student'      => \App\Http\Middleware\Student::class,
     ];
 }

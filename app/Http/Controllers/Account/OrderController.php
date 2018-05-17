@@ -6,6 +6,7 @@ use App\Billing\PaymentFailedException;
 use App\Billing\PaymentGateway;
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Order;
+use App\Models\User\Coupon;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,5 +54,22 @@ class OrderController extends Controller
         } catch (PaymentFailedException $e){
             return response()->json([], 422);
         }
+    }
+
+    public function cuponPayment(Request $request)
+    {
+        $cupon = Coupon::where('code', $request->input('number_cupon'))->get()->first();
+
+        if(!$cupon){
+            return response()->json(['status' => 0], 400);
+        }
+
+        if($cupon->status == 2 && $cupon->student_id == Auth::user()->id) {
+            $cupon->update(['status' => 3]);
+            return response()->json(['status' => 1], 201);
+        } else {
+            return response()->json(['status' => 0], 400);
+        }
+
     }
 }
