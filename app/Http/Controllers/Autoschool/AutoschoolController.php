@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Autoschool;
 
 use App\Http\Requests\LogoRequest;
+use App\Models\Finance\Coupon;
 use App\Models\Training\School\{
     AutoSchoolGroup, AutoSchool
 };
@@ -71,8 +72,9 @@ class AutoschoolController extends Controller
         $counts = User::all()->whereIn('auto_school_group_id', $groups_id)
             ->whereIn('role', ['user'])
             ->count();
-
-        return response()->json(['counts' => $counts, 'coupons' => 0, 'income' => 0]);
+        $coupons = Coupon::whereIn('auto_school_group_id', $groups_id)->where('status', 1)->count();
+        $income = Coupon::whereIn('auto_school_group_id', $groups_id)->where('status', 3)->sum('commision_amount');
+        return response()->json(['counts' => $counts, 'coupons' => $coupons, 'income' => $income]);
     }
 
     /**
