@@ -34,8 +34,4 @@ class FinanceController extends Controller
             return view('account.finance.transfer', compact('data'));
         }
     }
-
-    public function cardPayment(Request $request){
-        return $request;
-    }
 }

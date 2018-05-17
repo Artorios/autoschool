@@ -77,7 +77,7 @@ class TicketsController extends Controller
 
         $response = AnswerCheck::check($answer);
 
-        $ticket->answers()->create(['question_id' => $answer->question_id, 'correct' => $response['correct'], 'answer_id' => $response['answer_id']]);
+        $ticket->answers()->create(['question_id' => $answer->question_id, 'correct' => $response['correct'], 'answer_id' => $answer->id]);
 
         $position          = (int) $request->input('quest_pos') + 1;
         $incorrect_answers = $ticket->getIncorrectAnswersCountAttribute();

@@ -75,7 +75,7 @@
         },
         created () {
             if(this.filial.logo){
-                this.imgDataUrl = '/storage/school/' + this.filial.logo
+                this.imgDataUrl = '/storage/' + this.filial.logo
             }else{
                 this.imgDataUrl = '/img/img/prof-photo-full.png'
             }

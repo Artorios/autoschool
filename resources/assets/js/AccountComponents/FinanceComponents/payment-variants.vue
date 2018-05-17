@@ -8,8 +8,9 @@
             <input type="radio" name="variant" id="typeC" value="typeC" v-model="variant">
             <label class="correct" for="typeC">Оплатить купоном</label>
             <div v-if="variant=='typeC'" class="coupon">
+                <p class="error" style="color: red" v-if="errors_coupon">Неверный номер купона</p>
                 <span>Введите номер купона:</span>
-                <input type="password" name="coupon">
+                <input type="password" name="coupon" v-model="coupon">
             </div>
             <online-payment :user="user" :contract="contract" :price="price" v-show="showOnlinePaymentPopup"></online-payment>
             <invoice-payment :user="user" :contract="contract" :price="price" v-show="showInvoicePaymentPopup"></invoice-payment>
@@ -32,6 +33,8 @@
                 variant: '',
                 showOnlinePaymentPopup: false,
                 showInvoicePaymentPopup: false,
+                coupon: '',
+                errors_coupon: false,
             }
         },
         props: {
@@ -51,10 +54,22 @@
                 } else if (this.variant === 'typeC'){
                     this.showInvoicePaymentPopup = false
                     this.showOnlinePaymentPopup = false
+                    this.paymentByCupon()
                 } else{
 
-                    console.log('vash vybor');
                 }
+            },
+            paymentByCupon () {
+                this.$http.post('/cupon-payment', {'number_cupon': this.coupon}).then(res => {
+                    if (res.status === 201) {
+                        this.errors_coupon = false
+                        location.href = '/account/'
+                    }
+                }, err => {
+                    if (+err.status === 400) {
+                        this.errors_coupon = true
+                    }
+                })
             },
         },
         created () {

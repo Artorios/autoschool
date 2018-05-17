@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Services\CountersService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -100,5 +101,22 @@ class AutoschoolController extends Controller
                 return response()->json(['status' => 0], 402);
             }
         }
+    }
+
+    public function getProfileLogo($filename)
+    {
+        $path = storage_path('app\public\school\\' . $filename);
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
+
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $response = \Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
     }
 }

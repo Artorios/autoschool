@@ -38,6 +38,6 @@
                           :contract="{{json_encode($user->contract->name)}}"
                           :price="{{json_encode($user->city->price)}}"
         ></payment-variants>
-            @endif
+        @endif
     </div>
 @endsection

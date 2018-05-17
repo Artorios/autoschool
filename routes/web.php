@@ -41,7 +41,7 @@ Route::group(['prefix' => 'user', 'namespace' => 'Auth'], function () {
     //Route::post('activation/send_mail', 'ActivationController@sendActivationMail')->name('user.activate.send_mail');
 });
 
-Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => ['auth','student']], function () {
     Route::get('/', function () {
         return view('account.main', []);
     })->name('user.account');
@@ -91,7 +91,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     });
 
     Route::group(['prefix' => 'finance'], function () {
-        Route::get('/', 'FinanceController@index')->name('user.finance');
         Route::post('get-variants', 'FinanceController@getVariants')->name('account.finance.getvariants');
         Route::post('card-payment', 'OrderController@cardPayment')->name('account.finance.cardpayment');
     });
@@ -151,7 +150,9 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => '
     });
 });
 
+Route::get('/account/finance', 'Account\FinanceController@index')->middleware('auth')->name('user.finance');
 Route::post('get-price', 'Site\PriceController@getPrice');
+Route::post('cupon-payment', 'Account\OrderController@cuponPayment')->name('account.finance.cuponPayment');
 Route::get('/schools', 'Site\SchoolsController@getSchools');
 Route::get('/schools/{city_id}', 'Site\SchoolsController@getSchools');
 
@@ -163,3 +164,4 @@ require __DIR__ . '/admin/web.php';
 require __DIR__ . '/autoschool/web.php';
 require __DIR__ . '/investor/web.php';
 
+Route::get('storage/{filename}', 'Autoschool\AutoschoolController@getProfileLogo');
