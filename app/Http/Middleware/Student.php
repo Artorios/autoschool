@@ -18,17 +18,19 @@ class Student
      */
     public function handle($request, Closure $next)
     {
-        $paid = false;
+        try {
+            $activeByCupon = Coupon::where('student_id', Auth::user()->id)->get()->first();
+            $activeByCard = false;
+            $activeBytransaction = false;
+            $paid = false;
 
-        $activeByCupon = Coupon::where('student_id', Auth::user()->id)->get()->first();
-        $activeByCard = false;
-        $activeBytransaction = false;
+            if($activeByCupon->status == 3 || $activeByCard || $activeBytransaction && $activeByCupon->activated == 1){
+                $paid = true;
+            }
 
-        if($activeByCupon->status == 3 || $activeByCard || $activeBytransaction){
-            $paid = true;
+            return ($paid) ? $next($request) : redirect('account/finance/');
+        }catch (\Exception $exception) {
+            return redirect('account/finance/');
         }
-
-        return ($paid) ? $next($request) : redirect('account/finance/');
-
     }
 }

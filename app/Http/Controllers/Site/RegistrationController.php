@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Account\NotificationController;
+use App\Mail\ConfirmEmail;
 use App\Models\User\Contract;
 use App\Models\User\Notification;
 use App\Models\User\User;
@@ -11,8 +12,10 @@ use App\Notifications\UserRegistration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Psy\Exception\ErrorException;
+use Illuminate\Mail\Mailer;
 
 /**
  * Class RegistrationController
@@ -25,7 +28,7 @@ class RegistrationController extends Controller
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function registration(Request $request, Notification $notification)
+    public function registration(Request $request, Notification $notification, Mailer $mailer)
     {
         $validator = Validator::make($request->all(), [
             'name'        => 'required|string|min:3',
@@ -63,6 +66,8 @@ class RegistrationController extends Controller
                 'name' => generateContractNumber($user),
                 'user_id' => $user->id
             ]);
+
+            $mailer->to($data['email'])->send(new ConfirmEmail($user));
 
             Controller::notification($user->id,'Вы поступили в Школу Автотренер! 
 Мы скоро свяжемся с Вами и согласуем детали обучения.');

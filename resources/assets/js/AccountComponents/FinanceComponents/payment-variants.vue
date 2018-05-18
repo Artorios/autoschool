@@ -1,5 +1,6 @@
 <template>
         <div class="payment variants">
+            <p class="error" style="color: red" v-if="user.activated === 0">Подтвердите сылку на почте</p>
             <h5>Выберите способ оплаты</h5>
             <input type="radio" name="variant" id="typeA" value="typeA" v-model="variant">
             <label for="typeA">Банковской картой, платежных систем Master Card и VISA.</label>

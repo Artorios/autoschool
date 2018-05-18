@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Autoschool;
 
+use App\Mail\ConfirmEmail;
 use App\Models\Finance\Coupon;
 use App\Models\Location\City;
 use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
@@ -9,6 +10,7 @@ use App\Models\User\Contract;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User\User;
+use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\{Auth, Validator, DB};
 use Psy\Exception\ErrorException;
 
@@ -73,7 +75,7 @@ class StudentController extends Controller
         return view('autoschool.filials.add-student', compact('autoschool', 'coupons', 'cities'));
     }
 
-    public function saveNewStudent(Request $request)
+    public function saveNewStudent(Request $request, Mailer $mailer)
     {
         $validator = Validator::make($request->all(), [
             'name'        => 'required|string|min:3',
@@ -101,14 +103,14 @@ class StudentController extends Controller
             'city_id',
             'auto_school_group_id'
         ]);
-
         try {
             $data['role']              = 'user';
             $data['confirmation_code'] = str_random(30);
 
-            DB::transaction(function () use ($data, $request) {
+            $user = User::create($data);
 
-                $user = User::create($data);
+            DB::transaction(function () use ($user, $request) {
+
                 $coupon = Coupon::where('id', $request->coupon)->update([
                     'status' => 3,
                     'student_id' => $user->id
@@ -119,6 +121,8 @@ class StudentController extends Controller
                 ]);
 
             });
+
+            $mailer->to($data['email'])->send(new ConfirmEmail($user));
 
             return response()->json(['status' => 1, 'group' => $data['auto_school_group_id']], 201);
 
