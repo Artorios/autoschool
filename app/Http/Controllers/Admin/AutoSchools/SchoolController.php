@@ -40,6 +40,8 @@ class SchoolController extends Controller
             'contacts.*.type'  => ['required', Rule::in(['phone', 'address'])],
             'contacts.*.value' => 'required|string|min:3',
             'city_id'          => 'required|integer|exists:cities,id',
+            'director_id'          => 'integer',
+            'investor_id'          => 'integer',
         ]);
 
         if (count($validator->errors())) {
@@ -47,13 +49,13 @@ class SchoolController extends Controller
         }
 
         try {
-            $school = AutoSchool::create($request->only(['title', 'description', 'city_id']));
+            $school = AutoSchool::create($request->only(['title', 'description', 'city_id','director_id','investor_id']));
 
             $school->contacts()->createMany($request->input('contacts'));
 
             return response()->json(['status' => 1], 201);
         } catch (ErrorException $e) {
-            return response()->json(['status' => 0], 400);
+            return response()->json(['status' => 0], 401);
         }
     }
 }

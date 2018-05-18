@@ -42,6 +42,29 @@
                                         :on-select="getDataCity">
                                 </autocomplete>
                             </div>
+                            <div class="form-group">
+                                <label>Выберите директора</label>
+                                <autocomplete
+                                        url="/api/get-directors-api"
+                                        anchor="email"
+                                        label="last_name"
+                                        :initValue="checkedDirector ? checkedDirector.name : ''"
+                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                        :on-select="getDataDirector">
+                                </autocomplete>
+                                <a @click="delDirector" style="color: red; cursor: pointer">Удалить</a>
+                            </div>
+                            <div class="form-group">
+                                <label>Выберите инвестора</label>
+                                <autocomplete
+                                        url="/api/get-investors-api"
+                                        anchor="email"
+                                        label="last_name"
+                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                        :on-select="getDataInvestor">
+                                </autocomplete>
+                                <a @click="delInvestor" style="color: red; cursor: pointer">Удалить</a>
+                            </div>
                         </div>
                         <div class="col-md-7">
                             <div class="body-box custom-height">
@@ -51,10 +74,10 @@
                                         <div class="form-group">
                                             <label>Тип</label>
                                             <select name="type" class="form-control" v-model="contact.type">
-                                                <option value="address" >Адрес</option>
-<!--
+                                                <!--<option value="address" >Адрес</option>-->
+
                                                 <option :value="type.slug" v-for="type in types">{{type.name}}</option>
--->
+
                                             </select>
                                         </div>
                                     </div>
@@ -69,6 +92,8 @@
                             <div class="button-box">
                                 <button class="btn btn-default" @click="addContactsField">Добавить поле</button>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -112,7 +137,10 @@
                             value: '',
                             type: '0'
                         }
-                    ]
+                    ],
+                    director_id: '',
+                    investor_id: '',
+
                 },
                 types: [
                     {
@@ -128,7 +156,9 @@
                 ],
                 errorEdit: false,
                 checkedRegion: null,
-                checkedCity: null
+                checkedCity: null,
+                checkedInvestor: null,
+                checkedDirector: null,
             }
         },
         props: ['school', 'edit'],
@@ -140,7 +170,7 @@
                 if (val) {
                     this.data.city_id = val.id
                 }
-            }
+            },
         },
         methods: {
             cancelChange () {
@@ -154,6 +184,21 @@
             getDataCity (val) {
                 this.checkedCity = val
             },
+            getDataDirector (val) {
+                this.data.director_id = val.id
+            },
+            delDirector(){
+                this.data.director_id = ''
+            },
+            getDataInvestor (val) {
+                this.data.investor_id = val.id
+                console.log(this.data.investor_id)
+
+            },
+            delInvestor(){
+                this.data.investor_id = ''
+                console.log(this.data.investor_id)
+            },
             editSchool () {
                 this.$http.put('/admin/user/edit-user/' + this.user.id, this.data).then(res => {
                     if (res.status === 202) {
@@ -166,6 +211,7 @@
                 })
             },
             createSchool () {
+                console.log(this.data)
                 this.$http.post('/admin/schools/create', this.data).then(res => {
                     if (res.status === 201) {
                         location.href = '/admin/schools'
