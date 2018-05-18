@@ -28,6 +28,10 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
     Route::get('achievement', 'AchievementController')->name('autoschool.achievement');
 
+
+    Route::post('edit-pass', 'AutoschoolController@updatePassword');
+    Route::post('edit-notify-settings', 'AutoschoolController@editNotifySettings');
+
     Route::get('results', 'ResultController')->name('autoschool.results');
 
     Route::get('coupons', 'CouponController@index')->name('autoschool.coupons');
