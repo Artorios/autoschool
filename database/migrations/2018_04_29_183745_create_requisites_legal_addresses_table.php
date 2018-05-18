@@ -27,6 +27,6 @@ class CreateRequisitesLegalAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('legal_addresses');
+        Schema::dropIfExists('requisites_legal_addresses');
     }
 }

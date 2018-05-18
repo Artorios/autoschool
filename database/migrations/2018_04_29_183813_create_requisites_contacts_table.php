@@ -27,6 +27,6 @@ class CreateRequisitesContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('requisites_contacts');
     }
 }
