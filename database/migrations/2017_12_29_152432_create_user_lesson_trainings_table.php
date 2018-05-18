@@ -31,6 +31,6 @@ class CreateUserLessonTrainingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_lesson_questions');
+        Schema::dropIfExists('user_lesson_trainings');
     }
 }

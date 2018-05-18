@@ -27,6 +27,6 @@ class CreateRequisitesBankDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bank_details');
+        Schema::dropIfExists('requisites_bank_details');
     }
 }
