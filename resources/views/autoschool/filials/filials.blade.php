@@ -58,7 +58,9 @@
                 </li>
             </ul>
             {{--{{dd($autoschool)}}--}}
+            @if(!empty($autoschool))
             <button-add-filial :autoschool="{{json_encode($autoschool)}}"></button-add-filial>
+                @endif
         </div>
     </div>
 
