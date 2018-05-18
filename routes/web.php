@@ -156,6 +156,8 @@ Route::post('cupon-payment', 'Account\OrderController@cuponPayment')->name('acco
 Route::get('/schools', 'Site\SchoolsController@getSchools');
 Route::get('/schools/{city_id}', 'Site\SchoolsController@getSchools');
 
+Route::get('/confirm/student/{confirmation_code}', 'Site\SchoolsController@confirmStudent');
+
 Route::get('/students-list', function (){
     return view('autoschool.filials.students_list');
 });
