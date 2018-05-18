@@ -27,6 +27,6 @@ class CreateRequisitesIndividualsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('individuals');
+        Schema::dropIfExists('requisites_individuals');
     }
 }

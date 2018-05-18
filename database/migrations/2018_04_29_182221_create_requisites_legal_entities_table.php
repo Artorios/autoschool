@@ -30,6 +30,6 @@ class CreateRequisitesLegalEntitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('legal_entities');
+        Schema::dropIfExists('requisites_legal_entities');
     }
 }
