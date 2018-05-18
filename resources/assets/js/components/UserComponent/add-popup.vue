@@ -78,11 +78,16 @@
                     },
                     {
                         id: 2,
-                        name: 'Модератор',
-                        slug: 'moderator'
+                        name: 'Директор',
+                        slug: 'autoschool'
                     },
                     {
                         id: 3,
+                        name: 'Инвестор',
+                        slug: 'investor'
+                    },
+                    {
+                        id: 4,
                         name: 'Пользователь',
                         slug: 'user'
                     },
