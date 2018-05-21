@@ -61,6 +61,7 @@ class RegistrationController extends Controller
             $data['confirmation_code'] = str_random(30);
             $user                      = User::create($data);
             $full_name                 = $user->name . ' ' . $user->last_name;
+            $user['password_for_send_user_email'] = $data['password'];
 
             $contract = Contract::create([
                 'name' => generateContractNumber($user),

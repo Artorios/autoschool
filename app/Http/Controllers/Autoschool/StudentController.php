@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User\User;
 use Illuminate\Mail\Mailer;
-use Illuminate\Support\Facades\{Auth, Validator, DB};
+use Illuminate\Support\Facades\{
+    Auth, Hash, Validator, DB
+};
 use Psy\Exception\ErrorException;
 
 class StudentController extends Controller
@@ -98,16 +100,20 @@ class StudentController extends Controller
             'second_name',
             'email',
             'phone',
-            'password',
             'license',
             'city_id',
             'auto_school_group_id'
         ]);
+
+        $passwordForSendEmail = str_random(8);
+
         try {
             $data['role']              = 'user';
             $data['confirmation_code'] = str_random(30);
+            $data['password'] = $passwordForSendEmail;
 
             $user = User::create($data);
+            $user['password_for_send_user_email'] = $passwordForSendEmail;
 
             DB::transaction(function () use ($user, $request) {
 
