@@ -94,7 +94,7 @@ class SchoolController extends Controller
                     }
                 }
             });
-        return response()->json(['status' => $request->contacts[0]], 201);
+        return response()->json(['status' => $request->contacts[0]], 202);
 
     }
 }
