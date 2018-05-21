@@ -9,7 +9,8 @@
         <input type="checkbox" v-model="withComments" @change="setShowComment" id="withCom">
         <label for="withCom">Решать с комментариями</label>
         <div class="tickets-wrapper">
-            <div class="ticket" data-toggle="collapse" :data-target="'#ticket' + i" v-for="(ticket, i) in paginate"
+            <div :class="['ticket', {'actives': (index === selectedElement)}]" :id="index"
+                 v-for="(ticket, index, key) in paginate"
                  :key="ticket.ticket_id">
                 <div class="ticket-inner" :class="[{'black': !ticket.status, 'green': ticket.status, 'red': ticket.status === 'failed'}]">
                     <div class="info">
@@ -25,10 +26,18 @@
                         <span v-if="ticket.date_try">{{ticket.date_try}}</span>
                     </div>
                     <!--<span class="btn-grey ticket-toggle" @click.prevent>Статистика попыток</span>-->
-                    <span class="btn-grey ticket-toggle" v-if="ticket.status">Статистика попыток</span>
-                    <a :href="'/account/tickets/' + ticket.ticket_id"><span class="btn-grey" v-if="!ticket.status">Решить</span></a>
+                    <span class="btn-grey ticket-toggle"
+                          v-if="ticket.history"
+                          @click="changeHistory(index)">
+                        Статистика попыток
+                    </span>
+                    <a :href="'/account/tickets/' + ticket.ticket_id">
+                        <span class="btn-grey" v-if="!ticket.history">
+                            Решить
+                        </span>
+                    </a>
                 </div>
-                <div class="hidden-part collapse" :id="'ticket' + i" v-if="ticket.history">
+                <div class="hidden-part"  v-if="ticket.history && (index === selectedElement)">
                     <div class="hidden-content">
                         <h5>Статистика попыток Билет № {{ticket.ticket_id}} Предупреждающие знаки :</h5>
                         <div class="line" v-for="(history, i) in ticket.history">
@@ -38,13 +47,9 @@
                             <span class="date">{{setDate(history.updated_at)}}</span>
                             <a :href="'/account/tickets/analysis/'+history.id">Разбор ошибок</a>
                         </div>
-                        <span class="close" data-toggle="collapse" data-target="#ticket1"></span>
+                        <span class="close" @click="changeHistory(index)"></span>
                     </div>
                 </div>
-
-
-
-
 
             </div>
 
@@ -66,6 +71,7 @@
                 currentPage: 1,
                 itemsPerPage: 10,
                 resultCount: 0,
+                selectedElement: false
             }
         },
         props: ['tickets', 'showComments'],
@@ -86,6 +92,12 @@
             }
         },
         methods: {
+            changeHistory(index){
+                if(this.selectedElement === index) {
+                    return this.selectedElement = false
+                }
+                this.selectedElement = index
+            },
             setShowComment () {
                 let data = {
                     value: this.withComments ? 1 : 0
@@ -122,5 +134,34 @@
     .inner-main-content .container .tickets .tickets-wrapper .ticket .ticket-inner .info .number {
         color: #333;
     }
+    .inner-main-content .container .tickets .tickets-wrapper .ticket.active{
+        margin-bottom: 0px;
+    }
+    .inner-main-content .container .tickets .tickets-wrapper .ticket.actives{
+        margin-bottom: 210px;
+    }
+    .inner-main-content .container .tickets .tickets-wrapper .ticket .hidden-part{
+        background-color: #ccc;
+        height: 0;
+        width: calc(100% - 30px);
+    }
+    .inner-main-content .container .tickets .tickets-wrapper .ticket.actives .hidden-part {
+            min-height: 180px;
 
+    }
+
+    .hidden-part {
+        animation: opentitleanimate 0.3s linear;
+    }
+
+    @keyframes opentitleanimate {
+        0% {
+            min-height: 0;
+            opacity: 0;
+        }
+        100% {
+            min-height: 180px;
+            opacity: 1;
+        }
+    }
 </style>
