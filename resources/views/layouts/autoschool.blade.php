@@ -44,9 +44,16 @@
                 <div class="right">
                     <a href="{{route('autoschool.edit')}}"  style="color: black">
                         <div class="student-info">
+                            @php($logo = \App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->logo)
+                            @if($logo)
                             <div class="img">
-                                <img src="" alt="">
+                                <img src="{{asset("storage/school/" . $logo )}}" alt="">
                             </div>
+                            @else
+                                <div class="img">
+                                    <img src="/img/profile-photo.png" alt="">
+                                </div>
+                            @endif
                             @if(!empty(Auth::user()->autoschool))
                                 <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->title}}<img src="/img/arrow-down.png"></h3>
                             @endif
