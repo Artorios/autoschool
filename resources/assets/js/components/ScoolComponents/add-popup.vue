@@ -5,7 +5,8 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" @click="cancelChange">×</span></button>
-                    <h4 class="modal-title">Добавить автошколу</h4>
+                    <h4 class="modal-title" v-if="edit">Изменить автошколу</h4>
+                    <h4 class="modal-title" v-else>Добавить автошколу</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -25,8 +26,8 @@
                                         url="/api/address/get-regions-api"
                                         anchor="name"
                                         label="writer"
-                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
                                         :initValue="checkedRegion ? checkedRegion.name : ''"
+                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
                                         :on-select="getData">
                                 </autocomplete>
                             </div>
@@ -48,10 +49,11 @@
                                         url="/api/get-directors-api"
                                         anchor="email"
                                         label="last_name"
-                                        :initValue="checkedDirector ? checkedDirector.name : ''"
+                                        :initValue="checkedDirector ? checkedDirector.email : ''"
                                         :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
                                         :on-select="getDataDirector">
                                 </autocomplete>
+                                <input type="hidden" :value="checkedDirector.email ? checkedDirector.email: ''">
                                 <a @click="delDirector" style="color: red; cursor: pointer">Удалить</a>
                             </div>
                             <div class="form-group">
@@ -60,6 +62,7 @@
                                         url="/api/get-investors-api"
                                         anchor="email"
                                         label="last_name"
+                                        :initValue="checkedInvestor ? checkedInvestor.email : ''"
                                         :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
                                         :on-select="getDataInvestor">
                                 </autocomplete>
@@ -128,7 +131,7 @@
     export default {
         data () {
             return {
-                data: this.edit ? Object.assign({}, this.user) : {
+                data:  {
                     title: '',
                     description: '',
                     city_id: '',
@@ -136,7 +139,11 @@
                         {
                             value: '',
                             type: '0'
-                        }
+                        },
+                        {
+                            value: '',
+                            type: '0'
+                        },
                     ],
                     director_id: '',
                     investor_id: '',
@@ -165,6 +172,29 @@
         components: {
             Autocomplete
         },
+        created () {
+            if(this.school){
+                this.data.title = this.school.title
+                this.data.description = this.school.description
+                this.data.contacts = []
+                this.data.city_id = this.school.city_id
+                this.data.director_id = this.school.director_id
+                this.data.investor_id = this.school.investor_id
+                for(let i=0; i<this.school.contacts.length; i++){
+                    this.data.contacts.push(this.school.contacts[i])
+                }
+                this.$http.post('/api/admin/school-info', this.school).then(res => {
+                    if (res.status === 202) {
+                        this.checkedRegion = res.data.region
+                        this.checkedCity = res.data.city
+                        this.checkedInvestor = res.data.investor
+                        this.checkedDirector = res.data.director
+                    } else {
+                    }
+                }, err => {
+                })
+            }
+        },
         watch: {
             checkedCity: function (val) {
                 if (val) {
@@ -192,18 +222,17 @@
             },
             getDataInvestor (val) {
                 this.data.investor_id = val.id
-                console.log(this.data.investor_id)
 
             },
             delInvestor(){
                 this.data.investor_id = ''
-                console.log(this.data.investor_id)
             },
             editSchool () {
-                this.$http.put('/admin/user/edit-user/' + this.user.id, this.data).then(res => {
+                this.$http.post('/admin/schools/update/' + this.school.id, this.data).then(res => {
                     if (res.status === 202) {
-                        location.href = '/admin/users'
+                        location.href = '/admin/schools'
                     } else {
+
                         this.errorEdit = true
                     }
                 }, err => {
@@ -211,7 +240,6 @@
                 })
             },
             createSchool () {
-                console.log(this.data)
                 this.$http.post('/admin/schools/create', this.data).then(res => {
                     if (res.status === 201) {
                         location.href = '/admin/schools'

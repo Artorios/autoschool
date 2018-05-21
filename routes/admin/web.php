@@ -18,6 +18,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
     Route::group(['prefix' => 'schools', 'namespace' => 'AutoSchools'], function () {
         Route::get('/', 'SchoolController@listSchools');
         Route::post('/create', 'SchoolController@create');
+        Route::post('/update/{id}', 'SchoolController@update');
     });
 
     Route::group(['prefix' => 'regions', 'namespace' => 'Cities'], function () {
