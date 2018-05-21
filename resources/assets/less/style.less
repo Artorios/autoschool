@@ -2937,7 +2937,7 @@ header.inner {
       }
       .info {
         .block {
-          width: 440px;
+          width: 100%;
           border: 3px solid #ccc;
           display: inline-block;
           vertical-align: top;
@@ -3188,7 +3188,7 @@ footer.inner {
         width: 735px;
         .info {
           .block {
-            width: 340px;
+           margin: 0 0 25px 0;
           }
         }
         .start-video {
@@ -6679,7 +6679,7 @@ footer.inner {
             height: 55px;
             line-height: 55px;
             border-radius: 30px;
-            padding: 0 10px;
+            padding: 0 20px;
             border: 2px solid #ccc !important;
             margin: 5px 10px 0 0;
           }
@@ -7226,6 +7226,108 @@ footer.inner {
       &:hover {
         opacity: 1;
       }
+    }
+  }
+}
+
+//requsites
+.requsites{
+  margin: 0 -1%;
+}
+.radio-button{
+  float: left;
+  width: 18%;
+  overflow: hidden;
+  margin: 0 1% 10px;
+}
+.radio-button input{
+  position: absolute;
+  left: -200%;
+  z-index: -1000;
+}
+.radio-button label{
+  display: inline-block;
+  max-width: 100%;
+  font-size: 13px;
+  color: #666666;
+  margin: 0;
+  font-weight: normal;
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid #cccccc;
+  background-color: transparent;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  transition: background-color 0.1s linear, color 0.1s linear;
+}
+.radio-button label:hover{
+  cursor: pointer;
+  background-color: #cccccc;
+  color: #000;
+}
+.radio-button input:checked + label{
+  background-color: #cccccc;
+  color: #000;
+}
+.radio-button input:checked + label:hover{
+  pointer-events: none;
+}
+@media (max-width: 991px){
+  .radio-button{
+    width: 23%;
+  }
+}
+@media (max-width: 767px) {
+  .requsites{
+    padding: 0 15px;
+  }
+}
+@media (max-width: 575px){
+  .radio-button{
+    width: 48%;
+  }
+}
+
+.details h3{
+  font-size: 20px;
+}
+
+.search-form.finance{
+  background: #ebebeb;
+  padding: 25px 15px;
+  input{
+    position: relative;
+    height: 55px;
+    line-height: 55px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 55px 0 20px;
+    background-image: url(/images/search.png);
+    background-repeat: no-repeat;
+    background-position: 97.6% 50%;
+  }
+  .data{
+    input{
+      background-image: url(/images/date.png);
+      background-position: 92% 50%;
+      padding: 0 45px 0 15px;
+    }
+  }
+}
+.blockgroupe{
+  .form-group {
+    > .btn-grey{
+      width: 100%;
+      margin: 0;
+    }
+  }
+  .selectric{
+    .label{
+      text-align: left;
+      padding: 0 20px;
     }
   }
 }
