@@ -70,7 +70,7 @@ class AutoschoolController extends Controller
             ->whereIn('role', ['user'])
             ->count();
         $coupons = Coupon::whereIn('auto_school_group_id', $groups_id)->where('status', 1)->count();
-        $income = Coupon::whereIn('auto_school_group_id', $groups_id)->where('status', 3)->sum('commision_amount');
+        $income = Coupon::whereIn('auto_school_group_id', $groups_id)->where('status', 3)->sum('fee_amount');
         return response()->json(['counts' => $counts, 'coupons' => $coupons, 'income' => $income]);
     }
 

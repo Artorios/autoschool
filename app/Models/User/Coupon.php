@@ -16,7 +16,7 @@ class Coupon extends Model
         'code',
         'student_id',
         'payment_amount',
-        'commision_amount',
+        'fee_amount',
         'status',
         'activated_at',
     ];

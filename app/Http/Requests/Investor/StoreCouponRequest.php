@@ -5,6 +5,10 @@ namespace App\Http\Requests\Investor;
 use App\Models\Training\School\AutoSchool;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class StoreCouponRequest
+ * @package App\Http\Requests\Investor
+ */
 class StoreCouponRequest extends FormRequest
 {
     /**
@@ -25,9 +29,9 @@ class StoreCouponRequest extends FormRequest
     public function rules()
     {
         return [
-            'auto_school' => 'required|exists:auto_schools,id',
-            'count' => 'integer|min:1',
-            'commision_amount' => 'integer|min:1',
+            'auto_school'  => 'required|exists:auto_schools,id',
+            'count'        => 'integer|min:1',
+            'fee_amount'   => 'integer|min:1',
         ];
     }
 }

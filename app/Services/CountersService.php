@@ -47,7 +47,7 @@ class CountersService
         $filials_id = array_map(function ($filial) {
             return $filial['id'];
         }, $filials);
-        $income = Coupon::whereIn('auto_school_id', $filials_id)->where('status', 3)->sum('commision_amount');
+        $income = Coupon::whereIn('auto_school_id', $filials_id)->where('status', 3)->sum('fee_amount');
         return $income;
     }
 
