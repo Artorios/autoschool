@@ -27,14 +27,19 @@ trait UserAttribute
 
     public function getLessonNowAttribute()
     {
-        $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 0)->orderBy('id', 'ASC')->first();
-        if(empty($userLesson)){
-            $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 1)->orderBy('id', 'DESC')->first();
+        if(empty(Lesson::all()))
+        {
+            $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 0)->orderBy('id', 'ASC')->first();
+            if(empty($userLesson)){
+                $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 1)->orderBy('id', 'DESC')->first();
+            }
+            if(empty($userLesson) ) {
+                return Lesson::all()->where('lesson_num', 1)->firstOrFail();
+            }
+            return Lesson::where('id', $userLesson->lesson_id)->firstOrFail();
         }
-        if(empty($userLesson)) {
-            return Lesson::where('lesson_num', 1)->firstOrFail();
-        }
-        return Lesson::where('id', $userLesson->lesson_id)->firstOrFail();
+        return 0;
+
     }
     public function getProgressAttribute()
     {

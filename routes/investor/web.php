@@ -21,9 +21,16 @@ Route::group([
         Route::get('create', 'CouponsController@create')->name('coupons.create');
         Route::post('create', 'CouponsController@store')->name('coupons.store');
     });
+    Route::group(['prefix' => 'school'], function () {
+        Route::get('/', 'AutoSchoolController@index')->name('school.index');
+        Route::get('create', 'AutoSchoolController@create')->name('school.create');
+        Route::post('create', 'AutoSchoolController@store')->name('school.store');
+        Route::get('{autoschool}', 'AutoSchoolController@show')->name('school.show')
+            ->middleware('can:investor-autoschool,autoschool');
+        Route::put('{autoschool}', 'AutoSchoolController@update')->name('school.update');
+    });
     Route::view('/finance', 'investor.finance.index')->name('finance.index');
     Route::view('/history', 'investor.history.index')->name('history.index');
-    Route::view('/school', 'investor.school.index')->name('school.index');
     Route::view('/template-pass', 'investor.template-pass')->name('template-pass');
     Route::view('/template-pass-2', 'investor.template-pass-2')->name('template-pass-2');
 });
