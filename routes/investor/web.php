@@ -29,7 +29,9 @@ Route::group([
             ->middleware('can:investor-autoschool,autoschool');
         Route::put('{autoschool}', 'AutoSchoolController@update')->name('school.update');
     });
-    Route::view('/finance', 'investor.finance.index')->name('finance.index');
+    Route::group(['prefix' => 'finance'], function () {
+        Route::get('/', 'FinanceController@index')->name('finance.index');
+    });
     Route::view('/history', 'investor.history.index')->name('history.index');
     Route::view('/template-pass', 'investor.template-pass')->name('template-pass');
     Route::view('/template-pass-2', 'investor.template-pass-2')->name('template-pass-2');
