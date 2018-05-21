@@ -4,8 +4,8 @@ import BlockStatisticGroups from './AutoschoolComponents/Main/block-statistic-gr
 import BlockStatisticFilials from './AutoschoolComponents/Main/block-statistic-filials.vue';
 import BlockStatisticGroupsInFilial from './AutoschoolComponents/Main/block-statistic-group-in-filial';
 import Pages from './AccountComponents/NotifyComponents/pages.vue';
-import EditPassForm from './components/UserComponent/edit-pass-form';
-import EditNotifySettings from './components/UserComponent/edit-notify-settings';
+import EditPassForm from './AutoschoolComponents/Edit/edit-pass-form.vue';
+import EditNotifySettings from './AutoschoolComponents/Edit/edit-notify-settings.vue';
 import NotifyAll from './AccountComponents/NotifyComponents/notify-all';
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
 import ProfilePhoto from './components/UserComponent/profile-photo';

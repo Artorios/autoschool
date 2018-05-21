@@ -5,7 +5,8 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" @click="cancelChange">×</span></button>
-                    <h4 class="modal-title">Редактировать профиль</h4>
+                    <h4 class="modal-title" v-if="edit">Редактировать профиль</h4>
+                    <h4 class="modal-title" v-else>Добавить профиль</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -113,6 +114,7 @@
                 })
             },
             createUser () {
+                console.log(this.data)
                 this.$http.post('/admin/user/create', this.data).then(res => {
                     if (res.status === 201) {
                         location.href = '/admin/users'

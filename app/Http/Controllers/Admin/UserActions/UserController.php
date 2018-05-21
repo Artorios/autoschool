@@ -66,7 +66,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name'        => 'required|string|min:3',
             'email'       => 'required|email|unique:users,email',
-            'role'        => Rule::in([ 'admin', 'moderator', 'user' ]),
+            'role'        => Rule::in([ 'admin', 'autoschool','investor', 'user' ]),
             'last_name'   => 'required|string',
             'second_name' => 'required|string',
             'phone'       => 'required|string',
