@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\AutoSchools;
 
+use App\Models\Location\City;
 use App\Models\Training\School\{AutoSchool, AutoSchoolContact};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -48,15 +49,13 @@ class SchoolController extends Controller
             return response()->json(['status' => 0, 'errors' => $validator->errors()], 400);
         }
 
-        try {
+        DB::transaction(function () use ($request) {
             $school = AutoSchool::create($request->only(['title', 'description', 'city_id','director_id','investor_id']));
-
+            $city = City::where('id', $request->input('city_id'))->update(['show_city' => 1]);
             $school->contacts()->createMany($request->input('contacts'));
 
-            return response()->json(['status' => 1], 201);
-        } catch (ErrorException $e) {
-            return response()->json(['status' => 0], 400);
-        }
+        });
+        return response()->json(['status' => 1], 201);
     }
 
     /**
@@ -82,9 +81,13 @@ class SchoolController extends Controller
         }
 
         DB::transaction(function () use ($request,$id) {
-
-                $school = AutoSchool::where('id', $id)->update($request->only(['title', 'description', 'city_id', 'director_id', 'investor_id']));
-                foreach ($request->contacts as $item) {
+                $city = AutoSchool::where('id', $id)->firstOrFail()->city_id;
+                if($city != $request->input('city_id')){
+                    City::where('id', $city)->update(['show_city' => 0]);
+                    City::where('id', $request->input('city_id'))->update(['show_city' => 1]);
+                }
+            $school = AutoSchool::where('id', $id)->update($request->only(['title', 'description', 'city_id', 'director_id', 'investor_id']));
+            foreach ($request->contacts as $item) {
                     if(!empty($item['id'])) {
                         AutoSchoolContact::where('id', $item['id'])->update(['type' => $item['type'], 'value' => $item['value'], 'auto_school_id' => $id]);
                     }

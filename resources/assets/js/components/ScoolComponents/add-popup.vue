@@ -20,53 +20,105 @@
                                 <label>Описание</label>
                                 <textarea class="form-control" v-model="data.description"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label>Выберите регион</label>
-                                <autocomplete
-                                        url="/api/address/get-regions-api"
-                                        anchor="name"
-                                        label="writer"
-                                        :initValue="checkedRegion ? checkedRegion.name : ''"
-                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
-                                        :on-select="getData">
-                                </autocomplete>
+                            <div v-if="edit">
+                                <div class="form-group">
+                                    <label>Выберите регион</label>
+                                    <autocomplete
+                                            url="/api/address/get-regions-api"
+                                            anchor="name"
+                                            label="writer"
+                                            :initValue="checkedRegion ? checkedRegion.name : ''"
+                                            :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                            :on-select="getData">
+                                    </autocomplete>
+                                </div>
+                                <div class="form-group" v-if="checkedRegion">
+                                    <label>Выберите город</label>
+                                    <autocomplete
+                                            :url="'/api/address/get-cities-api/' + checkedRegion.id"
+                                            anchor="name"
+                                            label="ru_path"
+                                            ref="cityComplete"
+                                            :initValue="checkedCity ? checkedCity.name : ''"
+                                            :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                            :on-select="getDataCity">
+                                    </autocomplete>
+                                </div>
+                                <div class="form-group">
+                                    <label>Выберите директора</label>
+                                    <autocomplete
+                                            url="/api/get-directors-api"
+                                            anchor="email"
+                                            label="last_name"
+                                            :initValue="checkedDirector ? checkedDirector.email : ''"
+                                            :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                            :on-select="getDataDirector">
+                                    </autocomplete>
+                                    <input type="hidden" :value="checkedDirector.email ? checkedDirector.email: ''">
+                                    <a @click="delDirector" style="color: red; cursor: pointer">Удалить</a>
+                                </div>
+                                <div class="form-group">
+                                    <label>Выберите инвестора</label>
+                                    <autocomplete
+                                            url="/api/get-investors-api"
+                                            anchor="email"
+                                            label="last_name"
+                                            :initValue="checkedInvestor ? checkedInvestor.email : ''"
+                                            :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                            :on-select="getDataInvestor">
+                                    </autocomplete>
+                                    <a @click="delInvestor" style="color: red; cursor: pointer">Удалить</a>
+                                </div>
                             </div>
-                            <div class="form-group" v-if="checkedRegion">
-                                <label>Выберите город</label>
-                                <autocomplete
-                                        :url="'/api/address/get-cities-api/' + checkedRegion.id"
-                                        anchor="name"
-                                        label="ru_path"
-                                        ref="cityComplete"
-                                        :initValue="checkedCity ? checkedCity.name : ''"
-                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
-                                        :on-select="getDataCity">
-                                </autocomplete>
-                            </div>
-                            <div class="form-group">
-                                <label>Выберите директора</label>
-                                <autocomplete
-                                        url="/api/get-directors-api"
-                                        anchor="email"
-                                        label="last_name"
-                                        :initValue="checkedDirector ? checkedDirector.email : ''"
-                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
-                                        :on-select="getDataDirector">
-                                </autocomplete>
-                                <input type="hidden" :value="checkedDirector.email ? checkedDirector.email: ''">
-                                <a @click="delDirector" style="color: red; cursor: pointer">Удалить</a>
-                            </div>
-                            <div class="form-group">
-                                <label>Выберите инвестора</label>
-                                <autocomplete
-                                        url="/api/get-investors-api"
-                                        anchor="email"
-                                        label="last_name"
-                                        :initValue="checkedInvestor ? checkedInvestor.email : ''"
-                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
-                                        :on-select="getDataInvestor">
-                                </autocomplete>
-                                <a @click="delInvestor" style="color: red; cursor: pointer">Удалить</a>
+                            <div v-else>
+                                <div class="form-group">
+                                    <label>Выберите регион</label>
+                                    <autocomplete
+                                            url="/api/address/get-regions-api"
+                                            anchor="name"
+                                            label="writer"
+                                            :initValue="checkedRegion ? checkedRegion.name : ''"
+                                            :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                            :on-select="getData">
+                                    </autocomplete>
+                                </div>
+                                <div class="form-group" v-if="checkedRegion">
+                                    <label>Выберите город</label>
+                                    <autocomplete
+                                            :url="'/api/address/get-cities-api/' + checkedRegion.id"
+                                            anchor="name"
+                                            label="ru_path"
+                                            ref="cityComplete"
+                                            :initValue="checkedCity ? checkedCity.name : ''"
+                                            :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                            :on-select="getDataCity">
+                                    </autocomplete>
+                                </div>
+                                <div class="form-group">
+                                    <label>Выберите директора</label>
+                                    <autocomplete
+                                            url="/api/get-directors-api"
+                                            anchor="email"
+                                            label="last_name"
+                                            :initValue="checkedDirector ? checkedDirector.email : ''"
+                                            :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                            :on-select="getDataDirector">
+                                    </autocomplete>
+                                    <input type="hidden" :value="checkedDirector ? checkedDirector.email: ''">
+                                    <a @click="delDirector" style="color: red; cursor: pointer">Удалить</a>
+                                </div>
+                                <div class="form-group">
+                                    <label>Выберите инвестора</label>
+                                    <autocomplete
+                                            url="/api/get-investors-api"
+                                            anchor="email"
+                                            label="last_name"
+                                            :initValue="checkedInvestor ? checkedInvestor.email : ''"
+                                            :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                            :on-select="getDataInvestor">
+                                    </autocomplete>
+                                    <a @click="delInvestor" style="color: red; cursor: pointer">Удалить</a>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-7">
@@ -140,13 +192,9 @@
                             value: '',
                             type: '0'
                         },
-                        {
-                            value: '',
-                            type: '0'
-                        },
                     ],
-                    director_id: '',
-                    investor_id: '',
+                    director_id: 0,
+                    investor_id: 0,
 
                 },
                 types: [
@@ -218,14 +266,14 @@
                 this.data.director_id = val.id
             },
             delDirector(){
-                this.data.director_id = ''
+                this.data.director_id = 0
             },
             getDataInvestor (val) {
                 this.data.investor_id = val.id
 
             },
             delInvestor(){
-                this.data.investor_id = ''
+                this.data.investor_id = 0
             },
             editSchool () {
                 this.$http.post('/admin/schools/update/' + this.school.id, this.data).then(res => {
