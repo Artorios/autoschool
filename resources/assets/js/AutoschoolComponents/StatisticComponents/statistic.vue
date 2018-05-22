@@ -6,7 +6,7 @@
                         <span>{{lesson.lesson_num}}</span>
                     </div>
                     <div class="name">
-                        <a :href="'/account/lessons/' + lesson.id">{{lesson.title}}</a>
+                        <a>{{lesson.title}}</a>
                     </div>
                     <div class="lesson">
                         <span class="mobile-title">Урок</span>
@@ -17,7 +17,7 @@
                         <div v-if="lesson.right_quest_train">
                             <span class="mobile-title">Тренировка</span>
                             <span>{{lesson.right_quest_train}} из {{lesson.all_quest_train}}</span>
-                            <a :href="'/account/lessons/training/' + lesson.id"><span class="refresh"></span></a>
+                            <a><span class="refresh"></span></a>
                             <span>{{editDate(lesson.last_training_date)}}</span>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                         <div v-if="lesson.right_quest_exam">
                             <span class="mobile-title">Зачет</span>
                             <span>{{lesson.right_quest_exam}} из {{lesson.all_quest_exam}}</span>
-                            <a :href="'/account/lessons/exam/' + lesson.id"><span class="refresh"></span></a>
+                            <a><span class="refresh"></span></a>
                             <span>{{editDate(lesson.last_exam_date)}}</span>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                         <span>Ошибок <span>{{alldata[lesson.lesson_num].questions_uncorrect[train.id]}}</span></span>
                                         <span v-if="train.updated_at == null">неизвестно</span>
                                         <span v-else>{{editDate(train.updated_at) }}</span>
-                                        <a :href="'/account/lessons/analysis/'+train.id">Разбор ошибок</a>
+                                        <a>Разбор ошибок</a>
                                     </div>
 
                                 </div>
@@ -65,7 +65,7 @@
                                         <span>Ошибок <span>{{alldata[lesson.lesson_num].questions_uncorrect[train.id]}}</span></span>
                                         <span v-if="train.updated_at == null">неизвестно</span>
                                         <span v-else>{{editDate(train.updated_at) }}</span>
-                                        <a :href="'/account/lessons/analysis/'+train.id">Разбор ошибок</a>
+                                        <a>Разбор ошибок</a>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                         <span>Ошибок <span>{{alldata[lesson.lesson_num].questions_uncorrect[train.id]}}</span></span>
                                         <span v-if="train.updated_at == null">неизвестно</span>
                                         <span v-else>{{editDate(train.updated_at) }}</span>
-                                        <a :href="'/account/lessons/analysis/'+train.id">Разбор ошибок</a>
+                                        <a>Разбор ошибок</a>
                                     </div>
                                 </div>
                             </div>

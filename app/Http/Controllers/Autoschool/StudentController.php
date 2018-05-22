@@ -7,6 +7,8 @@ use App\Models\Finance\Coupon;
 use App\Models\Location\City;
 use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
 use App\Models\User\Contract;
+use App\Models\User\UserLessonTrainingQuestion;
+use App\Services\StatisticService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User\User;
@@ -48,7 +50,7 @@ class StudentController extends Controller
 
         $studentWithAutoSchool = User::leftjoin('auto_school_groups', 'users.auto_school_group_id', 'auto_school_groups.id')
             ->join('auto_schools', 'auto_school_groups.auto_school_id', 'auto_schools.id')
-            ->select(['*', 'auto_school_groups.name as autoSchoolGroupName'])
+            ->select(['*', 'auto_school_groups.name as autoSchoolGroupName', 'users.id as userId'])
             ->where('users.id', $request->student)
             ->get()
             ->first();
@@ -140,5 +142,24 @@ class StudentController extends Controller
     public function getGroupsAutoSchool(Request $request)
     {
         return AutoSchoolGroup::where('auto_school_id', $request->input('id'))->get();
+    }
+
+    public function statisticsTests($id_group, $id_student, StatisticService $statisticService, UserLessonTrainingQuestion $userLessonTrainingQuestion)
+    {
+        $user = User::where('id', $id_student)->get()->first();
+        $lessons = $user->lessons->unique('lesson_num');
+        $lessons = $lessons->toArray();
+
+        if (count($lessons)) {
+            return view('autoschool.statistic.index',
+                $statisticService->progress($user, $lessons, $userLessonTrainingQuestion));
+        }
+        return view('autoschool.statistic.index');
+    }
+
+    public function examStatistics($id, $id_student, StatisticService $statisticService)
+    {
+        $user = User::where('id', $id_student)->get()->first();
+        return view('autoschool.exams.index', $statisticService->exam($user));
     }
 }

@@ -22,6 +22,8 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
         Route::group(['prefix' => 'groups'], function () {
             Route::get('{id}', 'StudentController@index')->middleware('group');
             Route::get('{id}/{student}', 'StudentController@indexStudent')->middleware('group');
+            Route::get('{id}/{student}/statistic-test', 'StudentController@statisticsTests')->middleware('group');
+            Route::get('{id}/{student}/statistic-exam', 'StudentController@examStatistics')->middleware('group');
             Route::post('create', 'FilialController@createGroup');
         });
     });
