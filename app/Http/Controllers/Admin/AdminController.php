@@ -14,22 +14,6 @@ use App\Http\Controllers\Controller;
  */
 class AdminController extends Controller
 {
-    public function getInvestors(){
-
-        $investors = User::all()->toArray();//select('id','email')->where('role', 'investor')->get();
-
-        return response()->json(['investors' => $investors], 200);
-
-    }
-
-    public function getDirectors(){
-
-        $directors = User::select('id','email')->where('role', 'autoschool')->get();
-
-
-        return response()->json(['directors' => $directors], 200);
-
-    }
 
     public function getInvestorsApi(Request $request){
         $q = $request->input('q');
@@ -48,8 +32,8 @@ class AdminController extends Controller
 
         $items = $request->all();
 
-        $city = City::where('id', $items['city_id'])->firstOrFail();
-        $region = Region::where('id', $city->regions_id)->firstOrFail();
+        $city = City::where('id', $items['city_id'])->with('region')->firstOrFail();
+        $region = $city->region;
         $director = 0;
         $investor = 0;
         if(!empty($request->input('director_id'))){
