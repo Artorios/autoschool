@@ -85,7 +85,7 @@
                                 <div class="form-group" v-if="checkedRegion">
                                     <label>Выберите город</label>
                                     <autocomplete
-                                            :url="'/api/address/get-cities-api/' + checkedRegion.id"
+                                            :url="city_url.concat(checkedRegion.id)"
                                             anchor="name"
                                             label="ru_path"
                                             ref="cityComplete"
@@ -209,6 +209,7 @@
                         slug: 'phone'
                     }
                 ],
+                city_url: '/api/address/get-cities-api/',
                 errorEdit: false,
                 checkedRegion: null,
                 checkedCity: null,
