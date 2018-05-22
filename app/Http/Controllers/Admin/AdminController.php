@@ -35,7 +35,6 @@ class AdminController extends Controller
         $items = $request->all();
 
         $city = City::where('id', $items['city_id'])->with('region')->firstOrFail();
-        $region = $city->region;
         $director = 0;
         $investor = 0;
         if(!empty($request->input('director_id'))){
@@ -45,7 +44,7 @@ class AdminController extends Controller
             $investor = User::select('email','name','last_name')->where('id',$request->input('investor_id'))->firstOrFail();
         }
 
-        return response()->json(['city' => $city, 'region' => $region, 'director' => $director, 'investor' => $investor], 202);
+        return response()->json(['city' => $city,  'director' => $director, 'investor' => $investor], 202);
     }
 
 }

@@ -14,13 +14,11 @@ class DirectorsCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return $this->resource->map(function ($item) {
             return [
-                'id' => $item->id,
-                'email' => $item->email,
-                'name' => $item->name,
-                'last_name' => $item->last_name,
+                'id' => $this->id,
+                'email' => $this->email,
+                'name' => $this->name,
+                'last_name' => $this->last_name,
             ];
-        });
     }
 }

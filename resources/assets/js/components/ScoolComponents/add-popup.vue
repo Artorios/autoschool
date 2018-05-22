@@ -233,7 +233,7 @@
                 }
                 this.$http.post('/api/admin/school-info', this.school).then(res => {
                     if (res.status === 202) {
-                        this.checkedRegion = res.data.region
+                        this.checkedRegion = res.data.city.region
                         this.checkedCity = res.data.city
                         this.checkedInvestor = res.data.investor
                         this.checkedDirector = res.data.director
