@@ -1,0 +1,133 @@
+.login {
+  .container {
+    .login-wrapper {
+      margin-top: 60px;
+      width: 650px;
+      .left {
+        display: inline-block;
+        width: 300px;
+        vertical-align: top;
+        h3 {
+          font-size: 28px;
+          margin-bottom: 15px;
+        }
+        span {
+          display: block;
+          text-align: center;
+          margin-top: 30px;
+          margin-bottom: 50px;
+        }
+        input {
+          width: 100%;
+          line-height: 55px;
+          height: 55px;
+          border-radius: 30px;
+          border: 1px solid #ccc;
+          text-align: center;
+          display: block;
+          margin: 15px 0;
+          font-size: 14px;
+          background: #fff;
+          color: #333;
+        }
+        .btn-red {
+          width: 100%;
+          margin-top: 0;
+        }
+        .link-wrapper {
+          width: 100%;
+          line-height: 55px;
+          height: 55px;
+          border-radius: 30px;
+          text-align: center;
+          display: block;
+          margin: 0;
+          font-size: 14px;
+          background: #fff;
+          color: #333;
+          a {
+            color: #000;
+            text-decoration: underline;
+          }
+        }
+      }
+      .right {
+        width: 300px;
+        display: inline-block;
+        float: right;
+        span {
+          margin-top: 77px;
+          display: block;
+          line-height: 28px;
+          text-align: center;
+        }
+        .socials {
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 102px;
+          a {
+            vertical-align: top;
+            width: 36px;
+            height: 35px;
+            display: inline-block;
+            margin: 5px;
+            &.facebook {
+              background: url("../img/socials-login.png") no-repeat;
+            }
+            &.vk {
+              background: url("../img/socials-login.png") no-repeat -51px 0;
+            }
+            &.ok {
+              background: url("../img/socials-login.png") no-repeat -103px 0;
+            }
+            &.twitter {
+              background: url("../img/socials-login.png") no-repeat -155px 0;
+            }
+            &.yandex {
+              background: url("../img/socials-login.png") no-repeat -207px 0;
+            }
+            &.mail {
+              background: url("../img/socials-login.png") no-repeat -258px 0;
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+
+/*----------------------------login--------------------------*/
+
+@media (max-width: 680px) {
+  .login {
+    padding-bottom: 150px;
+    .container {
+      .login-wrapper {
+        margin-top: 60px;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        .left {
+          max-width: 100%;
+        }
+        .right {
+          margin-top: 0;
+          max-width: 100%;
+          span {
+            margin-top: 10px;
+          }
+          .socials {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            a {
+              margin: 5px 4px;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
