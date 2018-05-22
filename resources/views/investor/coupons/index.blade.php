@@ -35,6 +35,9 @@
                         <div class="form-group">
                             <div class="search">
                                 <input type="text" placeholder="Введите что искать">
+                                <button class="search-button">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
                             </div>
                         </div>
                     </div>

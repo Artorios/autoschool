@@ -1,0 +1,187 @@
+.personal {
+  .img-profile {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    border: 2px solid #ccc;
+    line-height: 159px;
+    border-radius: 50%;
+    text-align: center;
+  }
+  .btn-grey {
+    width: 100%;
+  }
+  .date-examination {
+    padding: 30px 10px;
+    background-color: #ebebeb;
+  }
+  .block-info {
+    margin: 30px 0;
+    .info {
+      padding: 10px 0;
+      span.address {
+        font-size: 18px;
+      }
+      span.number {
+        font-size: 26px;
+        span {
+          font-weight: 600;
+        }
+      }
+      span.mail,
+      span.skype,
+      span.web {
+        font-size: 18px;
+        a {
+          color: black;
+        }
+      }
+      img {
+        margin-right: 20px;
+      }
+    }
+  }
+  .inner-block {
+    line-height: 55px;
+    .btn-grey {
+      width: 50%;
+    }
+  }
+  textarea {
+    background-color: white;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    color: black;
+    width: 100%;
+    &::placeholder {
+      color: black;
+    }
+  }
+}
+
+.inner-block-investor {
+  .row {
+    div, select {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+  }
+}
+
+.investor-coupons {
+  .bottom-form {
+    .text-info {
+      margin: 0;
+      line-height: 43px;
+      color: inherit;
+    }
+    .all {
+      margin: 0 15px;
+    }
+    .btn-grey {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+}
+
+.modal-coupons-cancel {
+  background-color: white;
+  position: relative;
+  padding: 30px;
+  textarea {
+    width: 100%;
+    border-radius: 30px;
+    height: 55px;
+    border: 1px solid #ccc;
+    padding: 15px;
+  }
+  .btn-grey {
+    margin: 0;
+    width: 100%;
+  }
+  .close {
+    position: absolute;
+    right: 15px;
+    top: 40px;
+    width: 30px;
+    height: 30px;
+    background: url("../img/x-active.png") no-repeat;
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+}
+
+.modal-coupons-delete {
+  background-color: white;
+  padding: 40px 20px;
+  position: relative;
+  .text {
+    margin: 20px 0 30px;
+    font-size: 18px;
+
+  }
+  .btn-grey {
+    margin: 0;
+  }
+  .btn-link {
+    color: black;
+    text-decoration: underline;
+    font-size: 18px;
+    line-height: 55px;
+  }
+  .btn-grey {
+    margin: 0;
+    width: 100%;
+  }
+  .close {
+    position: absolute;
+    right: 30px;
+    top: 15px;
+    width: 30px;
+    height: 30px;
+    background: url("../img/x-active.png") no-repeat;
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+/*==========Автошкола Personal===Driving School Personal======*/
+
+@media screen and(max-width: 768px) and(min-width: 320px) {
+  .modal-coupons-cancel{
+    background-color: white;
+    position: relative;
+    padding: 30px;
+    textarea {
+      width: 100%;
+      border-radius: 30px;
+      height: 75px;
+      border: 1px solid #ccc;
+      padding: 15px;
+    }
+    .btn-grey {
+      margin: 0 auto;
+      width: 50%;
+    }
+    .close {
+      position: absolute;
+      right: 2px;
+      top: 10px;
+      width: 30px;
+      height: 30px;
+      background: url("../img/x-active.png") no-repeat;
+      opacity: 0.4;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
