@@ -35,7 +35,7 @@
                                 <div class="form-group" v-if="checkedRegion">
                                     <label>Выберите город</label>
                                     <autocomplete
-                                            :url="'/api/address/get-cities-api/' + checkedRegion.id"
+                                            :url="'/api/address/get-cities-api/'+ checkedRegion.id"
                                             anchor="name"
                                             label="ru_path"
                                             ref="cityComplete"
@@ -222,9 +222,9 @@
         },
         created () {
             if(this.school){
+                this.data.contacts = []
                 this.data.title = this.school.title
                 this.data.description = this.school.description
-                this.data.contacts = []
                 this.data.city_id = this.school.city_id
                 this.data.director_id = this.school.director_id
                 this.data.investor_id = this.school.investor_id

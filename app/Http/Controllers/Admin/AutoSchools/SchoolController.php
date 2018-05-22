@@ -75,7 +75,7 @@ class SchoolController extends Controller
                 }
             }
         });
-        return response()->json(['status' => 1], 202);
+        return response('',202);
 
     }
 }
