@@ -15,10 +15,14 @@ class DirectorsCollection extends ResourceCollection
     public function toArray($request)
     {
             return [
-                'id' => $this->id,
-                'email' => $this->email,
-                'name' => $this->name,
-                'last_name' => $this->last_name,
+                'data' => $this->collection
             ];
+    }
+
+    public function withResponse($request)
+    {
+        $originalContent = $request->getOriginalContent();
+        unset($originalContent['links'],$originalContent['meta']);
+        $request->setData($originalContent);
     }
 }
