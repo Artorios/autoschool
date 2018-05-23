@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Models\Training\Exam\ExamQuestion;
 use App\Models\Training\Processing\Question;
 use App\Models\User\User;
+use App\Services\StatisticService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Training\Lesson\LessonsSettings;
@@ -14,18 +15,9 @@ use App\Models\Training\Processing\Answer;
 use Illuminate\Support\Facades\Validator;
 class ExamsController extends Controller
 {
-    public function index(){
+    public function index(StatisticService $statisticService){
         $user = Auth::user();
-
-        $this->data['exams'] = $user->exams()->paginate(8);
-        $this->data['correct_number'] = [];
-        $this->data['all_number'] = [];
-        foreach ($this->data['exams'] as $exam){
-            $this->data['correct_number'][$exam->id] = $exam->questions()->where(['correct' => '1'])->count();
-            $this->data['all_number'][$exam->id] = $exam->questions()->count();
-        }
-
-        return view('account.exams.index', $this->data);
+        return view('account.exams.index', $statisticService->exam($user));
     }
 
     public  function  testPage(){

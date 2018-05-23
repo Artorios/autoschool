@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Account\NotificationController;
+use App\Http\Requests\NewRegistrationStudent;
+use App\Http\Requests\Registration;
 use App\Mail\ConfirmEmail;
 use App\Models\User\Contract;
 use App\Models\User\Notification;
@@ -28,23 +30,9 @@ class RegistrationController extends Controller
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function registration(Request $request, Notification $notification, Mailer $mailer)
+    public function registration(NewRegistrationStudent $request, Notification $notification, Mailer $mailer)
     {
-        $validator = Validator::make($request->all(), [
-            'name'        => 'required|string|min:3',
-            'last_name'   => 'required|string|min:3',
-            'second_name' => 'string|min:3',
-            'email'       => 'required|email|unique:users,email',
-            'phone'       => 'required',
-            'password'    => 'required|string|min:6',
-            'city_id' 		  => 'required|exists:cities,id',
-            'license' => 'required|in:A,B,C'
-        ]);
-
-        if (count($validator->errors())) {
-            return response()->json(['registerErrors' => $validator->errors(), 'status' => 0], 400);
-        }
-
+        $request->validated();
         try {
             $data = $request->only([
                 'name',
@@ -61,6 +49,7 @@ class RegistrationController extends Controller
             $data['confirmation_code'] = str_random(30);
             $user                      = User::create($data);
             $full_name                 = $user->name . ' ' . $user->last_name;
+            $user['password_for_send_user_email'] = $data['password'];
 
             $contract = Contract::create([
                 'name' => generateContractNumber($user),
