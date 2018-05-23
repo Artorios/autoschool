@@ -24,7 +24,7 @@ class CreateCouponsTable extends Migration
             $table->date('activated_at')->nullable();
             $table->date('sale_date')->nullable();
             $table->integer('payment_amount')->unsigned()->nullable();
-            $table->integer('commision_amount');
+            $table->integer('fee_amount');
             $table->smallInteger('status')->comment('1-free; 2-sale;3-active;4-canceled')->default('1');
             $table->text('comment_investor')->nullable();
             $table->text('comment_director')->nullable();

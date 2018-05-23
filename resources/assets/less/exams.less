@@ -1,0 +1,212 @@
+.inner-main-content {
+  &.sidebar-narrow {
+    .container {
+      .exam {
+        .exam-wrapper {
+          .title {
+            .name {
+              width: 650px;
+            }
+          }
+          .line {
+            .name {
+              width: 690px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .container {
+    .exam {
+      .start {
+        color: #000;
+        border: none;
+        font-size: 15px;
+        width: 230px;
+        display: inline-block;
+        line-height: 40px;
+        height: 40px;
+        position: relative;
+        top: -5px;
+        margin-bottom: 20px;
+      }
+      .exam-wrapper {
+        .title {
+          .name {
+            display: inline-block;
+            width: 530px;
+          }
+          .result {
+            display: inline-block;
+            width: 113px;
+          }
+        }
+        .line {
+          padding: 0;
+          line-height: 100px;
+          .name {
+            width: 570px;
+            display: inline-block;
+            font-size: 14px;
+            .number {
+              position: static;
+              width: 35px;
+              text-align: center;
+              display: inline-block;
+            }
+            a {
+              font-weight: 600;
+              color: #000;
+              margin-left: 3px;
+              text-decoration: underline;
+              &:hover {
+                color: red;
+              }
+            }
+          }
+          .btn-grey {
+            margin-top: 0;
+            display: inline-block;
+            line-height: 40px;
+            height: 40px;
+            width: 105px;
+            float: right;
+            position: relative;
+            top: 28px;
+            margin-right: 5px;
+          }
+          .result {
+            display: inline-block;
+            width: 110px;
+            &.green {
+              color: green;
+            }
+            .refresh {
+              position: relative;
+              top: 3px;
+              left: 5px;
+              width: 15px;
+              height: 15px;
+              display: inline-block !important;
+              cursor: pointer;
+              background: url('../img/refresh.png') no-repeat;
+              &:hover {
+                background: url('../img/refresh-hover.png') no-repeat;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*-------------Экзамены---Exams-----------*/
+
+@media (max-width: 1199px) {
+  .inner-main-content {
+    &.sidebar-narrow {
+      .container {
+        .exam {
+          .exam-wrapper {
+            .title {
+              .name {
+                width: 460px;
+              }
+            }
+            .line {
+              .name {
+                width: 500px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .container {
+      .exam {
+        .exam-wrapper {
+          .title {
+            .name {
+              width: 340px;
+            }
+          }
+          .line {
+            .name {
+              width: 380px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .inner-main-content {
+    .container {
+      .exam {
+        .exam-wrapper {
+          .title {
+            .name {
+              width: 260px;
+            }
+          }
+          .line {
+            .name {
+              width: 300px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .inner-main-content {
+    .container {
+      .exam {
+        .start {
+          margin-top: 20px;
+        }
+        .exam-wrapper {
+          .title {
+            display: none;
+          }
+          .line {
+            line-height: normal;
+            padding-top: 15px;
+            position: relative;
+            .name {
+              display: block;
+              width: 100%;
+              margin-bottom: 15px;
+              .number {
+                text-align: left;
+                width: 30px;
+              }
+              a {
+                margin-left: 0;
+              }
+            }
+            .btn-grey {
+              float: none;
+              position: absolute;
+              bottom: 15px;
+              right: 15px;
+              top: auto;
+            }
+            .result,
+            .date {
+              display: block;
+              margin-left: 30px;
+              min-height: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

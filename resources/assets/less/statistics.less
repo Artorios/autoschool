@@ -1,0 +1,497 @@
+.inner-main-content {
+  &.sidebar-narrow {
+    .container {
+      .statistics {
+        .table-wrapper {
+          .title-line {
+            span {
+              &.name {
+                width: 307px;
+              }
+            }
+          }
+          .line {
+            .name {
+              width: 310px;
+            }
+          }
+          .hidden-statistics {
+            .try {
+              .number {
+                width: 440px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .container {
+    .statistics {
+      .table-wrapper {
+        .title-line {
+          line-height: 30px;
+          background: #ebebeb;
+          & > span {
+            display: inline-block;
+            color: #666;
+            &.number {
+              width: 30px;
+              text-align: center;
+            }
+            &.name {
+              width: 187px;
+            }
+            &.lesson {
+              width: 120px;
+            }
+            &.train {
+              width: 120px;
+            }
+            &.exam {
+              width: 120px;
+            }
+
+          }
+        }
+        .line {
+          line-height: 90px;
+          border-bottom: 1px solid #ccc;
+          & > div {
+            display: inline-block;
+          }
+          .number {
+            width: 30px;
+            font-size: 15px;
+            text-align: center;
+            span {
+              position: relative;
+              top: 1px;
+            }
+          }
+          .name {
+            width: 190px;
+
+            a {
+              color: #000;
+              font-size: 14px;
+              border-bottom: 1px solid #000;
+              &:hover {
+                color: red;
+                border-bottom: 1px solid red;
+              }
+            }
+          }
+          .lesson,
+          .train,
+          .exam,
+          .group-exam {
+            width: 120px;
+            line-height: 20px;
+            position: relative;
+            top: 25px;
+            vertical-align: top;
+            .mobile-title {
+              display: none;
+            }
+            span {
+              &.ready {
+                color: #339900;
+              }
+              &.refresh {
+                position: relative;
+                top: 2px;
+                left: 5px;
+                width: 15px;
+                height: 15px;
+                display: inline-block !important;
+                cursor: pointer;
+                background: url('../img/refresh.png') no-repeat;
+                &:hover {
+                  background: url('../img/refresh-hover.png') no-repeat;
+                }
+              }
+              &:last-child {
+                display: block;
+              }
+            }
+          }
+          .exam {
+            a {
+              display: inline-block;
+              color: #000;
+            }
+          }
+
+          .toggle {
+            outline: none !important;
+            cursor: pointer;
+            &:hover,
+            &:active,
+            &:focus {
+              outline: none;
+              -moz-user-select: none;
+              -khtml-user-select: none;
+              -webkit-user-select: none;
+              user-select: none;
+            }
+            .btn-grey {
+              margin-top: 0;
+              width: 195px;
+              line-height: 42px;
+              height: 45px;
+              position: relative;
+              top: -3px;
+            }
+          }
+        }
+        .hidden-statistics {
+          background: #ebebeb;
+          position: relative;
+          .try-wrapper {
+            padding: 25px 30px;
+          }
+          .close {
+            position: absolute;
+            right: 15px;
+            display: block;
+            width: 26px;
+            height: 26px;
+            top: 25px;
+            background: url("../img/x.png") no-repeat;
+            &:hover {
+              background: url("../img/x-active.png") no-repeat;
+            }
+          }
+          .try {
+            margin-bottom: 30px;
+            & > div {
+              display: inline-block;
+              vertical-align: top;
+            }
+            .number {
+              font-weight: 600;
+              width: 320px;
+              vertical-align: top;
+            }
+            .train,
+            .exam {
+              width: 115px;
+              margin-bottom: 15px;
+              & > span {
+                display: block;
+                font-size: 14px;
+                span:not(.without) {
+                  color: red;
+                  font-weight: 600;
+                }
+              }
+              a {
+                color: #666;
+                border-bottom: 1px solid #999;
+                margin-top: 10px;
+                display: inline-block;
+                font-size: 13px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*------Статистика---Statistics--------*/
+
+@media (max-width: 1199px) {
+  .inner-main-content {
+    &.sidebar-narrow {
+      .container {
+        .statistics {
+          .table-wrapper {
+            .title-line {
+              span {
+                &.name {
+                  width: 300px;
+                }
+              }
+            }
+            .line {
+              .name {
+                width: 305px;
+              }
+            }
+            .hidden-statistics {
+              .try {
+                .number {
+                  width: 395px;
+                }
+
+              }
+            }
+          }
+        }
+      }
+    }
+    .container {
+      .statistics {
+        .table-wrapper {
+          .title-line {
+            span {
+              font-size: 12px;
+              &.name {
+                width: 180px;
+              }
+              &.lesson {
+                width: 80px;
+              }
+              &.train {
+                width: 85px;
+              }
+              &.exam {
+                width: 75px;
+              }
+            }
+          }
+          .line {
+            font-size: 13px !important;
+            .name {
+              width: 185px;
+              line-height: 20px;
+              span {
+                font-size: 13px;
+                line-height: 25px;
+              }
+            }
+            .lesson,
+            .train {
+              width: 80px;
+            }
+            .exam {
+              width: 80px;
+            }
+            .group-exam {
+              width: 80px;
+            }
+            .toggle {
+              .btn-grey {
+                font-size: 13px;
+                width: 165px;
+              }
+            }
+          }
+          .hidden-statistics {
+            .try {
+              .number {
+                width: 275px;
+              }
+              .train,
+              .exam {
+                width: 80px;
+                span {
+                  font-size: 13px;
+                }
+                a {
+                  font-size: 12px;
+                  border-bottom: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .inner-main-content,
+  .inner-main-content.sidebar-narrow {
+    .container {
+      .statistics {
+        padding-lefT: 0;
+        .table-wrapper {
+          .title-line {
+            span {
+              &.number {
+                display: none;
+              }
+              &.name {
+                width: 165px;
+                padding-left: 5px;
+              }
+              &.lesson {
+                width: 85px;
+              }
+              &.train {
+                width: 100px;
+              }
+            }
+          }
+          .line {
+            .number {
+              display: none;
+            }
+            .name {
+              width: 165px;
+              padding-left: 5px;
+            }
+            .lesson,
+            .train {
+              width: 90px;
+            }
+            .train {
+              width: 100px;
+            }
+            .toggle {
+              .btn-grey {
+                width: 100px;
+                line-height: 17px;
+                padding-top: 6px;
+                top: 5px;
+              }
+            }
+          }
+          .hidden-statistics {
+            .try {
+              .number {
+                width: 230px;
+              }
+              .train,
+              .exam {
+                width: 100px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .inner-main-content {
+    .container {
+      .statistics {
+        .table-wrapper {
+          .title-line {
+            display: none;
+          }
+          .line {
+            line-height: normal;
+            height: auto;
+            border: none;
+            padding: 0 20px;
+            .number {
+              text-align: left;
+              width: 20px;
+            }
+            .name {
+              width: 85%;
+              display: inline-block;
+              margin-bottom: 15px;
+            }
+            .lesson,
+            .train,
+            .exam,
+            .group-exam {
+              position: static;
+              width: 24% !important;
+              float: left;
+              .mobile-title {
+                display: block;
+                color: #999;
+                margin-bottom: 10px;
+              }
+            }
+            .toggle {
+              display: block;
+              margin: 100px 0 20px;
+              .btn-grey {
+                width: 100%;
+                line-height: 40px;
+                padding-top: 0px;
+                top: 0px;
+              }
+            }
+          }
+          .hidden-statistics {
+            .try-wrapper {
+              padding-bottom: 10px;
+            }
+            .try {
+              .number {
+                display: block;
+                width: 100%;
+                margin-bottom: 10px;
+              }
+              .train,
+              .exam {
+                width: 100px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .inner-main-content {
+    .container {
+      .statistics {
+        .table-wrapper {
+          .line {
+            .number {
+              display: inline-block;
+            }
+            .name {
+              padding: 0;
+            }
+            .lesson,
+            .train,
+            .exam,
+            .group-exam {
+              position: static;
+              width: 44% !important;
+              float: left;
+              margin-bottom: 15px;
+              .mobile-title {
+                display: block;
+                color: #999;
+                margin-bottom: 10px;
+              }
+            }
+            .toggle {
+              display: block;
+              margin: 170px 0 20px;
+              .btn-grey {
+                width: 100%;
+                line-height: 40px;
+                padding-top: 0px;
+                top: 0px;
+              }
+            }
+          }
+          .hidden-statistics {
+            .try-wrapper {
+              padding-bottom: 10px;
+            }
+            .try {
+              .number {
+                display: block;
+                width: 100%;
+                margin-bottom: 10px;
+              }
+              .train,
+              .exam {
+                width: 100px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

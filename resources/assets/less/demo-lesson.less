@@ -1,0 +1,76 @@
+.inner-main-content {
+  .container {
+    .demo-lesson {
+      padding-bottom: 20px;
+      & > h4 {
+        font-size: 24px;
+      }
+      .video-wrapper {
+        width: 100%;
+        max-width: 650px;
+        margin: 20px 0;
+        img {
+          width: 100%;
+        }
+      }
+      .btn-wrapper {
+        max-width: 285px;
+        margin: 25px 0;
+        position: relative;
+        .btn-grey {
+          width: 135px;
+          display: inline-block;
+          line-height: 43px;
+          height: 45px;
+          margin: 0;
+          &:last-child {
+            float: right;
+          }
+        }
+        &.disabled {
+          &:after {
+            width: 100%;
+            height: 100%;
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 100;
+          }
+          .btn-grey {
+            background: #fff;
+            border: 1px solid #ccc;
+            color: #999;
+          }
+        }
+      }
+    }
+  }
+}
+/*------демо урок----demo lesson-------*/
+
+@media (max-width: 768px) {
+  .inner-main-content {
+    .container {
+      .demo-lesson {
+        & > span {
+          padding: 0 20px;
+        }
+        & > h4 {
+          padding: 0 20px;
+        }
+        .video-wrapper {
+          max-width: none;
+        }
+        .btn-wrapper {
+          margin-left: 20px;
+          max-width: 260px;
+          .btn-grey {
+            width: 125px;
+          }
+        }
+      }
+    }
+  }
+}

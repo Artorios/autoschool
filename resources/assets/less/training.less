@@ -1,0 +1,218 @@
+.inner-main-content {
+  .container {
+    .training {
+      & > h4 {
+        font-size: 24px;
+      }
+      .ex-title {
+        font-size: 20px;
+      }
+      .slick-wrapper {
+        padding: 0 20px;
+        margin: 30px 0;
+        .slick-training {
+          .slick-prev {
+            width: 20px;
+            height: 32px;
+            display: inline-block;
+            background: url('../img/left.png') no-repeat;
+            opacity: 0.5;
+            left: -20px;
+            &:after,
+            &:before {
+              display: none;
+            }
+            &:hover {
+              opacity: 1;
+              transition: 0.3s;
+            }
+          }
+          .slick-next {
+            right: -30px;
+            width: 20px;
+            height: 32px;
+            display: inline-block;
+            background: url('../img/right.png') no-repeat;
+            opacity: 0.5;
+            &:after,
+            &:before {
+              display: none;
+            }
+            &:hover {
+              opacity: 1;
+              transition: 0.3s;
+            }
+          }
+          .slide {
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+            outline: none;
+            text-align: center;
+            &.active {
+              a {
+                opacity: 1 !important;
+              }
+            }
+            &.wrong {
+              a {
+                color: red;
+                border-color: red;
+              }
+            }
+            &.right {
+              a {
+                color: green;
+                border-color: green;
+              }
+            }
+            a {
+              opacity: 0.3;
+              width: 45px;
+              height: 45px;
+              display: inline-block;
+              line-height: 40px;
+              text-align: center;
+              border-radius: 50%;
+              border: 2px solid #999;
+              font-size: 20px;
+              margin: 0 auto;
+              color: #999;
+            }
+          }
+        }
+      }
+      .info-block {
+        background: #ebebeb;
+        padding: 20px 30px;
+        min-height: 90px;
+        margin-bottom: 30px;
+        & > span {
+          display: inline-block;
+          padding-top: 25px;
+          span {
+            display: inline-block;
+            margin: 0 5px
+          }
+
+        }
+        .timer-wrapper {
+          display: inline-block;
+          float: right;
+          position: relative;
+          top: -10px;
+          & > span {
+            display: inline-block;
+            width: 70px;
+            color: #333;
+            line-height: 17px;
+            margin-right: 10px;
+          }
+          .timer {
+            display: inline-block;
+            font-size: 48px;
+            font-weight: 300;
+            span {
+              &:after {
+                content: ":";
+                display: inline-block;
+                position: relative;
+                left: 5px;
+                top: -3px;
+              }
+              &:last-child {
+                &:after {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+      .img {
+        margin-bottom: 25px;
+      }
+      .comment {
+        &.green {
+          border-color: #cbe5c3;
+        }
+      }
+      .btn-wrapper {
+        margin-top: 30px;
+        .btn-grey {
+          display: inline-block;
+          width: 100%;
+          max-width: 150px;
+          line-height: 45px;
+          height: 45px;
+          margin: 0 10px;
+          &:last-child {
+            float: right;
+          }
+        }
+      }
+    }
+  }
+}
+/*--------тренировка-----training------*/
+
+@media (max-width: 767px) {
+  .inner-main-content {
+    .container {
+      .training {
+        .slick-wrapper {
+          margin-left: 20px;
+        }
+        .img {
+          padding: 0 20px;
+          img {
+            max-width: 350px;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .inner-main-content {
+    .container {
+      .training {
+        .info-block {
+          padding: 20px;
+          margin-bottom: 20px;
+          & > span {
+            display: block;
+            position: static;
+            padding: 0;
+            margin-bottom: 15px;
+          }
+          .timer-wrapper {
+            float: none;
+            & > span {
+              width: 60px;
+            }
+            .timer {
+              span {
+                font-size: 40px;
+              }
+            }
+          }
+        }
+        .img {
+          margin-bottom: 0;
+        }
+        h5 {
+          font-size: 17px;
+        }
+        .btn-wrapper {
+          .btn-grey {
+            max-width: 130px;
+          }
+        }
+      }
+    }
+  }
+}

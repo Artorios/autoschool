@@ -1,0 +1,252 @@
+.inner-main-content {
+  &.sidebar-narrow {
+    .container {
+      .finance {
+        .finance-wrapper {
+          .title-line,
+          .line {
+            .number {
+              width: 450px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .container {
+    .finance {
+      .finance-wrapper {
+        margin-bottom: 30px;
+        .title-line {
+          background: #ebebeb;
+          height: 30px;
+          line-height: 30px;
+          color: #666;
+          padding: 0 10px;
+          span {
+            display: inline-block;
+          }
+          .number {
+            width: 330px;
+          }
+          .date {
+            width: 180px;
+          }
+          .price {
+            width: 200px;
+          }
+        }
+        .line {
+          padding: 0 10px;
+          border-bottom: 1px solid #ccc;
+          & > div {
+            display: inline-block;
+            height: 75px;
+            line-height: 75px;
+            .mobile-name {
+              display: none;
+            }
+            &.number {
+              width: 330px;
+              a {
+                color: #000;
+                text-decoration: underline;
+              }
+
+            }
+            &.date {
+              width: 180px;
+            }
+            &.price {
+              width: 200px;
+              font-size: 16px;
+            }
+            &.total-price {
+              font-weight: 700;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+      .payment {
+        padding-left: 10px;
+        h5 {
+          font-size: 20px;
+          margin-bottom: 15px;
+        }
+        label {
+          color: #000;
+
+        }
+        .coupon {
+          padding-left: 35px;
+          margin: 20px 0px;
+          input {
+            height: 55px;
+            line-height: 55px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            width: 310px;
+            margin-left: 10px;
+            padding: 0 15px;
+          }
+        }
+        .btn-grey {
+          max-width: 300px;
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+/*-------------Финансы----Finance----------*/
+
+@media (max-width: 1199px) {
+  .inner-main-content {
+    &.sidebar-narrow {
+      .container {
+        .finance {
+          .finance-wrapper {
+            .title-line,
+            .line {
+              .number {
+                width: 370px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .container {
+      .finance {
+        .finance-wrapper {
+          .title-line {
+            .number {
+              width: 250px;
+            }
+            .date {
+              width: 140px;
+            }
+            .price {
+              width: 140px;
+            }
+          }
+          .line {
+            & > div {
+              &.number {
+                width: 250px;
+              }
+              &.date {
+                width: 140px;
+              }
+              &.price {
+                width: 140px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .inner-main-content {
+    .container {
+      .finance {
+        .finance-wrapper {
+          .title-line {
+            .number {
+              width: 160px;
+            }
+            .date {
+              width: 120px;
+            }
+            .price {
+              width: 160px;
+            }
+          }
+          .line {
+            & > div {
+              &.number {
+                width: 160px;
+              }
+              &.date {
+                width: 120px;
+              }
+              &.price {
+                width: 160px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .inner-main-content {
+    .container {
+      .finance {
+        .finance-wrapper {
+          margin-bottom: 30px;
+          .title-line {
+            display: none;
+          }
+          .line {
+            padding: 0 0 15px;
+            margin: 0 20px;
+            & > div {
+              display: block;
+              height: 35px;
+              line-height: 35px;
+              width: 100% !important;
+              .mobile-name {
+                display: inline-block;
+                color: #666666;
+                min-width: 150px;
+                font-size: 13px !important;
+                font-weight: 400;
+
+              }
+            }
+          }
+        }
+        .payment {
+          padding-left: 10px;
+          h5 {
+            font-size: 20px;
+            margin-bottom: 15px;
+          }
+          label {
+            color: #000;
+
+          }
+          .coupon {
+            padding-left: 0px;
+            margin: 20px 0px;
+            span {
+              padding-left: 35px;
+            }
+            input {
+              display: block;
+              max-width: 90%;
+              margin-top: 20px;
+
+            }
+          }
+          .btn-grey {
+            width: 315px;
+            max-width: 85%;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-left: 10px;
+            margin-top: 15px;
+          }
+        }
+      }
+    }
+  }
+}
