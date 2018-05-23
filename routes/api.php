@@ -30,3 +30,11 @@ Route::group(['prefix' => 'address'], function () {
 });
 
 Route::post('/get-prices', 'AddressController@prices');
+Route::group(['namespace' => 'Admin'], function () {
+
+    Route::post('/get-investors', 'AdminController@getInvestors');
+    Route::post('/get-directors', 'AdminController@getDirectors');
+    Route::get('/get-investors-api', 'AdminController@getInvestorsApi');
+    Route::get('/get-directors-api', 'AdminController@getDirectorsApi');
+    Route::post('/admin/school-info', 'AdminController@getSchoolData');
+});
