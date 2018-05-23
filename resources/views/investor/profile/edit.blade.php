@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <h3>{{ $profile->short_company_name }}</h3>
+{{--                    <h3>{{ $profile->short_company_name }}</h3>--}}
                     <div>
                         <a href="{{ route('logout') }}" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
                     </div>
