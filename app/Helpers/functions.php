@@ -24,7 +24,7 @@ function all_sum($user_id){
     $schools_id = array_map(function ($school) {
         return $school['id'];
     }, $schools);
-    $summ = Coupon::whereIn('auto_school_id', $schools_id)->where('status', 3)->sum('payment_amount');
+    $summ = Coupon::whereIn('auto_school_id', $schools_id)->whereIn('status', [2, 3])->sum('payment_amount');
 
     return $summ;
 
