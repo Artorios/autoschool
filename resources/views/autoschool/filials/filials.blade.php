@@ -42,7 +42,7 @@
                             <span class="visible-sm hidden-xs visible-lg visible-md">{{$filial->count_student}}</span>
                         </div>
                         <div class="kupons">
-                            <span>24/ 34 / 50</span>
+                            <span>{{$filial->coupons_active}}/ {{$filial->coupons_passive}} / {{$filial->coupons_active + $filial->coupons_passive}}</span>
                         </div>
                     </div>
                 @endforeach
@@ -58,7 +58,9 @@
                 </li>
             </ul>
             {{--{{dd($autoschool)}}--}}
+            @if(!empty($autoschool))
             <button-add-filial :autoschool="{{json_encode($autoschool)}}"></button-add-filial>
+                @endif
         </div>
     </div>
 

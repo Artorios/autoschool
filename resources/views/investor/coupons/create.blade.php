@@ -30,7 +30,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="commision_amount" placeholder="Сумма комисии" required>
+                        <input type="text" name="fee_amount" placeholder="Сумма комисии" required>
                     </div>
                 </div>
                 <div class="col-md-6">

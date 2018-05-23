@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </div>
-            <div class="requsites">
+            <div class="requsites clearfix">
                 <div class="radio-button">
                     <input type="radio" name="address-type" id="address-type-1" value="addressType1" v-model="tab">
                     <label for="address-type-1">Реквизиты юр. лица</label>

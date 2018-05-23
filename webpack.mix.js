@@ -16,10 +16,11 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/account.js', 'public/js/account.js')
     .js('resources/assets/js/autoschool.js', 'public/js/autoschool.js')
     .js('resources/assets/js/investor.js', 'public/js/investor.js')
-    .less('resources/assets/less/style.less', 'public/css');
 
 mix.copy('resources/assets/public/selectric.css', 'public/css')
     .copy('resources/assets/public/slick.css', 'public/css')
     .copy('resources/assets/public/slick-theme.css', 'public/css')
     .copy('resources/assets/public/AdminLTE.min.css', 'public/css')
     .copy('resources/assets/public/skins/_all-skins.min.css', 'public/css/skins');
+
+mix.less('resources/assets/less/app.less', 'public/css/app.min.css');

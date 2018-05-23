@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="requsites">
+            <div class="requsites clearfix">
                 <div class="radio-button">
                     <input type="radio" name="address-type" id="address-type-1">
                     <label for="address-type-1">Реквизиты юр. лица</label>
@@ -50,8 +50,8 @@
             </div>
         </div>
         <div class="details">
-            <h3>Реквизиты юр. лица:</h3>
             <form>
+                <h3>Реквизиты юр. лица:</h3>
                 <div class="form-group">
                     <label>ИНН:</label>
                     <input type="text" placeholder="*****">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\UserActions;
 
+use App\Models\Training\School\AutoSchool;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,8 +23,8 @@ class UserController extends Controller
     {
         $per_page = 20;
         $users    = User::paginate($per_page);
-
-        return view('admin.user.index', compact('users'));
+        $schools  = AutoSchool::whereIn('director_id', [0, null, ''])->get();
+        return view('admin.user.index', compact('users', 'schools'));
     }
 
     /**
@@ -66,7 +67,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name'        => 'required|string|min:3',
             'email'       => 'required|email|unique:users,email',
-            'role'        => Rule::in([ 'admin', 'moderator', 'user' ]),
+            'role'        => Rule::in([ 'admin', 'autoschool','investor', 'user' ]),
             'last_name'   => 'required|string',
             'second_name' => 'required|string',
             'phone'       => 'required|string',
