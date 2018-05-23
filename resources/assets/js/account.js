@@ -26,6 +26,8 @@ import ExamAnalysis from './AccountComponents/ExamsComponents/analysis-exam.vue'
 import PaymentVariants from './AccountComponents/FinanceComponents/payment-variants'
 import TicketsAnalysis from './AccountComponents/TicketsComponents/tickets-analysis.vue'
 import ProfilePhoto from './components/UserComponent/profile-photo'
+import DemoLessonVue from './AccountComponents/LessonComponents/demo-lesson.vue'
+
 // import VideoYoutube from 'video '
 require('videojs-youtube/dist/Youtube.min.js')
 require('video.js/dist/video-js.css')
@@ -73,5 +75,6 @@ const app = new Vue({
         ExamAnalysis,
         TicketsAnalysis,
         ProfilePhoto,
+        DemoLessonVue
     }
 });

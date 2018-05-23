@@ -95,7 +95,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         Route::post('card-payment', 'OrderController@cardPayment')->name('account.finance.cardpayment');
     });
 
-    Route::get('/lessons', 'LessonController@index')->name('user.lessons');
     Route::get('/get-count-lessons', 'LessonController@getCountLesson');
     Route::get('/get-count-school-exam', 'LessonController@getCountSchoolExam');
 
@@ -108,13 +107,10 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
             return view('account.lessons.group-banned');
         });
 
-        Route::get('/{lesson}', 'LessonController@show')->name('user.lessons.demo');
-
         /*
          * Other training for lesson
          */
-        Route::get('/training/{lesson}', 'UserLessonController@training')->middleware('training');
-        Route::get('/exam/{lesson}', 'UserLessonController@getExam')->middleware(['training', 'exam']);
+
         Route::get('/group-exam/{lesson}', 'UserLessonController@getGroupExam')->middleware(['training', 'exam', 'group-exam']);
 
         Route::group(['prefix' => 'training/{training}'], function () {
@@ -149,8 +145,13 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         Route::post('/test/{training}/send-answer', 'ExamsController@checkAnswerExam');
     });
 });
+Route::get('/account/lessons/{lesson}', 'Account\LessonController@show');
 
 Route::get('/account/finance', 'Account\FinanceController@index')->middleware('auth')->name('user.finance');
+Route::get('/account/lessons', 'Account\LessonController@index')->middleware('auth')->name('user.lessons');
+Route::get('/account/lessons/training/{lesson}', 'Account\UserLessonController@training')->middleware('training');
+Route::get('/account/lessons/exam/{lesson}', 'Account\UserLessonController@getExam')->middleware(['training', 'exam']);
+
 Route::post('get-price', 'Site\PriceController@getPrice');
 Route::post('cupon-payment', 'Account\OrderController@cuponPayment')->name('account.finance.cuponPayment');
 Route::get('/schools', 'Site\SchoolsController@getSchools');
