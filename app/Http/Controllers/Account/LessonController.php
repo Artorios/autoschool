@@ -342,4 +342,11 @@ class LessonController extends Controller
 
         return response()->json(['lessons' => $lessons], 200);
     }
+
+    public function showDemoLesson(Lesson $lesson)
+    {
+        $lesson = \LessonRules::checkRules($lesson);
+
+        return view('account.lessons.single', compact('lesson'));
+    }
 }

@@ -89,7 +89,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
 
         return response()->json(['user' => $user]);
     });
-
     Route::group(['prefix' => 'finance'], function () {
         Route::post('get-variants', 'FinanceController@getVariants')->name('account.finance.getvariants');
         Route::post('card-payment', 'OrderController@cardPayment')->name('account.finance.cardpayment');
@@ -99,6 +98,8 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::get('/get-count-school-exam', 'LessonController@getCountSchoolExam');
 
     Route::group(['prefix' => 'lessons'], function () {
+        Route::get('{lesson}', 'LessonController@show');
+
         Route::get('/exam/banned', function () {
             return view('account.lessons.banned');
         });
@@ -110,7 +111,8 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         /*
          * Other training for lesson
          */
-
+        Route::get('/training/{lesson}', 'UserLessonController@training')->middleware('training');
+        Route::get('/exam/{lesson}', 'UserLessonController@getExam')->middleware(['training', 'exam']);
         Route::get('/group-exam/{lesson}', 'UserLessonController@getGroupExam')->middleware(['training', 'exam', 'group-exam']);
 
         Route::group(['prefix' => 'training/{training}'], function () {
@@ -145,12 +147,9 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         Route::post('/test/{training}/send-answer', 'ExamsController@checkAnswerExam');
     });
 });
-Route::get('/account/lessons/{lesson}', 'Account\LessonController@show');
 
 Route::get('/account/finance', 'Account\FinanceController@index')->middleware('auth')->name('user.finance');
 Route::get('/account/lessons', 'Account\LessonController@index')->middleware('auth')->name('user.lessons');
-Route::get('/account/lessons/training/{lesson}', 'Account\UserLessonController@training')->middleware('training');
-Route::get('/account/lessons/exam/{lesson}', 'Account\UserLessonController@getExam')->middleware(['training', 'exam']);
 
 Route::post('get-price', 'Site\PriceController@getPrice');
 Route::post('cupon-payment', 'Account\OrderController@cuponPayment')->name('account.finance.cuponPayment');
@@ -168,3 +167,7 @@ require __DIR__ . '/autoschool/web.php';
 require __DIR__ . '/investor/web.php';
 
 Route::get('storage/{filename}', 'Autoschool\AutoschoolController@getProfileLogo');
+
+Route::get('/account/lessons/demo/training/{lesson}', 'Account\UserLessonController@training');
+Route::get('/account/lessons/demo/{lesson}', 'Account\LessonController@showDemoLesson');
+Route::get('/account/lessons/demo/exam/{lesson}', 'Account\UserLessonController@getExam');
