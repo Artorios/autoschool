@@ -44,16 +44,25 @@
                     </div>
                 </div>
                 <div class="right">
-                    <a href="{{route('autoschool.edit')}}"  class="student-info">
-                        <div class="img">
-                            <img src="/img/profile-photo.png" alt="">
-                        </div>
-                        @if(!empty(Auth::user()->autoschool))
-                            <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->title}}
-                                <i class="fa fa-angle-down" aria-hidden="true"></i>
-                            </h3>
-                        @endif
-                        <span>Комиссия 10 000 руб.</span>
+                    <a href="{{route('autoschool.edit')}}" class="student-info">
+
+                            @php($logo = \App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->logo)
+                            @if($logo)
+                            <div class="img">
+                                <img src="{{asset("storage/school/" . $logo )}}" alt="">
+                            </div>
+                            @else
+                                <div class="img">
+                                    <img src="/img/profile-photo.png" alt="">
+                                </div>
+                            @endif
+                            @if(!empty(Auth::user()->autoschool))
+                                <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->title}}
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </h3>
+                            @endif
+                            <span>Комиссия {{all_sum(Auth::user()->id)}} руб.</span>
+
                     </a>
                     <a href="{{route('autoschool.notify')}}" class="notes">
                         <i class="fa fa-bell-o" aria-hidden="true"></i>

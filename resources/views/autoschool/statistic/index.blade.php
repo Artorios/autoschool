@@ -1,4 +1,4 @@
-@extends('layouts.account')
+@extends('layouts.autoschool')
 
 @section('content')
         <div class="content error statistics">
@@ -24,10 +24,11 @@
                                                                :alldata="{{json_encode($returnResult)}}"></statistic-vue>
                                         @endif
                                 @else
+                                   <h2>Еще не пройдено ни одного зачета</h2>
                                 @endif
                         </div>
 
                 </div>
         </div>
 
-    @endsection
+@endsection

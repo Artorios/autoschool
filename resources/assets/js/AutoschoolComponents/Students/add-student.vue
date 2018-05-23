@@ -19,11 +19,6 @@
                         <input type="text"  class="form-control" placeholder="Отчество" v-model="data.second_name" v-bind:class="{ 'input-error': errors.second_name}">
                     </div>
                     <div class="form-group">
-                    <p class="error" v-if="errors.password">Пароль быть минимум 3 символа</p>
-                    <input type="password"  class="form-control" placeholder="Пароль" v-model="data.password" v-bind:class="{ 'input-error': errors.password}">
-                </div>
-
-                    <div class="form-group">
                         <p class="error" v-if="errors.email">Не правильный email</p>
                         <input type="text"  class="form-control" placeholder="Электронная почта*" v-model="data.email" v-bind:class="{ 'input-error': errors.email}">
                     </div>
@@ -83,7 +78,6 @@
                     second_name: '',
                     email: '',
                     phone: '',
-                    password: '',
                     coupon: '',
                     auto_school_group_id: '',
                     license: '',
@@ -94,7 +88,6 @@
                     last_name: false,
                     second_name: false,
                     email: false,
-                    password: false,
                     phone: false,
                     coupon: false,
                     auto_school_group_id: false,
@@ -160,9 +153,9 @@
                         location.href = '/autoschool/filials/groups/' + res.data.group
                     }
                 }, err => {
-                    if (+err.status === 400) {
+                    if (+err.status === 422) {
                         this.serverError = true
-                        this.registerErrors = err.data['registerErrors']
+                        this.registerErrors = err.data['errors']
                     }
                 })
             },
@@ -184,13 +177,6 @@
                             }
                             break
                         case 'second_name':
-                            if (!this.data[key] || this.data[key].length < 3) {
-                                this.errors[key] = true
-                            } else {
-                                this.errors[key] = false
-                            }
-                            break
-                        case 'password':
                             if (!this.data[key] || this.data[key].length < 3) {
                                 this.errors[key] = true
                             } else {
