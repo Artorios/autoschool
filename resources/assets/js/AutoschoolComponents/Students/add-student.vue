@@ -153,9 +153,9 @@
                         location.href = '/autoschool/filials/groups/' + res.data.group
                     }
                 }, err => {
-                    if (+err.status === 400) {
+                    if (+err.status === 422) {
                         this.serverError = true
-                        this.registerErrors = err.data['registerErrors']
+                        this.registerErrors = err.data['errors']
                     }
                 })
             },
