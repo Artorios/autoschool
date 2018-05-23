@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Autoschool;
 
+use App\Http\Requests\NewStudent;
 use App\Mail\ConfirmEmail;
 use App\Models\Finance\Coupon;
 use App\Models\Location\City;
@@ -79,22 +80,9 @@ class StudentController extends Controller
         return view('autoschool.filials.add-student', compact('autoschool', 'coupons', 'cities'));
     }
 
-    public function saveNewStudent(Request $request, Mailer $mailer)
+    public function saveNewStudent(NewStudent $request, Mailer $mailer)
     {
-        $validator = Validator::make($request->all(), [
-            'name'        => 'required|string|min:3',
-            'last_name'   => 'required|string|min:3',
-            'second_name' => 'string|min:3',
-            'email'       => 'required|email|unique:users,email',
-            'phone'       => 'required',
-            'coupon' 		  => 'required|exists:coupons,id',
-            'auto_school_group_id' 		  => 'required|exists:auto_school_groups,id',
-            'city_id' 		  => 'required|exists:cities,id',
-        ]);
-
-        if (count($validator->errors())) {
-            return response()->json(['registerErrors' => $validator->errors(), 'status' => 0], 400);
-        }
+        $request->validated();
 
         $data = $request->only([
             'name',
