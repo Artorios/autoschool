@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Investor;
 
+use App\Transformers\CouponTransformer;
 use DB;
 use Auth;
 use Carbon\Carbon;
@@ -20,6 +21,15 @@ class CouponsController extends Controller
                 ->with('autoSchool.city', 'group', 'student')
                 ->get(),
         ]);
+    }
+
+    public function list()
+    {
+        $couppons = Coupon::where('investor_id', Auth::id())->get();
+        return fractal($couppons, new CouponTransformer())->respond();
+//        return Coupon::where('investor_id', Auth::id())
+//            ->with('autoSchool.city', 'group', 'student')
+//            ->get();
     }
 
     public function create()
@@ -41,7 +51,7 @@ class CouponsController extends Controller
             Coupon::create([
                 'investor_id' => $investor_id,
                 'auto_school_id' => $auto_school_id,
-                'code' => "$auto_school_id-".strtolower(str_random(7)),
+                'code' => "$auto_school_id-" . strtolower(str_random(7)),
                 'commision_amount' => $commision_amount,
             ]);
         }

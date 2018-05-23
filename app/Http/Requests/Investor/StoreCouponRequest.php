@@ -14,6 +14,7 @@ class StoreCouponRequest extends FormRequest
      */
     public function authorize()
     {
+        return true;
         return $this->user()->id == AutoSchool::find($this->auto_school)->investor_id;
     }
 
