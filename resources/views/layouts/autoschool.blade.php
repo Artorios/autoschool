@@ -57,7 +57,7 @@
                             @if(!empty(Auth::user()->autoschool))
                                 <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->title}}<img src="/img/arrow-down.png"></h3>
                             @endif
-                            <span>Комиссия 10 000 руб.</span>
+                            <span>Комиссия {{all_sum(Auth::user()->id)}} руб.</span>
                         </div>
                     </a>
                     <a href="{{route('autoschool.notify')}}" class="notes">

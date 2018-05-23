@@ -42,7 +42,7 @@
                             <span class="visible-sm hidden-xs visible-lg visible-md">{{$filial->count_student}}</span>
                         </div>
                         <div class="kupons">
-                            <span>24/ 34 / 50</span>
+                            <span>{{$filial->coupons_active}}/ {{$filial->coupons_passive}} / {{$filial->coupons_active + $filial->coupons_passive}}</span>
                         </div>
                     </div>
                 @endforeach
