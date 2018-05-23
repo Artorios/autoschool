@@ -96,7 +96,10 @@
                 this.showEditPopup = false
                 this.checkedSchool = null
             },
-            showEdit () {},
+            showEdit (school) {
+                this.showEditPopup = true
+                this.checkedSchool = school
+            },
             showCreate () {
                 this.showEditPopup = true
                 this.checkedSchool = null

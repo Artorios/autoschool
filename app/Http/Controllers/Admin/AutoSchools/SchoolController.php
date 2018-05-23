@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\Admin\AutoSchools;
 
-use App\Models\Training\School\AutoSchool;
+use App\Http\Requests\{CreateAutoSchoolAdmin,UpdateAutoSchoolAdmin};
+use App\Http\Requests\UpdateAutoSchoolAdminContacts;
+use App\Models\Location\City;
+use App\Models\Training\School\{
+    AutoSchool, AutoSchoolContact
+};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Psy\Exception\ErrorException;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class SchoolController
@@ -21,39 +27,55 @@ class SchoolController extends Controller
     public function listSchools()
     {
         $per_page = 20;
-        $schools  = AutoSchool::with('contacts')->paginate($per_page);
+        $schools = AutoSchool::with('contacts')->paginate($per_page);
 
         return view('admin.school.index', compact('schools'));
     }
 
     /**
-     * @param Request $request
+     * @param CreateAutoSchoolAdmin $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function create(CreateAutoSchoolAdmin $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title'            => 'required|string|min:6',
-            'description'      => 'required|string|min:6',
-            'contacts'         => 'required|array',
-            'contacts.*.type'  => ['required', Rule::in(['phone', 'address'])],
-            'contacts.*.value' => 'required|string|min:3',
-            'city_id'          => 'required|integer|exists:cities,id',
-        ]);
 
-        if (count($validator->errors())) {
-            return response()->json(['status' => 0, 'errors' => $validator->errors()], 400);
-        }
+        DB::transaction(function () use ($request) {
+            $school = AutoSchool::create($request->validated());
+            $city = City::where('id', $request->validated()['city_id'])->update(['show_city' => 1]);
+            $school->contacts()->createMany($request->validated()['contacts']);
 
-        try {
-            $school = AutoSchool::create($request->only(['title', 'description', 'city_id']));
+        });
+        return response()->json(['status' => 1], 201);
+    }
 
-            $school->contacts()->createMany($request->input('contacts'));
+    /**
+     * @param UpdateAutoSchoolAdmin $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateAutoSchoolAdmin $request, UpdateAutoSchoolAdminContacts $adminContacts, $id)
+    {
 
-            return response()->json(['status' => 1], 201);
-        } catch (ErrorException $e) {
-            return response()->json(['status' => 0], 400);
-        }
+
+
+        DB::transaction(function () use ($request,$adminContacts, $id) {
+            $city = AutoSchool::where('id', $id)->firstOrFail()->city_id;
+            if ($city != $request->validated()['city_id']) {
+                City::where('id', $city)->update(['show_city' => 0]);
+                City::where('id', $request->input('city_id'))->update(['show_city' => 1]);
+            }
+            $school = AutoSchool::where('id', $id)->update($request->validated());
+            foreach ($adminContacts->validated()['contacts'] as $item) {
+                if (!empty($item['id'])) {
+                    AutoSchoolContact::where('id', $item['id'])->update(['type' => $item['type'], 'value' => $item['value'], 'auto_school_id' => $id]);
+                } else {
+                    AutoSchoolContact::create(['type' => $item['type'], 'value' => $item['value'], 'auto_school_id' => $id]);
+
+                }
+            }
+        });
+        return response('',202);
+
     }
 }
