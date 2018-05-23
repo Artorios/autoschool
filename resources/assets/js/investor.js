@@ -11,6 +11,7 @@ import SchoolsList from './InvestorComponents/Main/schools-list';
 import Statistic from './InvestorComponents/Main/statistic';
 import HistoryList from './InvestorComponents/Main/history-list';
 import CouponList from './InvestorComponents/Main/coupon-list';
+import FinanceList from './InvestorComponents/Main/finance-list';
 const VueInputMask = require('vue-inputmask').default;
 
 
@@ -37,5 +38,6 @@ const app = new Vue({
         Statistic,
         HistoryList,
         CouponList,
+        FinanceList
     }
 });

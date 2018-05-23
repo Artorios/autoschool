@@ -35,6 +35,7 @@ Route::group([
     Route::view('/history', 'investor.history.index')->name('history.index');
     Route::get('/history/list', 'HistoryController@list');
     Route::get('/coupons/list', 'CouponsController@list');
+    Route::get('/finance/list', 'FinanceController@list');
     Route::view('/template-pass', 'investor.template-pass')->name('template-pass');
     Route::view('/template-pass-2', 'investor.template-pass-2')->name('template-pass-2');
 });
