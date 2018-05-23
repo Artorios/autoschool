@@ -42,6 +42,7 @@
                                     <th>ID</th>
                                     <th>Логин</th>
                                     <th>Email</th>
+                                    <th>Автошкола</th>
                                     <th>Роль</th>
                                     <th>Действия</th>
                                 </tr>
@@ -51,6 +52,7 @@
                                     <td>{{user.id}}</td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
+                                    <td>{{user}}</td>
                                     <td><span class="label label-success">{{user.role}}</span></td>
                                     <td>
                                         <button class="btn btn-success"
