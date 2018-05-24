@@ -117,7 +117,8 @@
                 console.log(this.data)
                 this.$http.post('/admin/user/create', this.data).then(res => {
                     if (res.status === 201) {
-                        location.href = '/admin/users'
+                        //location.href = '/admin/users'
+                        console.log(res.data)
                     } else {
                         this.errorEdit = true
                     }
