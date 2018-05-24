@@ -40,10 +40,12 @@ header {
         a {
           color: #fff;
           padding: 0 20px;
-          img {
-            margin: 0 10px;
+          .fa{
+            color: #9A9A9A;
+            font-size: 20px;
             position: relative;
-            top: -2px;
+            top: 2px;
+            margin: 0 10px 0 0;
           }
           &:hover {
             color: #ff3333;
@@ -77,10 +79,11 @@ header {
         display: inline-block;
         position: relative;
         top: 25px;
+        width: 27.8%;
+        text-align: right;
         span {
           border: none;
           display: inline-block;
-          margin-right: 60px;
           position: relative;
           cursor: pointer;
           margin-bottom: 15px;
@@ -89,15 +92,23 @@ header {
           -webkit-user-select: none;
           user-select: none;
           &:after {
-            content: "";
+            font-family: FontAwesome;
+            content: "\f107";
+            color: #9A9A9A;
             display: inline-block;
-            width: 12px;
-            height: 7px;
-            background: url("../img/arrow-down.png") no-repeat;
             position: absolute;
             right: -20px;
-            top: 7px;
+            top: -1px;
+            font-size: 18px;
           }
+        }
+        span:first-child{
+          margin-right: 50px;
+        }
+        .fa{
+          color: #9A9A9A;
+          font-size: 18px;
+          margin: 0 5px 0 0;
         }
         img {
           margin-left: 60px;

@@ -44,28 +44,28 @@
                     </div>
                 </div>
                 <div class="right">
-                    <a href="{{ route('investor.profile.index') }}" class="student-info" style="color: black">
-                        <div class="student-info">
-                            <div class="img">
-                                @if(Auth::user()->image)
-                                    <img src="/storage/user/{{Auth::user()->image}}" alt="">
-                                @else
-                                    <img src="/img/profile-photo.png" alt="">
-                                @endif
-                            </div>
-                            <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="/img/arrow-down.png"></h3>
-                            <span>Комиссия 10 000 руб.</span>
+                    <a href="{{ route('investor.profile.index') }}" class="student-info">
+                        <div class="img">
+                            @if(Auth::user()->image)
+                                <img src="/storage/user/{{Auth::user()->image}}" alt="">
+                            @else
+                                <img src="/img/profile-photo.png" alt="">
+                            @endif
                         </div>
+                        <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </h3>
+                        <span>Комиссия 10 000 руб.</span>
                     </a>
                     <a href="{{ route('investor.notifications.index', ['show' => 'new']) }}" class="notes">
-                        <img src="/img/bell.png" alt="">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
                         <span class="number">
                             {{ \App\Models\User\Notification::where(['user_id' => Auth::id(), 'status' => '1'])->count() }}
                         </span>
                         <span class="title">Уведомления</span>
                     </a>
                     <a href="{{route('faq')}}" class="help">
-                        <img src="/img/help.png" alt="">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
@@ -76,16 +76,28 @@
                 <div class="sidebar collapse" id="sbMenu">
                     <ul>
                         <li class="{{Route::currentRouteName() === 'investor.index' ? 'active' : ''}}">
-                            <a href="{{route('investor.index')}}"><img src="/img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
+                            <a href="{{route('investor.index')}}">
+                                <i class="fa fa-suitcase" aria-hidden="true"></i>
+                                <span class="text">Главная</span>
+                            </a>
                         </li>
                         <li class="{{Route::currentRouteName() === 'investor.coupons.index' ? 'active' : ''}}">
-                            <a href="{{route('investor.coupons.index')}}"><img src="/img/menu-ico4.png" alt=""><span class="text">Купоны</span></a>
+                            <a href="{{route('investor.coupons.index')}}">
+                                <i class="fa fa-tags" aria-hidden="true"></i>
+                                <span class="text">Купоны</span>
+                            </a>
                         </li>
                         <li class="{{Route::currentRouteName() === 'investor.finance.index' ? 'active' : ''}}">
-                            <a href="{{route('investor.finance.index')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Финансы</span></a>
+                            <a href="{{route('investor.finance.index')}}">
+                                <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                                <span class="text">Финансы</span>
+                            </a>
                         </li>
                         <li class="{{Route::currentRouteName() === 'investor.history.index' ? 'active' : ''}}">
-                            <a href="{{route('investor.history.index')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">История</span></a>
+                            <a href="{{route('investor.history.index')}}">
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                                <span class="text">История</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -104,7 +116,11 @@
             <span>Единый сервис on-line обучения в автошколах</span>
         </div>
         <div class="right">
-            <span><img src="/img/mail.png" alt="">e-mail:<a href="#">info@autotrener.com</a></span>
+            <span>
+                <i class="fa fa-envelope-open" aria-hidden="true"></i>
+                e-mail:
+                <a href="#">info@autotrener.com</a>
+            </span>
             <a href="#">8 (495)<span>369-43-49</span></a>
         </div>
     </div>

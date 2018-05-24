@@ -3,8 +3,8 @@
         <city-popup :regions="regions" :checked-region="checkedRegion" v-if="showCityPopup"></city-popup>
         <school-popup v-if="showSchoolPopup"></school-popup>
         <div class="select-wrapper">
-            <img src="/img/location.png" alt="">
             <span data-toggle="modal" data-target="#cityModal" @click="showCityPopup = !showCityPopup">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
                 {{userCity ? userCity.name : 'Москва'}}
             </span>
             <span data-toggle="modal" @click="showSchoolPopup = !showSchoolPopup">
