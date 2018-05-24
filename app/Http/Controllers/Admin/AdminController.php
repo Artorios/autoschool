@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\SearchUser;
 use App\Models\Location\{
     City, Region
 };
@@ -48,6 +49,19 @@ class AdminController extends Controller
         }
 
         return response()->json(['city' => $city, 'director' => $director, 'investor' => $investor], 202);
+    }
+
+    public function searchUser(SearchUser $request){
+        $error = ['error' => 'Не найдено!'];
+
+        if (!empty($request->validated()['q'])) {
+
+            $users = User::select('id','role','name', 'email', 'last_name', 'phone')->where('email', 'like', '%' . $request->validated()['q'] . '%')->get();
+
+            return $users->count() ? $users : $error;
+        }
+
+        return $error;
     }
 
 }

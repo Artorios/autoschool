@@ -21,10 +21,11 @@
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                                    <p class="error" v-if="error_search">{{error_search}}</p>
+                                    <input type="text" name="table_search" class="form-control pull-right" v-model="query" placeholder="Search">
 
                                     <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        <button type="submit" class="btn btn-default" @click="search"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +47,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="user in paginate">
+                                <tr v-for="user in pagination()">
                                     <td>{{user.id}}</td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
@@ -82,13 +83,17 @@
 <script>
     import {Events} from '../../app'
     import EditPopup from './add-popup.vue'
+
     export default {
         data () {
             return {
                 currentPage: 1,
                 itemsPerPage: 10,
                 checkedUser: null,
-                showEditPopup: false
+                showEditPopup: false,
+                query: '',
+                error_search: '',
+                lists: {}
             }
         },
         props: ['users'],
@@ -97,30 +102,32 @@
         },
         computed: {
 
-            paginate: function(){
-                if (!this.users || this.users.length != this.users.length){
+
+            totalPages: function(){
+                return Math.ceil(this.resultCount / this.itemsPerPage)
+            },
+        },
+        created () {
+            this.lists = this.users
+            Events.$on('toggle-popup', () => {
+                this.togglePopup()
+            })
+            this.pagination()
+        },
+        methods: {
+            paginate(items){
+                if (!items || items.length != items.length){
                     return
                 }
-                this.resultCount = this.users.length
+                this.resultCount = items.length
                 if(this.currentPage >= this.totalPages){
                     this.currentPage = this.totalPages
                 }
 
                 let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
 
-                return this.users.slice(index, index + this.itemsPerPage)
+                return items.slice(index, index + this.itemsPerPage)
             },
-            totalPages: function(){
-                return Math.ceil(this.resultCount / this.itemsPerPage)
-            },
-        },
-        created () {
-            console.log(this.users)
-            Events.$on('toggle-popup', () => {
-                this.togglePopup()
-            })
-        },
-        methods: {
             setPage(pageNumber){
                 this.currentPage = pageNumber
             },
@@ -135,8 +142,33 @@
             showCreate () {
                 this.checkedUser = null
                 this.showEditPopup = true
-            }
-        }
+            },
+            search(){
+                if (this.query) {
+                    this.$http.get('/api/admin/search-user?q=' + this.query).then(res => {
+                        if(res.data){
+                            if(!res.data.error){
+                                this.lists = res.data
+                                this.currentPage = '1'
+                            }
+                            else {
+                                this.error_search = res.data.error
+                            }
+                        }
+                        console.log(res.data.error)
+                    });
+                }
+                else {
+                    this.lists = this.users
+                }
+            },
+            pagination() {
+                return this.paginate(this.lists);
+            },
+        },
+        updated(){
+            this.pagination()
+        },
     }
 
 </script>

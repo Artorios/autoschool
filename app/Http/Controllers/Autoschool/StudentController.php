@@ -7,12 +7,10 @@ use App\Mail\ConfirmEmail;
 use App\Models\Finance\Coupon;
 use App\Models\Location\City;
 use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
-use App\Models\User\Contract;
-use App\Models\User\UserLessonTrainingQuestion;
+use App\Models\User\{Contract,UserLessonTrainingQuestion,User};
 use App\Services\StatisticService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User\User;
 use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\{
     Auth, Hash, Validator, DB

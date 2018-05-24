@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\UserActions;
 
 use App\Http\Requests\Admin\CreateUserInAdmin;
+use App\Http\Requests\Admin\SearchUser;
 use App\Http\Requests\Admin\UpdateUserInAdmin;
 use App\Models\Training\School\AutoSchool;
 use App\Models\User\User;
@@ -61,4 +62,7 @@ class UserController extends Controller
             return response()->json(['status' => $data], 201);
 
     }
+
+
+
 }
