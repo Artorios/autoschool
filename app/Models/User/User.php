@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use App\Models\Finance\Order;
 use App\Models\User\Traits\Attribute\UserAttribute;
 use App\Models\User\Traits\Method\UserMethod;
 use App\Models\User\Traits\Relationship\UserRelationship;
@@ -67,5 +68,13 @@ class User extends Authenticatable
             return AutoSchool::find(Auth::user()->autoschoolgroup->auto_school_id)->id;
         }
         return FALSE;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

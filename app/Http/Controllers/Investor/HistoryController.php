@@ -16,4 +16,9 @@ class HistoryController extends Controller
                 ->get(),
         ]);
     }
+
+    public function list()
+    {
+        return History::where('investor_id', Auth::id())->get();
+    }
 }
