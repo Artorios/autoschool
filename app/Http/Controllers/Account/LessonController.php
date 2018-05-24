@@ -29,25 +29,26 @@ class LessonController extends Controller
      */
     public function index()
     {
-        if ( ! Lesson::count()) {
+        if (!Lesson::count()) {
             return redirect('/account');
         }
 
         $user = Auth::user();
 
-        $payedUser = Coupon::where('student_id', $user->id)->get();
-
-        if($payedUser->isEmpty()){
-            $lesson = Lesson::first();
-            return view('account.lessons.demo', compact('lesson'));
-        }
-
-        if ( ! $user->lessons()->count()) {
+        if (!$user->lessons()->count()) {
             $lesson = Lesson::with('videos')->first();
 
             $user->lessonsVideos()->attach($lesson->videos);
 
             $user->lessons()->attach(['lesson_id' => $lesson->id]);
+
+            if($this->checkIfUserPaid($user)) {
+                return $this->getDemoLesson();
+            }
+        }
+
+        if($this->checkIfUserPaid($user)) {
+            return $this->getDemoLesson();
         }
 
         $lessons = Lesson::all();
@@ -75,7 +76,7 @@ class LessonController extends Controller
     public function show(Lesson $lesson)
     {
         $user = Auth::user();
-        if ( ! $user->lessons()->find($lesson->id)) {
+        if (!$user->lessons()->find($lesson->id)) {
             return redirect('/account/lessons');
         }
 
@@ -93,7 +94,7 @@ class LessonController extends Controller
     public function videoTimeSave(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'time'     => 'required',
+            'time' => 'required',
             'video_id' => 'required|exists:lesson_videos,id',
         ]);
 
@@ -103,7 +104,7 @@ class LessonController extends Controller
 
         $user = Auth::user();
 
-        if ( ! $user_video = $user->lessonsVideos->where('id', $request->input('video_id'))->first()) {
+        if (!$user_video = $user->lessonsVideos->where('id', $request->input('video_id'))->first()) {
             return response()->json(['status' => 0], 400);
         }
 
@@ -131,12 +132,12 @@ class LessonController extends Controller
 
         $user = Auth::user();
 
-        if ( ! $user_video = $user->lessonsVideos->where('id', $request->input('video_id'))->first()) {
+        if (!$user_video = $user->lessonsVideos->where('id', $request->input('video_id'))->first()) {
             return response()->json(['status' => 0], 400);
         }
 
         $user_video->pivot->time_stop_view = null;
-        $user_video->pivot->viewed         = 1;
+        $user_video->pivot->viewed = 1;
 
         $user_video->pivot->save();
 
@@ -152,20 +153,20 @@ class LessonController extends Controller
     {
         $user = Auth::user();
 
-        if ( ! $user->lessonsTrainings()->find($training->id)) {
+        if (!$user->lessonsTrainings()->find($training->id)) {
             return redirect('/account');
         }
 
-        $lesson           = Lesson::find($training->lesson_id);
-        $questions        = $lesson->questions->load('answers');
-        $user_questions   = $training->questions;
-        $training         = $training->type;
+        $lesson = Lesson::find($training->lesson_id);
+        $questions = $lesson->questions->load('answers');
+        $user_questions = $training->questions;
+        $training = $training->type;
         $return_questions = [];
-        $lessons          = [];
+        $lessons = [];
 
-        if($training === "group"){
+        if ($training === "group") {
             $group_limit = 3;
-            $lessons     = Lesson::with('questions')
+            $lessons = Lesson::with('questions')
                 ->where('id', '<=', $lesson->lesson_num)
                 ->limit($group_limit)
                 ->offset($lesson->lesson_num - $group_limit)
@@ -175,7 +176,7 @@ class LessonController extends Controller
 
             foreach ($lessons as $item) {
                 $question_per_lesson = $item->questions->load('answers');
-                foreach ($question_per_lesson as $one_question){
+                foreach ($question_per_lesson as $one_question) {
                     array_push($questions, $one_question);
                 }
 
@@ -185,7 +186,7 @@ class LessonController extends Controller
             $i = 0;
             $key_array = array();
 
-            foreach($questions as $val) {
+            foreach ($questions as $val) {
                 if (!in_array($val['id'], $key_array)) {
                     $key_array[$i] = $val['id'];
                     $temp_array[$i] = $val;
@@ -198,10 +199,10 @@ class LessonController extends Controller
         foreach ($user_questions as $user_question) {
             foreach ($questions as $question) {
                 if ($question->id == $user_question->question_id) {
-                    $question->correct        = (integer) $user_question->correct;
-                    $question->user_answer_id = (integer) $user_question->answer_id;
+                    $question->correct = (integer)$user_question->correct;
+                    $question->user_answer_id = (integer)$user_question->answer_id;
 
-                    if ( ! $user_question->correct) {
+                    if (!$user_question->correct) {
                         $question->correct_answer = Answer::where(['question_id' => $question->id, 'correct' => 1])
                             ->first()
                             ->makeVisible('correct');
@@ -220,8 +221,8 @@ class LessonController extends Controller
      */
     public function getCountLesson()
     {
-        $user        = Auth::user();
-        $count       = UserLesson::where('user_id', $user->id)->select(['user_id', 'lesson_id'])->groupBy(['user_id', 'lesson_id'])->get()->toArray();
+        $user = Auth::user();
+        $count = UserLesson::where('user_id', $user->id)->select(['user_id', 'lesson_id'])->groupBy(['user_id', 'lesson_id'])->get()->toArray();
         $all_lessons = Lesson::all()->count();
 
         return response()->json(['done_lessons' => count($count), 'all_lessons' => $all_lessons], 202);
@@ -232,11 +233,11 @@ class LessonController extends Controller
      */
     public function getCurrentLesson()
     {
-        $user   = Auth::user();
+        $user = Auth::user();
         $lesson = $user->lessons()->orderby('lesson_num', 'desc')->first();
-        $type   = '';
+        $type = '';
 
-        if ( ! $lesson) {
+        if (!$lesson) {
             $type = 'getFirst';
 
             return response()->json(['type' => $type, 'lesson' => null]);
@@ -244,7 +245,7 @@ class LessonController extends Controller
 
         $video_viewed = $user->lessonsVideos()->where('lesson_id', $lesson->id)->first();
 
-        if ( ! $video_viewed->pivot->viewed) {
+        if (!$video_viewed->pivot->viewed) {
             $type = 'notViewed';
 
             return response()->json(['type' => $type, 'lesson' => $lesson]);
@@ -252,7 +253,7 @@ class LessonController extends Controller
 
         $training = $user->lessonsTrainings()->where(['lesson_id' => $lesson->id, 'status' => 'passed', 'type' => 'training'])->first();
 
-        if ( ! $training) {
+        if (!$training) {
             $type = 'notTraining';
 
             return response()->json(['type' => $type, 'lesson' => $lesson]);
@@ -260,7 +261,7 @@ class LessonController extends Controller
 
         $exam = $user->lessonsTrainings()->where(['lesson_id' => $lesson->id, 'status' => 'passed', 'type' => 'exam'])->first();
 
-        if ( ! $exam) {
+        if (!$exam) {
             $type = 'notExam';
 
             return response()->json(['type' => $type, 'lesson' => $lesson]);
@@ -268,7 +269,7 @@ class LessonController extends Controller
 
         $group_exam = $user->lessonsTrainings()->where(['lesson_id' => $lesson->id, 'status' => 'passed', 'type' => 'group'])->first();
 
-        if ( ! $group_exam) {
+        if (!$group_exam) {
             $type = 'notGroup';
 
             return response()->json(['type' => $type, 'lesson' => $lesson]);
@@ -284,46 +285,48 @@ class LessonController extends Controller
      */
     public function getLessonsSlider()
     {
-        $user         = Auth::user();
-        $lessons      = Lesson::all();
+        $user = Auth::user();
+        $lessons = Lesson::all();
         $user_lessons = $user->lessons;
 
         foreach ($user_lessons as $user_lesson) {
             foreach ($lessons as $lesson) {
                 if ($user_lesson->id === $lesson->id) {
-                    $lesson->locked   = 0;
-                    $video_viewed     = $user->lessonsVideos()->where('lesson_id', $lesson->id)->first();
+                    $lesson->locked = 0;
+                    $video_viewed = $user->lessonsVideos()->where('lesson_id', $lesson->id)->first();
                     $lesson->training = $video_viewed->pivot->viewed ? 1 : 0;
-                    $training         = $user->lessonsTrainings()->where(['lesson_id' => $lesson->id, 'type' => 'training', 'status' => 'passed'])->first();
-                    $lesson->exam     = $training ? 1 : 0;
+                    $training = $user->lessonsTrainings()->where(['lesson_id' => $lesson->id, 'type' => 'training', 'status' => 'passed'])->first();
+                    $lesson->exam = $training ? 1 : 0;
                 }
             }
         }
 
         return response()->json(['lessons' => $lessons], 200);
     }
+
     /**
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function getCountSchoolExam(){
+    public function getCountSchoolExam()
+    {
         $user = Auth::user();
         $groups = AutoSchoolGroup::all();
         $days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
         $actualTime = time();
-        foreach ($groups as $group){
-            if($group->id === $user->auto_school_group_id){
+        foreach ($groups as $group) {
+            if ($group->id === $user->auto_school_group_id) {
                 $date = $group->exam_date;
                 $time = $group->exam_time;
-                $tempLeftDay =  strtotime($date) - $actualTime;
-                if($tempLeftDay > 0){
+                $tempLeftDay = strtotime($date) - $actualTime;
+                if ($tempLeftDay > 0) {
                     $tempDate = explode('-', $date);
                     $tempTime = explode(':', $time);
                     $tempDay = strftime("%w", strtotime($date));
-                    $date = $tempDate['2'].'.'.$tempDate['1'].'.'.$tempDate['0'];
-                    $time = $tempTime['0'].':'.$tempTime['1'];
+                    $date = $tempDate['2'] . '.' . $tempDate['1'] . '.' . $tempDate['0'];
+                    $time = $tempTime['0'] . ':' . $tempTime['1'];
                     $day = $days[$tempDay];
-                    $leftDay = floor($tempLeftDay/86400);
+                    $leftDay = floor($tempLeftDay / 86400);
                 }
             }
         }
@@ -334,7 +337,7 @@ class LessonController extends Controller
     public function getGroupLessons(Request $request)
     {
         $group_limit = 3;
-        $lessons     = Lesson::with('questions')
+        $lessons = Lesson::with('questions')
             ->where('id', '<=', $request->lesson_num)
             ->limit($group_limit)
             ->offset($request->lesson_num - $group_limit)
@@ -348,5 +351,17 @@ class LessonController extends Controller
         $lesson = \LessonRules::checkRules($lesson);
 
         return view('account.lessons.single', compact('lesson'));
+    }
+
+    private function checkIfUserPaid($user)
+    {
+        $payedUser = Coupon::where('student_id', $user->id)->get();
+        return $payedUser->isEmpty() ? true : false;
+    }
+
+    private function getDemoLesson()
+    {
+        $lesson = Lesson::first();
+        return view('account.lessons.demo', compact('lesson'));
     }
 }
