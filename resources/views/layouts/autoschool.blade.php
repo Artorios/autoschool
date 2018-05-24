@@ -45,6 +45,7 @@
                 </div>
                 <div class="right">
                     <a href="{{route('autoschool.edit')}}" class="student-info">
+
                             @if(\App\Models\Training\School\AutoSchool::where('director_id', Auth::user()->id)->get()->first())
                             <div class="img">
                                 <img src="{{asset("storage/school/" . $logo )}}" alt="">

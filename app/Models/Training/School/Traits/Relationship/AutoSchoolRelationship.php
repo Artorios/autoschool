@@ -67,6 +67,6 @@ trait AutoSchoolRelationship
 
     public function autoschoolGroups()
     {
-        return $this->hasMany(AutoSchoolGroup::class, 'auto_school_id', 'id');
+        return $this->hasMany(AutoSchoolGroup::class, 'auto_school_filial_id', 'id');
     }
 }

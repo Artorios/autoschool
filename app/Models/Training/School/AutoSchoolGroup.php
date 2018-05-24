@@ -15,7 +15,7 @@ class AutoSchoolGroup extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'auto_school_id', 'exam_date', 'exam_time'];
+    protected $fillable = ['name', 'auto_school_filial_id', 'exam_date', 'exam_time'];
     protected $appends = ['count_student'];
 
 
@@ -29,7 +29,7 @@ class AutoSchoolGroup extends Model
 
     public function autoschool()
     {
-        return $this->belongsTo(AutoSchool::class, 'auto_school_id', 'id');
+        return $this->belongsTo(AutoSchool::class, 'auto_school_filial_id', 'id');
     }
 
     public function users()
