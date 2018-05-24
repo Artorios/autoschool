@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAutoSchoolAdminContacts extends FormRequest
+class UpdateAutoSchoolAdmin extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +24,12 @@ class UpdateAutoSchoolAdminContacts extends FormRequest
     public function rules()
     {
         return [
-            'contacts' => 'required|array',
-            'contacts.*.type' => ['required', Rule::in(['phone', 'address'])],
-            'contacts.*.value' => 'required|string|min:3',
 
+                'title' => 'required|string|min:6',
+                'description' => 'required|string|min:6',
+                'city_id' => 'required|integer|exists:cities,id',
+                'director_id' => 'integer',
+                'investor_id' => 'integer',
         ];
     }
 }
