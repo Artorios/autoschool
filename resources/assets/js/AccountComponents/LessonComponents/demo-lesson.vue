@@ -31,7 +31,7 @@
     export default {
         data () {
             return {
-
+                msg: 'not updated'
             }
         },
         props: ['lesson'],

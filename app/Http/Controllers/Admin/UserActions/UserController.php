@@ -55,7 +55,8 @@ class UserController extends Controller
 
             $data             = $request->validated();
             $data['password'] = '123456';
-
+            $data['license'] = "A";
+            $data['city_id'] = "565";
             User::create($data);
 
             return response()->json(['status' => $data], 201);
