@@ -16,24 +16,24 @@ class FinanceTransformer extends TransformerAbstract
     public function transform(AutoSchool $autoSchool)
     {
         $orders = [];
-        foreach ($autoSchool->autoschoolGroups()->get() as $autoSchoolGroup) {
-            foreach ($autoSchoolGroup->users()->get() as $user) {
-                foreach ($user->orders as $order) {
-                    $orders[] = [
-                        'id'         => $autoSchool->id,
-                        'autoschool' => [
-                            'id'   => $autoSchool->id,
-                            'name' => $autoSchool->title,
-                            'group' => $autoSchoolGroup->name
-                        ],
-                        'user'       => [
-                            'name' => $user->name
-                        ],
-                        'order'      => $order
-                    ];
-                }
-            }
-        }
+//        foreach ($autoSchool->autoschoolGroups()->get() as $autoSchoolGroup) {
+//            foreach ($autoSchoolGroup->users()->get() as $user) {
+//                foreach ($user->orders as $order) {
+//                    $orders[] = [
+//                        'id'         => $autoSchool->id,
+//                        'autoschool' => [
+//                            'id'   => $autoSchool->id,
+//                            'name' => $autoSchool->title,
+//                            'group' => $autoSchoolGroup->name
+//                        ],
+//                        'user'       => [
+//                            'name' => $user->name
+//                        ],
+//                        'order'      => $order
+//                    ];
+//                }
+//            }
+//        }
         return $orders;
     }
 }
