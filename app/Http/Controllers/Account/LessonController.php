@@ -7,6 +7,7 @@ use App\Models\Training\Processing\Answer;
 use App\Models\Training\Lesson\Lesson;
 use App\Models\Training\Lesson\LessonsSettings;
 use App\Models\Training\School\AutoSchoolGroup;
+use App\Models\User\Coupon;
 use App\Models\User\User;
 use App\Models\User\UserLesson;
 use App\Models\User\UserLessonTraining;
@@ -34,6 +35,13 @@ class LessonController extends Controller
 
         $user = Auth::user();
 
+        $payedUser = Coupon::where('student_id', $user->id)->get();
+
+        if($payedUser->isEmpty()){
+            $lesson = Lesson::first();
+            return view('account.lessons.demo', compact('lesson'));
+        }
+
         if ( ! $user->lessons()->count()) {
             $lesson = Lesson::with('videos')->first();
 
@@ -54,7 +62,6 @@ class LessonController extends Controller
                 }
             }
         }
-
         return view('account.lessons.index', compact('lessons'));
     }
 
@@ -334,5 +341,12 @@ class LessonController extends Controller
             ->get();
 
         return response()->json(['lessons' => $lessons], 200);
+    }
+
+    public function showDemoLesson(Lesson $lesson)
+    {
+        $lesson = \LessonRules::checkRules($lesson);
+
+        return view('account.lessons.single', compact('lesson'));
     }
 }
