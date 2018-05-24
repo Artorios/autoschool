@@ -8,7 +8,7 @@
                 <div class="modal-content">
                     <div class="modal-body city-choose">
                         <span class="close" @click="close"></span>
-                        <div class="modal-toggle" data-dismiss="modal" aria-label="Close">
+                        <div class="modal-toggle" data-dismiss="modal" aria-label="Close" v-if="checkedRegionData">
                             <img src="/img/location.png" alt="">
                             <span>{{checkedRegionData.name}}</span>
                         </div>

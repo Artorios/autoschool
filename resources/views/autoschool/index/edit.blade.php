@@ -3,7 +3,7 @@
     <div class="content error profile">
         <autoschool-profile-edit :autoschools="{{json_encode($info_about_school)}}"></autoschool-profile-edit>
         <edit-pass-form></edit-pass-form>
-        <edit-notify-settings></edit-notify-settings>
+        <edit-notify-settings :user="{{json_encode(auth()->user())}}"></edit-notify-settings>
     </div>
 @endsection
 @push('scripts')

@@ -2,18 +2,18 @@
 
 * Installation:
 	* install docker and docker-compose
-	* `cp docker-compose.example.yml docker-compose.yml`
+	* `$ cp docker-compose.example.yml docker-compose.yml`
 	* adjust your configurations im docker-compose.yml file
-	* `docker-compose up -d`
-	* `npm i && npm watch`
+	* `$ docker-compose up -d`
+	* `$ npm i && npm watch`
 	* Create .env file from source
-	* `docker-compose exec php-fpm composer install`
-	* `docker-compose exec php-fpm php artisan key:gen`
-	* `docker-compose exec mysql sh`
-	* `mysql -u root -proot_passw -h 127.0.0.1 app_db < database/geo-data.sql`
-	* `cd public && bower i` (for AdminLTE template)
-	* `docker-compose exec php-fpm php artisan migrate`
-	* `docker-compose exec php-fpm php artisan db:seed`
+	* `$ docker-compose exec php-fpm composer install`
+	* `$ docker-compose exec php-fpm php artisan key:gen`
+	* `$ docker-compose exec mysql sh`
+	* `$ mysql -u root -proot_passw -h 127.0.0.1 app_db < database/geo-data.sql`
+	* `$ cd public && bower i` (for AdminLTE template)
+	* `$ docker-compose exec php-fpm php artisan migrate`
+	* `$ docker-compose exec php-fpm php artisan db:seed`
 	
 * Done...
 

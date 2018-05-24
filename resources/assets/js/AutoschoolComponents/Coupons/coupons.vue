@@ -88,7 +88,7 @@
                             <a href="#" v-if="coupon.status == 3">{{editDate(coupon.activated_at)}}</a>
                         </div>
                         <div class="status">
-                            <div class="status-fee">{{coupon.commision_amount}}</div>
+                            <div class="status-fee">{{coupon.fee_amount}}</div>
                             <div class="status-free"   v-if="coupon.status == 1"><a href="#">Свободный</a></div>
                             <div class="status-paid"   v-else-if="coupon.status == 2"><a href="#">Выплачен</a>
                                 <img src="/img/attention.png"  alt="">
@@ -129,7 +129,7 @@
                         <div class="activate-date" >
                             <a href="#" v-if=" coupon.status == 3">Дата активации {{editDate(coupon.activated_at)}}</a>
                         </div>
-                        <div class="status-fee"><span>Комиссия </span> <span style="font-weight: bold">{{coupon.commision_amount}}</span></div>
+                        <div class="status-fee"><span>Комиссия </span> <span style="font-weight: bold">{{coupon.fee_amount}}</span></div>
                         <div class="status">
                             <span>Статус</span>
                             <div class="status-free"   v-if="coupon.status == 1"><a href="#">Свободный</a></div>

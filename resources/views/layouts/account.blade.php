@@ -13,13 +13,16 @@
     <meta name="keywords" content="автошкола auto online отзывы,билеты ПДД решать онлайн,автошкола тесты онлайн,автошкола теория онлайн,автошкола онлайн видео уроки">
     <title>Автошкола online АвтоТренер - единый сервис online обучения в автошколах.
         Онлайн изучение ПДД - это дистанционное обучение теоретическому курсу в автошколах без обязательного посещения лекций.</title>
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/selectric.css" />
     <link rel="stylesheet" type="text/css" href="/css/slick.css" />
     <link rel="stylesheet" type="text/css" href="/css/slick-theme.css" />
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.min.css">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -50,17 +53,19 @@
                             <img src="/img/profile-photo.png" alt="">
                         @endif
                     </div>
-                    <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}<img src="/img/arrow-down.png"></h3>
+                    <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </h3>
                     <span>Группа № {{Auth::user()->auto_school_group_id}}</span>
                 </a>
                 <a href="{{route('user.notify')}}" class="notes">
-                    <img src="/img/bell.png" alt="">
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
                     <span class="number">
                         {{count(\App\Models\User\Notification::where(['user_id' => Auth::user()->id, 'status' => '1'])->get())}}</span>
                     <span class="title">Уведомления</span>
                 </a>
                 <a href="{{route('faq')}}" class="help">
-                    <img src="/img/help.png" alt="">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -71,29 +76,48 @@
             <div class="sidebar collapse" id="sbMenu">
                 <ul>
                     <li class="{{Route::currentRouteName() === 'user.account' ? 'active' : ''}}">
-                        <a href="{{route('user.account')}}"><img src="/img/menu-ico1.png" alt=""><span class="text">Главная</span></a>
+                        <a href="{{route('user.account')}}">
+                            <i class="fa fa-suitcase" aria-hidden="true"></i>
+                            <span class="text">Главная</span>
+                        </a>
                     </li>
                     <li class="{{
                                     Route::currentRouteName() === 'user.statistic' ? 'active' : ''}}">
-                        <a href="{{route('user.statistic')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Успеваемость</span></a>
+                        <a href="{{route('user.statistic')}}">
+                            <i class="fa fa-area-chart" aria-hidden="true"></i>
+                            <span class="text">Успеваемость</span>
+                        </a>
                     </li>
                     <li class="{{
                                     Route::currentRouteName() === 'user.lessons'
                                 || Route::currentRouteName() === 'user.lessons.demo'
                                 || Route::currentRouteName() === 'user.lessons.training'
                                 ? 'active' : ''}}">
-                        <a href="{{route('user.lessons')}}"><img src="/img/menu-ico3.png" alt=""><span class="text">Уроки</span><number-lessons></number-lessons></a>
+                        <a href="{{route('user.lessons')}}">
+                            <i class="fa fa-film" aria-hidden="true"></i>
+                            <span class="text">Уроки</span>
+                            <number-lessons></number-lessons>
+                        </a>
                     </li>
                     <li class="{{Route::currentRouteName() === 'account.tickets' ? 'active' : ''}}">
-                        <a href="{{route('account.tickets')}}"><img src="/img/menu-ico4.png" alt=""><span class="text">Билеты</span></a>
+                        <a href="{{route('account.tickets')}}">
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                            <span class="text">Билеты</span>
+                        </a>
                     </li>
                     <li class="{{
                                     Route::currentRouteName() === 'user.exams' ? 'active' : ''}}">
-                        <a href="{{route('user.exams')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Экзамены</span></a>
+                        <a href="{{route('user.exams')}}">
+                            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                            <span class="text">Экзамены</span>
+                        </a>
                     </li>
                     <li class="{{
                                     Route::currentRouteName() === 'user.finance' ? 'active' : ''}}">
-                        <a href="{{route('user.finance')}}"><img src="/img/menu-ico2.png" alt=""><span class="text">Финансы</span></a>
+                        <a href="{{route('user.finance')}}">
+                            <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                            <span class="text">Финансы</span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -109,7 +133,11 @@
             <span>Единый сервис on-line обучения в автошколах</span>
         </div>
         <div class="right">
-            <span><img src="/img/mail.png" alt="">e-mail:<a href="#">info@autotrener.com</a></span>
+            <span>
+                <i class="fa fa-envelope-open" aria-hidden="true"></i>
+                e-mail:
+                <a href="#">info@autotrener.com</a>
+            </span>
             <a href="#">8 (495)<span>369-43-49</span></a>
         </div>
     </div>

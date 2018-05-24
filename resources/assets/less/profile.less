@@ -1,0 +1,298 @@
+.inner-main-content {
+  .container {
+    .profile {
+      .info-card {
+        position: relative;
+        padding-left: 173px;
+        margin-bottom: 30px;
+        .img {
+          position: absolute;
+          border-radius: 50%;
+          width: 125px;
+          height: 125px;
+          border: 1px solid #ccc;
+          margin-right: 45px;
+          left: 0;
+          top: 0;
+          & > img {
+            display: block;
+            margin: 0 auto;
+          }
+          .photo-edit {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: block;
+            text-align: center;
+            img {
+              line-height: 40px;
+              display: block;
+              margin: 0 auto;
+              position: relative;
+              top: 11px;
+            }
+            background: linear-gradient(to top, #bababa, #ebeaea);
+            color: #000;
+            font-size: 15px;
+            &:hover {
+              background: linear-gradient(to top, #9a9a9a, #dadcde);
+              color: #000;
+            }
+          }
+        }
+        & > h3 {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 15px;
+          span {
+            margin-left: 15px;
+            color: #666666;
+            font-size: 17px;
+            font-weight: 300;
+          }
+        }
+        & > a {
+          font-size: 15px;
+          font-weight: 500;
+          line-height: 15px;
+          display: inline-block;
+          margin: 0px 0 25px;
+          border-bottom: 1px solid #333;
+          color: #333;
+        }
+        .btn-wrapper {
+          width: 300px;
+          .btn-grey {
+            display: inline-block;
+            margin-top: 0;
+            width: 47%;
+            line-height: 43px;
+            height: 45px;
+            &:last-child {
+              float: right;
+            }
+          }
+        }
+      }
+      form {
+        .form-group {
+          label {
+            width: 170px;
+            font-weight: 400;
+          }
+          input {
+            width: 470px;
+            display: inline-block;
+            height: 55px;
+            line-height: 55px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            padding-left: 25px;
+          }
+          .selectric-wrapper {
+            display: inline-block;
+            width: 470px;
+            vertical-align: middle;
+            .selectric {
+              text-align: left;
+              .label {
+                padding-left: 25px;
+                text-align: left;
+              }
+            }
+            .selectric-items {
+              ul {
+                text-align: left;
+                padding-left: 15px;
+                li {
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+        .btn-grey {
+          line-height: 35px;
+          height: 40px;
+          width: 235px;
+          font-size: 15px;
+          margin-left: 175px;
+          margin-top: 15px;
+        }
+      }
+      .pass-change {
+        border: 3px solid #ccc;
+        padding: 30px;
+        margin-top: 50px;
+        h4 {
+          font-weight: 600;
+          font-size: 20px;
+        }
+        form {
+          margin-top: 30px;
+          label {
+            width: 140px;
+          }
+          .btn-grey {
+            margin-left: 145px;
+          }
+        }
+        &.notes-config {
+          margin-bottom: 50px;
+          input[type=checkbox] {
+            display: none;
+          }
+          label {
+            font-weight: 400;
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+          }
+          label:before {
+            display: inline-block;
+            content: "";
+            width: 25px;
+            height: 25px;
+            border: 2px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #333;
+            position: relative;
+            top: 7px;
+            margin-right: 10px;
+
+          }
+          input[type=checkbox]:checked + label:before {
+            background: url(../img/ok-red.png) no-repeat center center;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*--------профиль---profile--------*/
+
+@media (max-width: 991px) {
+  .inner-main-content {
+    .container {
+      .profile {
+        form {
+          .form-group {
+            input,
+            .selectric-wrapper {
+              width: 440px;
+            }
+          }
+
+        }
+        .pass-change {
+          form {
+            .form-group {
+              input {
+                width: 400px;
+              }
+            }
+            .btn-grey {
+              margin: 10px auto 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .inner-main-content {
+    .container {
+      .profile {
+        .info-card {
+          padding-left: 133px;
+          .img {
+            width: 90px;
+            height: 90px;
+            left: 20px;
+            & > img {
+              display: block;
+              width: 100%;
+              margin: 0 auto;
+            }
+            .photo-edit {
+              position: static;
+              margin-top: 15px;
+              width: 45px;
+              height: 45px;
+              padding-top: 2px;
+            }
+          }
+          & > h3 {
+            span {
+              display: block;
+              margin: 10px 0;
+              font-size: 14px;
+            }
+          }
+          & > a {
+            margin-bottom: 28px;
+          }
+          .btn-wrapper {
+            width: 210px;
+            position: relative;
+            left: -60px;
+            .btn-grey {
+              width: 49%;
+            }
+          }
+        }
+        form {
+          padding: 0 20px;
+          .selectric {
+            .button {
+              right: 10px;
+            }
+          }
+          .form-group {
+            label {
+              display: block;
+              width: 100%;
+              margin-bottom: 10px;
+            }
+            input,
+            .selectric-wrapper {
+              width: 100%;
+            }
+          }
+          .btn-grey {
+            margin: 20px auto 0;
+            width: 100%;
+          }
+        }
+        .pass-change {
+          margin-top: 20px;
+          padding: 15px;
+          &.notes-config {
+            margin-bottom: 0;
+            label {
+              font-size: 13px !important;
+            }
+          }
+          form {
+            padding: 0;
+            .form-group {
+              input {
+                width: 100%;
+              }
+            }
+            .btn-grey {
+              margin-top: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

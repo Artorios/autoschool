@@ -10,12 +10,8 @@ use App\Models\Training\School\{
 use App\Models\User\User;
 use App\Http\Controllers\Controller;
 use App\Services\CountersService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-
+use  Illuminate\Support\Facades\{Hash, File, Storage, Auth};
 
 /**
  * Class AutoschoolController
@@ -74,7 +70,7 @@ class AutoschoolController extends Controller
             ->whereIn('role', ['user'])
             ->count();
         $coupons = Coupon::whereIn('auto_school_group_id', $groups_id)->where('status', 1)->count();
-        $income = Coupon::whereIn('auto_school_group_id', $groups_id)->where('status', 3)->sum('commision_amount');
+        $income = Coupon::whereIn('auto_school_group_id', $groups_id)->where('status', 3)->sum('fee_amount');
         return response()->json(['counts' => $counts, 'coupons' => $coupons, 'income' => $income]);
     }
 
@@ -118,5 +114,49 @@ class AutoschoolController extends Controller
         $response->header("Content-Type", $type);
 
         return $response;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updatePassword(Request $request, User $user)
+    {
+        $password = $request->input('password');
+        $newPassword = $request->input('new_password');
+        $newPassword = bcrypt($newPassword);
+        $userNow = Auth::user();
+        $oldPassword = $user->select('password')->where(['id' => $userNow['id']])->firstOrFail();
+
+        switch (Auth::user()->role) {
+            case 'admin':
+                $redirectTo = '/admin'; //TODO::set URL
+            case 'autoschool':
+                $redirectTo = '/autoschool';//TODO::set URL
+            case 'user':
+                $redirectTo = '/user';//TODO::set URL
+            case 'investor':
+                $redirectTo = '/investor/profile/edit';
+        }
+        if (Hash::check($password, $oldPassword['password'])) {
+            $user->where(['id' => $userNow['id']])->update(['password' => $newPassword]);
+            return response()->json(['status' => 1, 'redirectUrl' => $redirectTo], 200);
+        } else {
+            return response()->json(['status' => 0, 'redirectUrl' => $redirectTo], 400);
+        }
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function editNotifySettings(Request $request){
+        User::where(['id' => $request->input('id')])->update(['email_notice' => $request->input('email_notice')]);
+        User::where(['id' => $request->input('id')])->update(['sms_notice' => $request->input('sms_notice')]);
+        return response()->json(['status' => 1], 204);
+
     }
 }

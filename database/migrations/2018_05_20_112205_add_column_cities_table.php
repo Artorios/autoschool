@@ -14,8 +14,8 @@ class AddColumnCitiesTable extends Migration
     public function up()
     {
         Schema::table('cities', function (Blueprint $table) {
-//            $table->integer('price')->default(1500);
-//            $table->unsignedTinyInteger('show_city')->default(0);
+            $table->double('price',10,2)->unsigned();
+            $table->tinyInteger('show_city')->unsigned();
         });
     }
 
@@ -27,7 +27,8 @@ class AddColumnCitiesTable extends Migration
     public function down()
     {
         Schema::table('cities', function (Blueprint $table) {
-            //
+            $table->dropColumn('price');
+            $table->dropColumn('show_city');
         });
     }
 }

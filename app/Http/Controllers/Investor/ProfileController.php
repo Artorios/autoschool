@@ -42,7 +42,7 @@ class ProfileController extends Controller
 
         return response()->json([
             'messages' => ['Профиль успешно обновлен'],
-            'data' => true
+            'data' => true,
         ], 204);
     }
 }

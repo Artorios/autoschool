@@ -15,6 +15,8 @@
     <title>Автошкола online АвтоТренер - единый сервис online обучения в автошколах.
         Онлайн изучение ПДД - это дистанционное обучение теоретическому курсу в автошколах без обязательного посещения лекций.</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/slick.css" />
@@ -22,8 +24,7 @@
     @if(Route::currentRouteName() === 'regUser')
         <link rel="stylesheet" type="text/css" href="/css/selectric.css" />
     @endif
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <!--<link rel="stylesheet/less" href="css/style.less">-->
+    <link rel="stylesheet" type="text/css" href="/css/app.min.css">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -47,20 +48,41 @@
                 <div class="right">
                     @if(Auth::check())
                         @if(Auth::user()->isAdmin())
-                            <a href="{{route('admin.users')}}"><img src="/img/lock.png" alt="">Админ панель</a>
+                            <a href="{{route('admin.users')}}">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                Админ панель
+                            </a>
                         @elseif(Auth::user()->role == 'autoschool')
-                            <a href="{{route('autoschool.index')}}"><img src="/img/lock.png" alt="">Кабинет автошколы</a>
+                            <a href="{{route('autoschool.index')}}">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                Кабинет автошколы
+                            </a>
                         @elseif(Auth::user()->isInvestor())
-                            <a href="{{route('investor.index')}}"><img src="/img/lock.png" alt="">Кабинет инвестора</a>
+                            <a href="{{route('investor.index')}}">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                Кабинет инвестора
+                            </a>
                         @else
-                            <a href="{{route('user.account')}}"><img src="/img/lock.png" alt="">Кабинет
-                                {{Auth::user()->name . ' ' . Auth::user()->last_name}}</a>
-                            <a href="{{route('user.finance')}}">Активировать купон</a>
+                            <a href="{{route('user.account')}}">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                Кабинет
+                                {{Auth::user()->name . ' ' . Auth::user()->last_name}}
+                            </a>
+                            <a href="{{route('user.finance')}}">
+                                Активировать купон
+                            </a>
                         @endif
-                            <a href="{{route('logout')}}">Выход</a>
+                            <a href="{{route('logout')}}">
+                                Выход
+                            </a>
                     @else
-                        <a href="{{route('authUser')}}"><img src="/img/lock.png" alt="">Войти</a>
-                        <a href="{{route('authUser')}}">Активировать купон</a>
+                        <a href="{{route('authUser')}}">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            Войти
+                        </a>
+                        <a href="{{route('authUser')}}">
+                            Активировать купон
+                        </a>
                     @endif
                 </div>
             </div>
@@ -99,19 +121,27 @@
                 <h4>Контакты:</h4>
                 <ul>
                     <li class="adress">
-                        <div class="ico"><img src="img/location.png" alt=""></div>
+                        <div class="ico">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </div>
                         <span>Россия, г. Москва, ул. Неглинная, д.9.</span>
                     </li>
                     <li class="time">
-                        <div class="ico"><img src="img/clock.png" alt=""></div>
+                        <div class="ico">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        </div>
                         <span>мы работаем: пн - вс 9:00 - 18:00 Mск (без выходных)</span>
                     </li>
                     <li class="tel">
-                        <div class="ico"><img src="img/tel.png" alt=""></div>
+                        <div class="ico">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                        </div>
                         <a href="#">8 (495)<span>369-43-49</span></a>
                     </li>
                     <li class="mail">
-                        <div class="ico"><img src="img/mail.png" alt=""></div>
+                        <div class="ico">
+                            <i class="fa fa-envelope-open" aria-hidden="true"></i>
+                        </div>
                         <a href="#">info@autotrener.com</a>
                     </li>
                 </ul>

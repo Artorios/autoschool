@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAutoSchoolFilials extends Migration
+class CreateHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateAutoSchoolFilials extends Migration
      */
     public function up()
     {
-        Schema::create('auto_school_filials', function (Blueprint $table) {
+        Schema::create('histories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('address');
-            $table->unsignedInteger('auto_school_id');
+            $table->integer('investor_id')->unsigned();
+            $table->integer('auto_school_id')->unsigned();
+            $table->string('operation');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateAutoSchoolFilials extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auto_school_filials');
+        Schema::dropIfExists('histories');
     }
 }

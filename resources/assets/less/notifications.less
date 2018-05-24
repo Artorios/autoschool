@@ -1,0 +1,120 @@
+.inner-main-content {
+  &.sidebar-narrow {
+    .container {
+      .notice {
+        .notice-wrapper {
+          .line {
+            p {
+              max-width: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  .container {
+    .notice {
+      .btn-wrapper {
+        width: 100%;
+        max-width: 230px;
+        margin-bottom: 20px;
+        a {
+          display: inline-block;
+          width: 46%;
+          font-size: 13px;
+          text-transform: uppercase;
+          color: #666;
+          line-height: 28px;
+          height: 30px;
+          border: 1px solid #ccc;
+          text-align: center;
+          border-radius: 30px;
+          &:last-child {
+            float: right;
+          }
+          &.active {
+            background: #ccc;
+            border: 1px solid #ccc;
+            color: #000;
+          }
+        }
+      }
+      .notice-wrapper {
+        margin-bottom: 20px;
+        .line {
+          padding-top: 30px;
+          padding-left: 180px;
+          padding-bottom: 30px;
+          position: relative;
+          border-bottom: 1px solid #ccc;
+          p {
+            max-width: 560px;
+            a {
+              color: #000;
+              text-decoration: underline;
+            }
+          }
+          .date-time {
+            position: absolute;
+            left: 20px;
+            color: #666666;
+            img {
+              margin-right: 5px;
+              position: relative;
+              top: -1px;
+            }
+          }
+        }
+        .active {
+          margin-top: 1px;
+          border-radius: 25px;
+          background: #ccc;
+        }
+
+      }
+    }
+  }
+}
+/*-------------Уведомления----Notifications----------*/
+
+
+@media (max-width: 767px) {
+  .inner-main-content {
+    .container {
+      .notice {
+        .btn-wrapper {
+          margin-left: 20px;
+          margin-top: 20px;
+          margin-bottom: 0;
+        }
+        .notice-wrapper {
+          padding: 0 20px;
+          margin-top: 0;
+          margin-bottom: 0;
+          .line {
+            padding-left: 0px;
+            .date-time {
+              position: static;
+              display: block;
+              margin-bottom: 15px;
+              img {
+                margin-right: 5px;
+                position: relative;
+                top: -1px;
+              }
+            }
+          }
+          .active {
+            margin-top: 1px;
+            border-radius: 25px;
+            background: #ccc;
+          }
+
+        }
+        nav {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+}
