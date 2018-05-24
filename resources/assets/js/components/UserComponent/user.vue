@@ -46,7 +46,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="user in users.data">
+                                <tr v-for="user in paginate">
                                     <td>{{user.id}}</td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
@@ -61,6 +61,11 @@
                                 </tbody>
 
                             </table>
+                            <ul class="pagination" v-if="itemsPerPage < resultCount">
+                                <li class="page-item" v-for="pageNumber in totalPages">
+                                    <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
+                                </li>
+                            </ul>
                         </div>
                         <!--<div class="input-group-btn">-->
                             <!--<button type="submit" class="btn btn-default" @click="showCreate">Добавить пользователя</button>-->
@@ -80,6 +85,8 @@
     export default {
         data () {
             return {
+                currentPage: 1,
+                itemsPerPage: 10,
                 checkedUser: null,
                 showEditPopup: false
             }
@@ -88,6 +95,25 @@
         components: {
             EditPopup
         },
+        computed: {
+
+            paginate: function(){
+                if (!this.users || this.users.length != this.users.length){
+                    return
+                }
+                this.resultCount = this.users.length
+                if(this.currentPage >= this.totalPages){
+                    this.currentPage = this.totalPages
+                }
+
+                let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+
+                return this.users.slice(index, index + this.itemsPerPage)
+            },
+            totalPages: function(){
+                return Math.ceil(this.resultCount / this.itemsPerPage)
+            },
+        },
         created () {
             console.log(this.users)
             Events.$on('toggle-popup', () => {
@@ -95,6 +121,9 @@
             })
         },
         methods: {
+            setPage(pageNumber){
+                this.currentPage = pageNumber
+            },
             togglePopup () {
                 this.showEditPopup = !this.showEditPopup
                 this.checkedUser = null
