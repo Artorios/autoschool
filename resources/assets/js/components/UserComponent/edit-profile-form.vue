@@ -4,36 +4,36 @@
         <p class="error" style="color: red" v-if="serverError">Произошла ошибка при изменении данных</p>
         <div class="form-group">
             <label>Имя пользователя:</label>
-            <input type="text" v-model="user.name" v-bind:class="{'input-error': errors.name}" minlength="2" required>
+            <input type="text" v-model="userdata.name" v-bind:class="{'input-error': errors.name}" minlength="2" required>
         </div>
         <div class="form-group">
             <label>Фамилия:</label>
-            <input type="text"  v-model="user.last_name" v-bind:class="{'input-error': errors.last_name}" minlength="2" required>
+            <input type="text"  v-model="userdata.last_name" v-bind:class="{'input-error': errors.last_name}" minlength="2" required>
         </div>
         <div class="form-group error-content">
             <label>Отчество:</label>
-            <input type="text" v-model="user.second_name" v-bind:class="{'input-error': errors.second_name}">
+            <input type="text" v-model="userdata.second_name" v-bind:class="{'input-error': errors.second_name}">
         </div>
         <div class="form-group">
             <label>Электронная почта:</label>
-            <input type="email" v-model="user.email" v-bind:class="{'input-error': errors.email}" minlength="7" required>
+            <input type="email" v-model="userdata.email" v-bind:class="{'input-error': errors.email}" minlength="7" required>
         </div>
         <div class="form-group">
             <label>Телефон:</label>
-            <input type="tel" required  v-model="user.phone" v-bind:class="{ 'input-error': errors.phone}" minlength="5" pattern="[0-9]{5,16}">
+            <input type="tel" required  v-model="userdata.phone" v-bind:class="{ 'input-error': errors.phone}" minlength="5" pattern="[0-9]{5,16}">
         </div>
         <div class="form-group">
             <label>Город: </label>
             <select class="select" id="city">
-                <option v-for="city in cities" :selected="city.id == user.city_id"  v-bind:value="city.id"  >{{city.name}}</option>
+                <option v-for="city in cities" :selected="city.id == userdata.city_id"  v-bind:value="city.id"  >{{city.name}}</option>
             </select>
         </div>
         <div class="form-group">
             <label>Категория:</label>
             <select class="select" id="license">
-                <option value="A" :selected="user.license === 'A'">A</option>
-                <option value="B" :selected="user.license === 'B'">B</option>
-                <option value="C" :selected="user.license === 'C'">C</option>
+                <option value="A" :selected="userdata.license == 'A'">A</option>
+                <option value="B" :selected="userdata.license == 'B'">B</option>
+                <option value="C" :selected="userdata.license == 'C'">C</option>
             </select>
         </div>
         <button type="submit" class="btn-grey">Сохранить изменения</button>
@@ -68,11 +68,11 @@
 
             }
         },
-        created () {
-                this.getData()
-
+        props: {
+            cities: {},
+            userdata: {}
         },
-        props:  ['cities'],
+
         mounted () {
             let vm = this
             $('#city').selectric({
@@ -88,11 +88,7 @@
 //            this.getCities()
         },
         methods: {
-            getData () {
-                this.$http.get('/account/auth-info-acc').then(res => {
-                    this.user = res.data.user
-                })
-            },
+
             editing () {
 
                 if (this.validate()) return false
