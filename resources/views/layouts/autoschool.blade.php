@@ -46,8 +46,7 @@
                 <div class="right">
                     <a href="{{route('autoschool.edit')}}" class="student-info">
 
-                            @php($logo = \App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->logo)
-                            @if($logo)
+                            @if(\App\Models\Training\School\AutoSchool::where('director_id', Auth::user()->id)->get()->first())
                             <div class="img">
                                 <img src="{{asset("storage/school/" . $logo )}}" alt="">
                             </div>
