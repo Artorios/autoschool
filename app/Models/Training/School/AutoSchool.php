@@ -2,6 +2,7 @@
 
 namespace App\Models\Training\School;
 
+use App\Models\Finance\Coupon;
 use App\Models\Training\School\Traits\Relationship\AutoSchoolRelationship;
 use App\Models\User\User;
 use App\Models\Training\School\Traits\Scope\AutoSchoolScope;
@@ -35,19 +36,28 @@ class AutoSchool extends Model
     /**
      * @var array $appends
      */
-    protected $appends = ['count_student'];
+    protected $appends = ['count_student', 'coupons_active','coupons_passive'];
 
     /**
      * @return mixed
      */
-    public function getCountStudentAttribute(){
-        $groups    = AutoSchoolGroup::select('id')->where('auto_school_filial_id', $this->attributes['id'])->get()->toArray();
+    public function getCountStudentAttribute()
+    {
+        $groups = AutoSchoolGroup::select('id')->where('auto_school_id', $this->attributes['id'])->get()->toArray();
         $groups_id = array_map(function ($group) {
             return $group['id'];
         }, $groups);
         return User::whereIn('auto_school_group_id', $groups_id)->whereIn('role', ['user'])->count();
-    }
 
+    }
+    public function getCouponsActiveAttribute()
+    {
+        return Coupon::where('auto_school_id', $this->attributes['id'])->where('status', 3)->count();
+    }
+    public function getCouponsPassiveAttribute()
+    {
+        return Coupon::where('auto_school_id', $this->attributes['id'])->whereIn('status', [2,1])->count();
+    }
     /**
      * @param $query
      * @return mixed

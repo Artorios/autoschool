@@ -18,10 +18,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5">
-                        <a href="" class="btn-grey">Статистика зачетов</a>
+                        <a :href="student_with_auto_school.userId + '/statistic-test'" class="btn-grey">Статистика зачетов</a>
                     </div>
                     <div class="col-md-5">
-                        <a href="" class="btn-grey">Статистика экзамена</a>
+                        <a :href="student_with_auto_school.userId + '/statistic-exam'" class="btn-grey">Статистика экзамена</a>
                     </div>
                 </div>
                 <div class="row block-info">

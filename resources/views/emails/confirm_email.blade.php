@@ -13,6 +13,7 @@
 <div class="gallery-main order">
     <p><b>Username:</b> {{$data['name']}}</p>
     <p><b>Email:</b> {{$data['email']}}</p>
+    <p><b>Ваш пароль для входа:</b> {{$data['password_for_send_user_email']}}</p>
     <a href="{{'185.69.152.26/confirm/student/' . $data['confirmation_code'] }}">Подтвердите почту перейдя по сылке</a>
 </div>
 </body>

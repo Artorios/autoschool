@@ -22,6 +22,8 @@ import FinanceStatisticMain from './AutoschoolComponents/finance-statistic-main'
 import FinanceSearchStudents from './AutoschoolComponents/finance-search-students';
 import FinanceSelectStudents from './AutoschoolComponents/finance-select-students';
 import Coupons from './AutoschoolComponents/Coupons/coupons';
+import StatisticVue from './AutoschoolComponents/StatisticComponents/statistic.vue'
+
 const VueInputMask = require('vue-inputmask').default
 
 Vue.use(VueInputMask);
@@ -55,5 +57,6 @@ const app = new Vue({
         SchoolFilials,
         AutoschoolProfileEdit,
         Coupons,
+        StatisticVue,
     }
 });
