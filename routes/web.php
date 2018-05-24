@@ -78,7 +78,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         $cities = City::where('show_city', 1)->get();
 
         return view('account.profile.index', compact('cities'));
-    })->middleware('student')->name('user.edit');
+    })->name('user.edit');
 
     Route::post('/edit-profile', 'AccountController@updateProfile');
     Route::post('/edit-pass', 'AccountController@updatePassword');
