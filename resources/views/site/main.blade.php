@@ -207,7 +207,38 @@
                     </div>
                 </div>
                 <span>Смотрите и читайте еще больше отзывов в социальных сетях</span>
-                <img src="/img/socials.png" alt="">
+                <ul class="icon-list clearfix">
+                    <li class="icon-item">
+                        <a href="" class="icon-link">
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="icon-item">
+                        <a href="" class="icon-link">
+                            <i class="fa fa-google-plus" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="icon-item">
+                        <a href="" class="icon-link">
+                            <i class="fa fa-vimeo" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="icon-item">
+                        <a href="" class="icon-link">
+                            <i class="fa fa-tumblr" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="icon-item">
+                        <a href="" class="icon-link">
+                            <i class="fa fa-odnoklassniki" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="icon-item">
+                        <a href="" class="icon-link">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="buy" id="sale">
