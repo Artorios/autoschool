@@ -15,7 +15,6 @@ class CreateCouponsTable extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->integer('investor_id')->unsigned();
             $table->integer('auto_school_id')->unsigned();
             $table->integer('auto_school_group_id')->unsigned();
