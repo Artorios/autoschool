@@ -4,23 +4,23 @@
         <p class="error" style="color: red" v-if="serverError">Произошла ошибка при изменении данных</p>
         <div class="form-group">
             <label>Имя пользователя:</label>
-            <input type="text" v-model="userdata.name" v-bind:class="{'input-error': errors.name}" minlength="2" required>
+            <input type="text" v-model="userProfile.name" v-bind:class="{'input-error': errors.name}" minlength="2" required>
         </div>
         <div class="form-group">
             <label>Фамилия:</label>
-            <input type="text"  v-model="userdata.last_name" v-bind:class="{'input-error': errors.last_name}" minlength="2" required>
+            <input type="text"  v-model="userProfile.last_name" v-bind:class="{'input-error': errors.last_name}" minlength="2" required>
         </div>
         <div class="form-group error-content">
             <label>Отчество:</label>
-            <input type="text" v-model="userdata.second_name" v-bind:class="{'input-error': errors.second_name}">
+            <input type="text" v-model="userProfile.second_name" v-bind:class="{'input-error': errors.second_name}">
         </div>
         <div class="form-group">
             <label>Электронная почта:</label>
-            <input type="email" v-model="userdata.email" v-bind:class="{'input-error': errors.email}" minlength="7" required>
+            <input type="email" v-model="userProfile.email" v-bind:class="{'input-error': errors.email}" minlength="7" required>
         </div>
         <div class="form-group">
             <label>Телефон:</label>
-            <input type="tel" required  v-model="userdata.phone" v-bind:class="{ 'input-error': errors.phone}" minlength="5" pattern="[0-9]{5,16}">
+            <input type="tel" required  v-model="userProfile.phone" v-bind:class="{ 'input-error': errors.phone}" minlength="5" pattern="[0-9]{5,16}">
         </div>
         <div class="form-group">
             <label>Город: </label>
@@ -43,7 +43,7 @@
     export default {
         data () {
             return {
-                user: {
+                userProfile: {
                     name: '',
                     last_name: '',
                     second_name: '',
@@ -73,27 +73,36 @@
             userdata: {}
         },
 
+        created () {
+            this.getData()
+        },
+
         mounted () {
             let vm = this
             $('#city').selectric({
                 onChange: function(element) {
-                    vm.user.city_id = $(element).val()
+                    vm.userProfile.city_id = $(element).val()
                 },
             })
             $('#license').selectric({
                 onChange: function(element) {
-                    vm.user.license = $(element).val()
+                    vm.userProfile.license = $(element).val()
                 },
             })
 //            this.getCities()
         },
         methods: {
+            getData () {
+                this.$http.get('/account/auth-info-acc').then(res => {
+                    console.log(res.data.userProfile, 'Edit-profile')
+                    this.userProfile = res.data.user
+                })
+            },
 
             editing () {
 
                 if (this.validate()) return false
-
-                this.$http.post('/account/edit-profile', this.user).then(res => {
+                this.$http.post('/account/edit-profile', this.userProfile).then(res => {
                     if (res.status === 201) {
                         location.href = '/account/edit-profile'
                     }
@@ -108,52 +117,52 @@
                 })
             },
             validate () {
-                for (let key in this.user) {
+                for (let key in this.userProfile) {
                     switch (key) {
                         case 'name':
-                            if (!this.user[key] || this.user[key].length < 3) {
+                            if (!this.userProfile[key] || this.userProfile[key].length < 3) {
                                 this.$set(this.errors, key, true)
                             } else {
                                 this.$set(this.errors, key, false)
                             }
                             break
                         case 'last_name':
-                            if (!this.user[key] || this.user[key].length < 3) {
+                            if (!this.userProfile[key] || this.userProfile[key].length < 3) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
                             }
                             break
                         case 'second_name':
-                            if (this.user[key] && this.user[key].length < 3) {
+                            if (this.userProfile[key] && this.userProfile[key].length < 3) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
                             }
                             break
                         case 'password':
-                            if (!this.user[key] || this.user[key].length < 3) {
+                            if (!this.userProfile[key] || this.userProfile[key].length < 3) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
                             }
                             break
                         case 'phone':
-                            if (!this.user[key] || this.user[key].length < 3 ) {
+                            if (!this.userProfile[key] || this.userProfile[key].length < 3 ) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
                             }
                             break
                         case 'city_id':
-                            if (!this.user[key]) {
+                            if (!this.userProfile[key]) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
                             }
                             break
                         case 'email':
-                            if (!this.checkEmail(this.user[key])) {
+                            if (!this.checkEmail(this.userProfile[key])) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
