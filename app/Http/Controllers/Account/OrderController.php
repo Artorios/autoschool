@@ -58,8 +58,7 @@ class OrderController extends Controller
 
     public function cuponPayment(Request $request)
     {
-        $cupon = Coupon::where('student_id', Auth::user()->id)->get()->first();
-
+        $cupon = Coupon::where('code', $request->input('number_cupon'))->get()->first();
         if(!$cupon){
             return response()->json(['status' => 0], 400);
         }

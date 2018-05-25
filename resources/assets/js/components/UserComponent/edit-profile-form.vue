@@ -94,7 +94,6 @@
         methods: {
             getData () {
                 this.$http.get('/account/auth-info-acc').then(res => {
-                    console.log(res.data.userProfile, 'Edit-profile')
                     this.userProfile = res.data.user
                 })
             },
