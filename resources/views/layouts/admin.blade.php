@@ -357,11 +357,11 @@
                             {{--<i class="fa fa-dashboard"></i> <span>Главная</span>--}}
                         {{--</a>--}}
                     {{--</li>--}}
-                    <li><a href="/admin/lessons"><i class="fa fa-circle-o text-yellow"></i> <span>Уроки</span></a></li>
-                    <li><a href="/admin/questions"><i class="fa fa-circle-o text-yellow"></i> <span>Вопросы и ответы</span></a></li>
+                    <li><a href="{{route('admin.lessons.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Уроки</span></a></li>
+                    <li><a href="{{route('admin.questions.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Вопросы и ответы</span></a></li>
                     <li><a href="/admin/users"><i class="fa fa-circle-o text-yellow"></i> <span>Пользователи</span></a></li>
                     {{--<li><a href="/admin/districts"><i class="fa fa-circle-o text-yellow"></i> <span>Районы</span></a></li>--}}
-                    <li><a href="/admin/schools"><i class="fa fa-circle-o text-yellow"></i> <span>Автошколы</span></a></li>
+                    <li><a href="{{route('admin.schools.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Автошколы</span></a></li>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-pie-chart"></i>
