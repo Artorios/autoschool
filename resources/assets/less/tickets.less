@@ -125,14 +125,24 @@
                   left: 5px;
                   width: 15px;
                   height: 15px;
-                  display: inline-block !important;
+                  display: inline-block;
                   cursor: pointer;
-                  background: url('../img/refresh.png') no-repeat;
+                  &:after{
+                    content: '\f021';
+                    font-family: FontAwesome;
+                    color: #999999;
+                    font-size: 16px;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    transition: color 0.1s ease-in-out;
+                  }
                   &:hover {
-                    background: url('../img/refresh-hover.png') no-repeat;
+                    &:after{
+                      color: #FF0000;
+                    }
                   }
                 }
-
               }
               position: relative;
               padding-left: 60px;
