@@ -82,7 +82,7 @@ class AutoSchool extends Model
      */
     public function scopePayment($query)
     {
-        return $query->join('auto_school_groups', 'auto_schools.id', 'auto_school_groups.auto_school_id')
+        return $query->join('auto_school_groups', 'auto_schools.id', 'auto_school_groups.auto_school_filial_id')
             ->join('users', 'auto_school_groups.id', 'users.auto_school_group_id')
             ->join('orders', 'users.id', 'orders.user_id');
     }

@@ -74,11 +74,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
 
     Route::post('/notify-read', 'NotificationController@notifyRead');
 
-    Route::get('/edit-profile', function () {
-        $cities = City::where('show_city', 1)->get();
-
-        return view('account.profile.index', compact('cities'));
-    })->middleware('student')->name('user.edit');
+    Route::get('/edit-profile', 'AccountController@editProfile')->name('user.edit');
 
     Route::post('/edit-profile', 'AccountController@updateProfile');
     Route::post('/edit-pass', 'AccountController@updatePassword');

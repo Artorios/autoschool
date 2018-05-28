@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Models\Location\City;
+use App\Models\Training\School\AutoSchool;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -126,5 +127,13 @@ class AccountController extends Controller
 
 
 //        return response()->json(['status' => 0], 200);
+    }
+
+    public function editProfile()
+    {
+        $cities = City::where('show_city', 1)->get();
+        $user = Auth::user();
+        return view('account.profile.index', compact('cities', 'user'));
+
     }
 }
