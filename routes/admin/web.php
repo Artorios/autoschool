@@ -16,46 +16,46 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
     Route::post('/user/create', 'UserActions\UserController@create');
 
     Route::group(['prefix' => 'schools', 'namespace' => 'AutoSchools'], function () {
-        Route::get('/', 'SchoolController@listSchools');
-        Route::post('/create', 'SchoolController@create');
-        Route::post('/update/{id}', 'SchoolController@update');
+        Route::get('/', 'SchoolController@listSchools')->name('admin.schools.list');
+        Route::post('/create', 'SchoolController@create')->name('admin.schools.create');
+        Route::post('/update/{id}', 'SchoolController@update')->name('admin.schools.update');
     });
 
     Route::group(['prefix' => 'regions', 'namespace' => 'Cities'], function () {
-        Route::get('/', 'CityPriceController@showRegions');
+        Route::get('/', 'CityPriceController@showRegions')->name('admin.regions.list');
         Route::post('/', 'CityPriceController@getRegions');
-        Route::post('/create', 'CityPriceController@createRegion');
-        Route::put('/update/{region}', 'CityPriceController@updateRegion');
+        Route::post('/create', 'CityPriceController@createRegion')->name('admin.regions.create');
+        Route::put('/update/{region}', 'CityPriceController@updateRegion')->name('admin.regions.update');
     });
 
     Route::group(['prefix' => 'cities', 'namespace' => 'Cities'], function () {
-        Route::get('/', 'CityPriceController@showCities');
+        Route::get('/', 'CityPriceController@showCities')->name('admin.cities.list');
         Route::post('/', 'CityPriceController@getCities');
-        Route::delete('/{city}', 'CityPriceController@deleteCity');
-        Route::post('/create', 'CityPriceController@createCity');
-        Route::put('/update/{city}', 'CityPriceController@updateCity');
+        Route::delete('/{city}', 'CityPriceController@deleteCity')->name('admin.cities.delete');
+        Route::post('/create', 'CityPriceController@createCity')->name('admin.cities.create');
+        Route::put('/update/{city}', 'CityPriceController@updateCity')->name('admin.cities.update');
     });
 
     Route::group(['prefix' => 'districts', 'namespace' => 'Cities'], function () {
-        Route::get('/', 'CityPriceController@showDistricts');
+        Route::get('/', 'CityPriceController@showDistricts')->name('admin.districts.list');
         Route::post('/', 'CityPriceController@getDistricts');
     });
 
     Route::group(['prefix' => 'lessons', 'namespace' => 'Lessons'], function () {
-        Route::get('/', 'LessonsController@index');
-        Route::get('/{lesson}', 'LessonsController@single');
-        Route::put('/{lesson}', 'LessonsController@editLesson');
-        Route::delete('/{lesson}', 'LessonsController@delete');
-        Route::post('/{lesson}/change-question', 'LessonsController@changeQuestion');
-        Route::post('/load-video', 'LessonsController@loadVideo');
-        Route::delete('/delete-video/{video}', 'LessonsController@delVideo');
-        Route::post('/youtube-video/{video}', 'LessonsController@youtube');
-        Route::post('/create', 'LessonsController@create');
-        Route::post('/{lesson}/get-questions', 'LessonsController@getQuestions');
+        Route::get('/', 'LessonsController@index')->name('admin.lessons.list');
+        Route::get('/{lesson}', 'LessonsController@single')->name('admin.lessons.view');
+        Route::post('/create', 'LessonsController@create')->name('admin.lessons.create');
+        Route::put('/{lesson}', 'LessonsController@editLesson')->name('admin.lessons.update');
+        Route::delete('/{lesson}', 'LessonsController@delete')->name('admin.lessons.delete');
+        Route::post('/{lesson}/get-questions', 'LessonsController@getQuestions')->name('admin.lessons.question.view');
+        Route::post('/{lesson}/change-question', 'LessonsController@changeQuestion')->name('admin.lessons.question.update');
+        Route::post('/load-video', 'LessonsController@loadVideo')->name('admin.lessons.video.upload');
+        Route::delete('/delete-video/{video}', 'LessonsController@delVideo')->name('admin.lessons.video.update');
+        Route::post('/youtube-video/{video}', 'LessonsController@youtube')->name('admin.lessons.video.youtube');
     });
 
     Route::group(['prefix' => 'questions', 'namespace' => 'Questions'], function () {
-        Route::get('/', 'QuestionsController@index');
+        Route::get('/', 'QuestionsController@index')->name('admin.questions.list');
         Route::get('/ticket/{ticket_num}', 'QuestionsController@single');
         Route::get('/question/{question}', 'QuestionsController@singleQuestion');
         Route::patch('/question/{question}', 'QuestionsController@editQuestion');
