@@ -5,7 +5,7 @@
             <ul>
                 <li><a href="/investor">Главная</a></li>
                 <li><a href="/investor/coupons">Купоны</a></li>
-                <li>Генерація купонов</li>
+                <li>Генерация купонов</li>
             </ul>
         </div>
 
