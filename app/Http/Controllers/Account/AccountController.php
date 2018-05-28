@@ -27,7 +27,14 @@ class AccountController extends Controller
 
     public function updateProfile(Request $request, User $user, City $city)
     {
-        $itempost = $request->input();
+        $itempost = $request->except(
+            'autoschool',
+                'lesson_now',
+                'last_exam',
+                'progress'
+        );
+        $itempost['auto_school_group_id'] = $itempost['autoschoolgroup']['id'];
+        unset($itempost['autoschoolgroup']);
         $validator = Validator::make($itempost, [
             'name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
@@ -35,16 +42,18 @@ class AccountController extends Controller
             'city_id' => 'required',
             'license' => 'required'
         ]);
-
         if (count($validator->errors())) {
             return response()->json(['status' => 0], 400);
         }
+
         $validator = Validator::make($itempost, [
             'email' => 'unique:users,email,' . $itempost['id']
         ]);
+
         if (count($validator->errors())) {
             return response()->json(['status' => 5], 400);
         }
+
         $user->where(['id' => $itempost['id']])->update($itempost);
         return response()->json(['status' => 1], 201);
 

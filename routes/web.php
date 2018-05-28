@@ -83,7 +83,6 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
 
     Route::get('/auth-info-acc', function () {
         $user = Auth::user();
-
         return response()->json(['user' => $user]);
     });
     Route::group(['prefix' => 'finance'], function () {
