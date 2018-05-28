@@ -37,4 +37,6 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('/get-investors-api', 'AdminController@getInvestorsApi');
     Route::get('/get-directors-api', 'AdminController@getDirectorsApi');
     Route::post('/admin/school-info', 'AdminController@getSchoolData');
+    Route::get('/admin/search-user', 'AdminController@searchUser');
 });
+

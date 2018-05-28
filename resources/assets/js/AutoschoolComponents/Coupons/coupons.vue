@@ -61,7 +61,7 @@
                     <div class="number" v-if="coupon.id<10">0{{coupon.id}}</div>
                     <div class="number" v-else>{{coupon.id}}</div>
                     <div @click="onPopup(coupon.id,coupon.status)">
-                        <div class="coupon"><a href="#">{{coupon.name}}</a></div>
+                        <div class="coupon"><a href="#">{{coupon.code}}</a></div>
 
                         <div class="name-student" v-if="coupon.status === 2">
                             {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}. <div v-if="coupon.user.second_name">{{coupon.user.second_name.toString()[0].toUpperCase()}}.</div>
@@ -108,7 +108,7 @@
                         <div class="number" v-else>{{coupon.id}}</div>
                     </div>
                     <div @click="onPopup(coupon.id,coupon.status)">
-                        <div class="coupon"><a href="#">Купон {{coupon.name}}</a></div>
+                        <div class="coupon"><a href="#">Купон {{coupon.code}}</a></div>
                         <div class="name-student" v-if="coupon.status === 2">
                             {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}. <span v-if="coupon.user.second_name" >{{coupon.user.second_name.toString()[0].toUpperCase()}}.</span>
                             </a>
