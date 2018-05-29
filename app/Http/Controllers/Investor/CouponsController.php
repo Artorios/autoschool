@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Investor;
 
 use App\Transformers\CouponTransformer;
-use DB;
-use Auth;
+use Illuminate\Support\Facades\{
+    DB, Auth
+};
 use Carbon\Carbon;
-use App\Models\User\Coupon;
-use App\Models\User\History;
+use App\Models\User\{
+    History, Coupon
+};
 use App\Http\Controllers\Controller;
 use App\Models\Training\School\AutoSchool;
 use App\Http\Requests\Investor\StoreCouponRequest;
@@ -43,7 +45,7 @@ class CouponsController extends Controller
     {
         $investor_id = Auth::id();
         $auto_school_id = $request->get('auto_school');
-        $commision_amount = $request->get('commision_amount');
+        $fee_amount = $request->get('fee_amount');
 
         DB::beginTransaction();
 
@@ -51,8 +53,9 @@ class CouponsController extends Controller
             Coupon::create([
                 'investor_id' => $investor_id,
                 'auto_school_id' => $auto_school_id,
-                'code' => "$auto_school_id-".strtolower(str_random(7)),
-                'commision_amount' => $commision_amount,
+                'code' => "$auto_school_id-" . strtolower(str_random(7)),
+                'fee_amount' => $fee_amount,
+                'generation_date' => Carbon::now()->toDateString(),
             ]);
         }
 
@@ -62,7 +65,7 @@ class CouponsController extends Controller
             'operation' => 'Генерация купонов',
         ]);
 
-        DB::commitTransaction();
+        DB::commit();
 
         return redirect()->route('investor.coupons.create')->with('messages', ['Купоны успешно созданны']);
     }

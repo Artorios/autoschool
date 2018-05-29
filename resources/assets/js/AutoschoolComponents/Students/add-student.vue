@@ -41,7 +41,7 @@
                     <p class="error" v-if="errors.coupon">Выберите купон</p>
                     <select class="select" id="coupon" v-model="data.coupon">
                         <option disabled value="">Купон*</option>
-                        <option v-if="coupons" v-for="(item, index) in coupons" v-text="item.name" v-bind:value="item.id"></option>
+                        <option v-if="coupons" v-for="(item, index) in coupons" v-text="item.code" v-bind:value="item.id"></option>
                         <option v-else v-text="'Нет купонов'" v-bind:value="'0'"></option>
                     </select>
                 </div>
@@ -49,7 +49,7 @@
                     <p class="error" v-if="errors.auto_school_group_id">Выберите групу</p>
                     <select class="select" id="auto_school_group_id" v-model="data.auto_school_group_id">
                         <option disabled value="">Група*</option>
-                        <option v-for="(item, index) in getGroups" v-bind:value="getGroups[index].id" v-text="getGroups[index].name"></option>
+                        <option v-for="(item, index) in groups" v-bind:value="item.id" v-text="item.name"></option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -101,6 +101,7 @@
         },
         props: {
             schools: {},
+            groups: {},
             coupons: {},
             cities: {}
         },

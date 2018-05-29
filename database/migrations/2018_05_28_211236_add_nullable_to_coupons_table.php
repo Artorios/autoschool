@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnCitiesTable extends Migration
+class AddNullableToCouponsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddColumnCitiesTable extends Migration
      */
     public function up()
     {
-        Schema::table('cities', function (Blueprint $table) {
-            $table->double('price',10,2)->unsigned();
-            $table->tinyInteger('show_city')->unsigned();
+        Schema::table('coupons', function (Blueprint $table) {
+            $table->integer('auto_school_group_id')->unsigned()->default(0)->change();
+            $table->integer('student_id')->unsigned()->default(0)->change();
         });
     }
 
@@ -26,9 +26,8 @@ class AddColumnCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::table('cities', function (Blueprint $table) {
-            $table->dropColumn('price');
-            $table->dropColumn('show_city');
+        Schema::table('coupons', function (Blueprint $table) {
+            //
         });
     }
 }
