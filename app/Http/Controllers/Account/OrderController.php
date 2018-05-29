@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Billing\PaymentFailedException;
-use App\Billing\PaymentGateway;
+use App\Billing\{PaymentFailedException, PaymentGateway};
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Order;
 use App\Models\User\Coupon;
-use App\Models\User\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Auth, Validator};
 
 
 
@@ -64,7 +61,10 @@ class OrderController extends Controller
         }
 
         if($cupon->status == 2 && $cupon->code == $request->input('number_cupon')) {
-            $cupon->update(['status' => 3]);
+            $cupon->update([
+                'status' => 3,
+                'student_id' => Auth::user()->id
+            ]);
             return response()->json(['status' => 1], 201);
         } else {
             return response()->json(['status' => 0], 400);
