@@ -15,6 +15,7 @@ class Coupon extends Model
         'auto_school_group_id',
         'code',
         'student_id',
+        'generation_date',
         'payment_amount',
         'fee_amount',
         'status',

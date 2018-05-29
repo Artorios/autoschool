@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Autoschool;
 
+use App\Http\Middleware\Group;
 use App\Http\Requests\NewStudent;
 use App\Mail\ConfirmEmail;
 use App\Models\Finance\Coupon;
@@ -66,16 +67,14 @@ class StudentController extends Controller
 
     public function addStudent()
     {
-        $autoschool = AutoSchool::where('director_id', Auth::user()->id)
-            ->with('autoschoolGroups')
-            ->get();
         $schools   = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
         $schools_id = array_map(function ($school) {
             return $school['id'];
         }, $schools);
+        $groups = AutoSchoolGroup::whereIn('auto_school_id', $schools_id)->get();
         $coupons = Coupon::whereIn('auto_school_id', $schools_id)->where('status', 1)->get();
         $cities = City::where('show_city', 1)->get();
-        return view('autoschool.filials.add-student', compact('autoschool', 'coupons', 'cities'));
+        return view('autoschool.filials.add-student', compact('schools', 'groups', 'coupons', 'cities'));
     }
 
     public function saveNewStudent(NewStudent $request, Mailer $mailer)

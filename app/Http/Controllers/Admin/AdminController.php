@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\SearchUser;
+use App\Http\Resources\SchoolsCollection;
 use App\Models\Location\{
     City, Region
 };
+use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\DirectorsCollection;
 
 /**
  * Class AdminController
@@ -62,6 +63,23 @@ class AdminController extends Controller
         }
 
         return $error;
+    }
+
+    public function getAutoSchoolApi(Request $request){
+        $q = $request->input('q');
+        return response()->json(AutoSchool::select('id', 'title', 'filial_name')->where('title', 'like', '%' . $q . '%')->limit(10)->get(), 200);
+
+    }
+
+    public function getSchoolGroupApi(Request $request, $id){
+        $q = $request->input('q');
+        return response()->json(AutoSchoolGroup::select('id', 'name')->where('auto_school_id', $id)->where('name', 'like', '%' . $q . '%')->limit(10)->get(), 200);
+
+    }
+
+    public function getSchool($id){
+
+        return new SchoolsCollection(AutoSchool::find($id));
     }
 
 }

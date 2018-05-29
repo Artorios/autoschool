@@ -42,6 +42,7 @@
                                     <th>ID</th>
                                     <th>Логин</th>
                                     <th>Email</th>
+                                    <th>Автошкола</th>
                                     <th>Роль</th>
                                     <th>Действия</th>
                                 </tr>
@@ -51,6 +52,8 @@
                                     <td>{{user.id}}</td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
+                                    <td v-if="user.school">{{user.school.title}}</td>
+                                    <td v-else></td>
                                     <td><span class="label label-success">{{user.role}}</span></td>
                                     <td>
                                         <button class="btn btn-success"
@@ -93,7 +96,7 @@
                 showEditPopup: false,
                 query: '',
                 error_search: '',
-                lists: {}
+                lists: {},
             }
         },
         props: ['users'],

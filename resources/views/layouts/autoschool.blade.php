@@ -46,9 +46,9 @@
                 <div class="right">
                     <a href="{{route('autoschool.edit')}}" class="student-info">
 
-                            @if(\App\Models\Training\School\AutoSchool::where('director_id', Auth::user()->id)->get()->first())
+                            @if($logo = \App\Models\Training\School\AutoSchool::where('director_id', Auth::user()->id)->get()->first())
                             <div class="img">
-                                <img src="{{asset("storage/school/" . $logo )}}" alt="">
+                                <img src="{{asset("storage/school/" . $logo->logo )}}" alt="">
                             </div>
                             @else
                                 <div class="img">
@@ -61,7 +61,6 @@
                                 </h3>
                             @endif
                             <span>Комиссия {{all_sum(Auth::user()->id)}} руб.</span>
-
                     </a>
                     <a href="{{route('autoschool.notify')}}" class="notes">
                         <i class="fa fa-bell-o" aria-hidden="true"></i>
