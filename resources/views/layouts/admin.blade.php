@@ -49,7 +49,7 @@
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="/" class="logo">
+            <a href="{{ route('admin.index') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>
                 <!-- logo for regular state and mobile devices -->
@@ -309,7 +309,7 @@
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="/logout" class="btn btn-default btn-flat">Выход</a>
+                                        <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Выход</a>
                                     </div>
                                 </li>
                             </ul>
@@ -359,7 +359,7 @@
                     {{--</li>--}}
                     <li><a href="{{route('admin.lessons.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Уроки</span></a></li>
                     <li><a href="{{route('admin.questions.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Вопросы и ответы</span></a></li>
-                    <li><a href="/admin/users"><i class="fa fa-circle-o text-yellow"></i> <span>Пользователи</span></a></li>
+                    <li><a href="{{ route('admin.users') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Пользователи</span></a></li>
                     {{--<li><a href="/admin/districts"><i class="fa fa-circle-o text-yellow"></i> <span>Районы</span></a></li>--}}
                     <li><a href="{{route('admin.schools.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Автошколы</span></a></li>
                     <li class="treeview">
@@ -371,9 +371,9 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/admin/regions"><i class="fa fa-circle-o text-yellow"></i> <span>Регионы</span></a></li>
-                            <li><a href="/admin/cities"><i class="fa fa-circle-o text-yellow"></i> <span>Города</span></a></li>
-                            <li><a href="/admin/lessons-settings"><i class="fa fa-circle-o text-yellow"></i> <span>Настройки уроков</span></a></li>
+                            <li><a href="{{ route('admin.regions.list') }}regions"><i class="fa fa-circle-o text-yellow"></i> <span>Регионы</span></a></li>
+                            <li><a href="{{ route('admin.cities.list') }}cities"><i class="fa fa-circle-o text-yellow"></i> <span>Города</span></a></li>
+                            <li><a href="{{ route('admin.lessons.settings') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Настройки уроков</span></a></li>
                         </ul>
                     </li>
                 </ul>

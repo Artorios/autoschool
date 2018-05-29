@@ -67,7 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
     });
 
     Route::group(['prefix' => 'lessons-settings', 'namespace' => 'Settings'], function () {
-        Route::get('/', 'LessonsSettingsController@index');
+        Route::get('/', 'LessonsSettingsController@index')->name('admin.lessons.settings');
         Route::put('/{lessonsSettings}', 'LessonsSettingsController@changeSetting');
     });
 
