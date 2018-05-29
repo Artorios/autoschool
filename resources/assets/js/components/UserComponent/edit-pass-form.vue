@@ -105,11 +105,12 @@
                 this.pass.password = this.password
                 this.pass.new_password = this.new_password
                 this.$http.post('/account/edit-pass', this.pass).then(res => {
-                if (res.status === 205) {
+                if (res.status === 201) {
                     this.success = true
+                    window.location.reload(true);
                     }
                 }, err => {
-                    if (+err.status === 400) {
+                    if (+err.status === 422) {
                             this.password = +err.data.password
                             this.passError = true
 

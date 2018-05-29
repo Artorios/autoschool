@@ -131,19 +131,19 @@ class AutoschoolController extends Controller
 
         switch (Auth::user()->role) {
             case 'admin':
-                $redirectTo = '/admin'; //TODO::set URL
+                $redirectTo = '/admin'; break; //TODO::set URL
             case 'autoschool':
-                $redirectTo = '/autoschool';//TODO::set URL
+                $redirectTo = '/autoschool/profile-edit'; break;
             case 'user':
-                $redirectTo = '/user';//TODO::set URL
+                $redirectTo = '/account/edit-profile'; break;
             case 'investor':
-                $redirectTo = '/investor/profile/edit';
+                $redirectTo = '/investor/profile/edit'; break;
         }
         if (Hash::check($password, $oldPassword['password'])) {
             $user->where(['id' => $userNow['id']])->update(['password' => $newPassword]);
-            return response()->json(['status' => 1, 'redirectUrl' => $redirectTo], 200);
+            return response()->json(['status' => 1, 'redirectUrl' => $redirectTo], 201);
         } else {
-            return response()->json(['status' => 0, 'redirectUrl' => $redirectTo], 400);
+            return response()->json(['status' => 0, 'redirectUrl' => $redirectTo], 422);
         }
     }
 
