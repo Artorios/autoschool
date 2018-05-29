@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers\Investor;
 
-use App\Models\Finance\Order;
 use App\Transformers\FinanceTransformer;
-use Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Training\School\AutoSchool;
+use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class FinanceController
+ * @package App\Http\Controllers\Investor
+ */
 class FinanceController extends Controller
 {
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('investor.finance.index', [
@@ -25,7 +32,10 @@ class FinanceController extends Controller
         ]);
     }
 
-    public function list()
+    /**
+     * @return \Spatie\Fractal\Fractal
+     */
+    public function all()
     {
         $autochools = AutoSchool::where('investor_id', Auth::id())
             ->with('autoschoolGroups.users')
