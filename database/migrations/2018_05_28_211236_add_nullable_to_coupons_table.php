@@ -14,8 +14,8 @@ class AddNullableToCouponsTable extends Migration
     public function up()
     {
         Schema::table('coupons', function (Blueprint $table) {
-            $table->integer('auto_school_group_id')->unsigned()->nullable()->change();
-            $table->integer('student_id')->unsigned()->nullable()->change();
+            $table->integer('auto_school_group_id')->unsigned()->default(0)->change();
+            $table->integer('student_id')->unsigned()->default(0)->change();
         });
     }
 

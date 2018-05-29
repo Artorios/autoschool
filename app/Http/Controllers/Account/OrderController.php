@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Billing\{PaymentFailedException, PaymentGateway};
+use App\Billing\{
+    PaymentFailedException, PaymentGateway
+};
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Order;
 use App\Models\User\Coupon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth, Validator};
-
+use Illuminate\Support\Facades\{
+    Auth, Validator
+};
 
 
 class OrderController extends Controller
@@ -20,15 +23,16 @@ class OrderController extends Controller
         $this->paymentGateway = $paymentGateway;
     }
 
-    public function cardPayment(Request $request){
+    public function cardPayment(Request $request)
+    {
 
         $user = auth()->user();
 
         $validator = Validator::make($request->all(), [
-            'numberCard'  => 'required',
-            'validityMonth'   => 'required',
+            'numberCard' => 'required',
+            'validityMonth' => 'required',
             'validityYear' => 'required',
-            'cvv2Code'       => 'required',
+            'cvv2Code' => 'required',
         ]);
 
         if (count($validator->errors())) {
@@ -48,7 +52,7 @@ class OrderController extends Controller
 
             return response()->json($order, 201);
 
-        } catch (PaymentFailedException $e){
+        } catch (PaymentFailedException $e) {
             return response()->json([], 422);
         }
     }
@@ -56,11 +60,11 @@ class OrderController extends Controller
     public function cuponPayment(Request $request)
     {
         $cupon = Coupon::where('code', $request->input('number_cupon'))->get()->first();
-        if(!$cupon){
+        if (!$cupon) {
             return response()->json(['status' => 0], 400);
         }
 
-        if($cupon->status == 2 && $cupon->code == $request->input('number_cupon')) {
+        if ($cupon->status == 2 && $cupon->code == $request->input('number_cupon')) {
             $cupon->update([
                 'status' => 3,
                 'student_id' => Auth::user()->id

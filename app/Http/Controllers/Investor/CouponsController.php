@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Investor;
 
 use App\Transformers\CouponTransformer;
-use Illuminate\Support\Facades\{DB, Auth};
+use Illuminate\Support\Facades\{
+    DB, Auth
+};
 use Carbon\Carbon;
-use App\Models\User\{History, Coupon};
+use App\Models\User\{
+    History, Coupon
+};
 use App\Http\Controllers\Controller;
 use App\Models\Training\School\AutoSchool;
 use App\Http\Requests\Investor\StoreCouponRequest;
@@ -49,7 +53,7 @@ class CouponsController extends Controller
             Coupon::create([
                 'investor_id' => $investor_id,
                 'auto_school_id' => $auto_school_id,
-                'code' => "$auto_school_id-".strtolower(str_random(7)),
+                'code' => "$auto_school_id-" . strtolower(str_random(7)),
                 'fee_amount' => $fee_amount,
                 'generation_date' => Carbon::now()->toDateString(),
             ]);
