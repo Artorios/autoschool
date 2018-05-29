@@ -79,4 +79,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+
+    /*public function scopeRelationSchool(){
+
+        if(!empty($this->attributes['autoschool'])){
+
+            return $this->getAttribute('school', AutoSchool::where('id', $this->attributes['autoschool'])->firstOrFail()) ;
+        }
+        else{
+            return ;
+        }
+
+    }*/
 }

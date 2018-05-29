@@ -52,7 +52,8 @@
                                     <td>{{user.id}}</td>
                                     <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
-                                    <td>{{user}}</td>
+                                    <td v-if="user.school">{{user.school.title}}</td>
+                                    <td v-else></td>
                                     <td><span class="label label-success">{{user.role}}</span></td>
                                     <td>
                                         <button class="btn btn-success"
@@ -95,7 +96,7 @@
                 showEditPopup: false,
                 query: '',
                 error_search: '',
-                lists: {}
+                lists: {},
             }
         },
         props: ['users'],

@@ -22,12 +22,22 @@ class UserController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function listUsers()
+    public function listUsers(User $user, AutoSchool $autoSchool)
     {
         $per_page = 20;
-        $users    = User::all();
-        $schools  = AutoSchool::whereIn('director_id', [0, null, ''])->get();
-        return view('admin.user.index', compact('users', 'schools'));
+        $users    = $user->with('autoschoolgroup')->get()->toArray();
+        $schools    = $autoSchool->get()->toArray();
+        foreach ($users as $key => $user){
+            foreach ($schools as $school){
+                if(!empty($user['autoschool'])){
+                    if($user['autoschool'] === $school['id']){
+                        $users[$key]['school'] = $school;
+                    }
+                }
+            }
+        }
+
+        return view('admin.user.index', compact('users'));
     }
 
     /**
