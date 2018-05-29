@@ -25,8 +25,7 @@ class CouponsController extends Controller
         ]);
     }
 
-    /*
-    public function list()
+    public function all()
     {
         $couppons = Coupon::where('investor_id', Auth::id())->get();
         return fractal($couppons, new CouponTransformer())->respond();
@@ -34,7 +33,6 @@ class CouponsController extends Controller
 //            ->with('autoSchool.city', 'group', 'student')
 //            ->get();
     }
-    */
 
     public function create()
     {
