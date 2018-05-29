@@ -3,7 +3,7 @@
 <div class="content error notice">
     <div class="breadcrumbs">
         <ul>
-            <li><a href="/investor">Главная</a></li>
+            <li><a href="{{ route('investor.index') }}">Филиалы автошкол</a></li>
             <li>Уведомления</li>
         </ul>
     </div>

@@ -3,8 +3,8 @@
     <div class="content error profile autoschool-coupons">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/investor">Главная</a></li>
-                <li><a href="/investor/coupons">Купоны</a></li>
+                <li><a href="{{ route('investor.index') }}">Филиалы автошкол</a></li>
+                <li><a href="{{ route('coupons.index') }}">Купоны</a></li>
                 <li>Генерация купонов</li>
             </ul>
         </div>

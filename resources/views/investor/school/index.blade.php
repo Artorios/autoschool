@@ -4,6 +4,9 @@
     <div class="content error">
         <div class="breadcrumbs">
             <ul>
+                <li><a href="{{ route('investor.index') }}">Филиалы автошкол</a></li>
+                <li>Финансы</li>
+
                 <li><a href="#">Главная</a></li>
                 <li><a href="#"> Страницы Автошколы АБВ</a></li>
 
