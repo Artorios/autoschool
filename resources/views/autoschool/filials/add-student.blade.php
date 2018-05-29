@@ -6,14 +6,15 @@
             <ul>
                 <li><a href="{{route('autoschool.index')}}">Главная</a></li>
                 <li><a href="{{ url()->previous() }}">Ученики</a></li>
-                <li><a href="#">Добавить студента</a></li>
+                <li><a href="#">Добавить ученика</a></li>
             </ul>
         </div>
         <h3>
             Добавить ученика
         </h3>
         <add-student
-                :schools="{{json_encode($autoschool)}}"
+                :schools="{{json_encode($schools)}}"
+                :groups="{{json_encode($groups)}}"
                 :coupons="{{json_encode($coupons)}}"
                 :cities="{{json_encode($cities)}}"
         ></add-student>
