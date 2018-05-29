@@ -63,11 +63,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
         Route::post('/', 'QuestionsController@getQuestions');
         Route::post('/create', 'QuestionsController@create');
         Route::post('/load-image', 'QuestionsController@loadImage');
-        Route::delete('/{question}', 'QuestionsController@delete');
+        Route::delete('/{question}', 'QuestionsController@delete')->name('admin.questions.delete');
     });
 
     Route::group(['prefix' => 'lessons-settings', 'namespace' => 'Settings'], function () {
-        Route::get('/', 'LessonsSettingsController@index');
+        Route::get('/', 'LessonsSettingsController@index')->name('admin.lessons.settings');
         Route::put('/{lessonsSettings}', 'LessonsSettingsController@changeSetting');
     });
 
