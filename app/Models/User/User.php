@@ -63,11 +63,13 @@ class User extends Authenticatable
 
     public function getAutoschoolAttribute()
     {
-        if (!empty(Auth::user()->auto_school_group_id))
+        if (!empty($this->attributes['auto_school_group_id']))
         {
-            return AutoSchool::find(Auth::user()->autoschoolgroup->auto_school_id)->id;
+            return AutoSchool::where('id',$this->autoschoolgroup->auto_school_id)->first()->id;
         }
-        return FALSE;
+        else{
+            return ;
+        }
     }
 
     /**
@@ -77,4 +79,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+
+    /*public function scopeRelationSchool(){
+
+        if(!empty($this->attributes['autoschool'])){
+
+            return $this->getAttribute('school', AutoSchool::where('id', $this->attributes['autoschool'])->firstOrFail()) ;
+        }
+        else{
+            return ;
+        }
+
+    }*/
 }
