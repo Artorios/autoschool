@@ -24,7 +24,7 @@ class CouponsController extends Controller
                 ->get(),
         ]);
     }
-
+    /*
     public function list()
     {
         $couppons = Coupon::where('investor_id', Auth::id())->get();
@@ -33,6 +33,7 @@ class CouponsController extends Controller
 //            ->with('autoSchool.city', 'group', 'student')
 //            ->get();
     }
+    */
 
     public function create()
     {
