@@ -24,7 +24,7 @@
             </div>
         </form>
         <div class="comment" v-if="setAnswer && (type === 'training' || type === 'withComment')">
-            <img src="/img/attention.png" alt="">
+            <i class="fa fa-info-circle icon-info-comment" aria-hidden="true"></i>
             <h5>Комментарий</h5>
             <p>{{checkedQuestion.comment}}</p>
         </div>
