@@ -3,7 +3,8 @@
     <div class="content error profile">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/autoschool">Главная</a> / Карта ЮЛ</li>
+                <li><a href="{{ route('investor.index') }}">Филиалы автошкол</a></li>
+                <li>Карта ЮЛ</li>
             </ul>
         </div>
 

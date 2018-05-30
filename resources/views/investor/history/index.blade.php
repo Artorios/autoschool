@@ -4,7 +4,8 @@
     <div class="content error profile finance">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="">Главная</a> / История</li>
+                <li><a href="{{ route('investor.index') }}">Филиалы автошкол</a></li>
+                <li>История</li>
             </ul>
         </div>
         <button href="" id="search-button" class="btn-grey visible-xs ">

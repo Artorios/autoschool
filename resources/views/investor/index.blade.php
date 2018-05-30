@@ -4,7 +4,7 @@
     <div class="content error profile investor">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="{{ route('investor.index') }}">Главная</a> / Филиалы</li>
+                <li>Филиалы автошкол</li>
             </ul>
         </div>
 
