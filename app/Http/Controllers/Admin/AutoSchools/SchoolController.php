@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Admin\AutoSchools;
 
-use App\Http\Requests\{CreateAutoSchoolAdmin,UpdateAutoSchoolAdmin};
-use App\Http\Requests\UpdateAutoSchoolAdminContacts;
+use App\Http\Requests\Admin\{CreateAutoSchoolAdmin , UpdateAutoSchoolAdmin, UpdateAutoSchoolAdminContacts};
 use App\Models\Location\City;
 use App\Models\Training\School\{
     AutoSchool, AutoSchoolContact
