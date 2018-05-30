@@ -27,12 +27,15 @@ class UserController extends Controller
         $users_list = $user->with('autoschoolgroup')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
 
-        $users = array_map(function ($school, $user) {
-            if($school['id'] === $user['autoschool']){
-                $user['school'] = $school;
+        $users = array_map(function ($user) use ($schools) {
+            foreach ($schools as $school) {
+                if (isset($user['autoschool']) && $user['autoschool'] === $school['id']) {
+                    $user['school'] = $school;
+                }
             }
             return $user;
-        }, $schools, $users_list);
+        }, $users_list);
+
 
         return view('admin.user.index', compact('users'));
     }
