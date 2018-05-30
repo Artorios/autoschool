@@ -98,8 +98,9 @@
                         <div class="status-fee">{{ item.amount.commission }}</div>
                         <div class="status-active" v-if="item.status === 3"><a href="">Активирован</a></div>
                         <div class="status-free" v-if="item.status === 1"><a href="">Свободный</a></div>
-                        <div class="status-paid" v-if="item.status === 2"><a href="">Выплачен</a> <img
-                                src="/img/attention.png" alt=""></div>
+                        <div class="status-paid" v-if="item.status === 2"><a href="">Выплачен</a>
+                            <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
+                        </div>
                     </div>
                 </div>
 

@@ -43,7 +43,7 @@
                 </div>
             </form>
             <div class="comment">
-                <img src="/img/attention.png" alt="">
+                <i class="fa fa-info-circle icon-info-comment" aria-hidden="true"></i>
                 <h5>Комментарий</h5>
                 <p>{{checkedQuestion.comment}}</p>
                 <p v-if="!checkedQuestion.correct">Правильный ответ - {{checkedQuestion.correct_answer.title}}</p>
