@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin\UserActions;
 
-use App\Http\Requests\Admin\CreateUserInAdmin;
-use App\Http\Requests\Admin\SearchUser;
-use App\Http\Requests\Admin\UpdateUserInAdmin;
+use App\Http\Requests\Admin\{
+    CreateUserInAdmin, SearchUser, UpdateUserInAdmin
+};
 use App\Models\Training\School\AutoSchool;
 use App\Models\User\User;
 use Illuminate\Http\Request;
@@ -35,6 +35,7 @@ class UserController extends Controller
             }
             return $user;
         }, $users_list);
+
 
 
         return view('admin.user.index', compact('users'));

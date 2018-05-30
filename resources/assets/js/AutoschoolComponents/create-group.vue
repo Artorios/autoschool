@@ -4,14 +4,17 @@
         <form action="">
             <div class="row nero">
                 <div class="col-xs-12 col-sm-4">
-                    <input v-model.trim="data.name" v-bind:class="{'input-error': errors.name}" id="name" type="text" class="name-group" placeholder="Название группы" required="">
+                    <input v-model.trim="data.name" v-bind:class="{'input-error': errors.name}" id="name" type="text"
+                           class="name-group" placeholder="Название группы" required="">
                 </div>
                 <div class="col-xs-6 col-sm-2">
-                    <input v-model.trim="data.exam_date" v-bind:class="{'input-error': errors.exam_date}" v-mask="'9999-99-99'" id="date" type="text" class="data" placeholder="Дата" required="">
+                    <input v-model.trim="data.exam_date" v-bind:class="{'input-error': errors.exam_date}"
+                           v-mask="'9999-99-99'" id="date" type="text" class="data" placeholder="Дата" required="">
                 </div>
                 <div class="col-xs-6 col-sm-2">
                     <span class="error" v-if="errors.exam_time">Время должно быть в формате ЧЧ:ММ</span>
-                    <input v-model.trim="data.exam_time" v-bind:class="{'input-error': errors.exam_time}" v-mask="'99:99'" id="time" type="text" class="time" placeholder="Время" required="">
+                    <input v-model.trim="data.exam_time" v-bind:class="{'input-error': errors.exam_time}"
+                           v-mask="'99:99'" id="time" type="text" class="time" placeholder="Время" required="">
                 </div>
                 <div class="col-xs-12 col-sm-3">
                     <a href="#" class="btn-grey" v-on:click.prevent="sendDataToServer()">Сохранить</a>
@@ -27,13 +30,13 @@
     export default {
         name: "create-group",
         data (){
-            return{
-                data:{
+            return {
+                data: {
                     name: "",
                     exam_date: "",
                     exam_time: "",
                 },
-                errors:{
+                errors: {
                     name: false,
                     exam_date: false,
                     exam_time: false
@@ -46,7 +49,7 @@
         methods: {
             sendDataToServer () {
                 if (this.validate()) return false
-                this.data.auto_school_filial_id = this.filial.id
+                this.data.auto_school_id = this.filial.id
                 this.$http.post('/autoschool/filials/groups/create', this.data).then(res => {
                     if (res.status === 201) {
                         location.href = '/autoschool/filials/' + this.filial.id
