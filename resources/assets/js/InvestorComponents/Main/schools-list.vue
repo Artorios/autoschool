@@ -1,7 +1,8 @@
 <template>
     <div class="blockgroupe">
-            <h2>Список автошкол:</h2>
 
+        <div class="row" :class="totalPages > 0 ? '' : 'hidden'">
+            <h2>Список автошкол:</h2>
             <table class="table manage-grid">
                 <thead>
                 <tr class="visible-md visible-lg">
@@ -33,7 +34,7 @@
                                     <div class="form-group">
                                         <input type="text">
                                     </div>
-                                </div>
+                                </div>95
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <input type="text">
@@ -53,12 +54,18 @@
                 </tr>
                 </tbody>
             </table>
-        <ul class="pagination" v-if="itemsPerPage < resultCount">
-            <li class="page-item" v-for="pageNumber in totalPages">
-                <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
-            </li>
-        </ul>
+            <ul class="pagination" v-if="itemsPerPage < resultCount">
+                <li class="page-item" v-for="pageNumber in totalPages">
+                    <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
+                </li>
+            </ul>
         </div>
+
+        <div class="row" :class="totalPages === 0 ? '' : 'hidden'">
+            <h3 class="text-center">У вас нет ни одной автошколы на данный момент.</h3>
+        </div>
+
+    </div>
 </template>
 
 <script>

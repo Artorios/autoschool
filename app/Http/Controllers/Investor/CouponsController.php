@@ -25,7 +25,7 @@ class CouponsController extends Controller
         ]);
     }
 
-    public function list()
+    public function all()
     {
         $couppons = Coupon::where('investor_id', Auth::id())->get();
         return fractal($couppons, new CouponTransformer())->respond();
@@ -43,28 +43,24 @@ class CouponsController extends Controller
 
     public function store(StoreCouponRequest $request)
     {
-        $investor_id = Auth::id();
         $auto_school_id = $request->get('auto_school');
-        $fee_amount = $request->get('fee_amount');
 
         DB::beginTransaction();
-
         for ($i = 0; $i < $request->get('count'); $i++) {
             Coupon::create([
-                'investor_id' => $investor_id,
-                'auto_school_id' => $auto_school_id,
-                'code' => "$auto_school_id-" . strtolower(str_random(7)),
-                'fee_amount' => $fee_amount,
+                'investor_id'     => Auth::id(),
+                'auto_school_id'  => $auto_school_id,
+                'code'            => "$auto_school_id-" . strtolower(str_random(7)),
+                'fee_amount'      => $request->get('fee_amount'),
                 'generation_date' => Carbon::now()->toDateString(),
             ]);
         }
 
         History::create([
-            'investor_id' => $investor_id,
+            'investor_id'    => Auth::id(),
             'auto_school_id' => $auto_school_id,
-            'operation' => 'Генерация купонов',
+            'operation'      => 'Генерация купонов',
         ]);
-
         DB::commit();
 
         return redirect()->route('investor.coupons.create')->with('messages', ['Купоны успешно созданны']);
