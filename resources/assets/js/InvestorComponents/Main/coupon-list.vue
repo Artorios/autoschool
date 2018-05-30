@@ -51,7 +51,9 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="data">
-                            <input type="text" placeholder="Дата">
+                            <v-date-picker
+                                    :min-date='new Date()'
+                                    v-model='selectedDate'></v-date-picker>
                         </div>
                     </div>
                 </div>
@@ -205,6 +207,7 @@
     export default {
         data() {
             return {
+                selectedDate: '',
                 list: []
             }
         },

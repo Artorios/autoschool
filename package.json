@@ -60,6 +60,7 @@
     "slick-carousel": "^1.8.1",
     "slimscroll": "^0.9.1",
     "utf8": "^3.0.0",
+    "v-calendar": "^0.9.7",
     "videojs-youtube": "^2.5.0",
     "vue-bus": "^1.1.0",
     "vue-image-crop-upload": "^2.3.0",
