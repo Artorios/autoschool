@@ -1,5 +1,5 @@
 <template>
-    <div class="blockgroupe">
+    <div class="blockgroupe" v-if="list.length">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -200,6 +200,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div v-else>
+        Недостаточно данных
     </div>
 </template>
 
