@@ -91,7 +91,7 @@
                             <div class="status-fee">{{coupon.fee_amount}}</div>
                             <div class="status-free"   v-if="coupon.status == 1"><a href="#">Свободный</a></div>
                             <div class="status-paid"   v-else-if="coupon.status == 2"><a href="#">Выплачен</a>
-                                <img src="/img/attention.png"  alt="">
+                                <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
                             </div>
                             <div class="status-active" v-else-if="coupon.status == 3"><a href="#">Активирован</a></div>
                         </div>
@@ -134,7 +134,7 @@
                             <span>Статус</span>
                             <div class="status-free"   v-if="coupon.status == 1"><a href="#">Свободный</a></div>
                             <div class="status-paid"   v-else-if="coupon.status == 2"><a href="#">Выплачен</a>
-                                <img src="/img/attention.png" alt="">
+                                <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
                             </div>
                             <div class="status-active" v-else-if="coupon.status == 3"><a href="#">Активирован</a></div>
 

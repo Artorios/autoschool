@@ -33,20 +33,20 @@ a:focus {
 
 //footer to bottom
 body {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-height: 100vh;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+   display: -webkit-box;
+   display: -webkit-flex;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-box-orient: vertical;
+   -webkit-box-direction: normal;
+   -webkit-flex-direction: column;
+   -ms-flex-direction: column;
+   flex-direction: column;
+   min-height: 100vh;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+ }
 
 footer, header {
   -webkit-flex-shrink: 0;
@@ -60,82 +60,6 @@ main, #app {
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
 
-}
-
-.btn-red,
-.btn-grey {
-  font-size: 18px;
-  background: linear-gradient(to top, #d10a0c, #fd6061);
-  text-align: center;
-  display: block;
-  height: 55px;
-  line-height: 53px;
-  border-radius: 30px;
-  color: #fff;
-  margin-top: 40px;
-  border: none;
-  &:hover {
-    color: #fff;
-  }
-}
-
-.btn-grey {
-  background: linear-gradient(to top, #bababa, #ebeaea);
-  color: #000;
-  font-size: 15px;
-  &:hover {
-    background: linear-gradient(to top, #9a9a9a, #dadcde);
-    color: #000;
-  }
-  &.disabled {
-    pointer-events: none;
-    cursor: default;
-    background: #fff;
-    border: 1px solid #ccc;
-    color: #999;
-  }
-}
-
-.btn-white {
-  font-size: 18px;
-  background: #fff;
-  text-align: center;
-  display: block;
-  height: 55px;
-  line-height: 53px;
-  border-radius: 30px;
-  color: #000;
-  margin-top: 40px;
-  border: none;
-  &:hover {
-    color: #000;
-  }
-}
-
-//refresh icon
-.refresh {
-  position: relative;
-  top: 2px;
-  left: 5px;
-  width: 15px;
-  height: 15px;
-  display: inline-block !important;
-  cursor: pointer;
-  &:after{
-    content: '\f021';
-    font-family: FontAwesome;
-    color: #999999;
-    font-size: 16px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    transition: color 0.1s ease-in-out;
-  }
-  &:hover {
-    &:after{
-      color: #FF0000;
-    }
-  }
 }
 
 //requsites
@@ -180,21 +104,6 @@ main, #app {
 }
 .radio-button input:checked + label:hover{
   pointer-events: none;
-}
-@media (max-width: 991px){
-  .radio-button{
-    width: 23%;
-  }
-}
-@media (max-width: 767px) {
-  .requsites{
-    padding: 0 15px;
-  }
-}
-@media (max-width: 575px){
-  .radio-button{
-    width: 48%;
-  }
 }
 
 .details h3{
@@ -262,5 +171,20 @@ main, #app {
       font-size: 30px;
       color: #999;
     }
+  }
+}
+@media (max-width: 991px){
+  .radio-button{
+    width: 23%;
+  }
+}
+@media (max-width: 767px) {
+  .requsites{
+    padding: 0 15px;
+  }
+}
+@media (max-width: 575px){
+  .radio-button{
+    width: 48%;
   }
 }

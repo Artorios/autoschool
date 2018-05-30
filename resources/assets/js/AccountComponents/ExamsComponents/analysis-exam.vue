@@ -43,7 +43,7 @@
                 </div>
             </form>
             <div class="comment">
-                <img src="/img/attention.png" alt="">
+                <i class="fa fa-info-circle icon-info-comment" aria-hidden="true"></i>
                 <h5>Комментарий</h5>
                 <p>{{checkedQuestion.comment}}</p>
                 <p v-if="!checkedQuestion.correct">Правильный ответ - {{checkedQuestion.correct_answer.title}}</p>
@@ -118,17 +118,25 @@
     .correct {
         color: green;
     &:before {
-         background: url("../../../img/correct.svg") center;
-         -webkit-background-size: 100%;
-         background-size: 100%;
+        content: '\2DF';
+        font-size: 22px;
+        color: green;
+        line-height: 1;
+        border: 1px solid green;
+        border-radius: 50%;
+        text-align: center;
      }
     }
     .incorrect {
         color: red;
     &:before {
-         background: url("../../../img/incorrect.svg") center;
-         -webkit-background-size: 100%;
-         background-size: 100%;
+        content: '\2DF';
+        font-size: 22px;
+        color: red;
+        line-height: 1;
+        border: 1px solid red;
+        border-radius: 50%;
+        text-align: center;
      }
     }
     }

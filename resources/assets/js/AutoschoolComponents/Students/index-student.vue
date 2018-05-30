@@ -12,7 +12,9 @@
                     <div class="row">
                         <div class="col-md-4">Дата и время екзамена</div>
                         <div class="col-md-3">
-                            <img src="/img/clock.png" alt=""> {{student_with_auto_school.exam_date}}</div>
+                            <i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>
+                            {{student_with_auto_school.exam_date}}
+                        </div>
                         <div class="col-md-3" v-text="student_with_auto_school.exam_time"></div>
                     </div>
                 </div>
@@ -28,22 +30,23 @@
                     <div class="col-md-12">
                         <div class="info">
                                 <span class="address">
-                                    <img src="/img/location.png" alt="">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
                                     {{student_with_address.cityName}}
                                 </span>
                         </div>
-
                     </div>
                     <div class="col-md-12">
-                        <div class="info"><img src="/img/tel.png" alt="">
+                        <div class="info">
                             <span class="number">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
                                  {{student_with_orders.phone}}
                             </span>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="info"><img src="/img/mail.png" alt="">
+                        <div class="info">
                             <span class="mail">
+                            <i class="fa fa-envelope-open" aria-hidden="true"></i>
                                     <a :href="`mailto:mailto:${student_with_orders.email}`"
                                        v-text="student_with_orders.email">
                                     </a>
