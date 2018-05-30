@@ -60,6 +60,11 @@
                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                                 </h3>
                             @endif
+                            @if(empty(Auth::user()->autoschool))
+                                    <h3>{{auth()->user()->name}}
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    </h3>
+                            @endif
                             <span>Комиссия {{all_sum(Auth::user()->id)}} руб.</span>
                     </a>
                     <a href="{{route('autoschool.notify')}}" class="notes">
