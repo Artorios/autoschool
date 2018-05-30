@@ -33,20 +33,20 @@ a:focus {
 
 //footer to bottom
 body {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-height: 100vh;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+   display: -webkit-box;
+   display: -webkit-flex;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-box-orient: vertical;
+   -webkit-box-direction: normal;
+   -webkit-flex-direction: column;
+   -ms-flex-direction: column;
+   flex-direction: column;
+   min-height: 100vh;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+ }
 
 footer, header {
   -webkit-flex-shrink: 0;
@@ -104,21 +104,6 @@ main, #app {
 }
 .radio-button input:checked + label:hover{
   pointer-events: none;
-}
-@media (max-width: 991px){
-  .radio-button{
-    width: 23%;
-  }
-}
-@media (max-width: 767px) {
-  .requsites{
-    padding: 0 15px;
-  }
-}
-@media (max-width: 575px){
-  .radio-button{
-    width: 48%;
-  }
 }
 
 .details h3{
@@ -186,5 +171,20 @@ main, #app {
       font-size: 30px;
       color: #999;
     }
+  }
+}
+@media (max-width: 991px){
+  .radio-button{
+    width: 23%;
+  }
+}
+@media (max-width: 767px) {
+  .requsites{
+    padding: 0 15px;
+  }
+}
+@media (max-width: 575px){
+  .radio-button{
+    width: 48%;
   }
 }

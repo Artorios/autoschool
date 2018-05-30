@@ -13,7 +13,8 @@
                     <div class="number">{{group.id}}</div>
                     <div class="name"><a :href="'/autoschool/filials/groups/'+group.id">{{group.name}}</a></div>
                     <div class="data-and-time">
-                        <img src="/img/clock.png"> {{editDate(group.exam_date)}} ({{dayOfweek(group.exam_date)}}) {{editTime(group.exam_time)}}
+                        <i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>
+                        {{editDate(group.exam_date)}} ({{dayOfweek(group.exam_date)}}) {{editTime(group.exam_time)}}
                     </div>
                     <div class="count">
                         <span class="visible-xs hidden-sm">Количество учеников  {{group.count_student}}</span>
