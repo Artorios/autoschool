@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin\AutoSchools;
 
-use App\Http\Requests\Admin\{CreateAutoSchoolAdmin , UpdateAutoSchoolAdmin, UpdateAutoSchoolAdminContacts};
+use App\Http\Requests\Admin\{
+    CreateAutoSchoolAdmin, UpdateAutoSchoolAdmin, UpdateAutoSchoolAdminContacts
+};
 use App\Models\Location\City;
 use App\Models\Training\School\{
     AutoSchool, AutoSchoolContact
@@ -57,8 +59,7 @@ class SchoolController extends Controller
     {
 
 
-
-        DB::transaction(function () use ($request,$adminContacts, $id) {
+        DB::transaction(function () use ($request, $adminContacts, $id) {
             $city = AutoSchool::where('id', $id)->firstOrFail()->city_id;
             if ($city != $request->validated()['city_id']) {
                 City::where('id', $city)->update(['show_city' => 0]);
@@ -74,7 +75,7 @@ class SchoolController extends Controller
                 }
             }
         });
-        return response('',202);
+        return response('', 202);
 
     }
 }
