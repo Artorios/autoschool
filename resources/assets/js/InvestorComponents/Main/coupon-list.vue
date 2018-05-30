@@ -26,7 +26,7 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <div class="search">
-                            <input type="text" placeholder="Введите что искать">
+                            <input type="text" placeholder="Введите что искать" v-model="searchTitle" v-on:keyup="filterByTitle">
                         </div>
                     </div>
                 </div>
@@ -41,17 +41,17 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <select class="select">
-                            <option selected disabled>По дате</option>
-                            <option>21.01.15</option>
-                            <option>22.01.15</option>
+                        <label for="date">дата</label>
+                        <select v-model="searchDate" @change="filterByDate" id="date">
+                            <option selected></option>
+                            <option v-for="item in list">{{ item.updated_at }}</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="data">
-                            <input type="text" placeholder="Дата">
+                            <input type="text" placeholder="Дата"  v-on:keyup="filterByDate" v-model="searchDate">
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                     <span class="status">Комиссия /статус</span>
                 </div>
 
-                <div v-for="item in list" :class="{
+                <div v-for="item in filteredList" :class="{
                     'line active': item.status === 3,
                     'line sale': item.status === 2,
                     'line free': item.status === 1,
@@ -205,13 +205,31 @@
     export default {
         data() {
             return {
-                list: []
+                searchTitle: '',
+                searchDate: '',
+                list: [],
+                filteredList: []
+            }
+        },
+        methods: {
+            filterByTitle: function () {
+                this.filteredList = this.list.filter(item => {
+                    return item.autoschool.title.toLowerCase().includes(this.searchTitle.toLowerCase())
+                });
+                if (this.searchTitle.length <= 0)  this.filteredList = this.list;
+            },
+            filterByDate: function () {
+                this.filteredList = this.list.filter(item => {
+                    return item.updated_at.toLowerCase().includes(this.searchDate.toLowerCase())
+                });
+                if (this.searchDate.length <= 0)  this.filteredList = this.list;
             }
         },
         mounted() {
             window.axios.get('/investor/coupons/list')
                 .then((response) => {
-                    this.list = response.data.data
+                    this.list = response.data.data;
+                    this.filteredList = response.data.data;
                 })
         }
     }
