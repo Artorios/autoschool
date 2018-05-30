@@ -24,18 +24,18 @@ class UserController extends Controller
      */
     public function listUsers(User $user, AutoSchool $autoSchool)
     {
-        $per_page = 20;
-        $users = $user->with('autoschoolgroup')->get()->toArray();
+        $users_list = $user->with('autoschoolgroup')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
-        foreach ($users as $key => $user) {
+
+        $users = array_map(function ($user) use ($schools) {
             foreach ($schools as $school) {
-                if (!empty($user['autoschool'])) {
-                    if ($user['autoschool'] === $school['id']) {
-                        $users[$key]['school'] = $school;
-                    }
+                if (isset($user['autoschool']) && $user['autoschool'] === $school['id']) {
+                    $user['school'] = $school;
                 }
             }
-        }
+            return $user;
+        }, $users_list);
+
 
 
         return view('admin.user.index', compact('users'));
