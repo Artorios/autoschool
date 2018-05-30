@@ -24,24 +24,21 @@ class UserController extends Controller
      */
     public function listUsers(User $user, AutoSchool $autoSchool)
     {
-        $per_page = 20;
-        $users    = $user->with('autoschoolgroup')->get()->toArray();
-        $schools    = $autoSchool->get()->toArray();
-        foreach ($users as $key => $user){
-            foreach ($schools as $school){
-                if(!empty($user['autoschool'])){
-                    if($user['autoschool'] === $school['id']){
-                        $users[$key]['school'] = $school;
-                    }
-                }
+        $users_list = $user->with('autoschoolgroup')->get()->toArray();
+        $schools = $autoSchool->get()->toArray();
+
+        $users = array_map(function ($school, $user) {
+            if($school['id'] === $user['autoschool']){
+                $user['school'] = $school;
             }
-        }
+            return $user;
+        }, $schools, $users_list);
 
         return view('admin.user.index', compact('users'));
     }
 
     /**
-     * @param User    $user
+     * @param User $user
      * @param UpdateUserInAdmin $request
      *
      * @return \Illuminate\Http\JsonResponse
@@ -50,9 +47,9 @@ class UserController extends Controller
     {
 
 
-            $user->update($request->validated());
+        $user->update($request->validated());
 
-            return response()->json(['status' => 1], 202);
+        return response()->json(['status' => 1], 202);
 
     }
 
@@ -64,16 +61,15 @@ class UserController extends Controller
     public function create(CreateUserInAdmin $request)
     {
 
-            $data             = $request->validated();
-            $data['password'] = '123456';
-            $data['license'] = "A";
-            $data['city_id'] = "565";
-            User::create($data);
+        $data = $request->validated();
+        $data['password'] = '123456';
+        $data['license'] = "A";
+        $data['city_id'] = "565";
+        User::create($data);
 
-            return response()->json(['status' => $data], 201);
+        return response()->json(['status' => $data], 201);
 
     }
-
 
 
 }
