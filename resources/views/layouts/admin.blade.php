@@ -357,7 +357,21 @@
                             {{--<i class="fa fa-dashboard"></i> <span>Главная</span>--}}
                         {{--</a>--}}
                     {{--</li>--}}
-                    <li><a href="{{route('admin.lessons.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Уроки</span></a></li>
+                    {{--<li><a href="{{route('admin.lessons.list')}}"><i class="fa fa-circle-o text-yellow"></i><span>Уроки</span></a></li>--}}
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o text-yellow"></i>
+                            <span>Уроки</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ route('admin.lessons.list') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Все уроки</span></a></li>
+                            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Категория A</span></a></li>
+                            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Категория C</span></a></li>
+                        </ul>
+                    </li>
                     <li><a href="{{route('admin.questions.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Вопросы и ответы</span></a></li>
                     <li><a href="{{ route('admin.users') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Пользователи</span></a></li>
                     {{--<li><a href="/admin/districts"><i class="fa fa-circle-o text-yellow"></i> <span>Районы</span></a></li>--}}
