@@ -6,6 +6,7 @@ use App\Models\Location\City;
 use App\Models\Training\School\AutoSchool;
 use App\Models\User\Contract;
 use App\Models\User\InvestorProfile;
+use App\Models\User\UserLessonVideo;
 use App\Models\User\UserTicket;
 use App\Models\User\UserSettings;
 use App\Models\Training\Exam\Exam;
@@ -91,5 +92,9 @@ trait UserRelationship
     public function investorProfile()
     {
         return $this->hasOne(InvestorProfile::class);
+    }
+
+    public function videos(){
+        return $this->hasMany(UserLessonVideo::class,'user_id', 'id');
     }
 }
