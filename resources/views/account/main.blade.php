@@ -6,7 +6,7 @@
                 <li>Главная</li>
             </ul>
         </div>
-        <div class="info">
+        <div class="info main-user-info clearfix">
             <school-exam></school-exam>
 
                 {{--<h3>Школьный экзамен</h3>

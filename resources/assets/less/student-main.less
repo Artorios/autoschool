@@ -327,6 +327,14 @@ header.inner {
           }
         }
       }
+      .info.main-user-info{
+        margin: 0 -15px;
+        .block{
+          width: calc(50% - 30px);
+          float: left;
+          margin: 0 15px;
+        }
+      }
       .start-video {
         min-height: 250px;
         background: url('../img/videoblock-bg.png') no-repeat center right;
@@ -416,6 +424,7 @@ header.inner {
               }
               img {
                 width: 100%;
+                height: 160px;
               }
             }
             h4 {
@@ -740,6 +749,21 @@ footer.inner {
             &:last-child {
               float: none;
             }
+          }
+        }
+        .info.main-user-info{
+          padding: 0 20px;
+          margin: 0;
+          .block{
+            width: 100%;
+            float: none;
+            margin: 0 0 15px 0;
+          }
+          .block:first-child{
+            border: 3px solid #ccc;
+          }
+          .block:last-child{
+            margin: 0;
           }
         }
         .start-video {
