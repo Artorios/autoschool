@@ -103,6 +103,11 @@ body {
         }
         label {
           font-weight: 400;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          position: relative;
         }
         label:before {
           display: inline-block;
@@ -116,14 +121,26 @@ body {
           position: relative;
           top: 7px;
           margin-right: 10px;
-
         }
-        input[type=checkbox]:checked + label:before {
-          background: url(../img/ok-red.png) no-repeat center center;
+        input[type=checkbox] + label:after {
+          content: '\f00c';
+          font-family: FontAwesome;
+          font-size: 21px;
+          color: red;
+          line-height: 1;
+          display: block;
+          position: absolute;
+          left: 2px;
+          top: 9px;
+          opacity: 0;
+          transition: opacity 0.1s ease-in-out;
+          cursor: pointer;
+        }
+        input[type=checkbox]:checked + label:after{
+          opacity: 1;
         }
         a {
           color: #333;
-
         }
       }
     }
