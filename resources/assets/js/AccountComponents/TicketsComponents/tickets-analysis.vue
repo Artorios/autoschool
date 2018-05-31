@@ -1,5 +1,5 @@
 <template>
-    <div class="content error training" >
+    <div class="content error training">
         <div class="breadcrumbs">
             <ul>
                 <li><a href="/account">Главная</a></li>
@@ -21,7 +21,7 @@
                              {'slick-slide slick-active': question.id !== checkedQuestion.id}
                          ]"
                          v-for="(question, i) in questions">
-                        <a href="#" @click.prevent="setQuestion(i)">{{i+1}}</a>
+                        <a href="#" @click.prevent="setQuestion(i)">{{i + 1}}</a>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
             prevQuestion () {
                 if (this.questionStart) {
                     this.checkedQuestion = this.questions[--this.questionStart]
-                } else if(!this.questionStart) {
+                } else if (!this.questionStart) {
                     this.checkedQuestion = this.questions[0]
                 }
             },
@@ -91,53 +91,63 @@
 
 <style lang="scss">
     .slide.correct a {
-        color: green!important;
-        border-color: green!important;
-        opacity: 1!important;
+        color: green !important;
+        border-color: green !important;
+        opacity: 1 !important;
     }
+
     .slide.wrong a {
-        color: red!important;
-        border-color: red!important;
-        opacity: 1!important;
+        color: red !important;
+        border-color: red !important;
+        opacity: 1 !important;
     }
-    .custom-wrap{
-    .correct, .incorrect, p{
-        font-weight: 600;
-        font-size: 17px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    &:before{
-         display: inline-block;
-         width: 17px;
-         height: 17px;
-         content: '';
-         margin-right: 10px;
-     }
-    }
-    .correct {
-        color: green;
-    &:before {
-        content: '\2DF';
-        font-size: 22px;
-        color: green;
-        line-height: 1;
-        border: 1px solid green;
-        border-radius: 50%;
-        text-align: center;
-     }
-    }
-    .incorrect {
-        color: red;
-    &:before {
-        content: '\2DF';
-        font-size: 22px;
-        color: red;
-        line-height: 1;
-        border: 1px solid red;
-        border-radius: 50%;
-        text-align: center;
-     }
-    }
+
+    .custom-wrap {
+        .correct, .incorrect, p {
+            font-weight: 600;
+            font-size: 17px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            &:before {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                display: inline-block;
+                width: 17px;
+                height: 17px;
+                content: '';
+                margin-right: 10px;
+            }
+        }
+        .correct {
+            color: green;
+            &:before {
+                content: '\2DF';
+                font-size: 22px;
+                color: green;
+                line-height: 1;
+                border: 1px solid green;
+                border-radius: 50%;
+                text-align: center;
+            }
+        }
+        .incorrect {
+            color: red;
+            &:before {
+                content: '\2DF';
+                font-size: 22px;
+                color: red;
+                line-height: 1;
+                border: 1px solid red;
+                border-radius: 50%;
+                text-align: center;
+            }
+        }
+        p {
+            position: relative;
+            padding-left: 20px;
+        }
     }
 </style>
