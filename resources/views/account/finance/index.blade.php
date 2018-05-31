@@ -17,19 +17,19 @@
             <div class="line">
                 <div class="number">
                     <span class="mobile-name">Договор</span>
-                    <a href="#">Д7584_17</a>
+                    <a href="#">{{$contract['name']}}</a>
                 </div>
                 <div class="date">
                     <span class="mobile-name">Дата</span>
-                    <span>27.11.17</span>
+                    <span>{{$contract['date']}}</span>
                 </div>
                 <div class="price">
                     <span class="mobile-name">Начисление (руб):</span>
-                    <span>6400</span>
+                    <span>{{$contract['price']}}</span>
                 </div>
                 <div class="total-price">
                     <span class="mobile-name">Итого к оплате (руб.):</span>
-                    <span>6400</span>
+                    <span>{{$contract['amount']}}</span>
                 </div>
             </div>
         </div>
