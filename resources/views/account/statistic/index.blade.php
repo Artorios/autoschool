@@ -18,6 +18,7 @@
                                         <span class="exam">Зачет</span>
                                         <span class="group-exam">Групповой зачет</span>
                                 </div>
+                                {{--{{dd($returnLessons[0]['viewed_date'])}}--}}
                                 @if(!empty($returnLessons))
                                         @if(!empty($returnResult))
                                                 <statistic-vue :statistics="{{json_encode($returnLessons)}}"

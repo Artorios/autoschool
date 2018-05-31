@@ -11,7 +11,7 @@
                     <div class="lesson">
                         <span class="mobile-title">Урок</span>
                         <span :class="{'ready': lesson.viewed}">{{lesson.viewed ? 'Пройден' : 'Не пройден'}}</span>
-                        <span class="date">{{editDate(lesson.updated_at)}}</span>
+                        <span class="date" v-if="lesson.viewed_date">{{editDate(lesson.viewed_date)}}</span>
                     </div>
                     <div class="train">
                         <div v-if="lesson.right_quest_train">
