@@ -165,3 +165,23 @@
   top: 12px;
   font-size: 18px;
 }
+//icon data icon
+div.data{
+  position: relative;
+  input{
+    padding: 0 45px 0 15px;
+    cursor: pointer;
+  }
+  &:after{
+    content: '\F073';
+    font-family: FontAwesome;
+    display: block;
+    position: absolute;
+    color: #999;
+    font-size: 20px;
+    top: 50%;
+    right: 21px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
