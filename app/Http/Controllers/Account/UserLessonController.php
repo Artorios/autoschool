@@ -181,11 +181,23 @@ class UserLessonController extends Controller
 
         $response['right_count'] = $training->questions()->where('correct', 1)->count();
         $response['all_count'] = $lesson->questions()->count();
-        $response['errors_num'] = $lesson->exam_errors_num;
-        if($response['all_count']-$response['errors_num'] <= $response['right_count']){
+        $response['errors_num'] = $response['all_count'] - $response['right_count'];
+        if($response['all_count']<=10 && $response['errors_num'] <= 1 ){
             $response['status'] = 'passed';
             $response['complete'] = 1;
 
+        }
+        elseif ($response['all_count'] >10 && $response['all_count']<= 20 && $response['errors_num'] <= 2 ){
+            $response['status'] = 'passed';
+            $response['complete'] = 1;
+        }
+        elseif ($response['all_count'] >20 && $response['all_count']<= 30 && $response['errors_num'] <= 3 ){
+            $response['status'] = 'passed';
+            $response['complete'] = 1;
+        }
+        elseif ($response['all_count'] >30 && $response['errors_num'] <= 4 ){
+            $response['status'] = 'passed';
+            $response['complete'] = 1;
         }
         else{
             $response['status'] = 'failed';
