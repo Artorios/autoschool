@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Http\Requests\ChangePasswordRequest;
+use App\Mail\ConfirmEmail;
+use App\Mail\ConfirmPasswordChange;
+use App\Mail\PasswordChanged;
 use App\Models\Location\City;
 use App\Models\Training\School\AutoSchool;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -64,31 +69,31 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updatePassword(Request $request, User $user)
-    {
-        $password = $request->input('password');
-        $newPassword = $request->input('new_password');
-        $newPassword = bcrypt($newPassword);
-        $userNow = Auth::user();
-        $oldPassword = $user->select('password')->where(['id' => $userNow['id']])->firstOrFail();
-
-        switch (Auth::user()->role) {
-            case 'admin':
-                $redirectTo = '/admin'; break; //TODO::set URL
-            case 'autoschool':
-                $redirectTo = '/autoschool/profile-edit'; break;
-            case 'user':
-                $redirectTo = '/account/edit-profile'; break;
-            case 'investor':
-                $redirectTo = '/investor/profile/edit'; break;
-        }
-        if (Hash::check($password, $oldPassword['password'])) {
-            $user->where(['id' => $userNow['id']])->update(['password' => $newPassword]);
-            return response()->json(['status' => 1, 'redirectUrl' => $redirectTo], 201);
-        } else {
-            return response()->json(['status' => 0, 'redirectUrl' => $redirectTo], 422);
-        }
-    }
+//    public function updatePassword(Request $request, User $user)
+//    {
+//        $password = $request->input('password');
+//        $newPassword = $request->input('new_password');
+//        $newPassword = bcrypt($newPassword);
+//        $userNow = Auth::user();
+//        $oldPassword = $user->select('password')->where(['id' => $userNow['id']])->firstOrFail();
+//
+//        switch (Auth::user()->role) {
+//            case 'admin':
+//                $redirectTo = '/admin'; break; //TODO::set URL
+//            case 'autoschool':
+//                $redirectTo = '/autoschool/profile-edit'; break;
+//            case 'user':
+//                $redirectTo = '/account/edit-profile'; break;
+//            case 'investor':
+//                $redirectTo = '/investor/profile/edit'; break;
+//        }
+//        if (Hash::check($password, $oldPassword['password'])) {
+//            $user->where(['id' => $userNow['id']])->update(['password' => $newPassword]);
+//            return response()->json(['status' => 1, 'redirectUrl' => $redirectTo], 201);
+//        } else {
+//            return response()->json(['status' => 0, 'redirectUrl' => $redirectTo], 422);
+//        }
+//    }
 
     /**
      * @param Request $request
@@ -140,9 +145,51 @@ class AccountController extends Controller
 
     public function editProfile()
     {
-        $cities = City::where('show_city', 1)->get();
+        $cities = [];
         $user = Auth::user();
         return view('account.profile.index', compact('cities', 'user'));
 
+    }
+
+    /**
+     * @param ChangePasswordRequest $request
+     * @param Mailer $mailer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function changePassword(ChangePasswordRequest $request, Mailer $mailer)
+    {
+        $url = 'http://';
+
+        if ($request->secure()) {
+            $url = 'https://';
+        }
+
+        $url .= $request->getHttpHost();
+        $url .= '/account/change-password';
+        $url .= '/' . encrypt(Auth::id());
+        $url .= '/' . encrypt($request->get('password'));
+
+        $mailer->to(Auth::user()->email)->send(new ConfirmPasswordChange($url));
+
+        return back();
+    }
+
+    /**
+     * @param $id
+     * @param $password
+     * @param Mailer $mailer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword($id, $password, Mailer $mailer)
+    {
+        $user = User::find(decrypt($id));
+        $password = decrypt($password);
+        $user->update([
+            'password' => Hash::make($password)
+        ]);
+
+        $mailer->to($user->email)->send(new PasswordChanged());
+
+        return redirect()->route('home');
     }
 }
