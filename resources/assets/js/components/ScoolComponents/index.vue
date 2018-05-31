@@ -21,7 +21,7 @@
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                                    <input type="text" name="table_search" class="form-control pull-right" :placeholder="searchplaceholder">
 
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -85,7 +85,7 @@
         components: {
             AddSchool
         },
-        props: ['schools'],
+        props: ['schools', 'searchplaceholder'],
         created () {
             Events.$on('toggle-popup-school', () => {
                 this.closePopup()

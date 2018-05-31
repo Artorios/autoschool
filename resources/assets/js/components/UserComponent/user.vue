@@ -22,7 +22,7 @@
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
                                     <p class="error" v-if="error_search">{{error_search}}</p>
-                                    <input type="text" name="table_search" class="form-control pull-right" v-model="query" placeholder="Search">
+                                    <input type="text" name="table_search" class="form-control pull-right" v-model="query" :placeholder="searchplaceholder">
 
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-default" @click="search"><i class="fa fa-search"></i></button>
@@ -99,7 +99,7 @@
                 lists: {},
             }
         },
-        props: ['users'],
+        props: ['users', 'searchplaceholder'],
         components: {
             EditPopup
         },
