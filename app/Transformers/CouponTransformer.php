@@ -36,7 +36,8 @@ class CouponTransformer extends TransformerAbstract
             'amount' => [
                 'payment' => $coupon->payment_amount,
                 'commission' => $coupon->commision_amount,
-            ]
+            ],
+            'updated_at' => (string) $coupon->updated_at
         ];
     }
 }
