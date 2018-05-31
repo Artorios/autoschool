@@ -15,12 +15,21 @@ use App\Models\User\User;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-    static $password;
 
     return [
+        'activated' => 1,
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'password' => bcrypt('secret'),
+        'last_name' => $faker->name,
+        'second_name' => $faker->name,
+        'phone' => str_random(20),
+        'sms_notice' => 1,
+        'email_notice' => 1,
         'remember_token' => str_random(10),
+        'auto_school_group_id' => \App\Models\Training\School\AutoSchoolGroup::all()->random()->id,
+        'license' => str_random(20),
+        'confirmation_code' => str_random(20),
+        'city_id' => $faker->randomElement(['158', '565', '15598']),
     ];
 });
