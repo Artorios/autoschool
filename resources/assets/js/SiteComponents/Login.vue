@@ -28,12 +28,24 @@
                     <div class="right">
                         <span>Или Вы можете войти через одну из учетных записей:</span>
                         <div class="socials">
-                            <a href="/user/redirect/facebook" class="facebook"></a>
-                            <a href="/user/redirect/vkontakte" class="vk"></a>
-                            <a href="#" class="ok"></a>
-                            <a href="/user/redirect/twitter" class="twitter"></a>
-                            <a href="#" class="yandex"></a>
-                            <a href="#" class="mail"></a>
+                            <a href="/user/redirect/facebook" class="facebook">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </a>
+                            <a href="/user/redirect/vkontakte" class="vk">
+                                <i class="fa fa-vk" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="ok">
+                                <i class="fa fa-odnoklassniki" aria-hidden="true"></i>
+                            </a>
+                            <a href="/user/redirect/twitter" class="twitter">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="yandex">
+                                <span class="icon-yandex">я</span>
+                            </a>
+                            <a href="#" class="mail">
+                                <span class="icon-mail">@</span>
+                            </a>
                         </div>
                         <a href="/registration" class="btn-red">Зарегистрироваться</a>
                     </div>

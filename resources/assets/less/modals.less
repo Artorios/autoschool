@@ -391,7 +391,7 @@
   .school {
     .modal-dialog {
       width: 100%;
-      margin: 165px auto 0;
+      margin: 130px auto 0;
       max-width: 950px;
       .modal-content {
         .city-choose {
@@ -417,7 +417,7 @@
           }
           .modal-toggle {
             top: -40px;
-            left: 421px;
+            left: 481px;
           }
         }
       }
@@ -428,8 +428,8 @@
 @media (max-width: 991px) {
   .school {
     .modal-dialog {
-      width: 100%;
-      margin: 165px auto 0;
+      max-width: 720px;
+      margin: 155px auto 0;
       width: 100%;
       .modal-content {
         border-radius: 0;
@@ -457,13 +457,11 @@
               background: white;
               padding-top: 40px;
               transition: all 0.5s ease-in-out;
-
               &.show-addresses {
                 opacity: 1;
                 right: 0;
                 opacity: 1;
               }
-
               span.close {
                 top: 10px;
                 right: 10px;
@@ -472,17 +470,33 @@
           }
           .modal-toggle {
             padding-right: 20px;
-            padding-left: 40px;
+            padding-left: 20px;
             top: -40px;
+            right: 223px;
             left: auto;
-            right: 0;
           }
         }
       }
     }
   }
 }
-
+@media (max-width: 767px) {
+  .school {
+    .modal-dialog{
+      margin: 170px auto 0;
+      .modal-content{
+        .city-choose{
+          .modal-toggle{
+            left: auto;
+            right: 0;
+            padding-right: 10px;
+            padding-left: 15px;
+          }
+        }
+      }
+    }
+  }
+}
 @media (max-width: 459px) {
   .text {
     .modal-dialog {
