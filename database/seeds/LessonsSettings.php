@@ -19,12 +19,12 @@ class LessonsSettings extends Seeder
             $settings = [
                 [
                     'key' => 'training_time',
-                    'title' => 'Время на вопрос (тренировка)',
+                    'title' => 'Время на вопрос (тренировка) в минутах:',
                     'value' => 1
                 ],
                 [
                     'key' => 'exam_time',
-                    'title' => 'Время на вопрос (зачет)',
+                    'title' => 'Время на вопрос (зачет) в минутах:',
                     'value' => 1
                 ]
             ];
