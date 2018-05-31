@@ -140,7 +140,7 @@ class LessonController extends Controller
         $user_video->pivot->time_stop_view = null;
         $user_video->pivot->viewed = 1;
         $user_video->pivot->updated_at = Carbon::now();
-        $user_video->pivot->save();
+        $user_video->pivot->update();
 
         return response()->json(['status' => 1], 201);
     }

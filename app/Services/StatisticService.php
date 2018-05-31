@@ -59,7 +59,7 @@ class StatisticService
 
             if ($user_video && $user_video->pivot->viewed) {
                 $returnLessons[$key]['viewed'] = 1;
-                $returnLessons[$key]['viewed_date'] = $user->videos->where('lesson_video_id', $user_video->id)->first()->updated_at;
+                $returnLessons[$key]['viewed_date'] = (string)$user->videos->where('lesson_video_id', $user_video->id)->first()->updated_at;
             }
 
             if ($last_train && $last_train->status) {
