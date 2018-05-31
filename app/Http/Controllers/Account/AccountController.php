@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Events\UserPasswordChangeRequestEvent;
-use App\Http\Requests\ChangePasswordRequest
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Controllers\Controller;
 use App\Models\{
     Location\City,
