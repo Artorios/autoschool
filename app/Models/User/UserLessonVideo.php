@@ -22,5 +22,5 @@ class UserLessonVideo extends Model
      *
      * @var array
      */
-    protected $fillable = ['time_stop_view', 'viewed', 'lesson_video_id', 'user_id'];
+    protected $fillable = ['time_stop_view', 'viewed', 'lesson_video_id', 'user_id', 'updated_at'];
 }
