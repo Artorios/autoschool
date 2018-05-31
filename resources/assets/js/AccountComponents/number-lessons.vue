@@ -15,7 +15,7 @@
         methods: {
             getCountLessons () {
                 this.$http.get('/account/get-count-lesson').then(res => {
-                    this.countLessons = res.data.count
+                    this.countLessons = 1
                 })
             }
         }
