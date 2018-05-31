@@ -46,7 +46,7 @@ class OrderController extends Controller
             $order = Order::create([
                 'payment_option' => 'online',
                 'amount' => $charge->amount(),
-                'number_contract' => 125468,
+                'number_contract' => $user->contract->name.$user->id.'_'.$user->contract->id.$user->city->id,
                 'user_id' => $user->id
             ]);
 

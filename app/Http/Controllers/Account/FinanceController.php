@@ -13,13 +13,23 @@ class FinanceController extends Controller
     public function index()
     {
         $user = auth()->user();
+
+
+
         if(!$user->contract){
             $contract = Contract::create([
                 'name' => generateContractNumber($user),
                 'user_id' => $user->id
             ]);
         }
-        return view('account.finance.index', compact('user'));
+        $contract = [
+            'name' => $user->contract->name.$user->id.'_'.$user->contract->id.$user->city->id,
+            'date' => $user->created_at->format('d-m-Y'),
+            'price' => $user->city->price,
+            'amount' => $user->city->price
+
+        ];
+        return view('account.finance.index', compact('user','contract'));
     }
     public function getVariants(Request $request)
     {
