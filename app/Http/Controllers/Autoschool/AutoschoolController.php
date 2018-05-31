@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Autoschool;
 
 use App\Http\Requests\LogoRequest;
 use App\Models\Finance\Coupon;
+use App\Models\Location\City;
 use App\Models\Training\School\{
     AutoSchoolGroup, AutoSchool
 };
