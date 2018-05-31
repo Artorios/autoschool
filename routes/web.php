@@ -44,7 +44,7 @@ Route::group(['prefix' => 'user', 'namespace' => 'Auth'], function () {
 Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => ['auth']], function () {
     Route::get('/', function () {
         return view('account.main', []);
-    })->middleware('student')->name('user.account');
+    })->name('user.account');
 
     Route::post('/get-group-lessons', 'LessonController@getGroupLessons');
 
@@ -60,7 +60,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::get('/get-lessons', 'LessonController@getLessonsSlider');
 
 
-    Route::group(['prefix' => 'statistic', 'middleware' => ['student']] , function () {
+    Route::group(['prefix' => 'statistic'] , function () {
         Route::get('/', 'StatisticController@index')->name('user.statistic');
     });
 
@@ -68,7 +68,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         return view('account.statistic.error-check');
     })->name('user.statistic.error');
 
-    Route::get('/notifications', 'NotificationController@getPageNew')->middleware('student')->name('user.notify');
+    Route::get('/notifications', 'NotificationController@getPageNew')->name('user.notify');
 
     Route::get('/notifications-all', 'NotificationController@getPageAll')->name('user.notify.all');
 
@@ -124,9 +124,9 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         Route::post('/video', 'LessonController@videoTimeSave')->name('user.lessons.saveView');
         Route::post('/video/ended', 'LessonController@endView')->name('user.lessons.endView');
     });
-    Route::view('faq', 'account.faq')->middleware('student')->name('faq');
+    Route::view('faq', 'account.faq')->name('faq');
 
-    Route::group(['prefix' => 'tickets', 'middleware' => ['student']], function () {
+    Route::group(['prefix' => 'tickets'], function () {
         Route::get('/', 'TicketsController@index')->name('account.tickets');
         Route::post('/set-show-comments', 'TicketsController@setShowAnswer');
         Route::post('/{ticket}/check', 'TicketsController@checkAnswer');
@@ -134,7 +134,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         Route::get('/{ticket}', 'TicketsController@single');
         Route::get('/analysis/{ticket}', 'TicketsController@analysis');
     });
-    Route::group(['prefix' => 'exams', 'middleware' => ['student']], function () {
+    Route::group(['prefix' => 'exams'], function () {
         Route::get('/', 'ExamsController@index')->name('user.exams');
         Route::get('/test', 'ExamsController@testPage');
         Route::get('/analysis/{id}', 'ExamsController@analysis');
