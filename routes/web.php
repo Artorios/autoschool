@@ -15,7 +15,7 @@ use App\Models\Location\City;
 use App\Models\User\UserLessonVideo;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::middleware('guest')->get('/registration', function () {
     $cities = City::where('show_city', 1)->get();
@@ -80,6 +80,8 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::post('/edit-pass', 'AccountController@updatePassword');
     Route::post('/edit-notify-settings', 'AccountController@editNotifySettings');
     Route::post('/profile-save-image', 'AccountController@saveProfileImage');
+    Route::post('/change-password', 'AccountController@changePassword')->name('account.change.password');
+    Route::get('/change-password/{id}/{password}', 'AccountController@updatePassword')->name('account.update.password');
 
     Route::get('/auth-info-acc', function () {
         $user = Auth::user();

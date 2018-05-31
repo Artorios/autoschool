@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Models\Location\City;
-use App\Models\Training\School\AutoSchool;
-use App\Models\User\User;
-use Illuminate\Http\Request;
+use App\Events\UserPasswordChangeRequestEvent;
+use App\Http\Requests\ChangePasswordRequest
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\{Auth, Hash, Storage, Validator};
-
+use App\Models\{
+    Location\City,
+    User\User
+};
+use App\Services\ChangePasswordService;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Mailer;
+use Illuminate\Support\Facades\{
+    Auth,
+    DB,
+    Storage,
+    Validator
+};
 
 /**
  * Class AccountController
@@ -62,31 +72,31 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updatePassword(Request $request, User $user)
-    {
-        $password = $request->input('password');
-        $newPassword = $request->input('new_password');
-        $newPassword = bcrypt($newPassword);
-        $userNow = Auth::user();
-        $oldPassword = $user->select('password')->where(['id' => $userNow['id']])->firstOrFail();
-
-        switch (Auth::user()->role) {
-            case 'admin':
-                $redirectTo = '/admin'; break; //TODO::set URL
-            case 'autoschool':
-                $redirectTo = '/autoschool/profile-edit'; break;
-            case 'user':
-                $redirectTo = '/account/edit-profile'; break;
-            case 'investor':
-                $redirectTo = '/investor/profile/edit'; break;
-        }
-        if (Hash::check($password, $oldPassword['password'])) {
-            $user->where(['id' => $userNow['id']])->update(['password' => $newPassword]);
-            return response()->json(['status' => 1, 'redirectUrl' => $redirectTo], 201);
-        } else {
-            return response()->json(['status' => 0, 'redirectUrl' => $redirectTo], 422);
-        }
-    }
+//    public function updatePassword(Request $request, User $user)
+//    {
+//        $password = $request->input('password');
+//        $newPassword = $request->input('new_password');
+//        $newPassword = bcrypt($newPassword);
+//        $userNow = Auth::user();
+//        $oldPassword = $user->select('password')->where(['id' => $userNow['id']])->firstOrFail();
+//
+//        switch (Auth::user()->role) {
+//            case 'admin':
+//                $redirectTo = '/admin'; break; //TODO::set URL
+//            case 'autoschool':
+//                $redirectTo = '/autoschool/profile-edit'; break;
+//            case 'user':
+//                $redirectTo = '/account/edit-profile'; break;
+//            case 'investor':
+//                $redirectTo = '/investor/profile/edit'; break;
+//        }
+//        if (Hash::check($password, $oldPassword['password'])) {
+//            $user->where(['id' => $userNow['id']])->update(['password' => $newPassword]);
+//            return response()->json(['status' => 1, 'redirectUrl' => $redirectTo], 201);
+//        } else {
+//            return response()->json(['status' => 0, 'redirectUrl' => $redirectTo], 422);
+//        }
+//    }
 
     /**
      * @param Request $request
