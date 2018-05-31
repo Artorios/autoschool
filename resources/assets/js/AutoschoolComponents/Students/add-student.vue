@@ -106,20 +106,6 @@
             cities: {}
         },
 
-        computed: {
-            getGroups(){
-                let titles = [];
-                for(let i = 0; i < this.schools.length; i++){
-                    for(let k = 0; k < this.schools[i].autoschool_groups.length; k++){
-                        titles.push({
-                            'id': this.schools[i].autoschool_groups[k].id,
-                            'name': this.schools[i].autoschool_groups[k].name
-                        });
-                    }
-                }
-                return titles;
-            }
-        },
 
         mounted () {
             let vm = this
