@@ -46,7 +46,7 @@
                     <input type="hidden" value="{!! csrf_token() !!}" name="_token">
                     <div class="form-group">
                         <label for="oldPassword">Старый пароль</label>
-                            <input type="password" name="old_password" id="oldPassword"  {{ $errors->has('old_password') ? 'class=input-error' : '' }}>
+                        <input type="password" name="old_password" id="oldPassword"  {{ $errors->has('old_password') ? 'class=input-error' : '' }}>
                     </div>
                     @if ($errors->has('old_password'))
                         <p class="alert alert-danger">{{ $errors->first('old_password') }}</p>
