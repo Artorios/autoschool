@@ -2,7 +2,9 @@
   .selectric {
     border-radius: 30px 30px 0 0 !important;
     .button {
-      background: url('../img/down-red.png') no-repeat center center !important;
+      &:before{
+        color: red !important;
+      }
     }
   }
 }
@@ -34,12 +36,26 @@
   .button {
     height: 55px;
     right: 25px;
-    background: url('../img/down.png') no-repeat center center;
+    background-color: transparent;
     &:after {
       display: none;
     }
+    &:before{
+      color: #999;
+      font-family: FontAwesome;
+      content: "\F107";
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-size: 50px;
+      transform: translate(-50%);
+      transition: color 0.1s ease-in-out;
+    }
     &:hover {
-      background: url('../img/down-red.png') no-repeat center center;
+      &:before{
+        color: red;
+      }
     }
   }
 }
@@ -70,53 +86,6 @@
   }
 }
 
-/*-------------Автошкола\ Купоны----Driving school \ Coupons----------*/
 
-.selectric {
-  margin: 0;
-  .label {
-    font-weight: 400;
-    font-size: 14px;
-    color: #333;
-    line-height: 55px;
-    height: 55px;
-    padding: 0;
-    margin: 0;
-  }
-  .button {
-    height: 55px;
-    right: 25px;
-    background: url('../img/down.png') no-repeat center center;
-    &:after {
-      display: none;
-    }
-    &:hover {
-      background: url('../img/down-red.png') no-repeat center center;
-    }
-  }
-}
 
-.selectric-items {
-  border-radius: 0 0 30px 30px;
-  border-top: none;
-  background: #fff;
-  ul {
-    text-align: center;
-    li {
-      font-size: 16px;
-      &:last-child {
-        border-radius: 0 0 30px 30px;
-      }
-      &.disabled {
-        display: none;
-      }
-      &:hover {
-        background: #fff;
-        color: red;
-      }
-      &.selected {
-        background: #fff;
-      }
-    }
-  }
-}
+
