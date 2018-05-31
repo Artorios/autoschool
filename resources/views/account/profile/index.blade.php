@@ -38,33 +38,30 @@
                 <h4>Смените пароль:</h4>
                 <span>Внимание! Пароль должен содержать цифру, заглавную и строчную букву и иметь длинну от 8 до 25 символов</span>
 
-                <form id="form_change_pass" method="post" action="{{ route('password.create') }}">
+                <form id="form_change_pass" method="post" action="{{ route('account.change.password') }}">
                     <div class="inform"></div>
-                    @if(Session::has('pass_message'))
-                        <p class="alert alert-{{ Session::get('pass_class') }}">{{ Session::get('pass_message') }}</p>
-                    @endif
                     <input type="hidden" value="{!! csrf_token() !!}" name="_token">
                     <div class="form-group">
-                        <label for="oldPassword">Старый пароль</label>
-                            <input type="password" name="old_password" id="oldPassword"  {{ $errors->has('old_password') ? 'class=input-error' : '' }}>
+                        <label>Старый пароль</label>
+                        <input type="password" name="old_password">
+                        @if ($errors->has('old_password'))
+                            <span class="error">{{ $errors->first('old_password') }}</span>
+                        @endif
                     </div>
-                    @if ($errors->has('old_password'))
-                        <p class="alert alert-danger">{{ $errors->first('old_password') }}</p>
-                    @endif
                     <div class="form-group">
-                        <label for="newPassword">Новый пароль</label>
-                        <input type="password" name="password" id="newPassword" {{ $errors->has('password') ? 'class=input-error' : '' }}>
+                        <label>Новый пароль</label>
+                        <input type="password" name="password">
+                        @if ($errors->has('password'))
+                            <span class="error">{{ $errors->first('password') }}</span>
+                        @endif
                     </div>
-                    @if ($errors->has('password'))
-                        <p class="alert alert-danger">{{ $errors->first('password') }}</p>
-                    @endif
                     <div class="form-group">
-                        <label for="passwordConfirmation">Подтверждение</label>
-                        <input type="password" name="password_confirmation" id="passwordConfirmation"  {{ $errors->has('password_confirmation') ? 'class=input-error' : '' }}>
+                        <label>Подтверждение</label>
+                        <input type="password" name="password_confirmation">
+                        @if ($errors->has('password_confirmation'))
+                            <span class="error">{{ $errors->first('password_confirmation') }}</span>
+                        @endif
                     </div>
-                    @if ($errors->has('password_confirmation'))
-                        <p class="alert alert-danger">{{ $errors->first('password_confirmation') }}</p>
-                    @endif
                     <button type="submit" id="btn_change_pass" class="btn-grey">Сохранить изменения</button>
                 </form>
             </div>
