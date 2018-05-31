@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Investor;
 
+use App\Transformers\HistoryTransformer;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User\History;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Investor\HistoryRequest;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class HistoryController
@@ -31,6 +32,6 @@ class HistoryController extends Controller
      */
     public function all()
     {
-        return History::where('investor_id', Auth::id())->get();
+        return fractal(History::where('investor_id', Auth::id())->get(), new HistoryTransformer())->respond();
     }
 }
