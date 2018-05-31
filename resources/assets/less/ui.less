@@ -1,0 +1,167 @@
+.btn-red,
+.btn-grey {
+  font-size: 18px;
+  background: linear-gradient(to top, #d10a0c, #fd6061);
+  text-align: center;
+  display: block;
+  height: 55px;
+  line-height: 53px;
+  border-radius: 30px;
+  color: #fff;
+  margin-top: 40px;
+  border: none;
+  &:hover {
+    color: #fff;
+  }
+}
+
+.btn-grey {
+  background: linear-gradient(to top, #bababa, #ebeaea);
+  color: #000;
+  font-size: 15px;
+  &:hover {
+    background: linear-gradient(to top, #9a9a9a, #dadcde);
+    color: #000;
+  }
+  &.disabled {
+    pointer-events: none;
+    cursor: default;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #999;
+  }
+}
+
+.btn-white {
+  font-size: 18px;
+  background: #fff;
+  text-align: center;
+  display: block;
+  height: 55px;
+  line-height: 53px;
+  border-radius: 30px;
+  color: #000;
+  margin-top: 40px;
+  border: none;
+  &:hover {
+    color: #000;
+  }
+}
+//close icon
+.close {
+  position: absolute;
+  right: 30px;
+  top: 40px;
+  width: 30px;
+  height: 30px;
+  display: block;
+  overflow: hidden;
+  opacity: 0.65;
+  transition: opacity 0.1s ease-in-out;
+  &:hover {
+    opacity: 1;
+  }
+  &:after{
+    content: '';
+    display: block;
+    background-color: #666666;
+    position: absolute;
+    width: 34px;
+    height: 2px;
+    transform: rotate(135deg);
+    top: 14px;
+    left: -3px;
+  }
+  &:before{
+    content: '';
+    display: block;
+    background-color: #666666;
+    position: absolute;
+    width: 34px;
+    height: 2px;
+    transform: rotate(-135deg);
+    top: 14px;
+    left: -3px;
+  }
+}
+//refresh icon
+.refresh {
+  position: relative;
+  top: 2px;
+  left: 5px;
+  width: 15px;
+  height: 15px;
+  display: inline-block !important;
+  cursor: pointer;
+  &:after{
+    content: '\f021';
+    font-family: FontAwesome;
+    color: #999999;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: color 0.1s ease-in-out;
+  }
+  &:hover {
+    &:after{
+      color: #FF0000;
+    }
+  }
+}
+//slider prev next icon
+.slick-next {
+  width: 20px;
+  height: 32px;
+  display: inline-block;
+  text-align: right;
+  line-height: 1;
+  opacity: 0.5;
+  z-index: 101;
+  &:before {
+    content: '\f105';
+    font-family: FontAwesome;
+    font-size: 50px;
+    color: #000;
+    line-height: 28px;
+  }
+  &:hover {
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+  }
+}
+.slick-prev {
+  width: 20px;
+  height: 32px;
+  display: inline-block;
+  text-align: left;
+  line-height: 1;
+  opacity: 0.5;
+  z-index: 101;
+  &:before {
+    content: '\f104';
+    font-family: FontAwesome;
+    font-size: 50px;
+    color: #000;
+    line-height: 28px;
+  }
+  &:hover {
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+  }
+}
+//info circle icon
+.fa-info-circle{
+  position: absolute;
+  color: #999;
+}
+.fa-info-circle.icon-info-comment{
+  font-size: 34px;
+  left: 24px;
+  top: 17px;
+}
+.fa-info-circle.icon-info-status{
+  right: -18px;
+  top: 12px;
+  font-size: 18px;
+}

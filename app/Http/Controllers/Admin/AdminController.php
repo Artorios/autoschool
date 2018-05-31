@@ -7,7 +7,9 @@ use App\Http\Resources\SchoolsCollection;
 use App\Models\Location\{
     City, Region
 };
-use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
+use App\Models\Training\School\{
+    AutoSchool, AutoSchoolGroup
+};
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -52,12 +54,13 @@ class AdminController extends Controller
         return response()->json(['city' => $city, 'director' => $director, 'investor' => $investor], 202);
     }
 
-    public function searchUser(SearchUser $request){
+    public function searchUser(SearchUser $request)
+    {
         $error = ['error' => 'Не найдено!'];
 
         if (!empty($request->validated()['q'])) {
 
-            $users = User::select('id','role','name', 'email', 'last_name', 'phone')->where('email', 'like', '%' . $request->validated()['q'] . '%')->get();
+            $users = User::select('id', 'role', 'name', 'email', 'last_name', 'phone')->where('email', 'like', '%' . $request->validated()['q'] . '%')->get();
 
             return $users->count() ? $users : $error;
         }
@@ -65,19 +68,22 @@ class AdminController extends Controller
         return $error;
     }
 
-    public function getAutoSchoolApi(Request $request){
+    public function getAutoSchoolApi(Request $request)
+    {
         $q = $request->input('q');
         return response()->json(AutoSchool::select('id', 'title', 'filial_name')->where('title', 'like', '%' . $q . '%')->limit(10)->get(), 200);
 
     }
 
-    public function getSchoolGroupApi(Request $request, $id){
+    public function getSchoolGroupApi(Request $request, $id)
+    {
         $q = $request->input('q');
         return response()->json(AutoSchoolGroup::select('id', 'name')->where('auto_school_id', $id)->where('name', 'like', '%' . $q . '%')->limit(10)->get(), 200);
 
     }
 
-    public function getSchool($id){
+    public function getSchool($id)
+    {
 
         return new SchoolsCollection(AutoSchool::find($id));
     }

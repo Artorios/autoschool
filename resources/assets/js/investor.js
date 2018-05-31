@@ -12,12 +12,17 @@ import Statistic from './InvestorComponents/Main/statistic';
 import HistoryList from './InvestorComponents/Main/history-list';
 import CouponList from './InvestorComponents/Main/coupon-list';
 import FinanceList from './InvestorComponents/Main/finance-list';
+import VCalendar from 'v-calendar'
+import 'v-calendar/lib/v-calendar.min.css';
 const VueInputMask = require('vue-inputmask').default;
 
 
 
 Vue.use(VueInputMask);
 Vue.use(VueResource);
+Vue.use(VCalendar, {
+    firstDayOfWeek: 2,
+});
 Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
 Vue.http.options.emulateJSON = true;
 window.axios = axios;

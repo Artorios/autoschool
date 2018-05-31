@@ -1,10 +1,11 @@
 @extends('layouts.investor')
+
 @section('content')
     <div class="content error profile autoschool-coupons">
         <div class="breadcrumbs">
             <ul>
                 <li><a href="{{ route('investor.index') }}">Филиалы автошкол</a></li>
-                <li><a href="{{ route('coupons.index') }}">Купоны</a></li>
+                <li><a href="{{ route('investor.coupons.index') }}">Купоны</a></li>
                 <li>Генерация купонов</li>
             </ul>
         </div>
@@ -13,6 +14,7 @@
 
         @include('partials.errors')
 
+        @if(count($auto_schools) > 0)
         <h3>
            Генерация купонов
         </h3>
@@ -45,15 +47,21 @@
                 </div>
             </form>
         </div>
-
+        @else
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="text-center">Для создания купона требуется минимум одна автошкола.</h3>
+                </div>
+            </div>
+        @endif
 
     </div>
 
 @endsection
 @push('scripts')
-<script>
-    (function ($) {
-        $('.select').selectric();
-    })(jQuery)
-</script>
+    <script>
+        (function ($) {
+            $('.select').selectric();
+        })(jQuery)
+    </script>
 @endpush

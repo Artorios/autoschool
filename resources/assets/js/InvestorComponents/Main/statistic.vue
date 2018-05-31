@@ -1,5 +1,9 @@
 <template>
-    <h3>Статистика купонов:</h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Статистика купонов:</h3>
+        </div>
+    </div>
     <!--<div class="numberpeople">
         <div class="info row no-gutters-xs">
             <div class="col-xs-6 col-md-4 col-lg-3">

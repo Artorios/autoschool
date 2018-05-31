@@ -8,6 +8,7 @@
                 <li>История</li>
             </ul>
         </div>
+
         <button href="" id="search-button" class="btn-grey visible-xs ">
             <img src="/img/search.png" alt="">Поиск по параметрам
         </button>
