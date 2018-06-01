@@ -25,7 +25,10 @@
                 </a>
                 <div class="btn-wrapper">
                     <a href="/account/finance" class="btn-grey">Оплата</a>
-                    <a href="/logout" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
+                    <a href="/logout" class="btn-grey btn-exit">
+                        <i class="fa fa-power-off" aria-hidden="true"></i>
+                        Выход
+                    </a>
                 </div>
             </div>
             <edit-profile-form :cities="{{json_encode($cities)}}" :userdata="{{json_encode($user)}}"></edit-profile-form>
