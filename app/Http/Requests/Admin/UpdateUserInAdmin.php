@@ -25,13 +25,13 @@ class UpdateUserInAdmin extends FormRequest
     public function rules()
     {
         return [
-            'name'        => 'string|min:3',
-            'email'       => 'email',
-            'role'        => Rule::in([ 'admin', 'autoschool','investor', 'user' ]),
-            'last_name'   => 'string',
+            'name' => 'string|min:3',
+            'email' => 'email',
+            'role' => Rule::in(['admin', 'autoschool', 'investor', 'user']),
+            'last_name' => 'string',
             'second_name' => 'string',
-            'phone'       => 'string',
-            'auto_school_group_id'       => 'integer|exists:auto_school_groups,id',
+            'phone' => 'string',
+            'auto_school_group_id' => 'integer',
         ];
     }
 }
