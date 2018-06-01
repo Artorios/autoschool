@@ -63,22 +63,18 @@
                     <div @click="onPopup(coupon.id,coupon.status)">
                         <div class="coupon"><a href="#">{{coupon.code}}</a></div>
 
-                        <div class="name-student" v-if="coupon.status === 2">
-                            {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}. <div v-if="coupon.user.second_name">{{coupon.user.second_name.toString()[0].toUpperCase()}}.</div>
-
-                        </div>
-                        <div class="name-student" v-else-if="coupon.status === 3">
+                        <div class="name-student" v-if="coupon.status == 3">
                             {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}.
                             <div v-if="coupon.user.second_name">{{coupon.user.second_name.toString()[0].toUpperCase()}}.</div>
                         </div>
                         <div class="name-student" v-else>
                         </div>
 
-                        <div class="city" v-if="!coupon.school.filial_name">Центральный {{coupon.school.city_name}}</div>
+                        <div class="city" v-if="!coupon.school.filial_name">{{coupon.school.title}} {{coupon.school.city_name}}</div>
                         <div class="city" v-else>{{coupon.school.filial_name}} {{coupon.school.city_name}}</div>
 
 
-                        <div class="price" ><div v-if="coupon.group">{{coupon.group.name}}</div>
+                        <div class="price" ><div v-if="coupon.group && coupon.status == 3 && coupon.status == 2">{{coupon.group.name}}</div>
                         <div class="price" v-else></div></div>
 
                         <div class="generate-date">
@@ -109,19 +105,15 @@
                     </div>
                     <div @click="onPopup(coupon.id,coupon.status)">
                         <div class="coupon"><a href="#">Купон {{coupon.code}}</a></div>
-                        <div class="name-student" v-if="coupon.status === 2">
-                            {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}. <span v-if="coupon.user.second_name" >{{coupon.user.second_name.toString()[0].toUpperCase()}}.</span>
-                            </a>
-                        </div>
-                        <div class="name-student" v-else-if="coupon.status === 3">
+                        <div class="name-student" v-if="coupon.status == 3">
                             {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}. <span v-if="coupon.user.second_name">{{coupon.user.second_name.toString()[0].toUpperCase()}}.</span>
                         </div>
                         <div class="name-student" v-else></div>
 
-                        <div class="city" v-if="!coupon.school.filial_name">Филиал Центральный {{coupon.school.city_name}}</div>
+                        <div class="city" v-if="!coupon.school.filial_name">{{coupon.school.title}} {{coupon.school.city_name}}</div>
                         <div class="city" v-else>Филиал {{coupon.school.filial_name}} {{coupon.school.city_name}}</div>
 
-                        <div class="city" ><div v-if="coupon.group">Група {{coupon.group.name}}</div></div>
+                        <div class="city" ><div v-if="coupon.group && coupon.status == 3 && coupon.status == 2">Група {{coupon.group.name}}</div></div>
 
                         <div class="generate-date">
                             <a href="#">Дата генерации {{editDate(coupon.generation_date)}}</a>

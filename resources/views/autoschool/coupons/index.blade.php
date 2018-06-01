@@ -7,7 +7,7 @@
                 <li>Купоны</li>
             </ul>
         </div>
-
+{{--{{dd($coupons)}}--}}
         <coupons :coupons="{{json_encode($coupons)}}"></coupons>
 
 
