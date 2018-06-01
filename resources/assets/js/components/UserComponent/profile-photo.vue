@@ -2,7 +2,7 @@
     <div class="img">
         <img class="upload-image" :src="imgDataUrl" alt="">
         <a href="#" class="photo-edit" @click="toggleShow">
-            <img src="/img/img/pencil.png" alt="">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
         </a>
         <upload-profile-photo
                    field="img"
