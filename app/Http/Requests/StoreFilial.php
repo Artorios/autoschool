@@ -31,13 +31,14 @@ class StoreFilial extends FormRequest
     public function rules()
     {
         return [
-            'name'        => 'required|string|max:255',
-            'address'     => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
             'filial_name' => 'required|string|max:255',
-            'title'       => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
             'director_id' => 'required|integer',
             'investor_id' => 'required|integer',
+            'city_id' => 'required|integer',
         ];
     }
 
@@ -55,13 +56,17 @@ class StoreFilial extends FormRequest
      */
     public function prepareForValidation()
     {
-        $school = AutoSchool::where('id', $this->request->get('id'))->first();
+        $school = AutoSchool::where('director_id', Auth::user()->id)->where('filial_name', null)->first();
+        if (empty($school)) {
+            $school = AutoSchool::where('director_id', Auth::user()->id)->first();
+        }
         $this->request->add([
             'filial_name' => $this->request->get('name'),
-            'title'       => $school->title,
+            'title' => $school->title,
             'description' => $school->description,
             'director_id' => Auth::user()->id,
-            'investor_id' => 0
+            'investor_id' => 0,
+            'city_id' => $school->city_id,
         ]);
     }
 
