@@ -81,7 +81,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::post('/edit-notify-settings', 'AccountController@editNotifySettings');
     Route::post('/profile-save-image', 'AccountController@saveProfileImage');
     Route::post('/change-password', 'AccountController@changePassword')->name('account.change.password');
-    Route::get('/change-password/{id}/{password}', 'AccountController@updatePassword')->name('account.update.password');
+    Route::get('/change-password/{id}/{password}/{date}', 'AccountController@updatePassword')->name('account.update.password');
 
     Route::get('/auth-info-acc', function () {
         $user = Auth::user();
