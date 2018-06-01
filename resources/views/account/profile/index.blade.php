@@ -40,6 +40,9 @@
 
                 <form id="form_change_pass" method="post" action="{{ route('account.change.password') }}">
                     <div class="inform"></div>
+                    @if(Session::has('pass_message'))
+                        <p class="alert alert-{{ Session::get('pass_class') }}">{{ Session::get('pass_message') }}</p>
+                    @endif
                     <input type="hidden" value="{!! csrf_token() !!}" name="_token">
                     <div class="form-group">
                         <label>Старый пароль</label>
