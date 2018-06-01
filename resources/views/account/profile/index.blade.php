@@ -45,21 +45,21 @@
                         <label>Старый пароль</label>
                         <input type="password" name="old_password">
                         @if ($errors->has('old_password'))
-                            <span class="error">{{ $errors->first('old_password') }}</span>
+                            <p class="alert alert-danger">{{ $errors->first('old_password') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
                         <label>Новый пароль</label>
                         <input type="password" name="password">
                         @if ($errors->has('password'))
-                            <span class="error">{{ $errors->first('password') }}</span>
+                            <p class="alert alert-danger">{{ $errors->first('password') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
                         <label>Подтверждение</label>
                         <input type="password" name="password_confirmation">
                         @if ($errors->has('password_confirmation'))
-                            <span class="error">{{ $errors->first('password_confirmation') }}</span>
+                            <p class="alert alert-danger">{{ $errors->first('password_confirmation') }}</p>
                         @endif
                     </div>
                     <button type="submit" id="btn_change_pass" class="btn-grey">Сохранить изменения</button>
