@@ -9,6 +9,7 @@ use App\Mail\PasswordChanged;
 use App\Models\Location\City;
 use App\Models\Training\School\AutoSchool;
 use App\Models\User\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Mail\Mailer;
@@ -165,27 +166,41 @@ class AccountController extends Controller
         $url .= '/account/change-password';
         $url .= '/' . encrypt(Auth::id());
         $url .= '/' . encrypt($request->get('password'));
+        $url .= '/' . encrypt(Carbon::now());
 
         $mailer->to(Auth::user()->email)->send(new ConfirmPasswordChange($url));
+
+        session()->flash('pass_message', 'Check email in order to change password');
+        session()->flash('pass_class', 'success');
 
         return back();
     }
 
     /**
-     * @param $id
-     * @param $password
+     * @param string $id
+     * @param string $password
+     * @param string $date
      * @param Mailer $mailer
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updatePassword($id, $password, Mailer $mailer)
+    public function updatePassword(string $id, string $password, string $date, Mailer $mailer)
     {
-        $user = User::find(decrypt($id));
-        $password = decrypt($password);
-        $user->update([
-            'password' => Hash::make($password)
-        ]);
+        if (decrypt($date)->addHour() > Carbon::now()) {
+            $user = User::find(decrypt($id));
+            $password = decrypt($password);
 
-        $mailer->to($user->email)->send(new PasswordChanged());
+            $user->update([
+                'password' => Hash::make($password)
+            ]);
+
+            $mailer->to($user->email)->send(new PasswordChanged());
+
+            session()->flash('pass_message', 'Password changed');
+            session()->flash('pass_class', 'success');
+        } else {
+            session()->flash('pass_message', 'Date expired');
+            session()->flash('pass_class', 'danger');
+        }
 
         return redirect()->route('home');
     }
