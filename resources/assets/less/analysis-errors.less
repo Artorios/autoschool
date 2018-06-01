@@ -49,6 +49,8 @@
         cursor: pointer;
         font-weight: 600;
         color: red;
+        position: relative;
+        padding-left: 32px;
         &.correct {
           color: #339900;
         }
@@ -60,13 +62,25 @@
         border: 2px solid #ccc;
         content: "";
         display: inline-block;
-        margin-right: 10px;
-        position: relative;
-        top: 8px;
+        position: absolute;
+        top: 6px;
+        left: 0;
       }
-      input[type=radio]:checked + label:before {
-        background: url('../img/radio-checked.png') no-repeat center center;
-
+      input[type=radio] + label:after{
+        content: '';
+        display: block;
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        left: 6px;
+        top: 12px;
+        background-color: red;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.1s ease-in-out;
+      }
+      input[type=radio]:checked + label:after{
+        opacity: 1;
       }
     }
     .comment {
