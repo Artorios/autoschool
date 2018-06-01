@@ -26,7 +26,7 @@ class ChangePasswordRequest extends FormRequest
      */
     public function rules()
     {
-        if (!$this->request->has('old_password') &&
+        if (!$this->request->has('old_password') ||
             !Hash::check($this->request->get('old_password'), User::find(Auth::id())->password)) {
             $error = \Illuminate\Validation\ValidationException::withMessages([
                 'old_password' => ['Password doesn\'t match'],
