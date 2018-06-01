@@ -65,7 +65,7 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
+                        {{--<!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope-o"></i>
@@ -272,7 +272,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- User Account: style can be found in dropdown.less -->
+                        <!-- User Account: style can be found in dropdown.less -->--}}
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image">
@@ -369,6 +369,7 @@
                         <ul class="treeview-menu">
                             <li><a href="{{ route('admin.lessons.list') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Все уроки</span></a></li>
                             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Категория A</span></a></li>
+                            <li><a href="{{ route('admin.lessons.list') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Категория B</span></a></li>
                             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Категория C</span></a></li>
                         </ul>
                     </li>
@@ -385,9 +386,9 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ route('admin.regions.list') }}regions"><i class="fa fa-circle-o text-yellow"></i> <span>Регионы</span></a></li>
-                            <li><a href="{{ route('admin.cities.list') }}cities"><i class="fa fa-circle-o text-yellow"></i> <span>Города</span></a></li>
-                            <li><a href="{{ route('admin.lessons.settings') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Настройки уроков</span></a></li>
+                            <li><a href="{{ route('admin.regions.list') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Регионы</span></a></li>
+                            <li><a href="{{ route('admin.cities.list') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Города</span></a></li>
+                            {{--<li><a href="{{ route('admin.lessons.settings') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Настройки уроков</span></a></li>--}}
                         </ul>
                     </li>
                 </ul>
