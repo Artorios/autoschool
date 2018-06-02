@@ -104,24 +104,7 @@
                 <button type="submit" class="btn-grey">Сохранить изменения</button>
             </form>
         </div>
-        <div class="pass-change notes-config">
-            <h4>Настройка уведомлений:</h4>
-            <form>
-                <div class="form-group">
-                    <input type="checkbox" id="site">
-                    <label for="site">Старый пароль</label>
-                </div>
-                <div class="form-group">
-                    <input type="checkbox" id="mail">
-                    <label for="mail">Получать уведомления на сайт</label>
-                </div>
-                <div class="form-group">
-                    <input type="checkbox" id="tel">
-                    <label for="tel">Получать уведомления на телефон</label>
-                </div>
-                <button type="submit" class="btn-grey">Сохранить изменения</button>
-            </form>
-        </div>
+        <edit-notify-settings></edit-notify-settings>
     </div>
 
 
