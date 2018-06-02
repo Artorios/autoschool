@@ -7,6 +7,7 @@ import EditNotifySettings from './components/UserComponent/edit-notify-settings'
 import NotifyAll from './AccountComponents/NotifyComponents/notify-all';
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
 import ProfilePhoto from './components/UserComponent/profile-photo';
+import InvestorProfile from './InvestorComponents/Main/investor-profile';
 import SchoolsList from './InvestorComponents/Main/schools-list';
 import Statistic from './InvestorComponents/Main/statistic';
 import HistoryList from './InvestorComponents/Main/history-list';
@@ -39,6 +40,7 @@ const app = new Vue({
         NotifyNew,
         NotifyAll,
         ProfilePhoto,
+        InvestorProfile,
         SchoolsList,
         Statistic,
         HistoryList,

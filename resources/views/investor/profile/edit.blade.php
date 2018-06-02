@@ -12,77 +12,7 @@
 
         @include('partials.errors')
 
-        <div class="profile-edit">
-            <div class="row">
-                <div class="col-md-4 col-xs-12">
-                    <div class="img-profile text-center">
-                        <img src="" alt="">c
-                        <a class="pen-but" href="#"><img src="/img/penbut.png"></a>
-                    </div>
-                </div>
-                <div class="col-md-8 col-xs-12">
-{{--                    <h3>{{ $profile->short_company_name }}</h3>--}}
-                    <div>
-                        <a href="{{ route('logout') }}" class="btn-grey btn-exit">
-                            <i class="fa fa-power-off" aria-hidden="true"></i>
-                            Выход
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="requsites clearfix">
-                <div class="radio-button">
-                    <input type="radio" name="address-type" id="address-type-1">
-                    <label for="address-type-1">Реквизиты юр. лица</label>
-                </div>
-                <div class="radio-button">
-                    <input type="radio" name="address-type" id="address-type-2">
-                    <label for="address-type-2">Фактический адрес</label>
-                </div>
-                <div class="radio-button">
-                    <input type="radio" name="address-type" id="address-type-3">
-                    <label for="address-type-3">Юридический адрес</label>
-                </div>
-                <div class="radio-button">
-                    <input type="radio" name="address-type" id="address-type-4">
-                    <label for="address-type-4">Банк</label>
-                </div>
-                <div class="radio-button">
-                    <input type="radio" name="address-type" id="address-type-5">
-                    <label for="address-type-5">Контакты</label>
-                </div>
-            </div>
-        </div>
-        <div class="details">
-            <form>
-                <h3>Реквизиты юр. лица:</h3>
-                <div class="form-group">
-                    <label>ИНН:</label>
-                    <input type="text" placeholder="*****">
-                </div>
-                <div class="form-group">
-                    <label>Сокращенное наименование организации: </label>
-                    <input type="text" placeholder="ООО Франчайзи ">
-                </div>
-                <div class="form-group">
-                    <label>Полное наименование организации:</label>
-                    <input type="text" placeholder="Общество с ограниченной ответвеностью Франчайзи ">
-                </div>
-                <div class="form-group">
-                    <label>КПП:</label>
-                    <input type="text" placeholder="*****">
-                </div>
-                <div class="form-group">
-                    <label>Дата государственной регистрации: </label>
-                    <input type="text" placeholder="01.12.2017">
-                </div>
-                <div class="form-group">
-                    <label>Ген. директор: </label>
-                    <input type="text" placeholder=" Иванов Иван Иванович">
-                </div>
-                <button type="submit" class="btn-grey">Сохранить изменения</button>
-            </form>
-        </div>
+        <investor-profile :investor="{{json_encode($investor)}}"></investor-profile>
         <div class="pass-change">
             <h4>Смените пароль:</h4>
             <span>Внимание! Пароль должен содержать цифру, заглавную и строчную букву и иметь длинну от 8 до 25 символов</span>
@@ -106,6 +36,4 @@
         </div>
         <edit-notify-settings></edit-notify-settings>
     </div>
-
-
 @endsection

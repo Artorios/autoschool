@@ -5,7 +5,7 @@ namespace App\Models\User\Traits\Relationship;
 use App\Models\Location\City;
 use App\Models\Training\School\AutoSchool;
 use App\Models\User\Contract;
-use App\Models\User\InvestorProfile;
+use App\Models\User\InvestorInfo;
 use App\Models\User\UserLessonVideo;
 use App\Models\User\UserTicket;
 use App\Models\User\UserSettings;
@@ -89,9 +89,9 @@ trait UserRelationship
         return $this->hasOne(AutoSchoolGroup::class, 'id', 'auto_school_group_id');
     }
 
-    public function investorProfile()
+    public function info()
     {
-        return $this->hasOne(InvestorProfile::class);
+        return $this->hasOne(InvestorInfo::class);
     }
 
     public function videos(){
