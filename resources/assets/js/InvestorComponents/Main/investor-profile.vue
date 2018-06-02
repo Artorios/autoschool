@@ -1,47 +1,20 @@
 <template>
-    <!--<div class="profile-edit">-->
-        <!--<div class="row">-->
-            <!--<div class="col-md-4 col-xs-12">-->
-                <!--<div class="img-profile text-center">-->
-                    <!--<img src="" alt="">c-->
-                    <!--<a class="pen-but" href="#"><img src="/img/penbut.png"></a>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-md-8 col-xs-12">-->
-                <!--{{&#45;&#45;<h3>{{ $profile->short_company_name }}</h3>&#45;&#45;}}-->
-                <!--<div>-->
-                    <!--<a href="{{ route('logout') }}" class="btn-grey btn-exit">-->
-                        <!--<i class="fa fa-power-off" aria-hidden="true"></i>-->
-                        <!--Выход-->
-                    <!--</a>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
     <div>
         <div class="profile-edit">
-            <!--<div class="row">-->
-                <!--<div class="col-md-4 col-xs-12">-->
-                    <!--<autoschool-profile-logo :investor="investor"></autoschool-profile-logo>-->
-                <!--</div>-->
-                <!--<div class="col-md-8 col-xs-12">-->
-                    <!--<div class="form-group">-->
-                        <!--<span class="label">Филиал Главный</span>-->
-                        <!--<select class="select" id="fillials_select" v-model="selected">-->
-                            <!--<option v-for="(autoschool, index) in autoschools"-->
-                                    <!--v-text="autoschool.title"-->
-                                    <!--v-bind:value="index">-->
-                            <!--</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                    <!--<div>-->
-                        <!--<a href="/logout" class="btn-grey btn-exit">-->
-                            <!--<i class="fa fa-power-off" aria-hidden="true"></i>-->
-                            <!--Выход-->
-                        <!--</a>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <profile-photo :user="investor"></profile-photo>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                        <h3>{{ investor.name }}</h3>
+                    <div>
+                        <a href="/logout" class="btn-grey btn-exit">
+                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                            Выход
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="requsites clearfix">
                 <div class="radio-button">
                     <input type="radio" name="address-type" id="address-type-1" value="addressType1" v-model="tab">
@@ -185,6 +158,7 @@
 </template>
 
 <script>
+    import ProfilePhoto from '../../components/UserComponent/profile-photo'
     export default {
         name: "investor-profile",
         data() {
@@ -195,6 +169,9 @@
         },
         props: {
             investor: {}
+        },
+        components: {
+            ProfilePhoto
         },
     }
 </script>

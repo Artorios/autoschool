@@ -6,7 +6,6 @@ import EditPassForm from './components/UserComponent/edit-pass-form';
 import EditNotifySettings from './components/UserComponent/edit-notify-settings';
 import NotifyAll from './AccountComponents/NotifyComponents/notify-all';
 import NotifyNew from './AccountComponents/NotifyComponents/notify-new';
-import ProfilePhoto from './components/UserComponent/profile-photo';
 import InvestorProfile from './InvestorComponents/Main/investor-profile';
 import SchoolsList from './InvestorComponents/Main/schools-list';
 import Statistic from './InvestorComponents/Main/statistic';
@@ -39,7 +38,6 @@ const app = new Vue({
         EditNotifySettings,
         NotifyNew,
         NotifyAll,
-        ProfilePhoto,
         InvestorProfile,
         SchoolsList,
         Statistic,
