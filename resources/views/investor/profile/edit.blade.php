@@ -23,7 +23,10 @@
                 <div class="col-md-8 col-xs-12">
 {{--                    <h3>{{ $profile->short_company_name }}</h3>--}}
                     <div>
-                        <a href="{{ route('logout') }}" class="btn-grey"><img src="/img/img/power.png" alt="">Выход</a>
+                        <a href="{{ route('logout') }}" class="btn-grey btn-exit">
+                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                            Выход
+                        </a>
                     </div>
                 </div>
             </div>
