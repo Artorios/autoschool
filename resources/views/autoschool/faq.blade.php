@@ -14,7 +14,9 @@
                 <div class="search-form">
                     <div class="row ">
                         <div class="col-sm-6 col-md-12">
-                            <input type="text" class="icon">
+                            <div class="search">
+                                <input type="text" class="icon">
+                            </div>
                         </div>
                         <div class="col-sm-6 col-md-12">
                             <div class="menu-header text-uppercase" data-toggle="collapse" href="#link_menu"
