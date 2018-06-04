@@ -224,7 +224,7 @@
                                   anchor="name"
                                   label="writer"
                                   :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
-                                  :on-select="getGroup">
+                                  :on-select="getGroupAll">
                     </autocomplete>
                 </div>
             </div>
@@ -261,6 +261,7 @@
                 comment: {},
                 checkedGroup: '',
                 checkedStudent: '',
+                checkedGroupAll: ''
             }
         },
         props: ['coupons', 'user'],
@@ -316,6 +317,9 @@
             getGroup(val){
                 this.checkedGroup = val.id
             },
+            getGroupAll(val){
+                this.checkedGroupAll = val.id
+            },
             getStudent(val){
                 this.checkedStudent = val.id
             },
@@ -344,8 +348,8 @@
                 this.createErrors.comment_director = ''
                 this.createErrors.id = ''
                 this.data.id = id
-                if(this.checkedGroup){
-                    this.data.auto_school_group_id = this.checkedGroup
+                if(this.checkedGroupAll){
+                    this.data.auto_school_group_id = this.checkedGroupAll
                 }
                 this.$http.post('/autoschool/coupons/sell', this.data).then(res => {
                     if (res.status === 201) {
