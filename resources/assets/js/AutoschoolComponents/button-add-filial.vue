@@ -13,9 +13,11 @@
                         <span class="error" v-if="errors.name">Введите имя филиала</span>
                         <input v-model.trim="data.name" v-bind:class="{'input-error': errors.name}" id="name" type="text" class="name-group" placeholder="Название филиала" required="">
                     </div>
-                    <div class="col-xs-6 col-sm-2">
+                    <div class="col-xs-6 col-sm-4">
                         <span class="error" v-if="errors.address">Введите адрес филиала</span>
-                        <input v-model.trim="data.address" v-bind:class="{'input-error': errors.address}" id="address" type="text" class="data" placeholder="Адрес филиала" required="">
+                        <div class="data">
+                            <input v-model.trim="data.address" v-bind:class="{'input-error': errors.address}" id="address" type="text" placeholder="Адрес филиала" required="">
+                        </div>
                     </div>
                     <div class="col-xs-12 col-sm-3">
                         <a href="#" class="btn-grey" v-on:click.prevent="sendDataToServer()">Сохранить</a>
