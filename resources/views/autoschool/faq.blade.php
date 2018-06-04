@@ -105,19 +105,19 @@
                     <ul>
                         В этом руководстве вы можете узнать:
                         <li>
-                            <img src="/img/ok-gray.png" alt="">
+                            <i class="fa fa-check" aria-hidden="true"></i>
                             <a href="">
                                 Как зарегистрироваться очно?
                             </a>
                         </li>
                         <li>
-                            <img src="/img/ok-gray.png" alt="">
+                            <i class="fa fa-check" aria-hidden="true"></i>
                             <a href="">
                                 Как зарегистрироваться онлайн?
                             </a>
                         </li>
                         <li>
-                            <img src="/img/ok-gray.png" alt="">
+                            <i class="fa fa-check" aria-hidden="true"></i>
                             <a href="">
                                 Как зарегистрироваться родителям?
                             </a>

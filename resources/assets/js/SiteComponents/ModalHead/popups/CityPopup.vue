@@ -9,7 +9,7 @@
                     <div class="modal-body city-choose">
                         <span class="close" @click="close"></span>
                         <div class="modal-toggle" data-dismiss="modal" aria-label="Close" v-if="checkedRegionData">
-                            <img src="/img/location.png" alt="">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
                             <span>{{checkedRegionData.name}}</span>
                         </div>
                         <div class="mobile-title">

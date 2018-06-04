@@ -27,43 +27,48 @@
                         <div class="col-md-12">
                             <div class="info">
                                 <span class="address">
-                                    <img src="/img/location.png" alt="">
-                                Россия г.Киров, ул.Урицкого, дом 6
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    Россия г.Киров, ул.Урицкого, дом 6
                                 </span>
                             </div>
 
                         </div>
                         <div class="col-md-12">
-                            <div class="info"><img src="/img/tel.png" alt="">
+                            <div class="info">
                                 <span class="number">
+                                    <i class="fa fa-phone" aria-hidden="true"></i>
                                     +7055<span>955211</span>
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="info"><img src="/img/clock.png" alt="">
+                            <div class="info">
                                 <span class="time-work">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
                                    Мы работаем: пн - вс 9:00 - 18:00 Мск (без выходных)
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="info"><img src="/img/edge.png" alt="">
+                            <div class="info">
                                 <span class="web">
+                                    <i class="fa fa-edge" aria-hidden="true"></i>
                                     <a href="">www.DrivingABV.com</a>
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="info"><img src="/img/mail.png" alt="">
+                            <div class="info">
                                 <span class="mail">
+                                    <i class="fa fa-envelope-open" aria-hidden="true"></i>
                                     <a href="mailto:mailto:ivan@email.ru">ivan@email.ru</a>
                                 </span>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="info"><img src="/img/skype.png" alt="">
+                            <div class="info">
                                 <span class="skype">
+                                    <i class="fa fa-skype" aria-hidden="true"></i>
                                     <a href="">ABV_school</a>
                                 </span>
                             </div>

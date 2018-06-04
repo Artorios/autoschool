@@ -8,7 +8,7 @@
             </ul>
         </div>
         <div class="info-card">
-            <div class="img">
+            <div class="img photo-edit-container">
                 <img src="/img/prof-photo-full.png" alt="">
                 <a href="#" class="photo-edit">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -18,7 +18,10 @@
             <a href="#">Автошкола АБВ</a>
             <div class="btn-wrapper">
                 <a href="#" class="btn-grey">Оплата</a>
-                <a href="/logout" class="btn-grey"><img src="img/power.png" alt="">Выход</a>
+                <a href="/logout" class="btn-grey btn-exit">
+                    <i aria-hidden="true" class="fa fa-power-off"></i>
+                    Выход
+                </a>
             </div>
         </div>
         <form>
