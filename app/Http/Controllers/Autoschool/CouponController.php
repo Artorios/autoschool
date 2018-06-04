@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\{CanceledCoupon, SellCoupon};
 use App\Models\Finance\Coupon;
 use App\Models\Training\School\AutoSchool;
+use App\Models\Training\School\AutoSchoolGroup;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,7 @@ class CouponController extends Controller
     public function sell(SellCoupon $coupon)
     {
         $count = Coupon::whereIn('id',$coupon->validated()['id'])->where('status' , 1)->count();
+        $group = AutoSchoolGroup::find($coupon->validated()['auto_school_group_id']);
         if($count != 0){
             if(!empty($coupon->validated()['student_id'])){
                 Coupon::whereIn('id',$coupon->validated()['id'])->where('status' , 1)->update([
@@ -33,6 +35,7 @@ class CouponController extends Controller
                     'comment_director' => $coupon->validated()['comment_director'],
                     'student_id' => $coupon->validated()['student_id'],
                     'auto_school_group_id' => $coupon->validated()['auto_school_group_id'],
+                    'auto_school_id' => $group->auto_school_id,
                     'sale_date' => Carbon::now()
                 ]);
             }
@@ -41,6 +44,7 @@ class CouponController extends Controller
                     'status' => 2,
                     'comment_director' => $coupon->validated()['comment_director'],
                     'auto_school_group_id' => $coupon->validated()['auto_school_group_id'],
+                    'auto_school_id' => $group->auto_school_id,
                     'sale_date' => Carbon::now()
                 ]);
             }
