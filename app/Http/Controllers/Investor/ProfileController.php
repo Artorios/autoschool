@@ -2,32 +2,27 @@
 
 namespace App\Http\Controllers\Investor;
 
-use Auth;
-use Cache;
 use App\Http\Controllers\Controller;
 use App\Models\User\InvestorProfile;
 use App\Http\Requests\Investor\UpdateProfileRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show()
     {
-        $investor_id = Auth::id();
-
-        return view('investor.profile.edit', [
-            'profile' => Cache::rememberForever("investor_profile_$investor_id", function () use ($investor_id) {
-                return InvestorProfile::where('user_id', $investor_id)
-                    ->with('legalEntity', 'individual', 'legalAddress', 'bankDetails', 'contact')
-                    ->first();
-            }),
-        ]);
+        $investor = Auth::user()->load('info');
+        return view('investor.profile.edit', compact('investor'));
     }
 
     public function update(UpdateProfileRequest $request)
     {
         $investor_id = Auth::id();
 
-        if (! $profile = InvestorProfile::where('user_id', $investor_id)->first()) {
+        if (!$profile = InvestorProfile::where('user_id', $investor_id)->first()) {
             return response()->json([
                 'errors' => ['Профиль инвестора не найден'],
                 'data' => false,
