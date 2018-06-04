@@ -171,7 +171,6 @@ div.data{
   position: relative;
   input{
     padding: 0 45px 0 15px;
-    cursor: pointer;
   }
   &:after{
     content: '\F073';
@@ -180,6 +179,44 @@ div.data{
     position: absolute;
     color: #999;
     font-size: 20px;
+    line-height: 1;
+    top: 50%;
+    right: 21px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
+div.time{
+  position: relative;
+  input{
+    padding: 0 45px 0 15px;
+  }
+  &:after{
+    content: '\f017';
+    font-family: FontAwesome;
+    display: block;
+    position: absolute;
+    color: #999;
+    font-size: 20px;
+    line-height: 1;
+    top: 50%;
+    right: 21px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
+div.search{
+  position: relative;
+  input{
+    padding: 0 45px 0 15px;
+  }
+  &:after{
+    content: '\f002';
+    font-family: FontAwesome;
+    display: block;
+    position: absolute;
+    color: #999;
+    font-size: 32px;
     line-height: 1;
     top: 50%;
     right: 21px;
