@@ -11,7 +11,7 @@
             <div class="img">
                 <img src="/img/prof-photo-full.png" alt="">
                 <a href="#" class="photo-edit">
-                    <img src="/img/pencil.png" alt="">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
             </div>
             <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}<span>(ID 123) Группа № 123</span></h3>

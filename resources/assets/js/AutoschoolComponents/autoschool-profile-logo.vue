@@ -1,8 +1,8 @@
 <template>
     <div class="img-profile text-center img">
         <img :src="imgDataUrl" alt="" class="upload-image">
-        <a class="pen-but" href="#" @click="toggleShow">
-            <img src="/img/penbut.png">
+        <a class="photo-edit" href="#" @click="toggleShow">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
         </a>
         <upload-profile-photo
                 field="img"
