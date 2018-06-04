@@ -25,3 +25,5 @@ _ide_helper.php
 _ide_helper_models.php
 *.iml
 docker-compose.yml
+/phpdocker/
+Makefile
