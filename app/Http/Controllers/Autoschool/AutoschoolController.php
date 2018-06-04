@@ -160,4 +160,22 @@ class AutoschoolController extends Controller
         return response()->json(['status' => 1], 204);
 
     }
+
+    public function groupsApi(Request $request, $id)
+    {
+
+        $filials = AutoSchool::where('director_id', $id)->get()->toArray();
+        $filials_id = array_map(function ($filial) {
+            return $filial['id'];
+        }, $filials);
+        $q = $request->input('q');
+        return response()->json(AutoSchoolGroup::whereIn('id', $filials_id)->where('name', 'like', '%' . $q . '%')->limit(10)->get(), 200);
+    }
+    public function studentsApi(Request $request, $id)
+    {
+
+
+        $q = $request->input('q');
+        return response()->json(User::where('auto_school_group_id', $id)->where('name', 'like', '%' . $q . '%')->limit(10)->get(), 200);
+    }
 }

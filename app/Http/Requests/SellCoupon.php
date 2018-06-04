@@ -32,6 +32,8 @@ class SellCoupon extends FormRequest
     {
         return [
             'id' => 'required|array',
+            'auto_school_group_id' => 'required|exists:auto_school_groups,id',
+            'student_id' => 'nullable|exists:users,id',
             'comment_director' => 'required|string|min:5'
 
         ];
@@ -46,6 +48,9 @@ class SellCoupon extends FormRequest
             'id.required' => 'Выберите свободный купон.',
             'comment_director.required' => 'Введите комментарий.',
             'comment_director.min' => 'Комментарий должен иметь больше 5 символов.',
+            'auto_school_group_id.required' => 'Выберите группу.',
+            'auto_school_group_id.exists' => 'Нет такой группы.',
+            'student_id.exists' => 'Нет такого студента.',
         ];
     }
 

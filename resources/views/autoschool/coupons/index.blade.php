@@ -8,7 +8,9 @@
             </ul>
         </div>
 {{--{{dd($coupons)}}--}}
-        <coupons :coupons="{{json_encode($coupons)}}"></coupons>
+        <coupons :coupons="{{json_encode($coupons)}}"
+                :user="{{json_encode(Auth::user())}}"
+        ></coupons>
 
 
 
