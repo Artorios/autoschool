@@ -805,7 +805,19 @@ footer.inner {
     }
   }
 }
-
+@media (max-width: 575px){
+  header.inner{
+    .container{
+      .notes{
+        width: 150px;
+        margin-right: 15px;
+        .number{
+          left: -8px;
+        }
+      }
+    }
+  }
+}
 @media (max-width: 500px) {
   header.inner {
     .container {
@@ -814,6 +826,14 @@ footer.inner {
           width: auto;
           .img {
             display: none;
+          }
+          h3{
+            float: none;
+            width: 100%;
+          }
+          span{
+            float: none;
+            width: 100%;
           }
         }
         .notes {
