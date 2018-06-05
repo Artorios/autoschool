@@ -309,3 +309,95 @@ div.search{
   left: -1000px;
   z-index: -100;
 }
+//text break
+.text-break{
+  text-overflow: clip;
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
+}
+//table
+.table-head{
+  background-color: #ebebeb;
+  padding: 5px 10px;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.table-head-item{
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+  padding: 0 0 0 10px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.table-head-item.number-item{
+  padding: 0;
+}
+.table-item-row{
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.table-item{
+  padding: 0 0 0 10px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.table-item.number-item{
+  padding: 0;
+}
+.number-item{
+  flex: 0 0 24px;
+  max-width: 24px;
+}
+.id-item{
+  flex: 0 0 170px;
+  max-width: 170px;
+}
+.filial-item{
+  flex: 0 0 190px;
+  max-width: 190px;
+}
+.city-item{
+  flex: 0 0 190px;
+  max-width: 190px;
+}
+.coupon-item{
+  flex: 0 0 120px;
+  max-width: 120px;
+}
+.commission-item{
+  flex: 0 0 103px;
+  max-width: 103px;
+}
+.sum-item{
+  flex: 0 0 103px;
+  max-width: 103px;
+}
+.table-item-text{
+  font-size: 14px;
+  color: #333;
+}
+.table-item-link{
+  font-size: 14px;
+  color: #333;
+  transition: color 0.1s ease-in-out;
+  &:hover{
+    color: red;
+  }
+}
+
+.text-bold{
+  font-weight: bold;
+}
+.text-big{
+  font-size: 16px;
+}
+.text-underline{
+  text-decoration: underline;
+}
