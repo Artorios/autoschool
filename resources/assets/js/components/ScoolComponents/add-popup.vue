@@ -60,7 +60,7 @@
                                 <div class="form-group">
                                     <label>Выберите инвестора</label>
                                     <autocomplete
-                                            url="/api/get-investors-api"
+                                            :url="investor_url"
                                             anchor="email"
                                             label="last_name"
                                             :initValue="checkedInvestor ? checkedInvestor.email : ''"
@@ -110,7 +110,7 @@
                                 <div class="form-group">
                                     <label>Выберите инвестора</label>
                                     <autocomplete
-                                            url="/api/get-investors-api"
+                                            :url="investor_url"
                                             anchor="email"
                                             label="last_name"
                                             :initValue="checkedInvestor ? checkedInvestor.email : ''"
@@ -153,9 +153,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal" @click="cancelChange">Отмена</button>
-                    <button type="button" class="btn btn-primary" v-if="edit" @click="editSchool">Сохранить изменения</button>
-                    <button type="button" class="btn btn-primary" @click="createSchool" v-else>Добавить автошколу</button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal" @click="cancelChange">
+                        Отмена
+                    </button>
+                    <button type="button" class="btn btn-primary" v-if="edit" @click="editSchool">Сохранить изменения
+                    </button>
+                    <button type="button" class="btn btn-primary" @click="createSchool" v-else>Добавить автошколу
+                    </button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -165,7 +169,7 @@
 </template>
 
 <style lang="scss">
-    .custom-height{
+    .custom-height {
         height: 250px;
         overflow-y: scroll;
         overflow-x: hidden;
@@ -183,7 +187,7 @@
     export default {
         data () {
             return {
-                data:  {
+                data: {
                     title: '',
                     description: '',
                     city_id: '',
@@ -210,6 +214,7 @@
                     }
                 ],
                 city_url: '/api/address/get-cities-api/',
+                investor_url: '',
                 errorEdit: false,
                 checkedRegion: null,
                 checkedCity: null,
@@ -222,14 +227,14 @@
             Autocomplete
         },
         created () {
-            if(this.school){
+            if (this.school) {
                 this.data.contacts = []
                 this.data.title = this.school.title
                 this.data.description = this.school.description
                 this.data.city_id = this.school.city_id
                 this.data.director_id = this.school.director_id
                 this.data.investor_id = this.school.investor_id
-                for(let i=0; i<this.school.contacts.length; i++){
+                for (let i = 0; i < this.school.contacts.length; i++) {
                     this.data.contacts.push(this.school.contacts[i])
                 }
                 this.$http.post('/api/admin/school-info', this.school).then(res => {
@@ -243,6 +248,43 @@
                 }, err => {
                 })
             }
+            if (this.checkedRegion.id) {
+                this.investor_url = '/api/get-investors-api' + this.checkedRegion.id
+                console.log(this.investor_url)
+            }
+            else {
+                if (this.checkedRegion) {
+                    this.investor_url = '/api/get-investors-api' + this.checkedRegion
+                    console.log(this.investor_url)
+
+                }
+                else {
+                    this.investor_url = '/api/get-investors-api/0'
+                    console.log(this.investor_url)
+
+                }
+
+            }
+
+        },
+        updated (){
+            if (this.checkedRegion.id) {
+                this.investor_url = '/api/get-investors-api/' + this.checkedRegion.id
+                console.log(this.investor_url)
+            }
+            else {
+                if (this.checkedRegion) {
+                    this.investor_url = '/api/get-investors-api/' + this.checkedRegion
+                    console.log(this.investor_url)
+
+                }
+                else {
+                    this.investor_url = '/api/get-investors-api/0'
+                    console.log(this.investor_url)
+
+                }
+
+            }
         },
         watch: {
             checkedCity: function (val) {
@@ -250,6 +292,7 @@
                     this.data.city_id = val.id
                 }
             },
+
         },
         methods: {
             cancelChange () {

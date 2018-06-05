@@ -13,6 +13,7 @@ use App\Models\Training\School\{
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AdminController
@@ -21,11 +22,16 @@ use App\Http\Controllers\Controller;
 class AdminController extends Controller
 {
 
-    public function getInvestorsApi(Request $request)
+    public function getInvestorsApi(Request $request, $region)
     {
         $q = $request->input('q');
+        $user = Auth::user();
+        $cities = City::where('regions_id', $region)->get()->toArray();
+        $cities_id = array_map(function ($city) {
+            return $city['id'];
+        }, $cities);
 
-        return response()->json(User::select('id', 'email', 'last_name')->where('email', 'like', '%' . $q . '%')->where('role', 'investor')->limit(10)->get(), 200);
+        return response()->json(User::select('id', 'email', 'last_name')->whereIn('city_id', $cities_id)->where('email', 'like', '%' . $q . '%')->where('role', 'investor')->limit(10)->get(), 200);
 
     }
 
