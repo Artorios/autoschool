@@ -18,26 +18,58 @@
                             v-for="(school, index) in paginate"
                             :data-id="number + index">
                         <div class="table-item number-item">
-                            {{ number + index }}
+                            <div class="table-head-item hidden-head-text">№</div>
+                            <div class="table-item-content">
+                                {{ number + index }}
+                            </div>
+
                         </div>
                         <div class="table-item id-item">
-                            <a :href="/profile-edit/" class="school-name table-item-link text-underline">{{ school.title }}</a>
-                            <span class="school-id table-item-text">/ ID {{ school.id }}</span>
+                            <div class="table-head-item hidden-head-text">Автошкола/ID</div>
+                            <div class="table-item-content">
+                                <a :href="/profile-edit/" class="school-name table-item-link text-underline">{{ school.title }}</a>
+                                <span class="school-id table-item-text">/ ID {{ school.id }}</span>
+                            </div>
+
                         </div>
-                        <div class="table-item filial-item">-</div>
-                        <div class="table-item city-item">{{ school.city.name }}</div>
+                        <div class="table-item filial-item">
+                            <div class="table-head-item hidden-head-text">Филиал</div>
+                            <div class="table-item-content">
+                                -
+                            </div>
+
+                        </div>
+                        <div class="table-item city-item">
+                            <div class="table-head-item hidden-head-text">Город</div>
+                            <div class="table-item-content">
+                                {{ school.city.name }}
+                            </div>
+
+                        </div>
                         <div class="table-item coupon-item">
-                            <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.active ? school.active : 0 }}</a>
-                            /
-                            <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.inActive ? school.inActive : 0 }}</a>
-                            /
-                            <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.count ? school.count : 0 }}</a>
+                            <div class="table-head-item hidden-head-text">Купоны активные/неактивные/всего</div>
+                            <div class="table-item-content">
+                                <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.active ? school.active : 0 }}</a>
+                                /
+                                <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.inActive ? school.inActive : 0 }}</a>
+                                /
+                                <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.count ? school.count : 0 }}</a>
+                            </div>
+
                         </div>
                         <div class="table-item commission-item">
-                            <span class="text-bold">-</span>
+                            <div class="table-head-item hidden-head-text">Комиссия</div>
+                            <div class="table-item-content">
+                                <span class="text-bold">-</span>
+                            </div>
+
                         </div>
                         <div class="table-item sum-item">
-                            <a class="table-item-link text-bold" href="javascript:">-</a>
+                            <div class="table-head-item hidden-head-text">К оплате</div>
+                            <div class="table-item-content">
+                                <a class="table-item-link text-bold" href="javascript:">-</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
