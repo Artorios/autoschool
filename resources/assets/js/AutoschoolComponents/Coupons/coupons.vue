@@ -198,7 +198,15 @@
         <br>
         <div class="blockform paid active">
             <div class="form-inline">
-                    <input type="checkbox" style="width: 12px"  true-value="false" false-value="true"  v-model="checkedAll" @click="checkedCouponsAll(checkedAll)">
+                <label class="label-checkbox">
+                    <input type="checkbox"
+                            true-value="false"
+                            false-value="true"
+                            v-model="checkedAll"
+                            @click="checkedCouponsAll(checkedAll)"
+                            class="hidden-checkbox">
+                    <span class="label-check"></span>
+                </label>
             <div class="info">Отмечено {{ checkedCoupons.length }} из {{coupons.length}}</div>
                 <a  class="btn-grey" @click="anull(checkedCoupons)">Анулировать</a>
                 <a  class="btn-grey" @click="sellPopup">Продать</a>
