@@ -32,8 +32,7 @@ class FilialController extends Controller
             ->with('city')
             ->get();
 
-        $autoschool = AutoSchool::where('director_id', Auth::user()->id);
-
+        $autoschool = AutoSchool::where('director_id', Auth::user()->id)->get();
         return view('autoschool.filials.filials', compact('filials', 'autoschool'));
     }
 

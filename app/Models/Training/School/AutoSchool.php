@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Autoschool
+ * @mixin \Eloquent
  * @package App\Models\Training\School
  */
+
 class AutoSchool extends Model
 {
     use AutoSchoolRelationship;

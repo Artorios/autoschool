@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Investor;
 
+use App\Models\Finance\Order;
+use App\Services\FinancesInvestorService;
 use App\Transformers\FinanceTransformer;
 use App\Http\Controllers\Controller;
 use App\Models\Training\School\AutoSchool;
@@ -19,6 +21,8 @@ class FinanceController extends Controller
      */
     public function index()
     {
+
+
         return view('investor.finance.index', [
             'students' => AutoSchool::where('investor_id', Auth::id())
                 ->with('autoschoolGroups.users')
@@ -32,20 +36,17 @@ class FinanceController extends Controller
         ]);
     }
 
-    /**
-     * @return \Spatie\Fractal\Fractal
-     */
-    public function all()
+    public function all(FinancesInvestorService $financesInvestorService)
     {
-        $autochools = AutoSchool::where('investor_id', Auth::id())
-            ->with('autoschoolGroups.users')
-            ->get()
-            ->transform(function ($item) {
-                $item->users = $item->autoschoolGroups
-                    ->pluck('users')
-                    ->collapse();
-                return $item;
-            });
-        return fractal($autochools, new FinanceTransformer());
+        try {
+           if(!empty($financesInvestorService->dataForFinancePage())) {
+             return response()->json(['data' => $financesInvestorService->dataForFinancePage()], 201);
+           } else {
+               throw new \Exception();
+           }
+
+        } catch (\Exception $exception) {
+            return response()->json(['error' => 1], 422);
+        }
     }
 }
