@@ -42,3 +42,11 @@ Route::group(['namespace' => 'Admin'], function () {
 
 });
 
+Route::group(['namespace' => 'Autoschool'], function () {
+
+    Route::get('/groups-api/{id}', 'AutoschoolController@groupsApi');
+    Route::get('/students-api/{id}', 'AutoschoolController@studentsApi');
+
+
+});
+
