@@ -7,7 +7,9 @@
             <div class="searchform">
                 <form>
                     <input type="text" placeholder="Введите что искать">
-                    <button type="submit"><img src="img/search.png"></button>
+                    <button type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </form>
             </div>
             <ul class="dropforms">
@@ -28,7 +30,10 @@
                 <li><input id="date" type="text" placeholder="Дата" required=""></li>
             </ul>
             <div class="searchbut">
-                <div class="button"><a href="#"><img src="img/search.png">Поиск по параметрам</a></div>
+                <div class="button"><a href="#">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        Поиск по параметрам</a>
+                </div>
             </div>
         </div>
         <div class="studentgroupe">

@@ -1,5 +1,5 @@
 <template>
-    <div class="img">
+    <div class="img photo-edit-container">
         <img class="upload-image" :src="imgDataUrl" alt="">
         <a href="#" class="photo-edit" @click="toggleShow">
             <i class="fa fa-pencil" aria-hidden="true"></i>

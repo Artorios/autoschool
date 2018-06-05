@@ -27,7 +27,7 @@
                                 <div class="ul-wrapper" v-for="school in schools" v-if="showSchool == 0 || school.id == showSchool">
                                     <ul class="adress">
                                         <li v-for="addres in school.addresses">
-                                            <img src="/img/location.png" alt="">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
                                             <span v-if="school.city.name">{{'г. ' + school.city.name}}</span>
                                             <span v-if="addres.value">{{addres.value}}</span>
                                         </li>
@@ -35,7 +35,7 @@
 
                                     <ul class="tel" v-if="school.phones">
                                         <li v-for="phone in school.phones">
-                                            <img src="/img/tel.png" alt="">
+                                            <i class="fa fa-phone" aria-hidden="true"></i>
                                             <span>{{phone.value}}</span>
                                         </li>
                                     </ul>

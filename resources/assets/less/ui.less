@@ -171,7 +171,6 @@ div.data{
   position: relative;
   input{
     padding: 0 45px 0 15px;
-    cursor: pointer;
   }
   &:after{
     content: '\F073';
@@ -187,10 +186,80 @@ div.data{
     pointer-events: none;
   }
 }
+div.time{
+  position: relative;
+  input{
+    padding: 0 45px 0 15px;
+  }
+  &:after{
+    content: '\f017';
+    font-family: FontAwesome;
+    display: block;
+    position: absolute;
+    color: #999;
+    font-size: 20px;
+    line-height: 1;
+    top: 50%;
+    right: 21px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
+div.search{
+  position: relative;
+  input{
+    padding: 0 45px 0 15px;
+  }
+  &:after{
+    content: '\f002';
+    font-family: FontAwesome;
+    display: block;
+    position: absolute;
+    color: #999;
+    font-size: 32px;
+    line-height: 1;
+    top: 50%;
+    right: 21px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
 //icon on
 .btn-exit{
   .fa{
     font-size: 14px;
     color: #666666;
   }
+}
+//photo-edit pencil icon
+.photo-edit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: block;
+  text-align: center;
+  line-height: 38px;
+  background: linear-gradient(to top, #bababa, #ebeaea);
+  &:hover {
+    background: linear-gradient(to top, #9a9a9a, #dadcde);
+    color: #000;
+  }
+  .fa{
+    color: #666;
+    font-size: 20px;
+    line-height: 38px;
+  }
+}
+.photo-edit-container{
+  position: absolute;
+  border-radius: 50%;
+  width: 125px;
+  height: 125px;
+  border: 1px solid #ccc;
+  margin-right: 45px;
+  left: 0;
+  top: 0;
 }

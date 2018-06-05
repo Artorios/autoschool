@@ -8,13 +8,17 @@
                            class="name-group" placeholder="Название группы" required="">
                 </div>
                 <div class="col-xs-6 col-sm-2">
-                    <input v-model.trim="data.exam_date" v-bind:class="{'input-error': errors.exam_date}"
-                           v-mask="'9999-99-99'" id="date" type="text" class="data" placeholder="Дата" required="">
+                    <div class="data">
+                        <input v-model.trim="data.exam_date" v-bind:class="{'input-error': errors.exam_date}"
+                                v-mask="'9999-99-99'" id="date" type="text"  placeholder="Дата" required="">
+                    </div>
                 </div>
                 <div class="col-xs-6 col-sm-2">
                     <span class="error" v-if="errors.exam_time">Время должно быть в формате ЧЧ:ММ</span>
-                    <input v-model.trim="data.exam_time" v-bind:class="{'input-error': errors.exam_time}"
-                           v-mask="'99:99'" id="time" type="text" class="time" placeholder="Время" required="">
+                    <div class="time">
+                        <input v-model.trim="data.exam_time" v-bind:class="{'input-error': errors.exam_time}"
+                                v-mask="'99:99'" id="time" type="text" placeholder="Время" required="">
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-3">
                     <a href="#" class="btn-grey" v-on:click.prevent="sendDataToServer()">Сохранить</a>

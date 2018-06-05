@@ -7,14 +7,13 @@
                 <p>{{notify.notify}}</p>
             </div>
             <div class="line" v-else="notify.status == 0">
-                <span class="date-time" ><img src="/img/clock.png" alt="">{{editDate(notify.date)}} {{editTime(notify.time)}}</span>
+                <span class="date-time">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    {{editDate(notify.date)}} {{editTime(notify.time)}}
+                </span>
                 <p>{{notify.notify}}</p>
             </div>
-
-
         </div>
-
-
     </div>
 
 </template>
