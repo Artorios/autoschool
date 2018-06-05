@@ -9,15 +9,24 @@
 						<li><h5>Иванов Иван Васильевич</h5></li>
 						<li>
 							<span>Дата и время экзамена</span>
-							<span><img src="/img/clock.png">02.09.2017 18:00</span>
+							<span>
+								<i class="fa fa-clock-o" aria-hidden="true"></i>
+								02.09.2017 18:00
+							</span>
 						</li>
 						<li>
 							<a href="#">Статистика зачетов</a>
 							<a href="#">Статистика экзамена</a>
 						</li>
-						<li><img src="/img/location.png"><p>Россия, г. Киров, ул. Урицкого, дом 6</p></li>
-						<li><img src="/img/tel.png"><a href="#">+7 (495)<span> 999-99-99</span></a></li>
-						<li><img src="/img/mail.png"><a href="#">ivan@mail.ru</a></li>
+						<li>
+							<i class="fa fa-map-marker" aria-hidden="true"></i>
+							<p>Россия, г. Киров, ул. Урицкого, дом 6</p></li>
+						<li>
+							<i class="fa fa-phone" aria-hidden="true"></i>
+							<a href="#">+7 (495)<span> 999-99-99</span></a></li>
+						<li>
+							<i class="fa fa-envelope-open" aria-hidden="true"></i>
+							<a href="#">ivan@mail.ru</a></li>
 					</ul>
 				</div>
 				<div class="blocksavestudent">

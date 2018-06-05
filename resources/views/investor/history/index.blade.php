@@ -10,7 +10,8 @@
         </div>
 
         <button href="" id="search-button" class="btn-grey visible-xs ">
-            <img src="/img/search.png" alt="">Поиск по параметрам
+            <i class="fa fa-search" aria-hidden="true"></i>
+            Поиск по параметрам
         </button>
 
             <history-list></history-list>
