@@ -10,6 +10,7 @@ use App\Models\Location\City;
 use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
 use App\Models\User\{Contract,UserLessonTrainingQuestion,User};
 use App\Services\StatisticService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Mail\Mailer;
@@ -103,11 +104,14 @@ class StudentController extends Controller
             $user['password_for_send_user_email'] = $passwordForSendEmail;
 
             DB::transaction(function () use ($user, $request) {
+                if(!empty($request->coupon)){
+                    $coupon = Coupon::where('id', $request->coupon)->update([
+                        'status' => 3,
+                        'student_id' => $user->id,
+                        'activated_at' => Carbon::now()
+                    ]);
+                }
 
-                $coupon = Coupon::where('id', $request->coupon)->update([
-                    'status' => 3,
-                    'student_id' => $user->id
-                ]);
                 $contract = Contract::create([
                     'name' => generateContractNumber($user),
                     'user_id' => $user->id
