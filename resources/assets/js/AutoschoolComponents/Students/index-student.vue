@@ -93,7 +93,7 @@
             </div>
             <div class="clearfix">
             <div class="col-md-4 col-xs-6">
-                Дата регистрации в ситеме:
+                Дата регистрации в системе:
             </div>
             </div>
             <div class="col-md-8 col-xs-6" v-text="student_with_orders.DateCreateUser"></div>

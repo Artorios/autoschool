@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Training\School\AutoSchool;
+use App\Models\Training\School\AutoSchoolGroup;
 use Illuminate\Foundation\Http\FormRequest;
 
 class NewStudent extends FormRequest
@@ -29,10 +31,24 @@ class NewStudent extends FormRequest
             'second_name' => 'string|min:3',
             'email'       => 'required|email|unique:users,email',
             'phone'       => 'required',
-            'coupon' 		  => 'required|exists:coupons,id',
+            'coupon' 		  => 'nullable|exists:coupons,id',
             'auto_school_group_id' 		  => 'required|exists:auto_school_groups,id',
             'city_id' 		  => 'required|exists:cities,id',
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function prepareForValidation()
+    {
+
+        $group = AutoSchoolGroup::find($this->request->all()['auto_school_group_id']);
+        $school = AutoSchool::find($group->auto_school_id);
+        $this->request->add([
+            'city_id' => $school->city_id
+
+            ]);
     }
 
 }

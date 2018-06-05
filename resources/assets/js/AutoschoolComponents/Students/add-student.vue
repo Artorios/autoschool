@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <p class="error" v-if="errors.coupon">Выберите купон</p>
                     <select class="select" id="coupon" v-model="data.coupon">
-                        <option disabled value="">Купон*</option>
+                        <option disabled value="">Купон</option>
                         <option v-if="coupons" v-for="(item, index) in coupons" v-text="item.code" v-bind:value="item.id"></option>
                         <option v-else v-text="'Нет купонов'" v-bind:value="'0'"></option>
                     </select>
@@ -52,16 +52,8 @@
                         <option v-for="(item, index) in groups" v-bind:value="item.id" v-text="item.name"></option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <p class="error" v-if="errors.city_id">Выбирите город</p>
-                    <select class="select"  id="city_id" v-model="data.city_id">
-                        <option disabled value="">Ваш город*</option>
-                        <option :value="city.id" v-for="city in cities">{{city.name}}</option>
-                    </select>
-                </div>
             </div>
         </div>
-
         <div class="addstudent">
             <a href="#" class="btn-grey" @click="registration()"> Добавить</a>
         </div>
@@ -177,14 +169,6 @@
                                 this.errors[key] = false
                             }
                             break
-                        case 'coupon':
-                            if (!this.data[key]) {
-                                this.errors[key] = true
-                            } else {
-                                this.data[key] = +this.data[key]
-                                this.errors[key] = false
-                            }
-                            break
                         case 'auto_school_group_id':
                             if (!this.data[key]) {
                                 this.errors[key] = true
@@ -201,13 +185,6 @@
                             break
                         case 'email':
                             if (!this.checkEmail(this.data[key])) {
-                                this.errors[key] = true
-                            } else {
-                                this.errors[key] = false
-                            }
-                            break
-                        case 'city_id':
-                            if (!this.data[key]) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false

@@ -23,7 +23,7 @@
                                 <label>Отчество</label>
                                 <input type="text" class="form-control" v-model="data.second_name">
                             </div>
-                            <div v-if="edit">
+                            <div v-if="edit && (data.role == 'user' || data.role.slug == 'user')">
                                 <div class="form-group">
                                     <label>Автошкола</label>
                                     <autocomplete
