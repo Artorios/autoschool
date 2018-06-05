@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="profile-edit">
-            <div class="row">
-                <div class="col-md-4 col-xs-12">
+            <div class="profile-content">
+                <div class="photo-edit-block">
                     <profile-photo :user="investor"></profile-photo>
                 </div>
-                <div class="col-md-8 col-xs-12">
-                        <h3>{{ investor.name }}</h3>
+                <div class="profile-info-block">
+                        <h3 class="profile-info-title">{{ investor.name }}</h3>
                     <div>
-                        <a href="/logout" class="btn-grey btn-exit">
+                        <a href="/logout" class="btn-grey btn-exit profile-btn-exit">
                             <i class="fa fa-power-off" aria-hidden="true"></i>
                             Выход
                         </a>
