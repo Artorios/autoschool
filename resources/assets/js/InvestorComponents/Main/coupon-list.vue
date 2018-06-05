@@ -78,7 +78,12 @@
                     'line sale': item.status === 2,
                     'line free': item.status === 1,
                     }">
-                    <div class="coupons-cheskbox"><input type="checkbox"></div>
+                    <div class="coupons-cheskbox">
+                        <label class="label-checkbox">
+                            <input type="checkbox" class="hidden-checkbox">
+                            <span class="label-check"></span>
+                        </label>
+                    </div>
                     <div class="number">{{ item.id }}</div>
                     <div class="coupon"><a href="#">{{ item.name }}</a></div>
                     <div class="autoschool"><a href="">{{ item.autoschool.title }}</a> ID {{ item.autoschool.id }}</div>
