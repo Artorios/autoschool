@@ -32,10 +32,16 @@ class CouponTransformer extends TransformerAbstract
             'date' => [
                 'generation' => $coupon->generation_date,
                 'activation' => $coupon->activated_at   ,
+                'sale' => $coupon->sale_date   ,
             ],
             'amount' => [
                 'payment' => $coupon->payment_amount,
-                'commission' => $coupon->commision_amount,
+                'commission' => $coupon->fee_amount,
+            ],
+            'comment' => [
+                'investor' => $coupon->comment_investor,
+                'director' => $coupon->comment_director,
+                'coupon' => $coupon->comment_coupon,
             ],
             'updated_at' => (string) $coupon->updated_at
         ];
