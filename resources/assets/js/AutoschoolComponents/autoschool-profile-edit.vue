@@ -6,22 +6,22 @@
             </ul>
         </div>
         <div class="profile-edit">
-            <div class="row">
-                <div class="col-md-4 col-xs-12">
+            <div class="profile-content">
+                <div class="photo-edit-block">
                     <autoschool-profile-logo :filial="filial"></autoschool-profile-logo>
                 </div>
-                <div class="col-md-8 col-xs-12">
-                    <div class="form-group">
-                        <span class="label">Филиал Главный</span>
-                        <select class="select" id="fillials_select" v-model="selected">
-                            <option v-for="(autoschool, index) in autoschools"
-                                    v-text="autoschool.title"
-                                    v-bind:value="index">
-                            </option>
-                        </select>
-                    </div>
-                    <div>
-                        <a href="/logout" class="btn-grey btn-exit">
+                <div class="profile-info-block">
+                    <h3 class="profile-info-title">Филиал Главный</h3>
+                    <div class="profile-info-bottom">
+                        <div class="form-group profile-form-group">
+                            <select class="select" id="fillials_select" v-model="selected">
+                                <option v-for="(autoschool, index) in autoschools"
+                                        v-text="autoschool.title"
+                                        v-bind:value="index">
+                                </option>
+                            </select>
+                        </div>
+                        <a href="/logout" class="btn-grey btn-exit profile-btn-exit">
                             <i class="fa fa-power-off" aria-hidden="true"></i>
                             Выход
                         </a>

@@ -1,59 +1,80 @@
 <template>
     <div class="blockgroupe">
 
-        <div class="row" :class="totalPages > 0 ? '' : 'hidden'">
+        <div :class="totalPages > 0 ? '' : 'hidden'">
             <h2>Список автошкол:</h2>
-            <table class="table manage-grid">
-                <thead>
-                <tr class="visible-md visible-lg">
-                    <th>№</th>
-                    <th>Автошкола/ID</th>
-                    <th>Филиал</th>
-                    <th>Город</th>
-                    <th>Купоны активные/неактивные/всего</th>
-                    <th>Комиссия</th>
-                    <th>К оплате</th>
-                </tr>
-                </thead>
-                <tbody class="main">
-                <tr :data-id="number + index" class="visible-md visible-lg" v-for="(school, index) in paginate">
-                    <td>{{ number + index }}</td>
-                    <td><a :href="/profile-edit/" class="school-name">{{ school.title }}</a><span class="school-id">ID {{ school.id }}</span></td>
-                    <td>-</td>
-                    <td>{{ school.city.name }}</td>
-                    <td><a class="coupon coupon-active" href="javascript:">{{ school.active ? school.active : 0 }}</a> / <a class="coupon coupon-active" href="javascript:">{{ school.inActive ? school.inActive : 0 }}</a> / <a class="coupon coupon-active" href="javascript:">{{ school.count ? school.count : 0 }}</a></td>
-                    <td><span class="bold big">-</span></td>
-                    <td><a class="bold big" href="javascript:"></a></td>
-                </tr>
-                <tr :data-id="number" class="payment-form" style="display: none">
-                    <td colspan="7">
-                        <form action="">
-                            <div class="close hidden-md hidden-lg"></div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text">
-                                    </div>
-                                </div>95
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <button class="btn-grey">Сохранить</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="close visible-md visible-lg"></div>
-                                </div>
+            <div class="table-block">
+                <div class="table-head">
+                    <div class="table-head-item number-item">№</div>
+                    <div class="table-head-item id-item">Автошкола/ID</div>
+                    <div class="table-head-item filial-item">Филиал</div>
+                    <div class="table-head-item city-item">Город</div>
+                    <div class="table-head-item coupon-item">Купоны активные/неактивные/всего</div>
+                    <div class="table-head-item commission-item">Комиссия</div>
+                    <div class="table-head-item sum-item">К оплате</div>
+                </div>
+                <div class="table-content">
+                    <div class="table-item-row"
+                            v-for="(school, index) in paginate"
+                            :data-id="number + index">
+                        <div class="table-item number-item">
+                            <div class="table-head-item hidden-head-text">№</div>
+                            <div class="table-item-content">
+                                {{ number + index }}
                             </div>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
+                        </div>
+                        <div class="table-item id-item">
+                            <div class="table-head-item hidden-head-text">Автошкола/ID</div>
+                            <div class="table-item-content">
+                                <a :href="/profile-edit/" class="school-name table-item-link text-underline">{{ school.title }}</a>
+                                <span class="school-id table-item-text">/ ID {{ school.id }}</span>
+                            </div>
+
+                        </div>
+                        <div class="table-item filial-item">
+                            <div class="table-head-item hidden-head-text">Филиал</div>
+                            <div class="table-item-content">
+                                -
+                            </div>
+
+                        </div>
+                        <div class="table-item city-item">
+                            <div class="table-head-item hidden-head-text">Город</div>
+                            <div class="table-item-content">
+                                {{ school.city.name }}
+                            </div>
+
+                        </div>
+                        <div class="table-item coupon-item">
+                            <div class="table-head-item hidden-head-text">Купоны активные/неактивные/всего</div>
+                            <div class="table-item-content">
+                                <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.active ? school.active : 0 }}</a>
+                                /
+                                <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.inActive ? school.inActive : 0 }}</a>
+                                /
+                                <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.count ? school.count : 0 }}</a>
+                            </div>
+
+                        </div>
+                        <div class="table-item commission-item">
+                            <div class="table-head-item hidden-head-text">Комиссия</div>
+                            <div class="table-item-content">
+                                <span class="text-bold">-</span>
+                            </div>
+
+                        </div>
+                        <div class="table-item sum-item">
+                            <div class="table-head-item hidden-head-text">К оплате</div>
+                            <div class="table-item-content">
+                                <a class="table-item-link text-bold" href="javascript:">-</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <ul class="pagination" v-if="itemsPerPage < resultCount">
                 <li class="page-item" v-for="pageNumber in totalPages">
                     <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
