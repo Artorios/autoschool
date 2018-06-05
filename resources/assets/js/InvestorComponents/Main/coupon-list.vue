@@ -543,9 +543,11 @@
         display: none;
     }
 
+    .coupon-error {
+        color: red;
+    }
+
     .form-error {
         border-color: red;
     }
-
-
 </style>

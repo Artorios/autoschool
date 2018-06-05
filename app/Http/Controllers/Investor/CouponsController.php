@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Investor;
 
+use App\Http\Requests\CanceledCoupon;
+use App\Http\Requests\Investor\SellCouponRequest;
 use App\Transformers\CouponTransformer;
 use Illuminate\Support\Facades\{
     DB, Auth
@@ -18,16 +20,12 @@ class CouponsController extends Controller
 {
     public function index()
     {
-        return view('investor.coupons.index', [
-            'coupons' => Coupon::where('investor_id', Auth::id())
-                ->with('autoSchool.city', 'group', 'student')
-                ->get(),
-        ]);
+        return view('investor.coupons.index');
     }
 
     public function all()
     {
-        $couppons = Coupon::where('investor_id', Auth::id())->get();
+        $couppons = Coupon::where('investor_id', Auth::id())->where('status', '!=', '4')->get();
         return fractal($couppons, new CouponTransformer())->respond();
 //        return Coupon::where('investor_id', Auth::id())
 //            ->with('autoSchool.city', 'group', 'student')
@@ -48,21 +46,53 @@ class CouponsController extends Controller
         DB::beginTransaction();
         for ($i = 0; $i < $request->get('count'); $i++) {
             Coupon::create([
-                'investor_id'     => Auth::id(),
-                'auto_school_id'  => $auto_school_id,
-                'code'            => "$auto_school_id-" . strtolower(str_random(7)),
-                'fee_amount'      => $request->get('fee_amount'),
+                'investor_id' => Auth::id(),
+                'auto_school_id' => $auto_school_id,
+                'code' => "$auto_school_id-" . strtolower(str_random(7)),
+                'fee_amount' => $request->get('fee_amount'),
                 'generation_date' => Carbon::now()->toDateString(),
             ]);
         }
 
         History::create([
-            'investor_id'    => Auth::id(),
+            'investor_id' => Auth::id(),
             'auto_school_id' => $auto_school_id,
-            'operation'      => 'Генерация купонов',
+            'operation' => 'Генерация купонов',
         ]);
         DB::commit();
 
         return redirect()->route('investor.coupons.create')->with('messages', ['Купоны успешно созданны']);
+    }
+
+    public function sell(SellCouponRequest $request)
+    {
+        $count = Coupon::whereIn('id', $request->validated()['id'])->where('status', 1)->count();
+        if ($count != 0) {
+            Coupon::whereIn('id', $request->validated()['id'])->where('status', 1)->update([
+                'status' => 2,
+                'comment_investor' => $request->validated()['comment_investor']
+            ]);
+        }
+        return response()->json(['count' => $count], '201');
+    }
+
+    public function comment(SellCouponRequest $request)
+    {
+        $count = Coupon::whereIn('id', $request->validated()['id'])->where('status', 3)->count();
+        if ($count != 0) {
+            Coupon::whereIn('id', $request->validated()['id'])->where('status', 3)->update([
+                'status' => 2,
+                'comment_investor' => $request->validated()['comment_investor']
+            ]);
+        }
+        return response()->json(['countTop' => $count], '201');
+    }
+
+    public function canceled(CanceledCoupon $request)
+    {
+        Coupon::whereIn('id', $request->validated()['id'])->update([
+            'status' => 4
+        ]);
+        return response()->json(['status' => 1], '201');
     }
 }
