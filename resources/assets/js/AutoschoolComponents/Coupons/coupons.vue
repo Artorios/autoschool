@@ -63,22 +63,18 @@
                     <div @click="onPopup(coupon.id,coupon.status)">
                         <div class="coupon"><a href="#">{{coupon.code}}</a></div>
 
-                        <div class="name-student" v-if="coupon.status === 2">
-                            {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}. <div v-if="coupon.user.second_name">{{coupon.user.second_name.toString()[0].toUpperCase()}}.</div>
-
-                        </div>
-                        <div class="name-student" v-else-if="coupon.status === 3">
+                        <div class="name-student" v-if="coupon.user.last_name && (coupon.status == 3 || coupon.status == 2)">
                             {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}.
                             <div v-if="coupon.user.second_name">{{coupon.user.second_name.toString()[0].toUpperCase()}}.</div>
                         </div>
                         <div class="name-student" v-else>
                         </div>
 
-                        <div class="city" v-if="!coupon.school.filial_name">Центральный {{coupon.school.city_name}}</div>
+                        <div class="city" v-if="!coupon.school.filial_name">{{coupon.school.title}} {{coupon.school.city_name}}</div>
                         <div class="city" v-else>{{coupon.school.filial_name}} {{coupon.school.city_name}}</div>
 
 
-                        <div class="price" ><div v-if="coupon.group">{{coupon.group.name}}</div>
+                        <div class="price" ><div v-if="coupon.group && (coupon.status == 3 || coupon.status == 2)">{{coupon.group.name}}</div>
                         <div class="price" v-else></div></div>
 
                         <div class="generate-date">
@@ -109,19 +105,15 @@
                     </div>
                     <div @click="onPopup(coupon.id,coupon.status)">
                         <div class="coupon"><a href="#">Купон {{coupon.code}}</a></div>
-                        <div class="name-student" v-if="coupon.status === 2">
-                            {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}. <span v-if="coupon.user.second_name" >{{coupon.user.second_name.toString()[0].toUpperCase()}}.</span>
-                            </a>
-                        </div>
-                        <div class="name-student" v-else-if="coupon.status === 3">
+                        <div class="name-student" v-if="coupon.user.last_name && (coupon.status == 3 || coupon.status == 2)">
                             {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}. <span v-if="coupon.user.second_name">{{coupon.user.second_name.toString()[0].toUpperCase()}}.</span>
                         </div>
                         <div class="name-student" v-else></div>
 
-                        <div class="city" v-if="!coupon.school.filial_name">Филиал Центральный {{coupon.school.city_name}}</div>
+                        <div class="city" v-if="!coupon.school.filial_name">{{coupon.school.title}} {{coupon.school.city_name}}</div>
                         <div class="city" v-else>Филиал {{coupon.school.filial_name}} {{coupon.school.city_name}}</div>
 
-                        <div class="city" ><div v-if="coupon.group">Група {{coupon.group.name}}</div></div>
+                        <div class="city" ><div v-if="coupon.group && (coupon.status == 3 || coupon.status == 2)">Група {{coupon.group.name}}</div></div>
 
                         <div class="generate-date">
                             <a href="#">Дата генерации {{editDate(coupon.generation_date)}}</a>
@@ -157,8 +149,28 @@
                 <div class="blockform active hidden-sale"  :id="'sale'+coupon.id" v-if="coupon.status == 1">
                     <div class="form-inline">
                         <input type="text" :id="'sale-form'+coupon.id" placeholder="Комментарий">
+                        <br>
+
+
                         <a  class="btn-grey" @click="sellOne(coupon.id)">Выплатить</a>
                         <a  class="close" @click="this.document.getElementById('sale'+coupon.id).classList.add('hidden-sale')"></a>
+                    </div>
+                    <div class="form-inline">
+                        <autocomplete placeholder="Группа"
+                                :url="'/api/groups-api/'+user.id"
+                                anchor="name"
+                                label="writer"
+                                :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                :on-select="getGroup">
+                        </autocomplete>
+
+                        <autocomplete placeholder="Студент" v-if="checkedGroup"
+                                      :url="'/api/students-api/'+checkedGroup"
+                                      anchor="email"
+                                      label="last_name"
+                                      :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                      :on-select="getStudent">
+                        </autocomplete>
                     </div>
                 </div>
                 <div class="blockform active hidden-active"  :id="'active'+coupon.id" v-if="coupon.status == 3">
@@ -206,12 +218,23 @@
                     <a  class="btn-grey" @click="sell(checkedCoupons)">Выплатить</a>
                     <a  class="close" @click="this.document.getElementById('sale').classList.add('hidden-sale')"></a>
                 </div>
+                <div class="form-inline">
+                    <autocomplete placeholder="Группа"
+                                  :url="'/api/groups-api/'+user.id"
+                                  anchor="name"
+                                  label="writer"
+                                  :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                  :on-select="getGroupAll">
+                    </autocomplete>
+                </div>
             </div>
         </div>
     </div>
 </div>
 </template>
 <script type="text/babel">
+    require('vue2-autocomplete-js/dist/style/vue2-autocomplete.css')
+    import Autocomplete from 'vue2-autocomplete-js'
     export default {
         data () {
             return {
@@ -235,10 +258,16 @@
                     comment_director: '',
                     id: []
                 },
-                comment: {}
+                comment: {},
+                checkedGroup: '',
+                checkedStudent: '',
+                checkedGroupAll: ''
             }
         },
-        props: ['coupons'],
+        props: ['coupons', 'user'],
+        components: {
+            Autocomplete
+        },
         computed: {
 
             paginate: function(){
@@ -284,6 +313,17 @@
 
 
             },
+
+            getGroup(val){
+                this.checkedGroup = val.id
+            },
+            getGroupAll(val){
+                this.checkedGroupAll = val.id
+            },
+            getStudent(val){
+                this.checkedStudent = val.id
+            },
+
             onPopup(id,status){
                 switch (status){
 
@@ -308,6 +348,9 @@
                 this.createErrors.comment_director = ''
                 this.createErrors.id = ''
                 this.data.id = id
+                if(this.checkedGroupAll){
+                    this.data.auto_school_group_id = this.checkedGroupAll
+                }
                 this.$http.post('/autoschool/coupons/sell', this.data).then(res => {
                     if (res.status === 201) {
                         console.log(res.data.count);
@@ -345,6 +388,12 @@
             sellOne(coupon){
                 this.sellArray.comment_director = document.getElementById('sale-form'+coupon).value
                 this.sellArray.id.push(coupon)
+                if(this.checkedGroup){
+                    this.sellArray.auto_school_group_id = this.checkedGroup
+                }
+                if(this.checkedStudent){
+                    this.sellArray.student_id = this.checkedStudent
+                }
                 this.$http.post('/autoschool/coupons/sell', this.sellArray).then(res => {
                     if (res.status === 201) {
                         console.log(res.data.count);
