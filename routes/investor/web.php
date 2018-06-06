@@ -27,6 +27,7 @@ Route::group([
         Route::post('sell', 'CouponsController@sell');
         Route::post('comment', 'CouponsController@comment');
         Route::post('canceled', 'CouponsController@canceled');
+        Route::post('delete', 'CouponsController@delete');
     });
 
     Route::group(['prefix' => 'school'], function () {

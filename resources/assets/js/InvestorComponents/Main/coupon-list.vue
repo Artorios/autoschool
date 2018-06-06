@@ -154,7 +154,7 @@
                             <div class="info">Отмечено {{ checkedCoupons.length }} из {{list.length}}</div>
                             <a class="btn-grey" @click="anull(checkedCoupons)">Анулировать</a>
                             <a class="btn-grey" @click="sellPopup">Продать</a>
-                            <a class="btn-grey" @click="delCoupon">Удалить</a>
+                            <a class="btn-grey" @click="delCoupon(checkedCoupons)">Удалить</a>
                         </div>
                     </div>
                     <div class="hidden-popup" id="sale">
@@ -168,6 +168,15 @@
                                 <a class="btn-grey" @click="sell(checkedCoupons)">Выплатить</a>
                                 <a class="close" @click="closePopup('sale')"></a>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="blockform active " v-if="serverError">
+                        <span v-if="this.createErrors.coupon == true" class="coupon-error">Выбирите купон<br></span>
+                        <span v-if="this.createErrors.comment_investor" class="coupon-error">{{this.createErrors.comment_investor[0]}} <br></span>
+                        <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
+                        <div class="form-inline">
+                            <a class="close" @click="serverError=false"></a>
                         </div>
                     </div>
 
@@ -281,7 +290,7 @@
                     }
                 }, err => {
                     if (+err.status === 422) {
-                        this.serverError = true
+                        // this.serverError = true
                         this.createErrors = err.data['errors']
                     }
                 })
@@ -328,14 +337,24 @@
                     }
                 }, err => {
                     if (+err.status === 422) {
-                        this.serverError = true
+                        // this.serverError = true
                         this.createErrors = err.data['errors']
                     }
                 })
             },
-            //todo
-            delCoupon: function (id, status) {
-                console.log(id, status);
+            delCoupon: function (coupons) {
+                this.serverError=false
+                this.data.id = coupons
+                this.$http.post('/investor/coupons/delete', this.data).then(res => {
+                    if (res.status === 201) {
+                        window.location.reload(true);
+                    }
+                }, err => {
+                    if (+err.status === 422) {
+                        this.createErrors = err.data['errors']
+                        this.serverError = true
+                    }
+                })
             }
         },
         created() {
