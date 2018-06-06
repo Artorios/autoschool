@@ -52,7 +52,7 @@ class LessonController extends Controller
             return $this->getDemoLesson();
         }
 
-        $lessons = Lesson::all();
+        $lessons = Lesson::where('license', auth()->user()->license)->get();
 
         $user_lessons = $user->lessons;
 
@@ -287,7 +287,7 @@ class LessonController extends Controller
     public function getLessonsSlider()
     {
         $user = Auth::user();
-        $lessons = Lesson::all();
+        $lessons = Lesson::where('license', Auth::user()->license)->get();
         $user_lessons = $user->lessons;
 
         foreach ($user_lessons as $user_lesson) {

@@ -45,7 +45,7 @@ class LessonsController extends Controller
         try {
             DB::transaction(function () use ($request, $file_data) {
 
-                $lesson = Lesson::create($request->only(['title', 'description', 'lesson_num']));
+                $lesson = Lesson::create($request->only(['title', 'description', 'license', 'lesson_num']));
                 if (!empty($request->only('youtube')) && empty($file_data)) {
                     $video_data = $lesson->videos()->create($request->only('youtube'));
 
@@ -113,12 +113,22 @@ class LessonsController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function indexAll()
     {
         $lessons = Lesson::with('videos')->paginate(20);
         return view('admin.lesson.index', compact('lessons'));
     }
 
+    /**
+     * @param $license
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index($license)
+    {
+        $lessons = Lesson::where('license', $license)->with('videos')->paginate(20);
+        return view('admin.lesson.index', compact('lessons'));
+    }
     /**
      * @param Lesson $lesson
      *

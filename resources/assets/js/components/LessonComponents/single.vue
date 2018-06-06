@@ -84,6 +84,21 @@
                                   :readonly="!showDescription ? 'readonly' : false"></textarea>
                         <button class="btn" v-if="showDescription" @click="saveDescription(lesson.description)"><i class="fa fa-edit"></i></button>
                     </div>
+                    <h3 class="title">Категория</h3>
+                    <div class="form-group custom-wrap-btn">
+                        <select class="form-control select2"
+                                style="width: 100%;"
+                                  v-model="lesson.license"
+                                  @click="showLicense = !showLicense"
+                                  :readonly="!showLicense ? 'readonly' : false">
+                            <option value="A" >A</option>
+                            <option value="B" >B</option>
+                            <option value="C" >C</option>
+
+                        </select>
+                        <button class="btn" v-if="showLicense" @click="saveLicense(lesson.license)"><i class="fa fa-edit"></i></button>
+                    </div>
+
                 </div>
                 <div class="col-md-12">
                     <h2 class="title">Настройки для вопросов</h2>
@@ -228,6 +243,7 @@
                 page: 0,
                 dataQuestions: this.questions,
                 showDescription: false,
+                showLicense: false,
                 showTitle: false,
                 showTrainNum: false,
                 showExamNum: false,
@@ -288,6 +304,8 @@
                         this.showTrainNum = false
                         this.showExamNum = false
                         this.showTitle = false
+                        this.showLicense = false
+
                     }
                 })
             },
@@ -306,6 +324,14 @@
                     description: text
                 }
 
+                this.edit(data)
+
+            },
+            saveLicense(text)
+            {
+                let data = {
+                    license: text
+                }
                 this.edit(data)
 
             },
