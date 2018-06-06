@@ -157,7 +157,7 @@ class AccountController extends Controller
      * @param Mailer $mailer
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function changePassword(ChangePasswordRequest $request, Mailer $mailer)
+    public function createPassword(ChangePasswordRequest $request, Mailer $mailer)
     {
         $url = 'http://';
 
@@ -166,7 +166,7 @@ class AccountController extends Controller
         }
 
         $url .= $request->getHttpHost();
-        $url .= '/account/change-password';
+        $url .= '/change-password';
         $url .= '/' . encrypt(Auth::id());
         $url .= '/' . encrypt($request->get('password'));
         $url .= '/' . encrypt(Carbon::now());

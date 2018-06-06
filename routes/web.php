@@ -41,6 +41,8 @@ Route::group(['prefix' => 'user', 'namespace' => 'Auth'], function () {
     //Route::post('activation/send_mail', 'ActivationController@sendActivationMail')->name('user.activate.send_mail');
 });
 
+Route::get('/change-password/{id}/{password}/{date}', 'Account\AccountController@updatePassword')->name('password.update');
+
 Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => ['auth']], function () {
     Route::get('/', function () {
         return view('account.main', []);
@@ -80,8 +82,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::post('/edit-pass', 'AccountController@updatePassword');
     Route::post('/edit-notify-settings', 'AccountController@editNotifySettings');
     Route::post('/profile-save-image', 'AccountController@saveProfileImage');
-    Route::post('/change-password', 'AccountController@changePassword')->name('account.change.password');
-    Route::get('/change-password/{id}/{password}/{date}', 'AccountController@updatePassword')->name('account.update.password');
+    Route::post('/change-password', 'AccountController@createPassword')->name('password.create');
 
     Route::get('/auth-info-acc', function () {
         $user = Auth::user();
