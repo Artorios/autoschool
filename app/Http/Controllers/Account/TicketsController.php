@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Models\Training\Processing\Answer;
-use App\Models\Training\Processing\Question;
-use App\Models\User\UserTicket;
-use App\Models\User\UserTicketsAnswer;
+use App\Models\Training\Processing\{Answer, Question};
+use App\Models\User\{UserTicket, UserTicketsAnswer};
 use App\Services\AnswerCheck\Facade\AnswerCheck;
-use App\Services\Settings\Facade\Settings;
-use App\Services\Settings\SettingsException;
+use App\Services\Settings\{Facade\Settings, SettingsException};
 use App\Services\Tickets\Facade\Tickets;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Validator, Auth};
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class TicketsController
@@ -48,6 +44,7 @@ class TicketsController extends Controller
         /*
          * Array data has questions, user_ticket_id
          */
+
         $data                 = Tickets::getTicketData($ticket);
         $time_ticket          = Settings::get('time_ticket', 1);
         $data['time']         = $time_ticket * count($data['questions']);
@@ -83,70 +80,6 @@ class TicketsController extends Controller
         $incorrect_answers = $ticket->getIncorrectAnswersCountAttribute();
         $stop_test         = false;
         $questions         = null;
-
-        if ( ! $response['correct'] && $position <= 5) {
-            if ($incorrect_answers <= 1) {
-                $questions = Question::whereNotIn('id', $ticket->answers()->get()->pluck('question_id'))
-                                        ->with('answers')
-                                        ->inRandomOrder()
-                                        ->limit(5)
-                                        ->get();
-            } else {
-                $stop_test = false;
-            }
-        } elseif ( ! $response['correct'] && $position <= 10) {
-            if ($incorrect_answers <= 2) {
-                $questions = Question::whereNotIn('id', $ticket->answers()->get()->pluck('question_id'))
-                    ->with('answers')
-                    ->inRandomOrder()
-                    ->limit(5)
-                    ->get();
-            } else {
-                $stop_test = false;
-            }
-        }  elseif ( ! $response['correct'] && $position <= 15) {
-            if ($incorrect_answers <= 2) {
-                $questions = Question::whereNotIn('id', $ticket->answers()->get()->pluck('question_id'))
-                    ->with('answers')
-                    ->inRandomOrder()
-                    ->limit(5)
-                    ->get();
-            } else {
-                $stop_test = false;
-            }
-        } elseif ( ! $response['correct'] && $position <= 20) {
-            if ($incorrect_answers <= 2) {
-                $questions = Question::whereNotIn('id', $ticket->answers()->get()->pluck('question_id'))
-                    ->with('answers')
-                    ->inRandomOrder()
-                    ->limit(5)
-                    ->get();
-            } else {
-                $stop_test = false;
-            }
-        } elseif ( ! $response['correct'] && $position <= 25) {
-            if ($incorrect_answers <= 1) {
-                $questions = Question::whereNotIn('id', $ticket->answers()->get()->pluck('question_id'))
-                    ->with('answers')
-                    ->inRandomOrder()
-                    ->limit(5)
-                    ->get();
-            } else {
-                $stop_test = false;
-            }
-        } elseif ( ! $response['correct'] && $position <= 30) {
-            if ($incorrect_answers <= 1) {
-                $questions = Question::whereNotIn('id', $ticket->answers()->get()->pluck('question_id'))
-                    ->with('answers')
-                    ->inRandomOrder()
-                    ->limit(5)
-                    ->get();
-            } else {
-                $stop_test = false;
-            }
-        } elseif ($incorrect_answers >= 3) {
-            $stop_test = false;
-        }
 
         $with_comment = Settings::get('show_comm_question', 0, 1);
 
