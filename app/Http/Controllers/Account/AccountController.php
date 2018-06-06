@@ -153,4 +153,61 @@ class AccountController extends Controller
         return view('account.profile.index', compact('cities', 'user'));
 
     }
+
+    /**
+     * @param ChangePasswordRequest $request
+     * @param Mailer $mailer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createPassword(ChangePasswordRequest $request)
+    {
+        $token = str_random();
+
+        DB::table('password_resets')->insert([
+            'email'      => Auth::user()->email,
+            'token'      => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        $url = [url('/')];
+        $url[] = '/change-password';
+        $url[] = '/' . encrypt($token);
+        $url[] = '/' . encrypt($request->get('password'));
+
+        event(new UserPasswordChangeRequestEvent(implode($url), Auth::user()->email));
+
+        session()->flash('pass_message', 'Check email in order to change password');
+        session()->flash('pass_class', 'success');
+
+        return back();
+    }
+
+    /**
+     * @param string $token
+     * @param string $password
+     * @param Mailer $mailer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(string $token, string $password)
+    {
+        $instance = DB::table('password_resets')->where('token', decrypt($token))->first();
+
+        session()->flash('pass_message', 'Date expired');
+        session()->flash('pass_class', 'danger');
+
+        if (Carbon::parse($instance->created_at)->addHour() > Carbon::now()) {
+
+            $passwordChanged = app(ChangePasswordService::class, [
+                    'password' => decrypt($password),
+                    'user'     => User::where('email', $instance->email)->first()]
+            )->changeUserPassword();
+
+            if ($passwordChanged) {
+                session()->flash('pass_message', 'Password changed');
+                session()->flash('pass_class', 'success');
+            }
+        }
+
+        return redirect()->route('home');
+    }
 }
