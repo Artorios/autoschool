@@ -64,6 +64,10 @@ class CouponsController extends Controller
         return redirect()->route('investor.coupons.create')->with('messages', ['Купоны успешно созданны']);
     }
 
+    /**
+     * @param SellCouponRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sell(SellCouponRequest $request)
     {
         $count = Coupon::whereIn('id', $request->validated()['id'])->where('status', 1)->count();
@@ -76,6 +80,10 @@ class CouponsController extends Controller
         return response()->json(['count' => $count], '201');
     }
 
+    /**
+     * @param SellCouponRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function comment(SellCouponRequest $request)
     {
         $count = Coupon::whereIn('id', $request->validated()['id'])->where('status', 3)->count();
@@ -88,11 +96,25 @@ class CouponsController extends Controller
         return response()->json(['countTop' => $count], '201');
     }
 
+    /**
+     * @param CanceledCoupon $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function canceled(CanceledCoupon $request)
     {
         Coupon::whereIn('id', $request->validated()['id'])->update([
             'status' => 4
         ]);
+        return response()->json(['status' => 1], '201');
+    }
+
+    /**
+     * @param CanceledCoupon $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(CanceledCoupon $request)
+    {
+        Coupon::whereIn('id', $request->validated()['id'])->delete();
         return response()->json(['status' => 1], '201');
     }
 }
