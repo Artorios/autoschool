@@ -19,9 +19,8 @@ class FinanceController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(FinancesInvestorService $financesInvestorService)
     {
-
 
         return view('investor.finance.index', [
             'students' => AutoSchool::where('investor_id', Auth::id())
