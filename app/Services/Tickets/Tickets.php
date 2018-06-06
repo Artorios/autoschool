@@ -65,7 +65,6 @@ class Tickets implements TicketsInterface
 
         $questions = Question::with('answers')->where('ticket_num', $ticket)->get()->toArray();
 
-        shuffle($questions);
 
         return ['user_ticket_id' => $user_ticket->id, 'questions' => $questions];
     }
