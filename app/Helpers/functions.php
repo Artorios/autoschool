@@ -54,6 +54,12 @@ function all_sum($user_id)
 
 }
 
+function group_name($id){
+    $user = User::find($id);
+
+    return AutoSchoolGroup::find($user->auto_school_group_id)->name;
+}
+
 
 
 

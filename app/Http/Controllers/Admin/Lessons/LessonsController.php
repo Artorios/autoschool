@@ -126,7 +126,7 @@ class LessonsController extends Controller
      */
     public function index($license)
     {
-        $lessons = Lesson::where('license', $license)->with('videos')->paginate(20);
+        $lessons = Lesson::where('license', $license)->orderBy('lesson_num', 'ASC' )->with('videos')->paginate(20);
         return view('admin.lesson.index', compact('lessons'));
     }
     /**
