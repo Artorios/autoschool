@@ -5,7 +5,10 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <select name="" id="type_filter" class="select">
-                        <option value="all">Все(25)</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="all" v-text="list.length"></option>
                     </select>
                 </div>
             </div>
@@ -61,6 +64,7 @@
         <table class="table manage-grid">
             <thead>
             <tr class="visible-md visible-lg">
+                <th></th>
                 <th>№</th>
                 <th>Автошкола/ID</th>
                 <th>ФИО ученика/Группа</th>
@@ -72,7 +76,17 @@
             </tr>
             </thead>
             <tbody class="main">
-            <tr data-id="1" class="visible-md visible-lg status-active" v-for="(item, index) in pagination()">
+            <tr
+                :data-id="index"
+                :class="{
+                    'line active': item.status === 3,
+                    'line sale': item.status === 2,
+                    'line free': item.status === 1,
+                    }"
+                v-for="(item, index) in pagination()">
+                <div class="coupons-checkbox">
+                    <input type="checkbox" :value="item.CouponID"  v-model="checkedCoupons">
+                </div>
                 <td v-text="++index"></td>
                 <td>
                     <a class="school-name">{{ item.title }}</a>
@@ -88,13 +102,14 @@
                 <td v-text="getDate(item)"></td>
                 <td><span class="bold big">{{ item.amount }}</span></td>
                 <td><a class="bold big" href="javascript:">?</a></td>
-                <td><a href="javascript:" class="status">Оплаченно</a></td>
+                <td>
+                    <a href="javascript:" class="status" v-text="getstatus(item)"></a>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <h2 v-if="this.errorDelete">Выберете учеников</h2>
     <div class="invitegroupe">
         <ul class="pagination" v-if="itemsPerPage < resultCount">
             <li class="page-item" v-for="pageNumber in totalPages">
@@ -103,6 +118,35 @@
             </li>
         </ul>
     </div>
+
+    <div class="blockform paid active">
+        <div class="form-inline">
+            <input type="checkbox" style="width: 12px"  true-value="false" false-value="true"  v-model="checkedAll" @click="checkedCouponsAll(checkedAll)">
+            <div class="info">Отмечено {{ checkedCoupons.length }} из {{list.length}}</div>
+            <a  class="btn-grey" @click="anull(checkedCoupons)">Анулировать</a>
+            <a  class="btn-grey" @click="sellPopup">Продать</a>
+        </div>
+    </div>
+
+    <div class="hidden-sale" id="sale">
+        <span v-if="this.createErrors.coupon == true" class="coupon-error">Не выбрано свободного купона<br></span>
+
+        <span v-if="this.createErrors.comment_investor" class="coupon-error">
+            {{this.createErrors.comment_director[0]}} <br>
+        </span>
+
+        <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
+        <div class="blockform active ">
+
+        <div class="form-inline">
+                <input type="text" v-model="data.comment_director"  placeholder="Комментарий">
+                <a  class="btn-grey" @click="sell(checkedCoupons)">Выплатить</a>
+                <a  class="close" @click="this.document.getElementById('sale').classList.add('hidden-sale')"></a>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 </template>
 
@@ -111,13 +155,23 @@
         data() {
             return {
                 list: [],
+                checkedCoupons: [],
+                checkedAll: 'true',
                 searchText: '',
                 searchByData: '',
                 currentPage: 1,
                 itemsPerPage: 10,
                 resultCount: 0,
                 errorDelete: false,
-                selected: ''
+                selected: '',
+                data: {
+                    comment_investor: ''
+                },
+                createErrors: {
+                    comment_investor: '',
+                    id: '',
+                    coupon: false
+                },
                 }
             },
 
@@ -143,24 +197,24 @@
 
             filterStudents() {
                 if(this.searchText !== "") {
-                    return this.filterStudentName()
+                    return this.filterSchoolName()
                 }
 
                 if (this.searchByData !== "") {
-                    return this.filterStudentDate()
+                    return this.filterOrderDate()
                 }
 
                 switch(this.selected) {
                     case "desc":
-                        return this.filterStudentByDesk('studentName')
+                        return this.filterStudentByDesk('title')
                     case 'acs':
-                        return this.filterStudentByASC('studentName')
+                        return this.filterStudentByASC('title')
                     case 'data-desc':
-                        return this.filterStudentByDesk('created_at')
+                        return this.filterStudentByDesk('DatePayment')
                     case 'data-acs':
-                        return this.filterStudentByASC('created_at')
+                        return this.filterStudentByASC('DatePayment')
                     default:
-                        return this.filterStudentName()
+                        return this.filterSchoolName()
                 }
             },
 
@@ -174,7 +228,7 @@
                 this.resultCount = data.length
                 if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages
-                }else {
+                } else {
                     this.currentPage = 1;
                 }
                 let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
@@ -186,48 +240,185 @@
             },
 
             getDate(item) {
-                let arrayItems = item.DatePayment.split(" ", 1);
-                let splitArray = arrayItems[0].split("-")
-                return splitArray[2] + "-" + splitArray[1] + "-" + splitArray[0]
+                if (item.DatePayment != null) {
+                    let arrayItems = item.DatePayment.split(" ", 1);
+                    let splitArray = arrayItems[0].split("-")
+                    return splitArray[2] + "-" + splitArray[1] + "-" + splitArray[0]
+                } else {
+                    return ''
+                }
             },
 
             setPage(pageNumber) {
                 this.currentPage = pageNumber
             },
 
-            filterStudentName() {
-                return this.list.filter((student) => {
-                    return student.studentName.toLowerCase().includes(this.searchText
+
+            filterSchoolName() {
+                return this.list.filter((element) => {
+                    return element.title.toLowerCase().includes(this.searchText
                         .toLowerCase());
                 });
             },
 
-            filterStudentDate(){
+            filterOrderDate() {
                 return this.list.filter((student) => {
-                    return student.created_at.split(" ", 1)[0].toLowerCase().includes(this.searchByData.toLowerCase());
+                    if(student.DatePayment != null) {
+                        return student.DatePayment.split(" ", 1)[0].toLowerCase().includes(this.searchByData.toLowerCase());
+                    }
                 });
             },
 
-            filterStudentByDesk(type_select){
-                return this.list.sort((a, b) => a[type_select].localeCompare(b[type_select])).reverse();
+            filterStudentByDesk(type_select) {
+                if(type_select === 'DatePayment') {
+                    return this.list.filter((element) => {
+                            if(element.DatePayment != null) {
+                                return element
+                            }
+                    }).sort((a, b) => a[type_select].localeCompare(b[type_select])).reverse();
+                }
+                if(type_select === 'title') {
+                    return this.list.sort((a, b) => a[type_select].localeCompare(b[type_select])).reverse();
+                }
             },
 
-            filterStudentByASC(type_select){
-                return this.list.sort((a, b) => a[type_select].localeCompare(b[type_select]))
+            filterStudentByASC(type_select) {
+                if(type_select === 'DatePayment') {
+                    return this.list.filter((element) => {
+                        if(element.DatePayment != null) {
+                            return element
+                        }
+                    }).sort((a, b) => a[type_select].localeCompare(b[type_select]))
+                }
+                if(type_select === 'title') {
+                    return this.list.sort((a, b) => a[type_select].localeCompare(b[type_select]))
+                }
             },
 
             pagination() {
                 return this.paginate(this.filterStudents);
             },
 
-            serverError(){
+            serverError() {
                 this.errorDelete = true
             },
 
+            checkedCouponsAll(status) {
+                let checked = this.list.map(function (element) {
+                    return element.CouponID
+                })
+                if(status == 'true'){
+                    this.checkedCoupons = checked
+                }
+                else {
+                    this.checkedCoupons = []
+                }
+            },
+
+            sellOne(coupon){
+                this.sellArray.comment_director = document.getElementById('sale-form'+coupon).value
+                this.sellArray.id.push(coupon)
+                this.$http.post('/autoschool/coupons/sell', this.sellArray).then(res => {
+                    if (res.status === 201) {
+                        console.log(res.data.count);
+                        if(res.data.count === 0){
+                            this.createErrors.coupon = true
+                        }
+                        else {
+                            location.href = '/autoschool/coupons'
+                        }
+                    }
+                }, err => {
+                    if (+err.status === 422) {
+                        console.log(err.data)
+                        this.serverError = true
+                        this.createErrorsTop = err.data['errors']
+                    }
+                })
+            },
+
+            commentSave(coupon){
+                this.comment.comment_director = document.getElementById('comment-form' + coupon).value
+                this.comment.id = []
+                this.comment.id.push(coupon)
+                this.$http.post('/autoschool/coupons/comment', this.comment).then(res => {
+                    if (res.status === 201) {
+                        console.log(res.data.count);
+                        location.href = '/autoschool/coupons'
+
+                    }
+                }, err => {
+                    if (+err.status === 422) {
+                        console.log(err.data)
+                        this.createErrorsTop = err.data['errors']
+                    }
+                })
+                console.log(this.comment)
+
+            },
+
+            sellPopup(){
+                document.getElementById('sale').classList.remove('hidden-sale')
+            },
+
+            anull(coupons){
+                this.data.id = coupons
+                this.$http.post('/autoschool/coupons/canceled', this.data).then(res => {
+                    if (res.status === 201) {
+                        console.log(res.data.count);
+
+                        location.href = '/autoschool/coupons'
+
+                    }
+                }, err => {
+                    if (+err.status === 422) {
+                        console.log(err.data)
+                        this.createErrorsTop = err.data['errors']
+                    }
+                })
+            },
+
+            sell(id){
+                this.createErrors.comment_director = ''
+                this.createErrors.id = ''
+                this.data.id = id
+                this.$http.post('/autoschool/coupons/sell', this.data).then(res => {
+                    if (res.status === 201) {
+                        console.log(res.data.count);
+                        if(res.data.count === 0){
+                            this.createErrors.coupon = true
+                        }
+                        else {
+                            location.href = '/autoschool/coupons'
+                        }
+                    }
+                }, err => {
+                    if (+err.status === 422) {
+                        console.log(err.data)
+                        this.serverError = true
+                        this.createErrors = err.data['errors']
+                    }
+                })
+            },
+
+            getstatus(item) {
+                switch (item.status) {
+                    case 1:
+                        return 'Свободный'
+                    case 2:
+                        return 'Проданый'
+                    case 3:
+                        return 'Активированный'
+                }
+            }
+
+
         },
+
         created(){
             this.pagination()
         },
+
         updated(){
             this.pagination()
         },
