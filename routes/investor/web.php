@@ -30,8 +30,11 @@ Route::group([
         Route::get('/', 'AutoSchoolController@index')->name('school.index');
         Route::get('create', 'AutoSchoolController@create')->name('school.create');
         Route::post('create', 'AutoSchoolController@store')->name('school.store');
-        Route::get('{autoschool}', 'AutoSchoolController@show')->name('school.show')
+        Route::get('{autoschool}', 'AutoSchoolController@show')
+            ->name('school.show')
             ->middleware('can:investor-autoschool,autoschool');
+        Route::post('/get-info-about-school', 'AutoSchoolController@getInfoAboutAutoschool');
+        Route::post('/change-info-about-autoschool', 'AutoSchoolController@changeInfoAboutAutoSchool');
         Route::put('{autoschool}', 'AutoSchoolController@update')->name('school.update');
     });
 

@@ -27,7 +27,7 @@
                         <div class="table-item id-item">
                             <div class="table-head-item hidden-head-text">Автошкола/ID</div>
                             <div class="table-item-content">
-                                <a :href="/profile-edit/" class="school-name table-item-link text-underline">{{ school.title }}</a>
+                                <a :href="'/investor/school/' + school.id" class="school-name table-item-link text-underline">{{ school.title }}</a>
                                 <span class="school-id table-item-text">/ ID {{ school.id }}</span>
                             </div>
 
