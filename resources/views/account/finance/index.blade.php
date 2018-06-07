@@ -33,6 +33,18 @@
                 </div>
             </div>
         </div>
+        <div class="finance-wrapper">
+            @if(!empty($school[0]))
+            <div>Выбрано: {{$school[0]->title}}
+                @if(!empty($school[0]->filial_name))
+                    ({{$school[0]->filial_name}})
+                @endif
+                г. {{$school[0]->city->name}}</div>
+            @endif
+            <choice-autoschool :user="{{json_encode($user)}}">
+
+            </choice-autoschool>
+        </div>
         @if(!empty($user->contract->name))
         <payment-variants :user="{{json_encode($user)}}"
                           :contract="{{json_encode($user->contract->name)}}"

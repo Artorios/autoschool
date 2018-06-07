@@ -21,12 +21,14 @@ Route::get('/settings-all', function () {
 Route::get('/get-region-prices', 'HomeController@getRegionPrices');
 Route::post('/test-kassa', 'HomeController@testKassa');
 Route::get('/search', 'HomeController@search');
+Route::get('/get-autoschool-city-api/{id}', 'AddressController@getAutoSchoolCityApi');
 
 Route::group(['prefix' => 'address'], function () {
     Route::post('/get-regions', 'AddressController@regions');
     Route::post('/get-cities', 'AddressController@cities');
     Route::get('/get-cities-api/{id}', 'AddressController@citiesApi');
     Route::get('/get-regions-api', 'AddressController@regionsApi');
+
 });
 
 Route::post('/get-prices', 'AddressController@prices');
