@@ -6,6 +6,7 @@ use App\Http\Requests\{
     StoreFilial, StoreGroup
 };
 use App\Http\Controllers\Controller;
+use App\Models\Finance\Order;
 use App\Models\User\User;
 use App\Models\Training\School\{
     AutoSchool, AutoSchoolGroup
@@ -34,6 +35,27 @@ class FilialController extends Controller
 
         $autoschool = AutoSchool::where('director_id', Auth::user()->id)->get();
         return view('autoschool.filials.filials', compact('filials', 'autoschool'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function newStudents()
+    {
+        $orders = Order::where('auto_school_id', '!=', '0')->get()->toArray();
+
+        $users_id = array_map(
+            function ($order){
+                return $order['user_id'];
+            }, $orders
+        );
+
+        $students = User::where('auto_school_group_id', null)->whereIn('id', $users_id)->get();
+        $group = collect([
+            'name' => 'Нераспределённые'
+        ]);
+        return view('autoschool.students.new', compact('students', 'group'));
+
     }
 
     /**
