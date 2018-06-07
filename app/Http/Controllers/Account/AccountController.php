@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\{
     Storage,
     Validator
 };
+
 /**
  * Class AccountController
  * @package App\Http\Controllers\Account
@@ -35,7 +36,7 @@ class AccountController extends Controller
     public function updateProfile(Request $request, User $user, City $city)
     {
         $itempost = $request->except(
-            'autoschool',
+        'autoschool',
             'lesson_now',
             'last_exam',
             'progress'
