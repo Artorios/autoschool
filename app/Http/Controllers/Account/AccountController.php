@@ -36,19 +36,19 @@ class AccountController extends Controller
     public function updateProfile(Request $request, User $user, City $city)
     {
         $itempost = $request->except(
-            'autoschool',
-                'lesson_now',
-                'last_exam',
-                'progress'
+        'autoschool',
+            'lesson_now',
+            'last_exam',
+            'progress'
         );
         $itempost['auto_school_group_id'] = $itempost['autoschoolgroup']['id'];
         unset($itempost['autoschoolgroup']);
         $validator = Validator::make($itempost, [
-            'name' => 'required|string|min:3',
+            'name'      => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
-            'phone' => 'required',
-            'city_id' => 'required',
-            'license' => 'required'
+            'phone'     => 'required',
+            'city_id'   => 'required',
+            'license'   => 'required'
         ]);
         if (count($validator->errors())) {
             return response()->json(['status' => 0], 400);
@@ -104,7 +104,8 @@ class AccountController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function editNotifySettings(Request $request){
+    public function editNotifySettings(Request $request)
+    {
         User::where(['id' => $request->input('id')])->update(['email_notice' => $request->input('email_notice')]);
         User::where(['id' => $request->input('id')])->update(['sms_notice' => $request->input('sms_notice')]);
         return response()->json(['status' => 1], 204);
@@ -159,7 +160,7 @@ class AccountController extends Controller
      * @param Mailer $mailer
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function createPassword(ChangePasswordRequest $request)
+    public function createPassword(ChangePasswordRequest $request, Mailer $mailer)
     {
         $token = str_random();
 

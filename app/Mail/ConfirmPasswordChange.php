@@ -2,21 +2,16 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ConfirmPasswordChange extends Mailable
 {
-    use Queueable, SerializesModels;
-
     private $url;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param string $url
      */
     public function __construct(string $url)
     {
