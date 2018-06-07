@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * Class UpdateLesson
@@ -33,6 +34,7 @@ class UpdateLesson extends FormRequest
             'description'         => 'string',
             'training_errors_num' => 'integer',
             'exam_errors_num'     => 'integer',
+            'license'             => Rule::in(['A','B','C'])
         ];
     }
 

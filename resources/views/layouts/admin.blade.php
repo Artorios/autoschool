@@ -368,9 +368,9 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{ route('admin.lessons.list') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Все уроки</span></a></li>
-                            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Категория A</span></a></li>
-                            <li><a href="{{ route('admin.lessons.list') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Категория B</span></a></li>
-                            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Категория C</span></a></li>
+                            <li><a href="/admin/lessons/list/A"><i class="fa fa-circle-o text-yellow"></i> <span>Категория A</span></a></li>
+                            <li><a href="/admin/lessons/list/B"><i class="fa fa-circle-o text-yellow"></i> <span>Категория B</span></a></li>
+                            <li><a href="/admin/lessons/list/C"><i class="fa fa-circle-o text-yellow"></i> <span>Категория C</span></a></li>
                         </ul>
                     </li>
                     <li><a href="{{route('admin.questions.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Вопросы и ответы</span></a></li>

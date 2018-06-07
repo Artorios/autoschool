@@ -35,9 +35,8 @@ class LessonController extends Controller
         }
 
         $user = Auth::user();
-
-        if (!$user->lessons()->count()) {
-            $lesson = Lesson::with('videos')->first();
+        if (!$user->lessons()->where('license', Auth::user()->license)->count()) {
+            $lesson = Lesson::with('videos')->where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC' )->first();
 
             $user->lessonsVideos()->attach($lesson->videos);
 
@@ -52,7 +51,8 @@ class LessonController extends Controller
             return $this->getDemoLesson();
         }
 
-        $lessons = Lesson::all();
+        $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC' )->get();
+//        $lessons = Lesson::all();
 
         $user_lessons = $user->lessons;
 
@@ -168,6 +168,7 @@ class LessonController extends Controller
         if ($training === "group") {
             $group_limit = 3;
             $lessons = Lesson::with('questions')
+                ->where('license', Auth::user()->license)
                 ->where('id', '<=', $lesson->lesson_num)
                 ->limit($group_limit)
                 ->offset($lesson->lesson_num - $group_limit)
@@ -235,7 +236,7 @@ class LessonController extends Controller
     public function getCurrentLesson()
     {
         $user = Auth::user();
-        $lesson = $user->lessons()->orderby('lesson_num', 'desc')->first();
+        $lesson = $user->lessons()->where('license', Auth::user()->license)->orderby('lesson_num', 'desc')->first();
         $type = '';
 
         if (!$lesson) {
@@ -287,7 +288,7 @@ class LessonController extends Controller
     public function getLessonsSlider()
     {
         $user = Auth::user();
-        $lessons = Lesson::all();
+        $lessons = Lesson::where('license', Auth::user()->license)->get();
         $user_lessons = $user->lessons;
 
         foreach ($user_lessons as $user_lesson) {
@@ -339,6 +340,7 @@ class LessonController extends Controller
     {
         $group_limit = 3;
         $lessons = Lesson::with('questions')
+            ->where('license', Auth::user()->license)
             ->where('id', '<=', $request->lesson_num)
             ->limit($group_limit)
             ->offset($request->lesson_num - $group_limit)
@@ -362,7 +364,7 @@ class LessonController extends Controller
 
     private function getDemoLesson()
     {
-        $lesson = Lesson::first();
+        $lesson = Lesson::where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC' )->first();
         return view('account.lessons.demo', compact('lesson'));
     }
 }

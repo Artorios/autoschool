@@ -7,10 +7,8 @@ use App\Models\Training\School\AutoSchool;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Auth, Hash, Storage, Validator};
+
 
 /**
  * Class AccountController

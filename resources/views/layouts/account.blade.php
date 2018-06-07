@@ -56,7 +56,9 @@
                     <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}
                         <i class="fa fa-angle-down" aria-hidden="true"></i>
                     </h3>
-                    <span>Группа № {{Auth::user()->auto_school_group_id}}</span>
+                    @if(Auth::user()->auto_school_group_id)
+                    <span>{{group_name(Auth::user()->id)}}</span>
+                        @endif
                 </a>
                 <a href="{{route('user.notify')}}" class="notes">
                     <i class="fa fa-bell-o" aria-hidden="true"></i>
