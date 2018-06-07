@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location\City;
-use App\Models\Location\PriceCity;
-use App\Models\Location\Region;
+use App\Models\Location\{City, PriceCity, Region};
+use App\Models\User\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\{Auth, Validator};
+use App\Models\Training\School\AutoSchool;
 /**
  * Class AddressController
  * @package App\Http\Controllers
@@ -79,5 +78,17 @@ class AddressController extends Controller
         $q = $request->input('q');
 
         return response()->json(Region::where('name', 'like', '%' . $q . '%')->limit(10)->get(), 200);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function getAutoSchoolCityApi( Request $request, $id){
+        $q = $request->input('q');
+        return response()->json(AutoSchool::select('id', 'title', 'filial_name')->with('city')->where('city_id', User::find($id)->city_id)->where('title', 'like', '%' . $q . '%')->limit(10)->get(), 200);
+
     }
 }

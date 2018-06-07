@@ -11,7 +11,8 @@ class Order extends Model
         'user_id',
         'payment_option',
         'amount',
-        'number_contract'
+        'number_contract',
+        'auto_school_id'
     ];
 
 

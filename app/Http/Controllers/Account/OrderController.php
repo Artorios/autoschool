@@ -42,13 +42,24 @@ class OrderController extends Controller
         try {
 
             $charge = $this->paymentGateway->charge($request->input('amount'), $this->paymentGateway->getValidTestToken());
-
-            $order = Order::create([
-                'payment_option' => 'online',
-                'amount' => $charge->amount(),
-                'number_contract' => $user->contract->name.$user->id.'_'.$user->contract->id.$user->city->id,
-                'user_id' => $user->id
-            ]);
+            if(!empty($request->session()->get('school-finance'))){
+                $order = Order::create([
+                    'payment_option' => 'online',
+                    'amount' => $charge->amount(),
+                    'number_contract' => $user->contract->name.$user->id.'-'.$user->contract->id.'-'.$user->city->id,
+                    'user_id' => $user->id,
+                    'auto_school_id' => $request->session()->get('school-finance')
+                ]);
+            }
+            else{
+                $order = Order::create([
+                    'payment_option' => 'online',
+                    'amount' => $charge->amount(),
+                    'number_contract' => $user->contract->name.$user->id.'-'.$user->contract->id.'-'.$user->city->id,
+                    'user_id' => $user->id,
+                    'auto_school_id' => 0
+                ]);
+            }
 
             return response()->json($order, 201);
 
