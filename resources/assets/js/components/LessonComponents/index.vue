@@ -43,6 +43,7 @@
                                     <th>Номер урока</th>
                                     <th>Название</th>
                                     <th>Описание</th>
+                                    <th>Категория</th>
                                     <th>Действия</th>
                                 </tr>
                                 </thead>
@@ -52,6 +53,7 @@
                                     <td>{{lesson.lesson_num}}</td>
                                     <td><a :href="'/admin/lessons/' + lesson.id">{{lesson.title}}</a></td>
                                     <td>{{lesson.description}}</td>
+                                    <td>{{lesson.license}}</td>
                                     <td>
                                         <!--<button class="btn btn-success"-->
                                                 <!--title="Редактировать"-->

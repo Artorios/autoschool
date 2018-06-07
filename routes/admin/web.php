@@ -42,7 +42,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
     });
 
     Route::group(['prefix' => 'lessons', 'namespace' => 'Lessons'], function () {
-        Route::get('/', 'LessonsController@index')->name('admin.lessons.list');
+        Route::get('/', 'LessonsController@indexAll')->name('admin.lessons.list');
+        Route::get('/list/{license}', 'LessonsController@index');
         Route::get('/{lesson}', 'LessonsController@single')->name('admin.lessons.view');
         Route::post('/create', 'LessonsController@create')->name('admin.lessons.create');
         Route::put('/{lesson}', 'LessonsController@editLesson')->name('admin.lessons.update');

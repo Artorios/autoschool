@@ -24,7 +24,8 @@ class Lesson extends Model
         'description',
         'lesson_num',
         'training_errors_num',
-        'exam_errors_num'
+        'exam_errors_num',
+        'license'
     ];
 
     /**

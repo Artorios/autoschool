@@ -3,6 +3,7 @@
 namespace App\Models\Training\Lesson\Traits\Attribute;
 
 use App\Models\Training\Lesson\Lesson;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Trait LessonAttribute
@@ -25,7 +26,7 @@ trait LessonAttribute
      */
     public function getNextLessonAttribute()
     {
-        return Lesson::where('id', '>', $this->id)->first();
+        return Lesson::where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC' )->where('lesson_num', '>', $this->lesson_num)->first();
     }
 
     /**

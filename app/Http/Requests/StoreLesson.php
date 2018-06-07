@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * Class StoreLesson
@@ -29,12 +30,16 @@ class StoreLesson extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required|string',
-            'description'   => 'required|string',
-            'lesson_num'    => 'required|integer',
-            'youtube'       => 'string|nullable',
-            'videos_name'   => 'string|nullable',
-            'videos_type'   => 'string|nullable',
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'lesson_num' => 'required|integer',
+            'youtube' => 'string|nullable',
+            'videos_name' => 'string|nullable',
+            'videos_type' => 'string|nullable',
+            'license' => [
+                'required',
+                Rule::in(["A", "B", "C"])
+            ]
         ];
     }
 
@@ -44,6 +49,7 @@ class StoreLesson extends FormRequest
     public function messages()
     {
         return [
+
         ];
     }
 

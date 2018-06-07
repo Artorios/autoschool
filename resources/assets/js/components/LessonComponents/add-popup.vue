@@ -18,6 +18,18 @@
                                 <label>Описание*</label>
                                 <textarea class="form-control" v-model="data.description"></textarea>
                             </div>
+                            <div class="form-group">
+                                <label>Категория*</label>
+                                <select class="form-control select2"
+                                        style="width: 100%;"
+                                        v-model="data.license"
+                                        required>
+                                    <option selected="selected" value="" disabled>Выберите роль</option>
+                                    <option value="A" >A</option>
+                                    <option value="B" >B</option>
+                                    <option value="C" >C</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -60,6 +72,7 @@
                     videos: [],
                     videos_name: ''
                 },
+
                 errorEdit: false
             }
         },
@@ -82,6 +95,7 @@
             createLesson () {
                 this.$http.post('/admin/lessons/create', this.data).then(res => {
                     if (res.status === 201) {
+//                        console.log(res)
                         location.href = '/admin/lessons'
 
                     } else {

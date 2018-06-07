@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Models\Training\Processing\Answer;
-use App\Models\Training\Lesson\Lesson;
-use App\Models\Training\Lesson\LessonsSettings;
+use App\Models\Training\Lesson\{Lesson, LessonsSettings};
 use App\Models\User\UserLessonTraining;
 use App\Services\CheckTraining\CheckTraining;
 use Illuminate\Http\Request;
