@@ -1,11 +1,13 @@
 <template>
     <div>
-        <div class="blockgroupe" v-if="list.length">
+        <div class="blockgroupe">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <select name="" id="" class="select">
-                            <option value="all">Все(25)</option>
+                        <select v-model="itemsPerPage" class="select">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
                         </select>
                     </div>
                 </div>
@@ -21,7 +23,7 @@
                 </div>
             </div>
 
-            <div class="search-form blockforms finance">
+            <div class="search-form blockforms finance" v-if="list.length">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
@@ -59,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="coupon-table">
+            <div class="coupon-table" v-if="list.length">
                 <div class="table-wrapper">
                     <div class="title-line">
                         <span class="number">№</span>
@@ -73,7 +75,7 @@
                         <span class="status">Комиссия /статус</span>
                     </div>
 
-                <div v-for="item in filteredList" :class="{
+                    <div v-for="item in pagination()" :class="{
                     'line active': item.status === 3,
                     'line sale': item.status === 2,
                     'line free': item.status === 1,
@@ -181,10 +183,18 @@
                     </div>
 
                 </div>
+                <div class="invitegroupe">
+                    <ul class="pagination" v-if="itemsPerPage < resultCount">
+                        <li class="page-item" v-for="pageNumber in totalPages">
+                            <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber"
+                               @click.prevent="setPage(pageNumber)">{{pageNumber}}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div v-else>
-            Недостаточно данных
+            <div v-else>
+                Недостаточно данных
+            </div>
         </div>
     </div>
 </template>
@@ -224,6 +234,11 @@
                 comment: {}
             }
         },
+        computed: {
+            totalPages: function () {
+                return Math.ceil(this.resultCount / this.itemsPerPage)
+            },
+        },
         methods: {
             filterByTitle: function () {
                 this.filteredList = this.list.filter(item => {
@@ -236,6 +251,26 @@
                     return item.updated_at.toLowerCase().includes(this.searchDate.toLowerCase())
                 });
                 if (this.searchDate.length <= 0) this.filteredList = this.list;
+            },
+            paginate(data) {
+                if (!data || data.length != data.length) {
+                    return
+                }
+                this.resultCount = data.length
+                if (this.currentPage >= this.totalPages) {
+                    this.currentPage = this.totalPages
+                }
+                if (this.currentPage <= 0) {
+                    this.currentPage = 1
+                }
+                let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+                return data.slice(index, index + this.itemsPerPage)
+            },
+            setPage(pageNumber) {
+                this.currentPage = pageNumber
+            },
+            pagination() {
+                return this.paginate(this.filteredList);
             },
             onPopup: function (id, status) {
                 switch (status) {
@@ -290,7 +325,6 @@
                     }
                 }, err => {
                     if (+err.status === 422) {
-                        // this.serverError = true
                         this.createErrors = err.data['errors']
                     }
                 })
@@ -325,7 +359,6 @@
                 this.createErrors.comment_investor = ''
                 this.createErrors.id = ''
                 this.data.id = id
-                console.log(this.data, this.createErrors.comment_investor, this.createErrors.id);
                 this.$http.post('/investor/coupons/sell', this.data).then(res => {
                     if (res.status === 201) {
                         if (res.data.count === 0) {
@@ -337,7 +370,6 @@
                     }
                 }, err => {
                     if (+err.status === 422) {
-                        // this.serverError = true
                         this.createErrors = err.data['errors']
                     }
                 })
@@ -363,7 +395,15 @@
                     this.list = response.data.data;
                     this.filteredList = response.data.data;
                 })
-        }
+        },
+        mounted () {
+            let vm = this
+            $('.select ').selectric({
+                onChange: function (element) {
+                    vm.itemsPerPage = $(element).val()
+                },
+            })
+        },
     }
 </script>
 <style>
