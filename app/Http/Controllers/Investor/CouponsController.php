@@ -70,9 +70,9 @@ class CouponsController extends Controller
      */
     public function sell(SellCouponRequest $request)
     {
-        $count = Coupon::whereIn('id', $request->validated()['id'])->where('status', 1)->count();
-        if ($count != 0) {
-            Coupon::whereIn('id', $request->validated()['id'])->where('status', 1)->update([
+        $count = Coupon::whereIn('id', $request->get('id'))->where('status', 1)->count();
+        if (!$count) {
+            Coupon::whereIn('id', $request->get('id'))->where('status', 1)->update([
                 'status' => 2,
                 'comment_investor' => $request->validated()['comment_investor']
             ]);
@@ -86,9 +86,9 @@ class CouponsController extends Controller
      */
     public function comment(SellCouponRequest $request)
     {
-        $count = Coupon::whereIn('id', $request->validated()['id'])->where('status', 3)->count();
-        if ($count != 0) {
-            Coupon::whereIn('id', $request->validated()['id'])->where('status', 3)->update([
+        $count = Coupon::whereIn('id', $request->get('id'))->where('status', 3)->count();
+        if (!$count) {
+            Coupon::whereIn('id', $request->get('id'))->where('status', 3)->update([
                 'status' => 2,
                 'comment_investor' => $request->validated()['comment_investor']
             ]);
@@ -102,7 +102,7 @@ class CouponsController extends Controller
      */
     public function canceled(CanceledCoupon $request)
     {
-        Coupon::whereIn('id', $request->validated()['id'])->update([
+        Coupon::whereIn('id', $request->get('id'))->update([
             'status' => 4
         ]);
         return response()->json(['status' => 1], '201');
@@ -114,7 +114,7 @@ class CouponsController extends Controller
      */
     public function delete(CanceledCoupon $request)
     {
-        Coupon::whereIn('id', $request->validated()['id'])->delete();
+        Coupon::whereIn('id', $request->get('id'))->delete();
         return response()->json(['status' => 1], '201');
     }
 }
