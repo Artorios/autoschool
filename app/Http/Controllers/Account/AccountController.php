@@ -160,7 +160,7 @@ class AccountController extends Controller
      * @param Mailer $mailer
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function changePassword(ChangePasswordRequest $request, Mailer $mailer)
+    public function createPassword(ChangePasswordRequest $request)
     {
         $token = str_random();
 
