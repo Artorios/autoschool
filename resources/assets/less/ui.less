@@ -318,6 +318,56 @@ div.search{
   left: -1000px;
   z-index: -100;
 }
+
+//label-checkbox-width-text
+.label-checkbox-with-text{
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+}
+.label-check-text{
+  line-height: 25px;
+  position: relative;
+  padding: 0 0 0 35px;
+  display: inline-block;
+  font-weight: normal;
+}
+.label-check-text:hover{
+  cursor: pointer;
+}
+.label-check-text:after {
+  content: '\F00C';
+  font-family: FontAwesome;
+  font-size: 19px;
+  color: red;
+  line-height: 1;
+  display: block;
+  position: absolute;
+  left: 3px;
+  top: 4px;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+  cursor: pointer;
+}
+.label-check-text:before{
+  content: '';
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.hidden-checkbox:checked + .label-check-text:after{
+  opacity: 1;
+}
+
 //text break
 .text-break{
   text-overflow: clip;
@@ -579,7 +629,41 @@ div.search{
     display: inline-block;
   }
 }
-//main-driving-school table filial
+//check-all-block
+.check-all-block{
+  background: #ebebeb;
+  padding: 25px 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.check-all-input-block{
+  flex: 0 0 12%;
+  max-width: 12%;
+}
+.check-all-text{
+  flex: 0 0 20%;
+  max-width: 20%;
+}
+.button-block{
+  flex: 0 0 67%;
+  max-width: 67%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.button-block .btn-grey{
+  width: 26%;
+  margin: 0;
+}
+.button-block .btn-grey:hover{
+  cursor: pointer;
+}
+.button-block .select-block{
+  width: 45%;
+}//main-driving-school table filial
 .table-block.table-filial{
   .table-item-row{
     padding: 30px 10px;
