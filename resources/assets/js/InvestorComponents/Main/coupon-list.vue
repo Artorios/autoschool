@@ -1,11 +1,13 @@
 <template>
     <div>
-        <div class="blockgroupe" v-if="list.length">
+        <div class="blockgroupe">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <select name="" id="" class="select">
-                            <option value="all">Все(25)</option>
+                        <select v-model="itemsPerPage" class="select">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
                         </select>
                     </div>
                 </div>
@@ -21,7 +23,7 @@
                 </div>
             </div>
 
-            <div class="search-form blockforms finance">
+            <div class="search-form blockforms finance" v-if="list.length">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
@@ -64,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="coupon-table">
+            <div class="coupon-table" v-if="list.length">
                 <div class="table-wrapper">
                     <div class="title-line line">
                         <span class="line-item coupons-checkbox"></span>
@@ -79,19 +81,13 @@
                         <span class="line-item status">Комиссия /статус</span>
                     </div>
 
-                    <div v-for="item in filteredList"
-                            :class="[{active: item.status === 3,
-                                   sale: item.status === 2,
-                                   free: item.status === 1},
-                                   'line']">
-                        <div class="line-item coupons-checkbox">
-                            <label class="label-checkbox">
-                                <input type="checkbox"
-                                        :value="item.id"
-                                        v-model="checkedCoupons"
-                                        class="hidden-checkbox">
-                                <span class="label-check"></span>
-                            </label>
+                <div v-for="item in filteredList" :class="{
+                    'line active': item.status === 3,
+                    'line sale': item.status === 2,
+                    'line free': item.status === 1,
+                    }">
+                        <div class="coupons-checkbox">
+                            <input type="checkbox" :value="item.id" v-model="checkedCoupons">
                         </div>
                         <div class="line-item number">
                             <div class="hidden-head-text">№</div>
@@ -353,10 +349,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="invitegroupe">
+                    <ul class="pagination" v-if="itemsPerPage < resultCount">
+                        <li class="page-item" v-for="pageNumber in totalPages">
+                            <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber"
+                               @click.prevent="setPage(pageNumber)">{{pageNumber}}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div v-else>
-            Недостаточно данных
+            <div v-else>
+                Недостаточно данных
+            </div>
         </div>
     </div>
 </template>
