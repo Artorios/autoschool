@@ -12,6 +12,7 @@
   border: none;
   &:hover {
     color: #fff;
+    cursor: pointer;
   }
 }
 
@@ -45,6 +46,7 @@
   border: none;
   &:hover {
     color: #000;
+    cursor: pointer;
   }
 }
 //close icon
@@ -184,6 +186,13 @@ div.data{
     right: 21px;
     transform: translateY(-50%);
     pointer-events: none;
+  }
+}
+@media only screen and (max-width: 991px){
+  div.data{
+    &:after{
+      right: 25px;
+    }
   }
 }
 div.time{
@@ -462,6 +471,9 @@ div.search{
   .table-head{
     display: none;
   }
+  .table-head-item{
+    font-size: 14px;
+  }
   .hidden-head-text{
     display: block;
     padding: 0 10px 0 0;
@@ -479,7 +491,6 @@ div.search{
     padding: 0;
     margin: 0 0 15px 0;
     display: flex;
-    align-items: flex-end;
   }
   .table-item:nth-child(odd){
     background-color: #fafafa;
@@ -515,5 +526,51 @@ div.search{
   .sum-item{
     flex: 0 0 100%;
     max-width: 100%;
+  }
+}
+//comment-block
+.comment-block {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.comment-item.comment-pay-info {
+  color: #333;
+}
+
+.comment-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  color: #666;
+  margin: 0 0 15px 25px;
+  max-width: 85%;
+}
+
+.comment-item:last-child {
+  margin: 0 0 0 25px;
+}
+
+.comment-info {
+  flex: 0 0 20%;
+  max-width: 20%;
+  font-weight: 600;
+}
+
+.comment-text {
+  flex: 0 0 78%;
+  max-width: 78%;
+}
+//coupon-error
+.coupon-error {
+  color: red;
+  margin: 0 0 2px 20px;
+  display: inline-block;
+}
+@media only screen and (max-width: 767px){
+  .coupon-error {
+    color: red;
+    margin: 0 0 2px 10px;
+    display: inline-block;
   }
 }
