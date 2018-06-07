@@ -2,19 +2,20 @@
     <div>
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/autoschool">Главная</a> / {{filial.title}}</li>
+                <li><a href="/autoschool">Главная</a> / {{autoschool.title}}</li>
             </ul>
         </div>
         <div class="profile-edit">
             <div class="profile-content">
-                <div class="photo-edit-block">
+                <div class="img photo-edit-container">
+                    <img :src="getPathToImage()" class="upload-image" alt="">
                 </div>
                 <div class="profile-info-block">
-                    <h3 class="profile-info-title">Филиал Главный</h3>
+                    <h3 class="profile-info-title" v-text="autoschool.title"></h3>
                     <div class="profile-info-bottom">
                         <div class="form-group profile-form-group">
                             <select class="select" id="fillials_select" v-model="selected">
-                                <option></option>
+                                <option>{{autoschool.title}}</option>
                             </select>
                         </div>
                         <a href="/logout" class="btn-grey btn-exit profile-btn-exit">
@@ -51,9 +52,14 @@
                 </div>
             </div>
         </div>
-        <h2 v-if="this.status">Комисия успешно обновлена</h2>
+        <h2 v-if="this.status">Даные успешно обновлены</h2>
+        <h3 v-if="this.errors.contact_email">Неверно введеный емейл</h3>
+        <h3 v-if="this.errors.contact_phone">Неверно введеный телефон</h3>
+        <h3 v-if="this.errors.contact_reserve_phone">Неверно введеный дополнительный телефон</h3>
+
+        <h2 v-if="this.errors.serverError"></h2>
         <div class="details">
-            <form>
+            <form v-on:submit.prevent="changeAutoschool()">
                 <div v-show="tab==='addressType1'">
                     <h3>Реквизиты юр. лица:</h3>
                     <div class="form-group">
@@ -219,13 +225,12 @@
                         <label>Комисия:</label>
                         <input type="text"
                                v-model="autoschoolInfo.commission"
-                               placeholder="Телефон">
+                               placeholder="Комисия">
                     </div>
                 </div>
             </form>
         </div>
         <a class="btn-grey btn-exit profile-btn-exit" @click="changeAutoschool">
-            <i class="fa fa-power-off" aria-hidden="true"></i>
             Изменить
         </a>
     </div>
@@ -240,8 +245,14 @@
                 filial: {},
                 investor_id: '',
                 autoschoolInfo: {},
-                status: false
-            }   
+                errors: {
+                    serverError: false,
+                    contact_reserve_phone: false,
+                    contact_phone: false,
+                    contact_email: false
+                },
+                status: false,
+            }
         },
         props: {
             autoschool: {}
@@ -258,25 +269,88 @@
 
         methods: {
             changeAutoschool() {
+                if (this.validate()) return false
+                this.autoschoolInfo.auto_school_id = this.autoschool.id
                 this.$http.post('/investor/school/change-info-about-autoschool', this.autoschoolInfo).then(res => {
                     if (res.status === 201) {
                         this.status = true
                     }
-                })
-            }
+                }), err => {
+                    if (+err.status === 400) {
+                        this.serverError = true
+                        }
+                    }
+                },
+
+            getPathToImage() {
+                return this.autoschool.logo ? '/storage/school/' + this.autoschool.logo : '/img/profile-photo.png'
+            },
+
+            validate() {
+                for (let key in this.autoschoolInfo) {
+                    switch (key) {
+                        case 'contact_phone':
+                            if (!this.checkPhone(this.autoschoolInfo[key])) {
+                                this.errors[key] = true
+                            } else {
+                                this.errors[key] = false
+                            }
+                            break
+                        case 'contact_reserve_phone':
+                            if (!this.checkPhone(this.autoschoolInfo[key])) {
+                                this.errors[key] = true
+                            } else {
+                                this.errors[key] = false
+                            }
+                            break
+                        case 'contact_email':
+                            if (!this.checkEmail(this.autoschoolInfo[key])) {
+                                this.errors[key] = true
+                            } else {
+                                this.errors[key] = false
+                            }
+                            break
+                    }
+                }
+                let hasError = false
+                for (let key in this.errors) {
+                    if (this.errors[key]) {
+                        hasError = true
+                    }
+                }
+                return hasError
+            },
+            checkEmail (email) {
+                let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                return re.test(email.toLowerCase());
+
+            },
+            checkPhone (phone){
+                let re = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/
+                return re.test(phone);
+
+            },
+
         },
 
-        created() {
-            this.$http.post('/investor/school/get-info-about-school', {'autoschool': this.autoschool.id}).then(res => {
-                if (res.status === 201) {
-                   this.autoschoolInfo = res.data.data
-                }
-            })
+        created () {
+           this.$http.post('/investor/school/get-info-about-school', {'autoschool': this.autoschool.id}).then(res => {
+            if (res.status === 201) {
+                this.autoschoolInfo = res.data.data
+            }
+          })
+
         }
     }
-
 </script>
 
 <style scoped>
-
+    .img .upload-image {
+        border-radius: 50%;
+        border: 1px solid #ccc;
+    }
+    .photo-edit-container .upload-image {
+        width: 125px;
+        height: 125px;
+    }
 </style>
