@@ -88,6 +88,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::group(['prefix' => 'finance'], function () {
         Route::post('get-variants', 'FinanceController@getVariants')->name('account.finance.getvariants');
         Route::post('card-payment', 'OrderController@cardPayment')->name('account.finance.cardpayment');
+        Route::post('choice-autoschool', 'FinanceController@choiceAutoSchool');
     });
 
     Route::get('/get-count-lessons', 'LessonController@getCountLesson');
