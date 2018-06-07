@@ -17,8 +17,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        'App\Events\UserPasswordChangedEvent' => [
+            'App\Listeners\UserEmailChangedListener',
+        ],
+        'App\Events\UserPasswordChangeRequestEvent' => [
+            'App\Listeners\UserPasswordChangeRequestListener',
         ],
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             'SocialiteProviders\VKontakte\VKontakteExtendSocialite@handle',

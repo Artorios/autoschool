@@ -42,26 +42,26 @@
                     @endif
                     <input type="hidden" value="{!! csrf_token() !!}" name="_token">
                     <div class="form-group">
-                        <label>Старый пароль</label>
-                        <input type="password" name="old_password">
-                        @if ($errors->has('old_password'))
-                            <p class="alert alert-danger">{{ $errors->first('old_password') }}</p>
-                        @endif
+                        <label for="oldPassword">Старый пароль</label>
+                            <input type="password" name="old_password" id="oldPassword"  {{ $errors->has('old_password') ? 'class=input-error' : '' }}>
                     </div>
+                    @if ($errors->has('old_password'))
+                        <p class="alert alert-danger">{{ $errors->first('old_password') }}</p>
+                    @endif
                     <div class="form-group">
-                        <label>Новый пароль</label>
-                        <input type="password" name="password">
-                        @if ($errors->has('password'))
-                            <p class="alert alert-danger">{{ $errors->first('password') }}</p>
-                        @endif
+                        <label for="newPassword">Новый пароль</label>
+                        <input type="password" name="password" id="newPassword" {{ $errors->has('password') ? 'class=input-error' : '' }}>
                     </div>
+                    @if ($errors->has('password'))
+                        <p class="alert alert-danger">{{ $errors->first('password') }}</p>
+                    @endif
                     <div class="form-group">
-                        <label>Подтверждение</label>
-                        <input type="password" name="password_confirmation">
-                        @if ($errors->has('password_confirmation'))
-                            <p class="alert alert-danger">{{ $errors->first('password_confirmation') }}</p>
-                        @endif
+                        <label for="passwordConfirmation">Подтверждение</label>
+                        <input type="password" name="password_confirmation" id="passwordConfirmation"  {{ $errors->has('password_confirmation') ? 'class=input-error' : '' }}>
                     </div>
+                    @if ($errors->has('password_confirmation'))
+                        <p class="alert alert-danger">{{ $errors->first('password_confirmation') }}</p>
+                    @endif
                     <button type="submit" id="btn_change_pass" class="btn-grey">Сохранить изменения</button>
                 </form>
             </div>

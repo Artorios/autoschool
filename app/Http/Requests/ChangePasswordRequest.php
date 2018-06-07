@@ -3,9 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Models\User\User;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\{
+    Foundation\Http\FormRequest,
+    Support\Facades\Auth,
+    Support\Facades\Hash
+};
 
 class ChangePasswordRequest extends FormRequest
 {
@@ -26,20 +28,13 @@ class ChangePasswordRequest extends FormRequest
      */
     public function rules()
     {
-        if (!$this->request->has('old_password') ||
-            !Hash::check($this->request->get('old_password'), User::find(Auth::id())->password)) {
-            $error = \Illuminate\Validation\ValidationException::withMessages([
-                'old_password' => ['Password doesn\'t match'],
-            ]);
-            throw $error;
-        }
 
         return [
+            'old_password' => 'hash:' . User::find(Auth::id())->password,
             'password'     => [
                 'required',
-                'min:8',
+                'min:6',
                 'confirmed',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/'
             ]
         ];
     }
