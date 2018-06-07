@@ -41,7 +41,7 @@ Route::group(['prefix' => 'user', 'namespace' => 'Auth'], function () {
     //Route::post('activation/send_mail', 'ActivationController@sendActivationMail')->name('user.activate.send_mail');
 });
 
-Route::get('/change-password/{id}/{password}/{date}', 'Account\AccountController@updatePassword')->name('password.update');
+Route::get('/change-password/{token}/{password}/', 'Account\AccountController@updatePassword')->name('password.update');
 
 Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => ['auth']], function () {
     Route::get('/', function () {
