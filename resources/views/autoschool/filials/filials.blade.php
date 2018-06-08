@@ -9,40 +9,61 @@
         <block-statistic-groups></block-statistic-groups>
         <div class="blockgroupe">
             <h2>Филиалы:</h2>
-            <div class="table-wrapper">
-                <div class="title-line">
-                    <span class="number">№</span>
-                    <span class="name">Название филиала</span>
-                    <span class="data-and-time">Адрес филиала</span>
-                    <span class="count">Кол-во учеников</span>
-                    <span class="kupons">Купоны активные/неактивные/всего</span>
+            <div class="table-block table-filial">
+                <div class="table-head">
+                    <span class="table-head-item number-item">№</span>
+                    <span class="table-head-item name-filial-item">Название филиала</span>
+                    <span class="table-head-item address-filial-item">Адрес филиала</span>
+                    <span class="table-head-item count-item">Кол-во учеников</span>
+                    <span class="table-head-item kupons-item">Купоны активные/неактивные/всего</span>
                 </div>
                 @foreach($filials as $filial)
-
-                    <div class="line">
-                        <div class="number">{{$filial->id}}</div>
-                        <div class="name">
-                            @if(!empty($filial->filial_name))
-                                <a href="/autoschool/filials/{{$filial->id}}/">{{$filial->filial_name}}</a>
-                            @else
-                                <a href="/autoschool/filials/{{$filial->id}}/">{{$filial->title}}</a>
-                            @endif
-                        </div>
-                        <div class="data-and-time">
-                            @if(!empty($filial->city->name) && !empty($filial->addresses[0]->value))
-                                <span>{{'г. '.$filial->city->name.', '.$filial->addresses[0]->value}}</span>
-                            @elseif(!empty($filial->city->name) && empty($filial->addresses[0]->value))
-                                <span>{{'г. '.$filial->city->name}}</span>
-                            @elseif(empty($filial->city->name) && !empty($filial->addresses[0]->value))
-                                <span>{{$filial->addresses[0]->value}}</span>
-                            @endif
-                        </div>
-                        <div class="count">
-                            <span class="visible-xs hidden-sm">Количество учеников  {{$filial->count_student}}</span>
-                            <span class="visible-sm hidden-xs visible-lg visible-md">{{$filial->count_student}}</span>
-                        </div>
-                        <div class="kupons">
-                            <span>{{$filial->coupons_active}}/ {{$filial->coupons_passive}} / {{$filial->coupons_active + $filial->coupons_passive}}</span>
+                    <div class="table-content">
+                        <div class="table-item-row">
+                            <div class="table-item number-item">
+                                <div class="table-head-item hidden-head-text">№</div>
+                                <div class="table-item-content">
+                                    {{$filial->id}}
+                                </div>
+                            </div>
+                            <div class="table-item name-filial-item">
+                                <div class="table-head-item hidden-head-text">Название филиала</div>
+                                <div class="table-item-content">
+                                    @if(!empty($filial->filial_name))
+                                        <a href="/autoschool/filials/{{$filial->id}}/" class="table-item-link text-underline">
+                                            {{$filial->filial_name}}
+                                        </a>
+                                    @else
+                                        <a href="/autoschool/filials/{{$filial->id}}/" class="table-item-link text-underline">
+                                            {{$filial->title}}
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="table-item address-filial-item">
+                                <div class="table-head-item hidden-head-text">Адрес филиала</div>
+                                <div class="table-item-content">
+                                    @if(!empty($filial->city->name) && !empty($filial->addresses[0]->value))
+                                        <span>{{'г. '.$filial->city->name.', '.$filial->addresses[0]->value}}</span>
+                                    @elseif(!empty($filial->city->name) && empty($filial->addresses[0]->value))
+                                        <span>{{'г. '.$filial->city->name}}</span>
+                                    @elseif(empty($filial->city->name) && !empty($filial->addresses[0]->value))
+                                        <span>{{$filial->addresses[0]->value}}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="table-item count-item">
+                                <div class="table-head-item hidden-head-text">Кол-во учеников</div>
+                                <div class="table-item-content">
+                                    <span>{{$filial->count_student}}</span>
+                                </div>
+                            </div>
+                            <div class="table-item kupons-item">
+                                <div class="table-head-item hidden-head-text">Купоны активные/неактивные/всего</div>
+                                <div class="table-item-content">
+                                    <span>{{$filial->coupons_active}} / {{$filial->coupons_passive}} / {{$filial->coupons_active + $filial->coupons_passive}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endforeach
