@@ -17,6 +17,20 @@
                     <span class="table-head-item count-item">Кол-во учеников</span>
                     <span class="table-head-item kupons-item">Купоны активные/неактивные/всего</span>
                 </div>
+                <div class="line" >
+                    <div class="number">0</div>
+                    <div class="name"><a href="/autoschool/filials/new">Нераспределённые</a></div>
+                    <div class="data-and-time">
+                        <span></span>
+                    </div>
+
+                    <div class="count">
+                        <span class="visible-xs hidden-sm"></span>
+                    </div>
+                    <div class="kupons">
+                        <span></span>
+                    </div>
+                </div>
                 @foreach($filials as $filial)
                     <div class="table-content">
                         <div class="table-item-row">

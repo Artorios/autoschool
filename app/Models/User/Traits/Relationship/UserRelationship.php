@@ -2,6 +2,8 @@
 
 namespace App\Models\User\Traits\Relationship;
 
+use App\Models\Finance\Coupon;
+use App\Models\Finance\Order;
 use App\Models\Location\City;
 use App\Models\Training\School\AutoSchool;
 use App\Models\User\Contract;
@@ -96,5 +98,13 @@ trait UserRelationship
 
     public function videos(){
         return $this->hasMany(UserLessonVideo::class,'user_id', 'id');
+    }
+
+    public function orders(){
+        return $this->belongsTo(Order::class);
+    }
+
+    public function coupons(){
+        return $this->belongsTo(Coupon::class);
     }
 }
