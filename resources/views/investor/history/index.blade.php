@@ -9,10 +9,12 @@
             </ul>
         </div>
 
-        <button href="" id="search-button" class="btn-grey visible-xs ">
-            <i class="fa fa-search" aria-hidden="true"></i>
-            Поиск по параметрам
-        </button>
+        <div class="blockgroupe">
+            <button type="button" id="search-button" class="btn-grey search-param visible-xs">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                Поиск по параметрам
+            </button>
+        </div>
 
             <history-list></history-list>
 

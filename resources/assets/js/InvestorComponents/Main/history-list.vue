@@ -9,28 +9,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
-                        <!--<select class="select">-->
-                        <!--<option value="" v-for="item in list">{{ item.auto_school.title }}</option>-->
-                        <!--</select>-->
-                        <label for="autoschool-name">автошкола</label>
-                        <select v-model="searchSchoolName" @change="filterByName" id="autoschool-name">
-                            <option selected ></option>
+                        <select id="autoschool-name" class="select"
+                                v-model="searchSchoolName"
+                                @change="filterByName">
+                            <option selected disabled>автошкола</option>
                             <option v-for="item in list">{{ item.auto_school.title }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
-                        <label for="date">дата</label>
-                        <select v-model="searchDate" @change="filterByDate" id="date">
-                            <option selected></option>
+                        <select id="date" class="select"
+                                v-model="searchDate"
+                                @change="filterByDate">
+                            <option selected disabled>дата</option>
                             <option v-for="item in list">{{ item.updated_at }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
                         <div class="data">
                             <input type="text" placeholder="Дата" v-on:keyup="filterByDate" v-model="searchDate">
@@ -39,49 +38,68 @@
                 </div>
             </div>
         </div>
-        <table class="table manage-grid">
-            <thead>
-            <tr class="visible-md visible-lg">
-                <th>№</th>
-                <th>Дата</th>
-                <th>Вид операции</th>
-                <th>Комментарий</th>
-            </tr>
-            </thead>
-            <tbody class="main">
-            <tr data-id="1" class="visible-md visible-lg" v-for="item in filteredList">
-                <td>{{ item.id }}</td>
-                <td>{{ item.updated_at }}</td>
-                <td>{{ item.operation }}</td>
-                <td>{{ item.comment }}</td>
-            </tr>
-            </tbody>
-            <tfoot class="finance-line-height">
-            <tr>
-                <td colspan="9">
-                    <div class="row nero">
-                        <div class="col-md-2 margin-12">
-                            <input type="checkbox"> Для всех
-                        </div>
-                        <div class="col-md-2 margin-12 margin-y-10">
-                            Отмечено 1 из 12
-                        </div>
-
-                        <div class="col-xs-12 col-md-2 margin-y-10"><a type="text" class="btn-grey">Анулировать</a>
-                        </div>
-                        <div class="col-xs-12 col-md-2 margin-y-10"><a type="text" class="btn-grey">Удалить</a></div>
-                        <div class="col-xs-12 col-md-4 margin-y-10">
-                            <select class="select">
-                                <option selected disabled>Виберите действие</option>
-                                <option>1</option>
-                                <option>2</option>
-                            </select>
+        <h2>История</h2>
+        <div class="table-block table-block-history">
+            <div class="table-head">
+                <div class="table-head-item number-item">№</div>
+                <div class="table-head-item table-item-date">Дата</div>
+                <div class="table-head-item table-item-operation">Вид операции</div>
+                <div class="table-head-item city-item">Комментарий</div>
+            </div>
+            <div class="table-content">
+                <div class="table-item-row"
+                        data-id="1"
+                        v-for="item in filteredList">
+                    <div class="table-item number-item">
+                        <div class="table-head-item table-head-number hidden-head-text">№</div>
+                        <div class="table-item-content">
+                            {{ item.id }}
                         </div>
                     </div>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
+                    <div class="table-item table-item-date">
+                        <div class="table-head-item table-head-date hidden-head-text">Дата</div>
+                        <div class="table-item-content">
+                            {{ item.updated_at }}
+                        </div>
+                    </div>
+                    <div class="table-item table-item-operation">
+                        <div class="table-head-item hidden-head-text">Вид операции</div>
+                        <div class="table-item-content">
+                            {{ item.operation }}
+                        </div>
+                    </div>
+                    <div class="table-item table-item-comment">
+                        <div class="table-head-item hidden-head-text">Комментарий</div>
+                        <div class="table-item-content">
+                            {{ item.comment }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="check-all-block">
+            <div class="check-all-input-block">
+                <label class="label-checkbox-with-text">
+                    <input type="checkbox"
+                            class="hidden-checkbox">
+                    <span class="label-check-text">Для всех</span>
+                </label>
+            </div>
+            <div class="check-all-text">
+                Отмечено <span class="text-bold">1000</span> из <span class="text-bold">1000</span>
+            </div>
+            <div class="button-block">
+                <a type="text" class="btn-grey">Анулировать</a>
+                <a type="text" class="btn-grey">Удалить</a>
+                <div class="select-block">
+                    <select class="select">
+                        <option selected disabled>Виберите действие</option>
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -125,3 +143,96 @@
         }
     }
 </script>
+<style scoped>
+    .table-block-history{
+        margin: 0 0 25px 0;
+    }
+    .number-item{
+        flex: 0 0 6%;
+        max-width: 6%;
+    }
+    .table-item-date{
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    .table-item-operation{
+        flex: 0 0 34%;
+        max-width: 34%;
+    }
+    .table-item-comment{
+        flex: 0 0 35%;
+        max-width: 35%;
+    }
+    @media only screen and (max-width: 991px){
+        .number-item{
+            flex: 0 0 7%;
+            max-width: 7%;
+        }
+        .table-item-date{
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+        .table-item-operation{
+            flex: 0 0 32%;
+            max-width: 32%;
+        }
+        .table-item-comment{
+            flex: 0 0 37%;
+            max-width: 37%;
+        }
+    }
+    @media only screen and (max-width: 767px){
+        .table-item{
+            background-color: transparent;
+        }
+        .number-item{
+            flex: 0 0 35%;
+            max-width: 35%;
+            background-color: #fafafa;
+        }
+        .table-item-date{
+            flex: 0 0 65%;
+            max-width: 65%;
+            background-color: #fafafa;
+        }
+        .table-item-operation{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .table-item-comment{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .table-head-item.table-head-date{
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+        .table-head-item.table-head-number{
+            flex: 0 0 15%;
+            max-width: 15%;
+        }
+    }
+    @media only screen and (max-width: 575px){
+        .table-head-item.table-head-number {
+            flex: 0 0 35%;
+            max-width: 35%;
+            padding: 0 10px 0 0;
+        }
+        .number-item{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .table-item-date{
+            flex: 0 0 100%;
+            max-width: 100%;
+            background-color: transparent;
+        }
+        .table-item:nth-child(odd){
+            background-color: #fafafa;
+        }
+        .table-head-item.table-head-date{
+            flex: 0 0 35%;
+            max-width: 35%;
+        }
+    }
+</style>
