@@ -9,14 +9,14 @@
             <div class="col-md-8">
                 <h3 v-text="getFullName()"></h3>
 
-                <div class="row">
+                <!--<div class="row">
                     <div class="col-md-5">
                         <a :href="student.id + '/statistic-test'" class="btn-grey">Статистика зачетов</a>
                     </div>
                     <div class="col-md-5">
                         <a :href="student.id + '/statistic-exam'" class="btn-grey">Статистика экзамена</a>
                     </div>
-                </div>
+                </div>-->
                 <div class="row block-info">
                     <div class="col-md-12">
                         <div class="info">
