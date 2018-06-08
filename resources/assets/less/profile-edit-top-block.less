@@ -19,8 +19,12 @@
   margin: 0;
 }
 .profile-info-title{
-  margin: 0;
+  margin: 0 0 10px 0;
   width: 100%;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
 .profile-info-bottom{
   display: flex;
@@ -30,4 +34,58 @@
 .form-group.profile-form-group{
   margin: 0;
   flex: 0 0 470px;
+}
+//photo-edit block
+.photo-edit-container{
+  position: relative;
+  .upload-image{
+    width: 125px;
+    height: 125px;
+  }
+}
+@media only screen and (max-width: 767px){
+  .profile-content{
+    padding: 0 20px;
+  }
+  .profile-info-block {
+    margin-left: 25px;
+    max-width: calc(100% - 150px);
+  }
+  .profile-edit .vue-image-crop-upload .vicp-wrap{
+    width: calc(100% - 40px);
+  }
+  .profile-edit .vue-image-crop-upload .vicp-wrap .vicp-close {
+    position: absolute;
+    right: 0;
+    top: -35px;
+  }
+}
+@media only screen and (max-width: 575px){
+  .profile-info-block {
+    margin-left: 15px;
+    max-width: calc(100% - 140px);
+  }
+  .profile-btn-exit{
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 479px){
+  .photo-edit-block{
+    flex: 0 0 90px;
+    max-width: 90px;
+  }
+  .photo-edit-container .upload-image {
+    width: 90px;
+    height: 90px;
+  }
+  .profile-info-block {
+    margin-left: 10px;
+    max-width: calc(100% - 100px);
+  }
+  .photo-edit {
+    position: static;
+  }
+  .profile-edit .vue-image-crop-upload .vicp-wrap{
+    width: 100%;
+  }
 }

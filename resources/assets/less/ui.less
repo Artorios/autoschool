@@ -49,6 +49,15 @@
     cursor: pointer;
   }
 }
+.btn-grey.search-param{
+  width: 100%;
+  margin: 10px 0 25px;
+  .fa{
+    color: #666;
+    font-size: 20px;
+    margin: 0 10px 0 0;
+  }
+}
 //close icon
 .close {
   position: absolute;
@@ -263,17 +272,6 @@ div.search{
   }
 }
 
-//photo-edit block
-.photo-edit-container{
-  position: relative;
-  width: 125px;
-  height: 125px;
-  .upload-image{
-    width: 125px;
-    height: 125px;
-  }
-}
-
 //label-checkbox
 .label-checkbox{
   display: inline-block;
@@ -318,6 +316,56 @@ div.search{
   left: -1000px;
   z-index: -100;
 }
+
+//label-checkbox-width-text
+.label-checkbox-with-text{
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+}
+.label-check-text{
+  line-height: 25px;
+  position: relative;
+  padding: 0 0 0 35px;
+  display: inline-block;
+  font-weight: normal;
+}
+.label-check-text:hover{
+  cursor: pointer;
+}
+.label-check-text:after {
+  content: '\F00C';
+  font-family: FontAwesome;
+  font-size: 19px;
+  color: red;
+  line-height: 1;
+  display: block;
+  position: absolute;
+  left: 3px;
+  top: 4px;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+  cursor: pointer;
+}
+.label-check-text:before{
+  content: '';
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.hidden-checkbox:checked + .label-check-text:after{
+  opacity: 1;
+}
+
 //text break
 .text-break{
   text-overflow: clip;
@@ -328,7 +376,7 @@ div.search{
 ////table
 .table-head{
   background-color: #ebebeb;
-  padding: 5px 10px;
+  padding: 10px;
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
@@ -348,7 +396,7 @@ div.search{
 .table-item-row{
   display: flex;
   align-items: flex-start;
-  padding: 10px;
+  padding: 20px 10px;
   border-bottom: 1px solid #ccc;
   flex-wrap: wrap;
 }
@@ -492,17 +540,23 @@ div.search{
     flex: 0 0 65%;
     max-width: 65%;
   }
+  .table-item.number-item {
+    padding: 5px 3px;
+  }
   .table-item{
-    padding: 0;
-    margin: 0 0 15px 0;
+    padding: 5px 3px;
+    margin: 0 0 5px 0;
     display: flex;
   }
   .table-item:nth-child(odd){
     background-color: #fafafa;
   }
   .table-item-row{
-    padding: 10px 0 15px;
-    margin-bottom: 15px;
+    padding: 10px 0 20px;
+    margin-bottom: 20px;
+  }
+  .table-item-row:last-child{
+    margin-bottom: 0;
   }
   .number-item{
     flex: 0 0 100%;
@@ -579,7 +633,41 @@ div.search{
     display: inline-block;
   }
 }
-//main-driving-school table filial
+//check-all-block
+.check-all-block{
+  background: #ebebeb;
+  padding: 25px 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.check-all-input-block{
+  flex: 0 0 12%;
+  max-width: 12%;
+}
+.check-all-text{
+  flex: 0 0 20%;
+  max-width: 20%;
+}
+.button-block{
+  flex: 0 0 67%;
+  max-width: 67%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.button-block .btn-grey{
+  width: 26%;
+  margin: 0;
+}
+.button-block .btn-grey:hover{
+  cursor: pointer;
+}
+.button-block .select-block{
+  width: 45%;
+}//main-driving-school table filial
 .table-block.table-filial{
   .table-item-row{
     padding: 30px 10px;
@@ -627,5 +715,137 @@ div.search{
       flex: 0 0 100%;
       max-width: 100%;
     }
+  }
+}
+@media only screen and (max-width: 1199px){
+  .check-all-input-block{
+    flex: 0 0 17%;
+    max-width: 17%;
+  }
+  .check-all-text{
+    flex: 0 0 83%;
+    max-width: 83%;
+  }
+  .button-block{
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin: 20px 0 0  0;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .check-all-input-block {
+    flex: 0 0 23%;
+    max-width: 23%;
+  }
+  .check-all-text{
+    flex: 0 0 77%;
+    max-width: 77%;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .button-block .btn-grey{
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+  .button-block .select-block{
+    width: 100%;
+  }
+  .check-all-input-block {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .check-all-text{
+    flex: 0 0 75%;
+    max-width: 75%;
+    text-align: right;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .check-all-input-block {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin: 0 0 15px 0;
+  }
+  .check-all-text{
+    flex: 0 0 100%;
+    max-width: 100%;
+    text-align: left;
+  }
+}
+
+//requsites
+.requsites{
+  margin: 0 -1%;
+}
+.radio-button{
+  float: left;
+  width: 18%;
+  overflow: hidden;
+  margin: 0 1% 10px;
+}
+.radio-button input{
+  position: absolute;
+  left: -200%;
+  z-index: -1000;
+}
+.radio-button label{
+  display: inline-block;
+  max-width: 100%;
+  font-size: 13px;
+  color: #666666;
+  margin: 0;
+  font-weight: normal;
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid #cccccc;
+  background-color: transparent;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  transition: background-color 0.1s linear, color 0.1s linear;
+}
+.radio-button label:hover{
+  cursor: pointer;
+  background-color: #cccccc;
+  color: #000;
+}
+.radio-button input:checked + label{
+  background-color: #cccccc;
+  color: #000;
+}
+.radio-button input:checked + label:hover{
+  pointer-events: none;
+}
+@media only screen and (max-width: 1199px){
+  .requsites{
+    margin: 0 -0.5%;
+  }
+  .radio-button{
+    width: 19%;
+    overflow: hidden;
+    margin: 0 0.5% 10px;
+  }
+}
+@media only screen and (max-width: 991px){
+  .radio-button{
+    width: 24%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .radio-button{
+    width: 32%;
+  }
+  .requsites{
+    padding: 0 15px;
+  }
+}
+@media only screen and (max-width: 575px){
+  .radio-button{
+    width: 49%;
+  }
+}
+@media only screen and (max-width: 359px){
+  .radio-button{
+    width: 100%;
   }
 }
