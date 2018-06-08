@@ -2,23 +2,45 @@
     <div>
         <div class="blockgroupe">
             <h2>Группы:</h2>
-            <div class="table-wrapper">
-                <div class="title-line">
-                    <span class="number">№</span>
-                    <span class="name">Название группы</span>
-                    <span class="data-and-time">Дата и время экзамена</span>
-                    <span class="count">Кол-во учеников</span>
+            <div class="table-block">
+                <div class="table-head">
+                    <span class="table-head-item number-item">№</span>
+                    <span class="table-head-item name-item">Название группы</span>
+                    <span class="table-head-item data-and-time-item">Дата и время экзамена</span>
+                    <span class="table-head-item count-item">Кол-во учеников</span>
                 </div>
-                <div class="line" v-for="group in paginate">
-                    <div class="number">{{group.id}}</div>
-                    <div class="name"><a :href="'/autoschool/filials/groups/'+group.id">{{group.name}}</a></div>
-                    <div class="data-and-time">
-                        <i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>
-                        {{editDate(group.exam_date)}} ({{dayOfweek(group.exam_date)}}) {{editTime(group.exam_time)}}
-                    </div>
-                    <div class="count">
-                        <span class="visible-xs hidden-sm">Количество учеников  {{group.count_student}}</span>
-                        <span class="visible-sm hidden-xs visible-lg visible-md">{{group.count_student}}</span>
+                <div class="table-content">
+                    <div class="table-item-row" v-for="group in paginate">
+                        <div class="table-item number-item">
+                            <div class="table-head-item hidden-head-text">№</div>
+                            <div class="table-item-content">
+                                {{group.id}}
+                            </div>
+                        </div>
+                        <div class="table-item name-item">
+                            <div class="table-head-item hidden-head-text">Название группы</div>
+                            <div class="table-item-content">
+                                <a class="table-item-link text-underline"
+                                   :href="'/autoschool/filials/groups/'+group.id">
+                                    {{group.name}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="table-item data-and-time-item">
+                            <div class="table-head-item hidden-head-text">Дата и время экзамена</div>
+                            <div class="table-item-content">
+                                <i class="fa fa-clock-o fa-lg icon-in-table" aria-hidden="true"></i>
+                                <span>{{editDate(group.exam_date)}}</span>
+                                <span>({{dayOfweek(group.exam_date)}})</span>
+                                <span>{{editTime(group.exam_time)}}</span>
+                            </div>
+                        </div>
+                        <div class="table-item count-item">
+                            <div class="table-head-item hidden-head-text">Кол-во учеников</div>
+                            <div class="table-item-content">
+                                    {{group.count_student}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -117,5 +139,69 @@
 </script>
 
 <style scoped>
-
+    .table-item-row{
+        padding: 30px 10px;
+    }
+    .number-item{
+        flex: 0 0 6%;
+        max-width: 6%;
+    }
+    .name-item{
+        flex: 0 0 37%;
+        max-width: 37%;
+    }
+    .data-and-time-item{
+        flex: 0 0 35%;
+        max-width: 35%;
+    }
+    .count-item{
+        flex: 0 0 22%;
+        max-width: 22%;
+    }
+    @media only screen and (max-width: 1199px){
+        .data-and-time-item{
+            flex: 0 0 37%;
+            max-width: 37%;
+        }
+        .count-item{
+            flex: 0 0 20%;
+            max-width: 20%;
+        }
+    }
+    @media only screen and (max-width: 991px){
+        .number-item{
+            flex: 0 0 7%;
+            max-width: 7%;
+        }
+        .name-item{
+            flex: 0 0 35%;
+            max-width: 35%;
+        }
+        .data-and-time-item{
+            flex: 0 0 41%;
+            max-width: 41%;
+        }
+        .count-item{
+            flex: 0 0 17%;
+            max-width: 17%;
+        }
+    }
+    @media only screen and (max-width: 767px){
+        .number-item{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .name-item{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .data-and-time-item{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .count-item{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
 </style>
