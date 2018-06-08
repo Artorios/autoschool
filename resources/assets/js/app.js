@@ -16,6 +16,8 @@ import LessonsSettings from './components/SettingsComponents/LessonsSettings.vue
 import EditProfile from './components/UserComponent/edit-profile-form.vue';
 import VueVideoPlayer from 'vue-video-player';
 import Toasted from 'vue-toasted';
+import ListStudents from './components/UserComponent/list-students';
+
 require('videojs-youtube/dist/Youtube.min.js');
 require('video.js/dist/video-js.css');
 require('vue-video-player/src/custom-theme.css');
@@ -45,6 +47,7 @@ const app = new Vue({
         QuestionVue,
         QuestionSingle,
         LessonsSettings,
-        EditProfile
+        EditProfile,
+        ListStudents
     }
 });
