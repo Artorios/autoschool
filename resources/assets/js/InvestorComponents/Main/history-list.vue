@@ -9,11 +9,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
-                        <!--<select class="select">-->
-                        <!--<option value="" v-for="item in list">{{ item.auto_school.title }}</option>-->
-                        <!--</select>-->
                         <select id="autoschool-name" class="select"
                                 v-model="searchSchoolName"
                                 @change="filterByName">
@@ -22,7 +19,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
                         <select id="date" class="select"
                                 v-model="searchDate"
@@ -32,7 +29,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
                         <div class="data">
                             <input type="text" placeholder="Дата" v-on:keyup="filterByDate" v-model="searchDate">
@@ -54,13 +51,13 @@
                         data-id="1"
                         v-for="item in filteredList">
                     <div class="table-item number-item">
-                        <div class="table-head-item hidden-head-text">№</div>
+                        <div class="table-head-item table-head-number hidden-head-text">№</div>
                         <div class="table-item-content">
                             {{ item.id }}
                         </div>
                     </div>
                     <div class="table-item table-item-date">
-                        <div class="table-head-item hidden-head-text">Дата</div>
+                        <div class="table-head-item table-head-date hidden-head-text">Дата</div>
                         <div class="table-item-content">
                             {{ item.updated_at }}
                         </div>
@@ -166,5 +163,76 @@
         flex: 0 0 35%;
         max-width: 35%;
     }
-
+    @media only screen and (max-width: 991px){
+        .number-item{
+            flex: 0 0 7%;
+            max-width: 7%;
+        }
+        .table-item-date{
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+        .table-item-operation{
+            flex: 0 0 32%;
+            max-width: 32%;
+        }
+        .table-item-comment{
+            flex: 0 0 37%;
+            max-width: 37%;
+        }
+    }
+    @media only screen and (max-width: 767px){
+        .table-item{
+            background-color: transparent;
+        }
+        .number-item{
+            flex: 0 0 35%;
+            max-width: 35%;
+            background-color: #fafafa;
+        }
+        .table-item-date{
+            flex: 0 0 65%;
+            max-width: 65%;
+            background-color: #fafafa;
+        }
+        .table-item-operation{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .table-item-comment{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .table-head-item.table-head-date{
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+        .table-head-item.table-head-number{
+            flex: 0 0 15%;
+            max-width: 15%;
+        }
+    }
+    @media only screen and (max-width: 575px){
+        .table-head-item.table-head-number {
+            flex: 0 0 35%;
+            max-width: 35%;
+            padding: 0 10px 0 0;
+        }
+        .number-item{
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        .table-item-date{
+            flex: 0 0 100%;
+            max-width: 100%;
+            background-color: transparent;
+        }
+        .table-item:nth-child(odd){
+            background-color: #fafafa;
+        }
+        .table-head-item.table-head-date{
+            flex: 0 0 35%;
+            max-width: 35%;
+        }
+    }
 </style>
