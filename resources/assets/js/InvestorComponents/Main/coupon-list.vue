@@ -11,14 +11,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-12 col-md-6">
                     <div class="form-group">
                         <a class="btn-grey w-100 no-margin" href="/investor/coupons/create">Генерация купонов</a>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="form-group">
-                        <button class="btn-grey w-100 no-margin">Статистика купонов</button>
                     </div>
                 </div>
             </div>
@@ -81,13 +76,19 @@
                         <span class="line-item status">Комиссия /статус</span>
                     </div>
 
-                <div v-for="item in filteredList" :class="{
-                    'line active': item.status === 3,
-                    'line sale': item.status === 2,
-                    'line free': item.status === 1,
-                    }">
-                        <div class="coupons-checkbox">
-                            <input type="checkbox" :value="item.id" v-model="checkedCoupons">
+                <div v-for="item in filteredList"
+                    :class="[{active: item.status === 3,
+                        sale: item.status === 2,
+                        free: item.status === 1},
+                        'line']">
+                        <div class="line-item coupons-checkbox">
+                            <label class="label-checkbox">
+                                <input type="lacheckbox" v-model="checkedCoupons" value="item.id" class="hidden-checkbox">
+
+
+
+                                <span class="label-check"></span>
+                            </label>
                         </div>
                         <div class="line-item number">
                             <div class="hidden-head-text">№</div>
