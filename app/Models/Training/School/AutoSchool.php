@@ -33,7 +33,7 @@ class AutoSchool extends Model
         'director_id',
         'investor_id',
         'logo',
-        'commission'
+        'commission',
     ];
 
     /**

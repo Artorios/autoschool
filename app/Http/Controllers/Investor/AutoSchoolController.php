@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Investor;
 
+use App\Models\Training\School\AutoSchoolInfo;
 use DB;
 use Auth;
 use App\Http\Controllers\Controller;
@@ -65,12 +66,24 @@ class AutoSchoolController extends Controller
     public function changeInfoAboutAutoSchool(Request $request)
     {
         try {
-            AutoSchool::where('id', $request->id)->update([
-                'commission' => $request->commission
-            ]);
+            DB::transaction(function () use ($request) {
+                AutoSchoolInfo::updateOrCreate(['auto_school_id' => $request->input('auto_school_id')],
+                    $request->except([
+                        'count_student',
+                        'coupons_active',
+                        'coupons_passive',
+                    ]));
+
+                AutoSchool::findOrFail($request->get('auto_school_id'))
+                    ->update([
+                        'commission' => $request->get('commission'
+                    )]);
+            });
+
             return response()->json(['status' => 1], 201);
-        } catch (\Exception $exception) {
-            return response()->json(['status' => 0], 400);
+
+        } catch (\Throwable $e) {
+            return response()->json(['status' => 1], 400);
         }
     }
 }
