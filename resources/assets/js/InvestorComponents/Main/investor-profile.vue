@@ -7,12 +7,11 @@
                 </div>
                 <div class="profile-info-block">
                         <h3 class="profile-info-title">{{ investor.name }}</h3>
-                    <div>
+
                         <a href="/logout" class="btn-grey btn-exit profile-btn-exit">
                             <i class="fa fa-power-off" aria-hidden="true"></i>
                             Выход
                         </a>
-                    </div>
                 </div>
             </div>
             <div class="requsites clearfix">
