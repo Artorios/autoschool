@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class User
  * @package App\Models\User
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {

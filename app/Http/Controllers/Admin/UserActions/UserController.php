@@ -75,5 +75,31 @@ class UserController extends Controller
 
     }
 
+    public function listStudents()
+    {
+        return view('admin.students.index');
+    }
 
+    public function getListStudents()
+    {
+        $data = AutoSchool::join('auto_school_groups', 'auto_schools.id', '=', 'auto_school_groups.auto_school_id')
+            ->join('users', 'auto_school_groups.id', '=', 'users.auto_school_group_id')
+            ->join('cities', 'users.city_id', '=', 'cities.id')
+            ->leftjoin('coupons', 'users.id', '=', 'coupons.student_id')
+            ->select(['*',
+                'users.name as studentName',
+                'users.second_name as studentSecondName',
+                'users.last_name as studentLastName',
+                'cities.name as cityName',
+                'auto_schools.title as AutoschoolName',
+                'auto_school_groups.name as AutoschoolGroupName',
+                'users.phone as UserPhone',
+                'users.email as UserEmail',
+                'coupons.status as CuponStatus',
+            ])
+            ->get();
+        return response()->json([
+            'data' => $data
+        ], 201);
+    }
 }
