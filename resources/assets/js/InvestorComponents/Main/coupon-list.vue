@@ -1,27 +1,24 @@
 <template>
     <div>
-        <div class="blockgroupe" v-if="list.length">
+        <div class="blockgroupe">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <select name="" id="" class="select">
-                            <option value="all">Все(25)</option>
+                        <select v-model="itemsPerPage" class="select">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>50</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-12 col-md-6">
                     <div class="form-group">
                         <a class="btn-grey w-100 no-margin" href="/investor/coupons/create">Генерация купонов</a>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3">
-                    <div class="form-group">
-                        <button class="btn-grey w-100 no-margin">Статистика купонов</button>
-                    </div>
-                </div>
             </div>
 
-            <div class="search-form blockforms finance">
+            <div class="search-form blockforms finance" v-if="list.length">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
@@ -64,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="coupon-table">
+            <div class="coupon-table" v-if="list.length">
                 <div class="table-wrapper">
                     <div class="title-line line">
                         <span class="line-item coupons-checkbox"></span>
@@ -79,17 +76,17 @@
                         <span class="line-item status">Комиссия /статус</span>
                     </div>
 
-                    <div v-for="item in filteredList"
-                            :class="[{active: item.status === 3,
-                                   sale: item.status === 2,
-                                   free: item.status === 1},
-                                   'line']">
+                <div v-for="item in pagination()"
+                    :class="[{active: item.status === 3,
+                        sale: item.status === 2,
+                        free: item.status === 1},
+                        'line']">
                         <div class="line-item coupons-checkbox">
                             <label class="label-checkbox">
                                 <input type="checkbox"
-                                        :value="item.id"
-                                        v-model="checkedCoupons"
-                                        class="hidden-checkbox">
+                                       v-model="checkedCoupons"
+                                       :value="item.id"
+                                       class="hidden-checkbox">
                                 <span class="label-check"></span>
                             </label>
                         </div>
@@ -133,17 +130,13 @@
                         <div class="line-item generate-date">
                             <div class="hidden-head-text">Дата генерации</div>
                             <div class="line-item-content">
-                                <a href="">
-                                    {{ item.date.generation }}
-                                </a>
+                                {{ item.date.generation }}
                             </div>
                         </div>
                         <div class="line-item activate-date">
                             <div class="hidden-head-text">Дата активации</div>
                             <div class="line-item-content">
-                                <a href="">
-                                    {{ item.date.activation }}
-                                </a>
+                                {{ item.date.activation }}
                             </div>
                         </div>
                         <div class="line-item price">
@@ -223,24 +216,6 @@
                                             {{editDate(item.date.sale)}}
                                         </div>
                                         <div class="comment-text">
-                                            Выплата коммисии по счету 4353463467347
-                                        </div>
-                                    </div>
-                                    <div class="comment-item"
-                                            v-if="item.comment.director">
-                                        <div class="comment-info comment-autor">
-                                            director
-                                        </div>
-                                        <div class="comment-text">
-                                            {{item.comment.director}}
-                                        </div>
-                                    </div>
-                                    <div class="comment-item"
-                                            v-if="item.comment.investor">
-                                        <div class="comment-info comment-autor">
-                                            investor
-                                        </div>
-                                        <div class="comment-text">
                                             {{item.comment.investor}}
                                         </div>
                                     </div>
@@ -275,17 +250,6 @@
                                         @click="commentSave(item.id)">
                                     Выплатить
                                 </a>
-                                <div class="comment-block">
-                                    <div v-if="item.comment.coupon"
-                                            class="comment-item">
-                                        <div class="comment-info comment-date">
-                                            {{item.comment.coupon}}
-                                        </div>
-                                        <div class="comment-text">
-                                            Выплата коммисии по счету 4353463467347
-                                        </div>
-                                    </div>
-                                </div>
                                 <a class="close"
                                         @click="closePopup('active'+item.id)">
                                 </a>
@@ -311,7 +275,7 @@
                                         Отмечено
                                         <span class="text-bold">{{ checkedCoupons.length }}</span>
                                         из
-                                        <span class="text-bold">{{list.length}}</span>
+                                        <span class="text-bold">{{filteredList.length}}</span>
                                     </span>
                                 </div>
                             </div>
@@ -332,15 +296,15 @@
                         <span v-if="this.createErrors.coupon == true"
                                 class="coupon-error">
                           Не выбрано свободного купона<br>
-                    </span>
+                        </span>
                         <span v-if="this.createErrors.comment_investor"
                                 class="coupon-error">
                           {{this.createErrors.comment_investor[0]}}<br>
-                    </span>
+                        </span>
                         <span v-if="this.createErrors.id"
                                 class="coupon-error">
                           {{this.createErrors.id[0]}}<br>
-                    </span>
+                        </span>
                         <div class="form-inline">
                             <input type="text"
                                     v-model="data.comment_investor"
@@ -352,11 +316,27 @@
                             <a class="close" @click="closePopup('sale')"></a>
                         </div>
                     </div>
+                    <div class="blockform active " v-if="serverError">
+                        <span v-if="this.createErrors.coupon == true" class="coupon-error">Выбирите купон<br></span>
+                        <span v-if="this.createErrors.comment_investor" class="coupon-error">{{this.createErrors.comment_investor[0]}} <br></span>
+                        <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
+                        <div class="form-inline">
+                            <a class="close" @click="serverError=false"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="invitegroupe">
+                    <ul class="pagination" v-if="itemsPerPage < resultCount">
+                        <li class="page-item" v-for="pageNumber in totalPages">
+                            <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber"
+                               @click.prevent="setPage(pageNumber)">{{pageNumber}}</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div v-else>
-            Недостаточно данных
+            <div v-else>
+                Недостаточно данных
+            </div>
         </div>
     </div>
 </template>
@@ -396,6 +376,11 @@
         comment: {}
       }
     },
+    computed: {
+      totalPages: function () {
+          return Math.ceil(this.resultCount / this.itemsPerPage)
+      },
+    },
     methods: {
       filterByTitle: function () {
         this.filteredList = this.list.filter(item => {
@@ -409,6 +394,26 @@
         })
         if (this.searchDate.length <= 0) this.filteredList = this.list
       },
+      paginate(data) {
+        if (!data || data.length != data.length) {
+            return
+        }
+        this.resultCount = data.length
+        if (this.currentPage >= this.totalPages) {
+            this.currentPage = this.totalPages
+        }
+        if (this.currentPage <= 0) {
+            this.currentPage = 1
+        }
+        let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+        return data.slice(index, index + this.itemsPerPage)
+        },
+      setPage(pageNumber) {
+        this.currentPage = pageNumber
+        },
+      pagination() {
+        return this.paginate(this.filteredList);
+        },
       onPopup: function (id, status) {
         switch (status) {
           case 1:
@@ -471,7 +476,7 @@
         document.getElementById('sale').classList.remove('hidden-popup')
       },
       checkedCouponsAll (status) {
-        let checked = this.list.map(function (item) {
+        let checked = this.filteredList.map(function (item) {
           return item.id
         })
         if (status == 'true') {
@@ -514,9 +519,19 @@
           }
         })
       },
-      //todo
-      delCoupon: function (id, status) {
-        console.log(id, status)
+      delCoupon: function (coupons) {
+        this.serverError=false
+        this.data.id = coupons
+        this.$http.post('/investor/coupons/delete', this.data).then(res => {
+            if (res.status === 201) {
+                window.location.reload(true);
+            }
+        }, err => {
+            if (+err.status === 422) {
+                this.createErrors = err.data['errors']
+                this.serverError = true
+            }
+        })
       }
     },
     created () {
@@ -524,14 +539,16 @@
         .then((response) => {
           this.list = response.data.data
           this.filteredList = response.data.data
-
         })
     },
-    updated () {
-      (function ($) {
-        $('.select').selectric()
-      })(jQuery)
-    }
+    mounted () {
+      let vm = this
+      $('.select ').selectric({
+          onChange: function (element) {
+              vm.itemsPerPage = Number($(element).val())
+          },
+      })
+    },
   }
 </script>
 <style>
@@ -543,9 +560,11 @@
         display: none;
     }
 
+    .coupon-error {
+        color: red;
+    }
+
     .form-error {
         border-color: red;
     }
-
-
 </style>

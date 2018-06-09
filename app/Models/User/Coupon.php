@@ -4,10 +4,14 @@ namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User\Traits\Relationship\CouponRelationship;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Coupon extends Model
 {
     use CouponRelationship;
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'investor_id',
