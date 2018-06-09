@@ -35,23 +35,25 @@ class LessonController extends Controller
         }
 
         $user = Auth::user();
+
         if (!$user->lessons()->where('license', Auth::user()->license)->count()) {
-            $lesson = Lesson::with('videos')->where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC' )->first();
 
-            $user->lessonsVideos()->attach($lesson->videos);
+            if ($lesson = Lesson::with('videos')->where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC')->first()) {
+                $user->lessonsVideos()->attach($lesson->videos);
+                //we can't attach lesson to user in this step. this should be after exam
+                $user->lessons()->attach(['lesson_id' => $lesson->id]);
 
-            $user->lessons()->attach(['lesson_id' => $lesson->id]);
-
-            if($this->checkIfUserPaid($user)) {
-                return $this->getDemoLesson();
+                if ($this->checkIfUserPaid($user)) {
+                    return $this->getDemoLesson();
+                }
             }
         }
 
-        if($this->checkIfUserPaid($user)) {
+        if ($this->checkIfUserPaid($user)) {
             return $this->getDemoLesson();
         }
 
-        $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC' )->get();
+        $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC')->get();
 //        $lessons = Lesson::all();
 
         $user_lessons = $user->lessons;
@@ -224,10 +226,10 @@ class LessonController extends Controller
     public function getCountLesson()
     {
         $user = Auth::user();
-        $count = UserLesson::where('user_id', $user->id)->select(['user_id', 'lesson_id'])->groupBy(['user_id', 'lesson_id'])->get()->toArray();
+        $count = UserLesson::where('user_id', $user->id)->where('done', 1)->get()->count();
         $all_lessons = Lesson::all()->count();
 
-        return response()->json(['done_lessons' => count($count), 'all_lessons' => $all_lessons], 202);
+        return response()->json(['done_lessons' => $count, 'all_lessons' => $all_lessons], 202);
     }
 
     /**
@@ -364,7 +366,7 @@ class LessonController extends Controller
 
     private function getDemoLesson()
     {
-        $lesson = Lesson::where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC' )->first();
+        $lesson = Lesson::where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC')->first();
         return view('account.lessons.demo', compact('lesson'));
     }
 }
