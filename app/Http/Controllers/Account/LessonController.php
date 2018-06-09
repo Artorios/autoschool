@@ -16,6 +16,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class LessonController
@@ -40,7 +41,6 @@ class LessonController extends Controller
 
             if ($lesson = Lesson::with('videos')->where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC')->first()) {
                 $user->lessonsVideos()->attach($lesson->videos);
-                //we can't attach lesson to user in this step. this should be after exam
                 $user->lessons()->attach(['lesson_id' => $lesson->id]);
 
                 if ($this->checkIfUserPaid($user)) {
@@ -314,28 +314,28 @@ class LessonController extends Controller
 
     public function getCountSchoolExam()
     {
-        $user = Auth::user();
-        $groups = AutoSchoolGroup::all();
-        $days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
         $actualTime = time();
-        foreach ($groups as $group) {
-            if ($group->id === $user->auto_school_group_id) {
-                $date = $group->exam_date;
-                $time = $group->exam_time;
-                $tempLeftDay = strtotime($date) - $actualTime;
-                if ($tempLeftDay > 0) {
-                    $tempDate = explode('-', $date);
-                    $tempTime = explode(':', $time);
-                    $tempDay = strftime("%w", strtotime($date));
-                    $date = $tempDate['2'] . '.' . $tempDate['1'] . '.' . $tempDate['0'];
-                    $time = $tempTime['0'] . ':' . $tempTime['1'];
-                    $day = $days[$tempDay];
-                    $leftDay = floor($tempLeftDay / 86400);
-                }
-            }
-        }
+        $days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
 
-        return response()->json(['date' => $date, 'time' => $time, 'day' => $day, 'leftDay' => $leftDay]);
+        if($userGroup = Auth::user()->autoschoolgroup){
+            $date = $userGroup->exam_date;
+            $time = $userGroup->exam_time;
+            $tempLeftDay = strtotime($date) - $actualTime;
+
+            if ($tempLeftDay > 0) {
+                $tempDate = explode('-', $date);
+                $tempTime = explode(':', $time);
+                $tempDay = strftime("%w", strtotime($date));
+                $date = $tempDate['2'] . '.' . $tempDate['1'] . '.' . $tempDate['0'];
+                $time = $tempTime['0'] . ':' . $tempTime['1'];
+                $day = $days[$tempDay];
+                $leftDay = floor($tempLeftDay / 86400);
+            } else {
+                return response()->json(['status' => 0], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+            return response()->json(['date' => $date, 'time' => $time, 'day' => $day, 'leftDay' => $leftDay]);
+        }
+        return response()->json(['status' => 0], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function getGroupLessons(Request $request)
