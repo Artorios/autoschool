@@ -24,6 +24,10 @@ Route::group([
         Route::get('/', 'CouponsController@index')->name('coupons.index');
         Route::get('create', 'CouponsController@create')->name('coupons.create');
         Route::post('create', 'CouponsController@store')->name('coupons.store');
+        Route::post('sell', 'CouponsController@sell');
+        Route::post('comment', 'CouponsController@comment');
+        Route::post('canceled', 'CouponsController@canceled');
+        Route::post('delete', 'CouponsController@delete');
     });
 
     Route::group(['prefix' => 'school'], function () {
