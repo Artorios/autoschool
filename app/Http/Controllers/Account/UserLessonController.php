@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Account;
 
 use App\Models\Training\Processing\Answer;
-use App\Models\Training\Lesson\{Lesson, LessonsSettings};
+use App\Models\Training\Lesson\{
+    Lesson, LessonsSettings
+};
+use App\Models\User\UserLesson;
 use App\Models\User\UserLessonTraining;
 use App\Services\CheckTraining\CheckTraining;
 use Illuminate\Http\Request;
@@ -28,11 +31,11 @@ class UserLessonController extends Controller
 
         $user_training = $user->lessonsTrainings()->where([
             'lesson_id' => $lesson->id,
-            'type'      => 'training',
-            'status'    => 'stop',
+            'type' => 'training',
+            'status' => 'stop',
         ])->first();
 
-        if ( ! $user_training) {
+        if (!$user_training) {
             $user_training = $user->lessonsTrainings()->create(['lesson_id' => $lesson->id, 'type' => 'training', 'status' => 'stop']);
         } else {
             $done_questions = $user_training->questions()->get()->pluck('question_id');
@@ -45,14 +48,14 @@ class UserLessonController extends Controller
         }
 
         $settings_training = LessonsSettings::where('key', 'training_time')->first();
-        $time              = (integer) $settings_training->value * count($questions) ?? count($questions) * 1;
+        $time = (integer)$settings_training->value * count($questions) ?? count($questions) * 1;
 //        $questions = $lesson->questions();
         return view('account.lessons.training', compact('questions', 'lesson', 'user_training', 'time'));
     }
 
     /**
      * @param UserLessonTraining $training
-     * @param Request            $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -84,23 +87,23 @@ class UserLessonController extends Controller
     {
         $user = Auth::user();
 
-        if ( ! $user->lessonsTrainings()->find($training->id)) {
+        if (!$user->lessonsTrainings()->find($training->id)) {
             return response()->json([], 406);
         }
         $lesson = Lesson::find($training->lesson_id);
         $response['right_count'] = $training->questions()->where('correct', 1)->count();
-        $response['all_count']   = $training->questions()->count();
-        $response['errors_num'] =  $lesson->training_errors_num;
+        $response['all_count'] = $training->questions()->count();
+        $response['errors_num'] = $lesson->training_errors_num;
 
-        if($response['right_count'] >= $response['all_count']-$response['errors_num']){
+        if ($response['right_count'] >= $response['all_count'] - $response['errors_num']) {
             $response['complete'] = 1;
-            $response['status']      = 'passed';
+            $response['status'] = 'passed';
+        } else {
+            $response['status'] = 'failed';
+            $response['complete'] = 0;
         }
-        else{
-            $response['status']      = 'failed';
 
-        }
-
+        $training->complete = $response['complete'];
         $training->status = $response['status'];
 
         $training->save();
@@ -115,11 +118,11 @@ class UserLessonController extends Controller
      */
     public function getExam(Lesson $lesson)
     {
-        $user          = Auth::user();
-        $user_exam     = $user->lessonsTrainings()->create([ 'lesson_id' => $lesson->id, 'type' => 'exam' ]);
-        $questions     = $lesson->questions()->with('answers')->inRandomOrder()->limit(20)->get();
+        $user = Auth::user();
+        $user_exam = $user->lessonsTrainings()->create(['lesson_id' => $lesson->id, 'type' => 'exam']);
+        $questions = $lesson->questions()->with('answers')->inRandomOrder()->limit(20)->get();
         $settings_exam = LessonsSettings::where('key', 'exam_time')->first();
-        $time          = (integer) $settings_exam->value * count($questions) ?? count($questions) * 1;
+        $time = (integer)$settings_exam->value * count($questions) ?? count($questions) * 1;
 
         //$time = 1;
 
@@ -128,7 +131,7 @@ class UserLessonController extends Controller
 
     /**
      * @param UserLessonTraining $training
-     * @param Request            $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -156,7 +159,7 @@ class UserLessonController extends Controller
 
     /**
      * @param UserLessonTraining $training
-     * @param Request            $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -179,31 +182,21 @@ class UserLessonController extends Controller
         $lesson = Lesson::find($training->lesson_id);
 
         $response['right_count'] = $training->questions()->where('correct', 1)->count();
-        $response['all_count'] = $lesson->questions()->count();
+        $response['all_count'] = count($request->get('lesson_ids'));
         $response['errors_num'] = $response['all_count'] - $response['right_count'];
-        if($response['all_count']<=10 && $response['errors_num'] <= 1 ){
-            $response['status'] = 'passed';
-            $response['complete'] = 1;
 
-        }
-        elseif ($response['all_count'] >10 && $response['all_count']<= 20 && $response['errors_num'] <= 2 ){
+        if (($response['all_count'] <= 10 && $response['errors_num'] <= 1) ||
+            ($response['all_count'] > 10 && $response['all_count'] <= 20 && $response['errors_num'] <= 2) ||
+            ($response['all_count'] > 20 && $response['all_count'] <= 30 && $response['errors_num'] <= 3) ||
+            ($response['all_count'] > 30 && $response['errors_num'] <= 4)) {
             $response['status'] = 'passed';
             $response['complete'] = 1;
-        }
-        elseif ($response['all_count'] >20 && $response['all_count']<= 30 && $response['errors_num'] <= 3 ){
-            $response['status'] = 'passed';
-            $response['complete'] = 1;
-        }
-        elseif ($response['all_count'] >30 && $response['errors_num'] <= 4 ){
-            $response['status'] = 'passed';
-            $response['complete'] = 1;
-        }
-        else{
+        } else {
             $response['status'] = 'failed';
         }
 
 
-
+        $training->complete = $response['complete'];
         $training->status = $response['status'];
 
         $training->save();
@@ -225,13 +218,16 @@ class UserLessonController extends Controller
         /*
          * Add new lesson for user
          */
-        $next_lesson     = $lesson->next_lesson;
+        $next_lesson = $lesson->next_lesson;
         $response_lesson = $next_lesson->id ?? false;
 
         if ($next_lesson) {
             $user->lessonsVideos()->attach($next_lesson->videos);
             $user->lessons()->attach(['lesson_id' => $next_lesson->id]);
         }
+        UserLesson::where('lesson_id', $training->lesson_id)
+            ->where('user_id', $training->user_id)
+            ->update(['done' => 1]);
 
         $response['next_lesson'] = $response_lesson;
 
@@ -247,20 +243,20 @@ class UserLessonController extends Controller
     {
         $user = Auth::user();
 
-        if ( ! $lesson->getIsGroupAttribute()) {
+        if (!$lesson->getIsGroupAttribute()) {
             return redirect('/account/lessons/' . $lesson->id);
         }
 
-        if ( ! $user_video = $user->lessonsVideos->where('lesson_id', $lesson->id)->first()) {
+        if (!$user_video = $user->lessonsVideos->where('lesson_id', $lesson->id)->first()) {
             return redirect('/account/lessons/' . $lesson->id);
         }
 
         $group_limit = 3;
-        $lessons     = Lesson::with('questions')
-                                ->where('id', '<=', $lesson->lesson_num)
-                                ->limit($group_limit)
-                                ->offset($lesson->lesson_num - $group_limit)
-                                ->get();
+        $lessons = Lesson::with('questions')
+            ->where('id', '<=', $lesson->lesson_num)
+            ->limit($group_limit)
+            ->offset($lesson->lesson_num - $group_limit)
+            ->get();
 
         $all_questions = [];
 
@@ -276,7 +272,7 @@ class UserLessonController extends Controller
         $i = 0;
         $key_array = array();
 
-        foreach($all_questions as $val) {
+        foreach ($all_questions as $val) {
             if (!in_array($val['id'], $key_array)) {
                 $key_array[$i] = $val['id'];
                 $temp_array[$i] = $val;
@@ -286,17 +282,17 @@ class UserLessonController extends Controller
 
         shuffle($temp_array);
 
-        $user_exam     = $user->lessonsTrainings()->create([ 'lesson_id' => $lesson->id, 'type' => 'group' ]);
-        $questions     = $temp_array;
+        $user_exam = $user->lessonsTrainings()->create(['lesson_id' => $lesson->id, 'type' => 'group']);
+        $questions = $temp_array;
         $settings_exam = LessonsSettings::where('key', 'exam_time')->first();
-        $time          = (integer) $settings_exam->value * count($questions) ?? count($questions) * 1;
+        $time = (integer)$settings_exam->value * count($questions) ?? count($questions) * 1;
 
         return view('account.lessons.group-exam', compact('questions', 'lessons', 'lesson', 'user_exam', 'time'));
     }
 
     /**
      * @param UserLessonTraining $training
-     * @param Request            $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -312,7 +308,7 @@ class UserLessonController extends Controller
 
         $user = Auth::user();
 
-        if ( ! $user->lessonsTrainings()->find($training->id)) {
+        if (!$user->lessonsTrainings()->find($training->id)) {
             return response()->json([], 406);
         }
 
@@ -336,7 +332,7 @@ class UserLessonController extends Controller
         /*
          * Add new lesson for user
          */
-        $next_lesson     = $lesson->next_lesson;
+        $next_lesson = $lesson->next_lesson;
         $response_lesson = $next_lesson->id ?? false;
 
         if ($next_lesson) {
