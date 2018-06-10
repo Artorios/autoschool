@@ -43,15 +43,15 @@ class LessonController extends Controller
                 $user->lessonsVideos()->attach($lesson->videos);
                 $user->lessons()->attach(['lesson_id' => $lesson->id]);
 
-                if ($this->checkIfUserPaid($user)) {
-                    return $this->getDemoLesson();
-                }
+//                if ($this->checkIfUserPaid($user)) {
+//                    return $this->getDemoLesson();
+//                }
             }
         }
 
-        if ($this->checkIfUserPaid($user)) {
-            return $this->getDemoLesson();
-        }
+//        if ($this->checkIfUserPaid($user)) {
+//            return $this->getDemoLesson();
+//        }
 
         $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC')->get();
 //        $lessons = Lesson::all();
