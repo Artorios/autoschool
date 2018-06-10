@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Models\Finance\Coupon;
 use App\Models\Training\Processing\Answer;
 use App\Models\Training\Lesson\{
     Lesson, LessonsSettings
 };
-use App\Models\User\UserLesson;
-use App\Models\User\UserLessonTraining;
+use App\Models\User\{UserLesson, UserLessonTraining};
 use App\Services\CheckTraining\CheckTraining;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Auth, Validator};
 
 /**
  * Class UserLessonController
@@ -193,6 +192,7 @@ class UserLessonController extends Controller
             $response['complete'] = 1;
         } else {
             $response['status'] = 'failed';
+            $response['complete'] = 0;
         }
 
 
@@ -218,18 +218,20 @@ class UserLessonController extends Controller
         /*
          * Add new lesson for user
          */
-        $next_lesson = $lesson->next_lesson;
-        $response_lesson = $next_lesson->id ?? false;
+        if(Coupon::where('student_id', $user->id)->first()){
+            $next_lesson = $lesson->next_lesson;
+            $response_lesson = $next_lesson->id ?? false;
 
-        if ($next_lesson) {
-            $user->lessonsVideos()->attach($next_lesson->videos);
-            $user->lessons()->attach(['lesson_id' => $next_lesson->id]);
+            if ($next_lesson) {
+                $user->lessonsVideos()->attach($next_lesson->videos);
+                $user->lessons()->attach(['lesson_id' => $next_lesson->id]);
+            }
+            $response['next_lesson'] = $response_lesson;
         }
+
         UserLesson::where('lesson_id', $training->lesson_id)
             ->where('user_id', $training->user_id)
             ->update(['done' => 1]);
-
-        $response['next_lesson'] = $response_lesson;
 
         return response()->json($response, 200);
     }
