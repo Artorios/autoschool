@@ -69,8 +69,7 @@
                 <span class="table-head-item commission-item">Комиссия</span>
                 <span class="table-head-item status-item">Статус</span>
             </div>
-            <div class="table-content">
-                <div class="table-item-row status-active"
+            <div class="table-item-row status-active"
                         data-id="1"
                         v-for="(item, index) in pagination()">
                     <div class="table-item number-item">
@@ -129,7 +128,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 

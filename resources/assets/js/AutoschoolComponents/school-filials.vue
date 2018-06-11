@@ -10,7 +10,7 @@
                     <span class="table-head-item count-item">Кол-во учеников</span>
                     <span class="table-head-item kupons-item">Купоны активные/неактивные/всего</span>
                 </div>
-                <div class="table-content">
+
                     <div class="table-item-row">
                         <div class="table-item number-item">
                             <div class="table-head-item hidden-head-text">№</div>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+
             </div>
         </div>
         <div class="invitegroupe">

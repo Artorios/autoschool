@@ -1,0 +1,42 @@
+.breadcrumbs {
+  padding: 22px 0;
+  & > ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 50px;
+    padding: 0;
+    margin: 0;
+    li {
+      color: #333;
+      font-size: 13px;
+      display: inline-block;
+      line-height: 22px;
+      &:last-child {
+        &:after {
+          display: none;
+        }
+      }
+      &:after {
+        content: '/';
+        display: inline-block;
+        margin: 0 5px 0 8px;
+      }
+      a {
+        color: #333;
+      }
+    }
+  }
+}
+@media (max-width: 767px) {
+  .breadcrumbs {
+    line-height: normal;
+    padding: 15px 20px;
+    ul {
+      margin-bottom: 0;
+      padding: 0;
+      min-height: auto;
+    }
+  }
+}

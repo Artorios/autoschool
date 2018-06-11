@@ -51,8 +51,7 @@
                     </div>
                 </div>
                 @foreach($filials as $filial)
-                    <div class="table-content">
-                        <div class="table-item-row">
+                    <div class="table-item-row">
                             <div class="table-item number-item">
                                 <div class="table-head-item hidden-head-text">№</div>
                                 <div class="table-item-content">
@@ -98,7 +97,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 @endforeach
             </div>
         </div>
