@@ -257,39 +257,34 @@
                         </div>
                     </div>
 
-                    <div class="blockform blockform-bottom active">
-                        <div class="form-inline">
-                            <div class="info">
-                                <label class="label-checkbox">
-                                    <input type="checkbox"
-                                            true-value="false"
-                                            false-value="true"
-                                            v-model="checkedAll"
-                                            @click="checkedCouponsAll(checkedAll)"
-                                            class="hidden-checkbox">
-                                    <span class="label-check"></span>
-                                </label>
-                                <div class="check-info-block">
-                                    <span class="check-text">Для всех</span>
-                                    <span class="check-info">
-                                        Отмечено
-                                        <span class="text-bold">{{ checkedCoupons.length }}</span>
-                                        из
-                                        <span class="text-bold">{{filteredList.length}}</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="btn-block">
-                                <a class="btn-grey" @click="anull(checkedCoupons)">
-                                    Анулировать
-                                </a>
-                                <a class="btn-grey" @click="sellPopup">
-                                    Продать
-                                </a>
-                                <a class="btn-grey" @click="delCoupon">
-                                    Удалить
-                                </a>
-                            </div>
+                    <div class="check-all-block">
+                        <div class="check-all-input-block">
+                            <label class="label-checkbox-with-text">
+                                <input type="checkbox"
+                                        true-value="false"
+                                        false-value="true"
+                                        v-model="checkedAll"
+                                        @click="checkedCouponsAll(checkedAll)"
+                                        class="hidden-checkbox">
+                                <span class="label-check-text">Для всех</span>
+                            </label>
+                        </div>
+                        <div class="check-all-text">
+                            Отмечено
+                            <span class="text-bold">{{ checkedCoupons.length }}</span>
+                            из
+                            <span class="text-bold">{{filteredList.length}}</span>
+                        </div>
+                        <div class="button-block">
+                            <a class="btn-grey" @click="anull(checkedCoupons)">
+                                Анулировать
+                            </a>
+                            <a class="btn-grey" @click="sellPopup">
+                                Продать
+                            </a>
+                            <a class="btn-grey" @click="delCoupon">
+                                Удалить
+                            </a>
                         </div>
                     </div>
                     <div id="sale" class="blockform blockform-error hidden-popup">

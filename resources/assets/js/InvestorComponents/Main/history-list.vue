@@ -86,7 +86,7 @@
             <div class="check-all-text">
                 Отмечено <span class="text-bold">1000</span> из <span class="text-bold">1000</span>
             </div>
-            <div class="button-block">
+            <div class="button-block button-block-with-select">
                 <a type="text" class="btn-grey">Анулировать</a>
                 <a type="text" class="btn-grey">Удалить</a>
                 <div class="select-block">
