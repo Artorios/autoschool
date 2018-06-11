@@ -27,8 +27,10 @@
                     <div class="table-item name-filial-item">
                         <div class="table-head-item hidden-head-text">Название филиала</div>
                         <div class="table-item-content">
-                            <a :href="'/autoschool/filials/new'">Нераспределённые</a>
-
+                            <a :href="'/autoschool/filials/new'"
+                                class="table-item-link text-underline">
+                                Нераспределённые
+                            </a>
                         </div>
                     </div>
                     <div class="table-item address-filial-item">
