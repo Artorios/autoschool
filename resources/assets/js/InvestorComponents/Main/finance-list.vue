@@ -58,40 +58,79 @@
             </div>
         </div>
 
-        <table class="table manage-grid">
-            <thead>
-            <tr class="visible-md visible-lg">
-                <th>№</th>
-                <th>Автошкола/ID</th>
-                <th>ФИО ученика/Группа</th>
-                <th>Тип оплаты</th>
-                <th>Дата оплаты</th>
-                <th>Сумма</th>
-                <th>Комиссия</th>
-                <th>Статус</th>
-            </tr>
-            </thead>
-            <tbody class="main">
-            <tr data-id="1" class="visible-md visible-lg status-active" v-for="(item, index) in pagination()">
-                <td v-text="++index"></td>
-                <td>
-                    <a class="school-name">{{ item.title }}</a>
-                    <span class="school-id">{{ item.AutoSchoolId }}</span>
-                </td>
-                <td>
-                    <span class="student-name" v-text="getFullName(item)"></span>
-                    <span class="group-number">Группа
-                        <a href="javascript:">{{ item.GroupName }}</a>
-                    </span>
-                </td>
-                <td v-text="item.payment_option"></td>
-                <td v-text="getDate(item)"></td>
-                <td><span class="bold big">{{ item.amount }}</span></td>
-                <td><a class="bold big" href="javascript:">?</a></td>
-                <td><a href="javascript:" class="status">Оплаченно</a></td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="table-block table-filial-autoschool-finance table-block-without-title">
+            <div class="table-head">
+                <span class="table-head-item number-item">№</span>
+                <span class="table-head-item school-item">Автошкола/ID</span>
+                <span class="table-head-item name-group-item">ФИО ученика/Группа</span>
+                <span class="table-head-item pay-item">Тип оплаты</span>
+                <span class="table-head-item date-item">Дата оплаты</span>
+                <span class="table-head-item sum-item">Сумма</span>
+                <span class="table-head-item commission-item">Комиссия</span>
+                <span class="table-head-item status-item">Статус</span>
+            </div>
+            <div class="table-content">
+                <div class="table-item-row status-active"
+                        data-id="1"
+                        v-for="(item, index) in pagination()">
+                    <div class="table-item number-item">
+                        <div class="table-head-item hidden-head-text">№</div>
+                        <div class="table-item-content">
+                            <span v-text="++index"></span>
+                        </div>
+                    </div>
+                    <div class="table-item school-item">
+                        <div class="table-head-item hidden-head-text">Автошкола/ID</div>
+                        <div class="table-item-content">
+                            <a href="#" class="school-name table-item-link text-underline">{{ item.title }}</a>
+                            <span class="school-id">{{ item.AutoSchoolId }}</span>
+                        </div>
+                    </div>
+                    <div class="table-item name-group-item">
+                        <div class="table-head-item hidden-head-text">ФИО ученика/Группа</div>
+                        <div class="table-item-content">
+                            <span class="student-name" v-text="getFullName(item)"></span>
+                            <span class="group-number">Группа
+                                <a class="table-item-link text-underline"
+                                   href="javascript:">
+                                    {{ item.GroupName }}
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-item pay-item">
+                        <div class="table-head-item hidden-head-text">Тип оплаты</div>
+                        <div class="table-item-content">
+                            <span v-text="item.payment_option"></span>
+                        </div>
+                    </div>
+                    <div class="table-item date-item">
+                        <div class="table-head-item hidden-head-text">Дата оплаты</div>
+                        <div class="table-item-content">
+                            <span v-text="getDate(item)"></span>
+                        </div>
+                    </div>
+                    <div class="table-item sum-item">
+                        <div class="table-head-item hidden-head-text">Сумма</div>
+                        <div class="table-item-content">
+                            <span class="text-bold">{{ item.amount }}</span>
+                        </div>
+                    </div>
+                    <div class="table-item commission-item">
+                        <div class="table-head-item hidden-head-text">Комиссия</div>
+                        <div class="table-item-content">
+                            <a class="table-item-link" href="javascript:">?</a>
+                        </div>
+                    </div>
+                    <div class="table-item status-item">
+                        <div class="table-head-item hidden-head-text">Статус</div>
+                        <div class="table-item-content">
+                            <a href="javascript:" class="table-item-link status">Оплаченно</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <h2 v-if="this.errorDelete">Выберете учеников</h2>
