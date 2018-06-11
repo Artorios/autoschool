@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
                          <select class="select user">
                                 <option selected disabled>ФИО ученика</option>
@@ -39,7 +39,7 @@
                          </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
                         <select class="select">
                             <option selected disabled>По дате</option>
@@ -48,7 +48,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="form-group">
                         <div class="data">
                             <input type="text" v-model="searchByData" placeholder="Дата">
