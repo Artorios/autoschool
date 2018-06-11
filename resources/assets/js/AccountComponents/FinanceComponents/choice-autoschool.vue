@@ -10,7 +10,7 @@
                 :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
                 :on-select="getDataSchool">
         </autocomplete>
-        <button class="btn btn-grey" @click="choice">Выбрать</button>
+        <button class="btn-grey" @click="choice">Выбрать</button>
     </div>
 
 

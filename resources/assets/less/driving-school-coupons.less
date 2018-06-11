@@ -16,7 +16,13 @@
     }
   }
 }
-
+.table-wrapper.table-coupon{
+  .line{
+    padding: 20px 10px 30px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
 .table-wrapper {
   .coupons-cheskbox {
     position: relative;
@@ -39,9 +45,6 @@
     padding: 15px 10px;
   }
   .line {
-    padding: 20px 10px 30px;
-    display: flex;
-    flex-wrap: wrap;
     .label-checkbox {
       margin: -2px 0 0 0;
     }
@@ -64,9 +67,6 @@
             }
           }
         }
-      }
-      .blockform {
-
       }
     }
     &.sale {
@@ -100,9 +100,6 @@
             }
           }
         }
-      }
-      .blockform {
-
       }
     }
     &.free {
@@ -139,9 +136,6 @@
             }
           }
         }
-      }
-      .blockform {
-
       }
     }
   }
@@ -222,6 +216,7 @@
     a {
       color: black;
       text-decoration: underline;
+      font-weight: 600;
     }
   }
   .coupons-checkbox.line-item{
@@ -352,10 +347,12 @@
 
 }
 @media only screen and (max-width: 991px){
-  .table-wrapper{
+  .table-wrapper.table-coupon{
     .title-line{
       display: none;
     }
+  }
+  .table-wrapper{
     .hidden-head-text{
       display: inline-block;
       padding: 0 0 0 40px;

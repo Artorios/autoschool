@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="coupon-table" v-if="list.length">
-                <div class="table-wrapper">
+                <div class="table-wrapper table-coupon">
                     <div class="title-line line">
                         <span class="line-item coupons-checkbox"></span>
                         <span class="line-item number">№</span>
