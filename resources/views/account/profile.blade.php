@@ -59,20 +59,20 @@
             <h4>Смените пароль:</h4>
             <span>Внимание! Пароль должен содержать цифру, заглавную и строчную букву и иметь длинну от 8 до 25 символов</span>
 
-            <form id="form_change_pass" >
+            <form id="form_change_pass" method="post" action="{{ route('password.create') }}">
                 <div class="inform"></div>
                 <input type="hidden" value="{!! csrf_token() !!}" name="_token">
                 <div class="form-group">
-                    <label>Старый пароль</label>
-                    <input type="password" name="old_password">
+                    <label for="oldPassword">Старый пароль</label>
+                    <input type="password" name="old_password" id="oldPassword">
                 </div>
                 <div class="form-group">
-                    <label>Новый пароль</label>
-                    <input type="password" name="new_password">
+                    <label for="newPassword">Новый пароль</label>
+                    <input type="password" name="password" id="newPassword">
                 </div>
                 <div class="form-group">
-                    <label>Подтверждение</label>
-                    <input type="password" name="confirm_password">
+                    <label for="passwordConfirmation"l>Подтверждение</label>
+                    <input type="password" name="password_confirmation" id="passwordConfirmation">
                 </div>
                 <button type="submit" id="btn_change_pass" class="btn-grey">Сохранить изменения</button>
             </form>

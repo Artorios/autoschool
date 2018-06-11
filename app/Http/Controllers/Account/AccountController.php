@@ -2,14 +2,23 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Models\Location\City;
-use App\Models\Training\School\AutoSchool;
-use App\Models\User\User;
-use Illuminate\Http\Request;
+use App\Events\UserPasswordChangeRequestEvent;
+use App\Http\Requests\ChangePasswordRequest
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\{Auth, Hash, Storage, Validator};
-
-
+use App\Models\{
+    Location\City,
+    User\User
+};
+use App\Services\ChangePasswordService;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Mail\Mailer;
+use Illuminate\Support\Facades\{
+    Auth,
+    DB,
+    Storage,
+    Validator
+};
 /**
  * Class AccountController
  * @package App\Http\Controllers\Account
@@ -27,18 +36,18 @@ class AccountController extends Controller
     {
         $itempost = $request->except(
             'autoschool',
-                'lesson_now',
-                'last_exam',
-                'progress'
+            'lesson_now',
+            'last_exam',
+            'progress'
         );
         $itempost['auto_school_group_id'] = $itempost['autoschoolgroup']['id'];
         unset($itempost['autoschoolgroup']);
         $validator = Validator::make($itempost, [
-            'name' => 'required|string|min:3',
+            'name'      => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
-            'phone' => 'required',
-            'city_id' => 'required',
-            'license' => 'required'
+            'phone'     => 'required',
+            'city_id'   => 'required',
+            'license'   => 'required'
         ]);
         if (count($validator->errors())) {
             return response()->json(['status' => 0], 400);
@@ -62,31 +71,31 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updatePassword(Request $request, User $user)
-    {
-        $password = $request->input('password');
-        $newPassword = $request->input('new_password');
-        $newPassword = bcrypt($newPassword);
-        $userNow = Auth::user();
-        $oldPassword = $user->select('password')->where(['id' => $userNow['id']])->firstOrFail();
-
-        switch (Auth::user()->role) {
-            case 'admin':
-                $redirectTo = '/admin'; break; //TODO::set URL
-            case 'autoschool':
-                $redirectTo = '/autoschool/profile-edit'; break;
-            case 'user':
-                $redirectTo = '/account/edit-profile'; break;
-            case 'investor':
-                $redirectTo = '/investor/profile/edit'; break;
-        }
-        if (Hash::check($password, $oldPassword['password'])) {
-            $user->where(['id' => $userNow['id']])->update(['password' => $newPassword]);
-            return response()->json(['status' => 1, 'redirectUrl' => $redirectTo], 201);
-        } else {
-            return response()->json(['status' => 0, 'redirectUrl' => $redirectTo], 422);
-        }
-    }
+//    public function updatePassword(Request $request, User $user)
+//    {
+//        $password = $request->input('password');
+//        $newPassword = $request->input('new_password');
+//        $newPassword = bcrypt($newPassword);
+//        $userNow = Auth::user();
+//        $oldPassword = $user->select('password')->where(['id' => $userNow['id']])->firstOrFail();
+//
+//        switch (Auth::user()->role) {
+//            case 'admin':
+//                $redirectTo = '/admin'; break; //TODO::set URL
+//            case 'autoschool':
+//                $redirectTo = '/autoschool/profile-edit'; break;
+//            case 'user':
+//                $redirectTo = '/account/edit-profile'; break;
+//            case 'investor':
+//                $redirectTo = '/investor/profile/edit'; break;
+//        }
+//        if (Hash::check($password, $oldPassword['password'])) {
+//            $user->where(['id' => $userNow['id']])->update(['password' => $newPassword]);
+//            return response()->json(['status' => 1, 'redirectUrl' => $redirectTo], 201);
+//        } else {
+//            return response()->json(['status' => 0, 'redirectUrl' => $redirectTo], 422);
+//        }
+//    }
 
     /**
      * @param Request $request
@@ -94,7 +103,8 @@ class AccountController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function editNotifySettings(Request $request){
+    public function editNotifySettings(Request $request)
+    {
         User::where(['id' => $request->input('id')])->update(['email_notice' => $request->input('email_notice')]);
         User::where(['id' => $request->input('id')])->update(['sms_notice' => $request->input('sms_notice')]);
         return response()->json(['status' => 1], 204);
@@ -142,5 +152,62 @@ class AccountController extends Controller
         $user = Auth::user();
         return view('account.profile.index', compact('cities', 'user'));
 
+    }
+
+    /**
+     * @param ChangePasswordRequest $request
+     * @param Mailer $mailer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createPassword(ChangePasswordRequest $request)
+    {
+        $token = str_random();
+
+        DB::table('password_resets')->insert([
+            'email'      => Auth::user()->email,
+            'token'      => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        $url = [url('/')];
+        $url[] = '/change-password';
+        $url[] = '/' . encrypt($token);
+        $url[] = '/' . encrypt($request->get('password'));
+
+        event(new UserPasswordChangeRequestEvent(implode($url), Auth::user()->email));
+
+        session()->flash('pass_message', 'Check email in order to change password');
+        session()->flash('pass_class', 'success');
+
+        return back();
+    }
+
+    /**
+     * @param string $token
+     * @param string $password
+     * @param Mailer $mailer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(string $token, string $password)
+    {
+        $instance = DB::table('password_resets')->where('token', decrypt($token))->first();
+
+        session()->flash('pass_message', 'Date expired');
+        session()->flash('pass_class', 'danger');
+
+        if (Carbon::parse($instance->created_at)->addHour() > Carbon::now()) {
+
+            $passwordChanged = app(ChangePasswordService::class, [
+                    'password' => decrypt($password),
+                    'user'     => User::where('email', $instance->email)->first()]
+            )->changeUserPassword();
+
+            if ($passwordChanged) {
+                session()->flash('pass_message', 'Password changed');
+                session()->flash('pass_class', 'success');
+            }
+        }
+
+        return redirect()->route('home');
     }
 }
