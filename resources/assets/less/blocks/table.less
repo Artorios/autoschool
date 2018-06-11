@@ -1,0 +1,216 @@
+.table-block-without-title{
+  margin: 25px 0 0 0;
+}
+.table-head{
+  background-color: #ebebeb;
+  padding: 10px;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.table-head-item{
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+  padding: 0 0 0 10px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.table-head-item.number-item{
+  padding: 0;
+}
+.table-item-row{
+  display: flex;
+  align-items: flex-start;
+  padding: 20px 10px;
+  border-bottom: 1px solid #ccc;
+  flex-wrap: wrap;
+}
+.table-item{
+  padding: 0 0 0 10px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.table-item.number-item{
+  padding: 0;
+}
+.number-item{
+  flex: 0 0 4%;
+  max-width: 4%;
+}
+.id-item{
+  flex: 0 0 19%;
+  max-width: 19%;
+}
+.filial-item{
+  flex: 0 0 21%;
+  max-width: 21%;
+}
+.city-item{
+  flex: 0 0 21%;
+  max-width: 21%;
+}
+.coupon-item{
+  flex: 0 0 13.2%;
+  max-width: 13.2%;
+}
+.commission-item{
+  flex: 0 0 10.9%;
+  max-width: 10.9%;
+}
+.sum-item{
+  flex: 0 0 10.9%;
+  max-width: 10.9%;
+}
+.table-item-text{
+  font-size: 14px;
+  color: #333;
+}
+.table-item-link{
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  transition: color 0.1s ease-in-out;
+}
+.table-item-link:hover{
+  color: red;
+}
+.text-bold{
+  font-weight: bold;
+}
+.text-big{
+  font-size: 16px;
+}
+.text-underline{
+  text-decoration: underline;
+}
+.hidden-head-text{
+  display: none;
+}
+.icon-in-table{
+  color: #999;
+  margin: 0 5px 0 0;
+}
+@media only screen and (max-width: 1199px){
+  .number-item{
+    flex: 0 0 6%;
+    max-width: 6%;
+  }
+  .coupon-item{
+    flex: 0 0 13%;
+    max-width: 13%;
+  }
+  .filial-item{
+    flex: 0 0 19%;
+    max-width: 19%;
+  }
+  .city-item{
+    flex: 0 0 19%;
+    max-width: 19%;
+  }
+  .commission-item{
+    flex: 0 0 12%;
+    max-width: 12%;
+  }
+  .sum-item{
+    flex: 0 0 12%;
+    max-width: 12%;
+  }
+}
+@media only screen and (max-width: 991px){
+  .number-item{
+    flex: 0 0 6%;
+    max-width: 6%;
+  }
+  .filial-item{
+    flex: 0 0 18.5%;
+    max-width: 18.5%;
+  }
+  .city-item{
+    flex: 0 0 18.5%;
+    max-width: 18.5%;
+  }
+  .commission-item{
+    flex: 0 0 12.5%;
+    max-width: 12.5%;
+  }
+  .sum-item{
+    flex: 0 0 12.5%;
+    max-width: 12.5%;
+  }
+  .table-head-item{
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 767px){
+  .blockgroupe{
+    padding: 0 20px;
+  }
+  .table-head{
+    display: none;
+  }
+  .table-head-item{
+    font-size: 14px;
+  }
+  .hidden-head-text{
+    display: block;
+    padding: 0 10px 0 0;
+    flex: 0 0 35%;
+    max-width: 35%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  .table-item-content{
+    flex: 0 0 65%;
+    max-width: 65%;
+  }
+  .table-item.number-item {
+    padding: 5px 3px;
+  }
+  .table-item{
+    padding: 5px 3px;
+    margin: 0 0 5px 0;
+    display: flex;
+  }
+  .table-item:nth-child(odd){
+    background-color: #fafafa;
+  }
+  .table-item-row{
+    padding: 10px 0 20px;
+    margin-bottom: 20px;
+  }
+  .table-item-row:last-child{
+    margin-bottom: 0;
+  }
+  .number-item{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .id-item{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .filial-item{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .city-item{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .coupon-item{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .commission-item{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .sum-item{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

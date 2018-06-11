@@ -46,8 +46,7 @@
                 <div class="table-head-item table-item-operation">Вид операции</div>
                 <div class="table-head-item city-item">Комментарий</div>
             </div>
-            <div class="table-content">
-                <div class="table-item-row"
+            <div class="table-item-row"
                         data-id="1"
                         v-for="item in filteredList">
                     <div class="table-item number-item">
@@ -75,7 +74,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         <div class="check-all-block">
             <div class="check-all-input-block">
