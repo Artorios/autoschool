@@ -2,7 +2,7 @@
     <div class="content demo-lesson">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="/">Главная</a></li>
+                <li><a href="/account">Главная</a></li>
                 <li><a href="/account/lessons">Уроки</a></li>
                 <li>Урок № {{lesson.lesson_num + ' ' + lesson.title}}</li>
             </ul>

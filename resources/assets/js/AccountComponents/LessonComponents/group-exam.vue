@@ -20,7 +20,7 @@
             <p v-if="!trainDone">К сожалению, вы не сдали групповой зачёт. Допускается совершить не более одной ошибки. Попробуйте пересдать зачёт через час. Перед этим рекомендуем снова просмотреть соответствующие уроки и пройти тренировки.</p>
             <p v-if="!trainDone"><a :href="'/account/lessons/group-exam/' + lesson.id">Попробовать еще раз?</a></p>
             <a :href="'/account/lessons/analysis/' + userGroupExam.id">Перейти к разбору ошибок</a>
-            <!--<a :href="'/account/lessons/' + nextLesson" v-if="nextLesson">Перейти к новому уроку</a>-->
+            <a :href="'/account/lessons/' + nextLesson" v-if="nextLesson">Перейти к новому уроку</a>
         </div>
 
     </div>

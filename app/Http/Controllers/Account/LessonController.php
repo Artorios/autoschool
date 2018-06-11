@@ -16,6 +16,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class LessonController
@@ -35,23 +36,24 @@ class LessonController extends Controller
         }
 
         $user = Auth::user();
+
         if (!$user->lessons()->where('license', Auth::user()->license)->count()) {
-            $lesson = Lesson::with('videos')->where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC' )->first();
 
-            $user->lessonsVideos()->attach($lesson->videos);
+            if ($lesson = Lesson::with('videos')->where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC')->first()) {
+                $user->lessonsVideos()->attach($lesson->videos);
+                $user->lessons()->attach(['lesson_id' => $lesson->id]);
 
-            $user->lessons()->attach(['lesson_id' => $lesson->id]);
-
-            if($this->checkIfUserPaid($user)) {
-                return $this->getDemoLesson();
+//                if ($this->checkIfUserPaid($user)) {
+//                    return $this->getDemoLesson();
+//                }
             }
         }
 
-        if($this->checkIfUserPaid($user)) {
-            return $this->getDemoLesson();
-        }
+//        if ($this->checkIfUserPaid($user)) {
+//            return $this->getDemoLesson();
+//        }
 
-        $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC' )->get();
+        $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC')->get();
 //        $lessons = Lesson::all();
 
         $user_lessons = $user->lessons;
@@ -224,10 +226,10 @@ class LessonController extends Controller
     public function getCountLesson()
     {
         $user = Auth::user();
-        $count = UserLesson::where('user_id', $user->id)->select(['user_id', 'lesson_id'])->groupBy(['user_id', 'lesson_id'])->get()->toArray();
+        $count = UserLesson::where('user_id', $user->id)->where('done', 1)->get()->count();
         $all_lessons = Lesson::all()->count();
 
-        return response()->json(['done_lessons' => count($count), 'all_lessons' => $all_lessons], 202);
+        return response()->json(['done_lessons' => $count, 'all_lessons' => $all_lessons], 202);
     }
 
     /**
@@ -312,28 +314,28 @@ class LessonController extends Controller
 
     public function getCountSchoolExam()
     {
-        $user = Auth::user();
-        $groups = AutoSchoolGroup::all();
-        $days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
         $actualTime = time();
-        foreach ($groups as $group) {
-            if ($group->id === $user->auto_school_group_id) {
-                $date = $group->exam_date;
-                $time = $group->exam_time;
-                $tempLeftDay = strtotime($date) - $actualTime;
-                if ($tempLeftDay > 0) {
-                    $tempDate = explode('-', $date);
-                    $tempTime = explode(':', $time);
-                    $tempDay = strftime("%w", strtotime($date));
-                    $date = $tempDate['2'] . '.' . $tempDate['1'] . '.' . $tempDate['0'];
-                    $time = $tempTime['0'] . ':' . $tempTime['1'];
-                    $day = $days[$tempDay];
-                    $leftDay = floor($tempLeftDay / 86400);
-                }
-            }
-        }
+        $days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
 
-        return response()->json(['date' => $date, 'time' => $time, 'day' => $day, 'leftDay' => $leftDay]);
+        if($userGroup = Auth::user()->autoschoolgroup){
+            $date = $userGroup->exam_date;
+            $time = $userGroup->exam_time;
+            $tempLeftDay = strtotime($date) - $actualTime;
+
+            if ($tempLeftDay > 0) {
+                $tempDate = explode('-', $date);
+                $tempTime = explode(':', $time);
+                $tempDay = strftime("%w", strtotime($date));
+                $date = $tempDate['2'] . '.' . $tempDate['1'] . '.' . $tempDate['0'];
+                $time = $tempTime['0'] . ':' . $tempTime['1'];
+                $day = $days[$tempDay];
+                $leftDay = floor($tempLeftDay / 86400);
+            } else {
+                return response()->json(['status' => 0], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+            return response()->json(['date' => $date, 'time' => $time, 'day' => $day, 'leftDay' => $leftDay]);
+        }
+        return response()->json(['status' => 0], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function getGroupLessons(Request $request)
@@ -364,7 +366,7 @@ class LessonController extends Controller
 
     private function getDemoLesson()
     {
-        $lesson = Lesson::where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC' )->first();
+        $lesson = Lesson::where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC')->first();
         return view('account.lessons.demo', compact('lesson'));
     }
 }

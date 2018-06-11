@@ -17,7 +17,7 @@
             Вы {{trainDone ? 'сдали' : 'не сдали'}}  зачет.
             <p v-if="!trainDone"><a :href="'/account/lessons/exam/' + lesson.id">Попробовать еще раз?</a></p>
             <a :href="'/account/lessons/analysis/' + userExam.id">Перейти к разбору ошибок</a>
-            <!--<a :href="'/account/lessons/' + nextLesson" v-if="nextLesson">Перейти к новому уроку</a>-->
+            <a :href="'/account/lessons/' + nextLesson" v-if="nextLesson">Перейти к новому уроку</a>
             <a :href="'/account/lessons/group-exam/' + lesson.id" v-if="nextGroupExam">Перейти к групповому зачету</a>
         </div>
 

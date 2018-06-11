@@ -1,6 +1,6 @@
 <template>
 
-    <form v-on:submit.prevent="editing">
+    <form>
         <p class="error" style="color: red" v-if="serverError">Произошла ошибка при изменении данных</p>
         <div class="form-group">
             <label>Имя пользователя:</label>
@@ -36,7 +36,6 @@
                 <option value="C" :selected="userdata.license == 'C'">C</option>
             </select>
         </div>
-        <button type="submit" class="btn-grey">Сохранить изменения</button>
     </form>
 </template>
 <script type="text/babel">

@@ -12,7 +12,7 @@
 */
 
 use App\Models\Location\City;
-use App\Models\User\UserLesson;
+use App\Models\User\UserLessonVideo;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'HomeController@index');
@@ -51,16 +51,16 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::get('/get-count-lesson', function () {
         $user = Auth::user();
 
-        $count = UserLesson::where('user_id', $user->id)->select(['user_id', 'lesson_id'])->groupBy(['user_id', 'lesson_id'])->get()->toArray();
+        $count = UserLessonVideo::where('user_id', $user->id)->where('viewed', 1)->get()->count();
 
-        return response()->json(['count' => count($count)], 200);
+        return response()->json(['count' => $count], 200);
     });
 
     Route::get('/get-current-lesson', 'LessonController@getCurrentLesson');
     Route::get('/get-lessons', 'LessonController@getLessonsSlider');
 
 
-    Route::group(['prefix' => 'statistic'] , function () {
+    Route::group(['prefix' => 'statistic', 'middleware' => ['student']] , function () {
         Route::get('/', 'StatisticController@index')->name('user.statistic');
     });
 
@@ -127,7 +127,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     });
     Route::view('faq', 'account.faq')->name('faq');
 
-    Route::group(['prefix' => 'tickets'], function () {
+    Route::group(['prefix' => 'tickets', 'middleware' => ['student']], function () {
         Route::get('/', 'TicketsController@index')->name('account.tickets');
         Route::post('/set-show-comments', 'TicketsController@setShowAnswer');
         Route::post('/{ticket}/check', 'TicketsController@checkAnswer');
@@ -135,7 +135,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         Route::get('/{ticket}', 'TicketsController@single');
         Route::get('/analysis/{ticket}', 'TicketsController@analysis');
     });
-    Route::group(['prefix' => 'exams'], function () {
+    Route::group(['prefix' => 'exams', 'middleware' => ['student']], function () {
         Route::get('/', 'ExamsController@index')->name('user.exams');
         Route::get('/test', 'ExamsController@testPage');
         Route::get('/analysis/{id}', 'ExamsController@analysis');

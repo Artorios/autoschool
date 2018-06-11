@@ -2,7 +2,7 @@
     <div class="content error lessons">
         <div class="breadcrumbs">
             <ul>
-                <li><a href="#">Главная</a></li>
+                <li><a href="/account">Главная</a></li>
                 <li>Уроки</li>
             </ul>
         </div>
