@@ -11,6 +11,40 @@
                     <span class="table-head-item kupons-item">Купоны активные/неактивные/всего</span>
                 </div>
                 <div class="table-content">
+                    <div class="table-item-row">
+                        <div class="table-item number-item">
+                            <div class="table-head-item hidden-head-text">№</div>
+                            <div class="table-item-content">
+                                0
+                            </div>
+                        </div>
+                        <div class="table-item name-filial-item">
+                            <div class="table-head-item hidden-head-text">Название филиала</div>
+                            <div class="table-item-content">
+                                <a :href="'/autoschool/filials/new'">Нераспределённые</a>
+
+                            </div>
+                        </div>
+                        <div class="table-item address-filial-item">
+                            <div class="table-head-item hidden-head-text">Адрес филиала</div>
+                            <div class="table-item-content">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="table-item count-item">
+                            <div class="table-head-item hidden-head-text">Кол-во учеников</div>
+                            <div class="table-item-content">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="table-item kupons-item">
+                            <div class="table-head-item hidden-head-text">Купоны активные/неактивные/всего</div>
+                            <div class="table-item-content">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="table-item-row" v-for="filial in paginate">
                         <div class="table-item number-item">
                             <div class="table-head-item hidden-head-text">№</div>

@@ -17,18 +17,37 @@
                     <span class="table-head-item count-item">Кол-во учеников</span>
                     <span class="table-head-item kupons-item">Купоны активные/неактивные/всего</span>
                 </div>
-                <div class="line" >
-                    <div class="number">0</div>
-                    <div class="name"><a href="/autoschool/filials/new">Нераспределённые</a></div>
-                    <div class="data-and-time">
-                        <span></span>
+                <div class="table-item-row">
+                    <div class="table-item number-item">
+                        <div class="table-head-item hidden-head-text">№</div>
+                        <div class="table-item-content">
+                            0
+                        </div>
                     </div>
+                    <div class="table-item name-filial-item">
+                        <div class="table-head-item hidden-head-text">Название филиала</div>
+                        <div class="table-item-content">
+                            <a :href="'/autoschool/filials/new'">Нераспределённые</a>
 
-                    <div class="count">
-                        <span class="visible-xs hidden-sm"></span>
+                        </div>
                     </div>
-                    <div class="kupons">
-                        <span></span>
+                    <div class="table-item address-filial-item">
+                        <div class="table-head-item hidden-head-text">Адрес филиала</div>
+                        <div class="table-item-content">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="table-item count-item">
+                        <div class="table-head-item hidden-head-text">Кол-во учеников</div>
+                        <div class="table-item-content">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="table-item kupons-item">
+                        <div class="table-head-item hidden-head-text">Купоны активные/неактивные/всего</div>
+                        <div class="table-item-content">
+                            <span></span>
+                        </div>
                     </div>
                 </div>
                 @foreach($filials as $filial)
