@@ -1,0 +1,90 @@
+.check-all-block{
+  background: #ebebeb;
+  padding: 25px 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.check-all-input-block{
+  flex: 0 0 12%;
+  max-width: 12%;
+}
+.check-all-text{
+  flex: 0 0 20%;
+  max-width: 20%;
+}
+.button-block{
+  flex: 0 0 67%;
+  max-width: 67%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.button-block .btn-grey{
+  width: 26%;
+  margin: 0;
+}
+.button-block .btn-grey:hover{
+  cursor: pointer;
+}
+.button-block .select-block{
+  width: 45%;
+}
+
+@media only screen and (max-width: 1199px){
+  .check-all-input-block{
+    flex: 0 0 17%;
+    max-width: 17%;
+  }
+  .check-all-text{
+    flex: 0 0 83%;
+    max-width: 83%;
+  }
+  .button-block{
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin: 20px 0 0  0;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .check-all-input-block {
+    flex: 0 0 23%;
+    max-width: 23%;
+  }
+  .check-all-text{
+    flex: 0 0 77%;
+    max-width: 77%;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .button-block .btn-grey{
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+  .button-block .select-block{
+    width: 100%;
+  }
+  .check-all-input-block {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  .check-all-text{
+    flex: 0 0 75%;
+    max-width: 75%;
+    text-align: right;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .check-all-input-block {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin: 0 0 15px 0;
+  }
+  .check-all-text{
+    flex: 0 0 100%;
+    max-width: 100%;
+    text-align: left;
+  }
+}

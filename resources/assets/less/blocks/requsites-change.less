@@ -1,0 +1,75 @@
+.requsites{
+  margin: 0 -1%;
+}
+.radio-button{
+  float: left;
+  width: 18%;
+  overflow: hidden;
+  margin: 0 1% 10px;
+}
+.radio-button input{
+  position: absolute;
+  left: -200%;
+  z-index: -1000;
+}
+.radio-button label{
+  display: inline-block;
+  max-width: 100%;
+  font-size: 13px;
+  color: #666666;
+  margin: 0;
+  font-weight: normal;
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid #cccccc;
+  background-color: transparent;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  transition: background-color 0.1s linear, color 0.1s linear;
+}
+.radio-button label:hover{
+  cursor: pointer;
+  background-color: #cccccc;
+  color: #000;
+}
+.radio-button input:checked + label{
+  background-color: #cccccc;
+  color: #000;
+}
+.radio-button input:checked + label:hover{
+  pointer-events: none;
+}
+@media only screen and (max-width: 1199px){
+  .requsites{
+    margin: 0 -0.5%;
+  }
+  .radio-button{
+    width: 19%;
+    overflow: hidden;
+    margin: 0 0.5% 10px;
+  }
+}
+@media only screen and (max-width: 991px){
+  .radio-button{
+    width: 24%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .radio-button{
+    width: 32%;
+  }
+  .requsites{
+    padding: 0 15px;
+  }
+}
+@media only screen and (max-width: 575px){
+  .radio-button{
+    width: 49%;
+  }
+}
+@media only screen and (max-width: 359px){
+  .radio-button{
+    width: 100%;
+  }
+}

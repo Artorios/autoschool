@@ -27,8 +27,10 @@
                     <div class="table-item name-filial-item">
                         <div class="table-head-item hidden-head-text">Название филиала</div>
                         <div class="table-item-content">
-                            <a :href="'/autoschool/filials/new'">Нераспределённые</a>
-
+                            <a :href="'/autoschool/filials/new'"
+                                class="table-item-link text-underline">
+                                Нераспределённые
+                            </a>
                         </div>
                     </div>
                     <div class="table-item address-filial-item">
@@ -51,8 +53,7 @@
                     </div>
                 </div>
                 @foreach($filials as $filial)
-                    <div class="table-content">
-                        <div class="table-item-row">
+                    <div class="table-item-row">
                             <div class="table-item number-item">
                                 <div class="table-head-item hidden-head-text">№</div>
                                 <div class="table-item-content">
@@ -98,7 +99,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 @endforeach
             </div>
         </div>

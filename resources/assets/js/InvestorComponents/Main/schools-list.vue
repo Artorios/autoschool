@@ -13,8 +13,7 @@
                     <div class="table-head-item commission-item">Комиссия</div>
                     <div class="table-head-item sum-item">К оплате</div>
                 </div>
-                <div class="table-content">
-                    <div class="table-item-row"
+                <div class="table-item-row"
                             v-for="(school, index) in paginate"
                             :data-id="number + index">
                         <div class="table-item number-item">
@@ -72,7 +71,6 @@
 
                         </div>
                     </div>
-                </div>
             </div>
 
             <ul class="pagination" v-if="itemsPerPage < resultCount">
