@@ -10,6 +10,35 @@
                     <span class="table-head-item count-item">Кол-во учеников</span>
                 </div>
                 <div class="table-content">
+                    <div class="table-item-row" >
+                        <div class="table-item number-item">
+                            <div class="table-head-item hidden-head-text">№</div>
+                            <div class="table-item-content">
+                                0
+                            </div>
+                        </div>
+                        <div class="table-item name-item">
+                            <div class="table-head-item hidden-head-text">Название группы</div>
+                            <div class="table-item-content">
+                                <a :href="'/autoschool/filials/new'">Нераспределённые</a>
+                            </div>
+                        </div>
+                        <div class="table-item data-and-time-item">
+                            <div class="table-head-item hidden-head-text">Дата и время экзамена</div>
+                            <div class="table-item-content">
+                                <i class="fa fa-clock-o fa-lg icon-in-table" aria-hidden="true"></i>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="table-item count-item">
+                            <div class="table-head-item hidden-head-text">Кол-во учеников</div>
+                            <div class="table-item-content">
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="table-item-row" v-for="group in paginate">
                         <div class="table-item number-item">
                             <div class="table-head-item hidden-head-text">№</div>

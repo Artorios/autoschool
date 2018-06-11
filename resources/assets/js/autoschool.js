@@ -14,7 +14,9 @@ import AutoschoolProfileEdit from './AutoschoolComponents/autoschool-profile-edi
 import ButtonAddFilial from './AutoschoolComponents/button-add-filial';
 
 import StudentList from './AutoschoolComponents/Students/student-list.vue';
+import StudentListNew from './AutoschoolComponents/Students/student-list-new.vue';
 import IndexStudent from './AutoschoolComponents/Students/index-student.vue'
+import IndexStudentNew from './AutoschoolComponents/Students/index-student-new.vue'
 import AddStudent from './AutoschoolComponents/Students/add-student.vue'
 
 import FilialGroups from './AutoschoolComponents/filial-groups';
@@ -58,5 +60,7 @@ const app = new Vue({
         AutoschoolProfileEdit,
         Coupons,
         StatisticVue,
+        StudentListNew,
+        IndexStudentNew,
     }
 });

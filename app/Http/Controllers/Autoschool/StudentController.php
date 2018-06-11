@@ -66,6 +66,18 @@ class StudentController extends Controller
 
     }
 
+    public function indexStudentNew($id)
+    {
+        $student = User::where('users.id', $id)
+            ->with('city')
+            ->with('orders')
+            ->with('coupons')
+            ->get()
+            ->first();
+
+        return view('autoschool.personal.new', compact('student'));
+    }
+
     public function addStudent()
     {
         $schools   = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
