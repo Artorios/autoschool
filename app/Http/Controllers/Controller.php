@@ -21,7 +21,7 @@ class Controller extends BaseController
             $notification = new Notification;
             $time = date("H:i:s");
             $date = date("Y-m-j");
-            $notification->insert(['user_id' => $user_id, 'notify' => $notify, 'time' => $time, 'date' => $date, 'status' => 0]);
+            $notification->insert(['user_id' => $user_id, 'notify' => $notify, 'time' => $time, 'date' => $date, 'status' => 1]);
         }
     }
 }

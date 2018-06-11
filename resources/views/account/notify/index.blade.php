@@ -14,9 +14,8 @@
     <notify-new :notifies="{{json_encode($notifies->items())}}"></notify-new>
     <nav aria-label="Page navigation example">
         <pages :page="{{json_encode($notifies->currentPage())}}"
-               :pages="{{json_encode($notifies->total())}}"></pages>
-
-
+               :pages="{{json_encode($notifies->total())}}"
+               :total="{{json_encode($notifies->perPage())}}"></pages>
     </nav>
 </div>
 

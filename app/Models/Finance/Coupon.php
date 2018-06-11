@@ -6,9 +6,12 @@ use App\Models\Training\School\AutoSchool;
 use App\Models\Training\School\AutoSchoolGroup;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User\User;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Coupon extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['name','investor_id', 'auto_school_id','user_id',
         'generation_date','activation_date','sale_date','total','commission','status','comment_investor','comment_director'];
 

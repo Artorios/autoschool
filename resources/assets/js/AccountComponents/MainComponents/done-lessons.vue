@@ -9,8 +9,8 @@
     export default {
         data () {
             return {
-                doneLesson: 1,
-                allLesson: 1
+                doneLesson: '',
+                allLesson: ''
             }
         },
         created () {

@@ -44,9 +44,6 @@
             }
         },
         props: ['lessons'],
-        created () {
-            console.log('aaa')
-        },
         computed: {
             totalPages: function(){
                 return Math.ceil(this.resultCount / this.itemsPerPage)
