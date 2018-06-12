@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Models\Training\School\AutoSchool;
+use Illuminate\Http\Request;
 use App\Events\UserPasswordChangeRequestEvent;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Controllers\Controller;
@@ -11,7 +13,6 @@ use App\Models\{
 };
 use App\Services\ChangePasswordService;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\{
     Auth,
@@ -36,19 +37,17 @@ class AccountController extends Controller
     public function updateProfile(Request $request, User $user, City $city)
     {
         $itempost = $request->except(
-        'autoschool',
+            'autoschool',
             'lesson_now',
             'last_exam',
             'progress'
         );
-        $itempost['auto_school_group_id'] = $itempost['autoschoolgroup']['id'];
-        unset($itempost['autoschoolgroup']);
         $validator = Validator::make($itempost, [
-            'name'      => 'required|string|min:3',
+            'name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
-            'phone'     => 'required',
-            'city_id'   => 'required',
-            'license'   => 'required'
+            'phone' => 'required',
+            'city_id' => 'required',
+            'license' => 'required'
         ]);
         if (count($validator->errors())) {
             return response()->json(['status' => 0], 400);
@@ -151,7 +150,13 @@ class AccountController extends Controller
     {
         $cities = City::where('show_city', 1)->get();
         $user = Auth::user();
-        return view('account.profile.index', compact('cities', 'user'));
+        $order = $user->orders->first();
+        $coupon = $user->coupons->first();
+        $finance = [
+            'order' => $order,
+            'coupon' => $coupon
+        ];
+        return view('account.profile.index', compact('cities', 'user', 'finance'));
 
     }
 
@@ -165,8 +170,8 @@ class AccountController extends Controller
         $token = str_random();
 
         DB::table('password_resets')->insert([
-            'email'      => Auth::user()->email,
-            'token'      => $token,
+            'email' => Auth::user()->email,
+            'token' => $token,
             'created_at' => Carbon::now()
         ]);
 
@@ -200,7 +205,7 @@ class AccountController extends Controller
 
             $passwordChanged = app(ChangePasswordService::class, [
                     'password' => decrypt($password),
-                    'user'     => User::where('email', $instance->email)->first()]
+                    'user' => User::where('email', $instance->email)->first()]
             )->changeUserPassword();
 
             if ($passwordChanged) {
