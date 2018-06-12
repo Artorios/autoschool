@@ -30,7 +30,12 @@
         </div>
         <div class="btn-wrapper">
             <a href="#" class="btn-grey" @click.prevent="prevQuestion">Назад</a>
-            <a href="#" class="btn-grey" v-if="(type == 'training' || type == 'withComment' || type == 'exam') && checkedQuestion.has_answer" @click.prevent="nextQuestion">Далее</a>
+            <a href="#" class="btn-grey" v-if="isComplete" @click.prevent="setFinished">Далее</a>
+            <a href="#" class="btn-grey"
+               v-if="(type == 'training' || type == 'withComment' || type == 'exam') && checkedQuestion.has_answer && !isComplete"
+               @click.prevent="nextQuestion">
+                Далее
+            </a>
             <a href="#" class="btn-grey" v-if="!setAnswer && !checkedQuestion.has_answer" @click.prevent="setAnswerFunc">Ответить</a>
         </div>
     </div>
@@ -50,6 +55,7 @@
                 rightAnswerId: null,
                 correct: null,
                 allAnswers: [],
+                isComplete: false
             }
         },
         props: ['questions', 'type', 'time'],
@@ -60,7 +66,7 @@
         watch: {
             allAnswers: function (val) {
                 if (val.length === this.questions.length) {
-                    Events.$emit('complete-questions');
+                    this.isComplete = true
                 }
             }
         },
@@ -83,6 +89,9 @@
             })
         },
         methods: {
+            setFinished () {
+                Events.$emit('complete-questions')
+            },
             setQuestion(i) {
                 this.setAnswer = false
                 this.questionStart = i
