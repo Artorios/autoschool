@@ -19,12 +19,13 @@
 <script>
 
     import {Events} from '../../account'
+
     require('vue2-autocomplete-js/dist/style/vue2-autocomplete.css')
     import Autocomplete from 'vue2-autocomplete-js'
 
     export default {
         name: "choice-autoschool",
-        data () {
+        data() {
             return {
                 checkedSchool: '',
                 data: {
@@ -37,16 +38,16 @@
         },
         props: ['user'],
         methods: {
-            getDataSchool(val){
+            getDataSchool(val) {
                 this.checkedSchool = val.id
             },
-            choice(){
-                if(this.checkedSchool){
+            choice() {
+                if (this.checkedSchool) {
                     this.data.school = this.checkedSchool
                     this.$http.post('/account/finance/choice-autoschool', this.data).then(res => {
                         if (res.status === 201) {
-//                            location.href = '/account/finance'
-                            console.log(res.data)
+                            location.href = '/account/finance'
+                            // console.log(res.data)
                         } else {
                             this.errorEdit = true
                         }

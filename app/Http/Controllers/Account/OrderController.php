@@ -7,7 +7,9 @@ use App\Billing\{
 };
 use App\Http\Controllers\Controller;
 use App\Models\Finance\Order;
+use App\Models\Training\School\AutoSchool;
 use App\Models\User\Coupon;
+use App\Models\User\UserSchool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
     Auth, Validator
@@ -42,20 +44,23 @@ class OrderController extends Controller
         try {
 
             $charge = $this->paymentGateway->charge($request->input('amount'), $this->paymentGateway->getValidTestToken());
-            if(!empty($request->session()->get('school-finance'))){
+            $school = UserSchool::where('user_id', $user->id)->first();
+            if (!empty($school)) {
                 $order = Order::create([
                     'payment_option' => 'online',
                     'amount' => $charge->amount(),
-                    'number_contract' => $user->contract->name.$user->id.'-'.$user->contract->id.'-'.$user->city->id,
+                    'number_contract' => $user->contract->name . $user->id . '-' . $user->contract->id . '-' . $user->city->id,
                     'user_id' => $user->id,
-                    'auto_school_id' => $request->session()->get('school-finance')
+                    'auto_school_id' => $school->school_id
                 ]);
-            }
-            else{
+                $director = AutoSchool::find($school->school_id)->director_id;
+                $this->notification($user->id, "Вы оплатил учёбу в автошколе! Номер оплаты $order->id");
+                $this->notification($director, "Пользователь $user->name $user->last_name оплатил учёбу в автошколе!");
+            } else {
                 $order = Order::create([
                     'payment_option' => 'online',
                     'amount' => $charge->amount(),
-                    'number_contract' => $user->contract->name.$user->id.'-'.$user->contract->id.'-'.$user->city->id,
+                    'number_contract' => $user->contract->name . $user->id . '-' . $user->contract->id . '-' . $user->city->id,
                     'user_id' => $user->id,
                     'auto_school_id' => 0
                 ]);

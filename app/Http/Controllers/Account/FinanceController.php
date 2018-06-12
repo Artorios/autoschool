@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Models\Training\School\AutoSchool;
 use App\Models\User\Contract;
-use App\Models\User\User;
+use App\Models\User\{
+    User, UserSchool
+};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth, Session};
+use Illuminate\Support\Facades\{
+    Auth, Session
+};
 
 class FinanceController extends Controller
 {
@@ -16,48 +20,56 @@ class FinanceController extends Controller
         $user = auth()->user();
 
 
-
-        if(!$user->contract){
+        if (!$user->contract) {
             $contract = Contract::create([
                 'name' => generateContractNumber($user),
                 'user_id' => $user->id
             ]);
         }
         $contract = [
-            'name' => $user->contract->name.$user->id.'-'.$user->contract->id.'-'.$user->city->id,
+            'name' => $user->contract->name . $user->id . '-' . $user->contract->id . '-' . $user->city->id,
             'date' => $user->created_at->format('d-m-Y'),
             'price' => $user->city->price,
             'amount' => $user->city->price
 
         ];
-        $school_id = $request->session()->get('school-finance');
-        if(!empty($school_id)){
-            $school = AutoSchool::where('id',$school_id)->with('city')->get();
-        }
-        else{
+        $userSchool = UserSchool::where('user_id', Auth::user()->id)->first();
+        if (!empty($userSchool)) {
+            $school = AutoSchool::where('id', $userSchool['school_id'])->with('city')->get();
+        } else {
             $school = [];
         }
-        return view('account.finance.index', compact('user','contract','school'));
+        return view('account.finance.index', compact('user', 'contract', 'school'));
     }
+
     public function getVariants(Request $request)
     {
         $SelectedType = $request->input('variant');
         $user = Auth::user();
         $data = $request->all();
-        if($SelectedType == "typeA"){
+        if ($SelectedType == "typeA") {
             return view('account.finance.bankсard', compact('data', 'user'));
-        }elseif ($SelectedType == "typeC"){
+        } elseif ($SelectedType == "typeC") {
             return view('account.finance.coupon', compact('data'));
-        }elseif ($SelectedType == "typeB"){
+        } elseif ($SelectedType == "typeB") {
             return view('account.finance.transfer', compact('data'));
         }
     }
 
-    public function choiceAutoSchool(Request $request){
+    public function choiceAutoSchool(Request $request)
+    {
 
         $itempost = $request->only('school');
-        if(!empty($itempost['school'])){
-            Session::put('school-finance', $itempost['school']);
+        $user = Auth::user();
+        $school = UserSchool::where('user_id', Auth::user()->id)->first();
+        if (!empty($school)) {
+            $school->update(['school_id' => $itempost['school']]);
+        } else {
+            UserSchool::create([
+                'user_id' => Auth::user()->id,
+                'school_id' => $itempost['school'],
+                'status' => '1'
+            ]);
         }
 
 
