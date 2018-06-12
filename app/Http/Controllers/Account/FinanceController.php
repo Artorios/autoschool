@@ -70,6 +70,9 @@ class FinanceController extends Controller
                 'school_id' => $itempost['school'],
                 'status' => '1'
             ]);
+            $autoSchool = AutoSchool::find($itempost['school']);
+            $this->notification($autoSchool->director_id, "Пользователь $user->name $user->last_name выбрал автошколу $autoSchool->title");
+
         }
 
 
