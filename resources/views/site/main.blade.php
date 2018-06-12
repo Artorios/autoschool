@@ -4,6 +4,9 @@
     <div class="main-content">
         <div class="info-block" id="kak-uchim">
             <div class="container">
+                @if(Session::has('pass_message'))
+                    <p class="alert alert-{{ Session::get('pass_class') }}">{{ Session::get('pass_message') }}</p>
+                @endif
                 <div class="ico-wrapper">
                     <div class="block">
                         <div class="img">
