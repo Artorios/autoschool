@@ -6,13 +6,12 @@ use App\Billing\{
     PaymentFailedException, PaymentGateway
 };
 use App\Http\Controllers\Controller;
-use App\Models\Finance\Order;
+use App\Models\Finance\{Order,Coupon};
 use App\Models\Training\School\AutoSchool;
-use App\Models\User\Coupon;
-use App\Models\User\UserSchool;
+use App\Models\User\{UserSchool, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
-    Auth, Validator
+    Auth, Validator, DB
 };
 
 
@@ -81,10 +80,23 @@ class OrderController extends Controller
         }
 
         if ($cupon->status == 2 && $cupon->code == $request->input('number_cupon')) {
-            $cupon->update([
-                'status' => 3,
-                'student_id' => Auth::user()->id
-            ]);
+            $director = AutoSchool::find($cupon->auto_school_id)->director_id;
+            $user = Auth::user();
+
+            DB::transaction(function () use ($cupon,$user) {
+                $cupon->update([
+                    'status' => 3,
+                    'student_id' => $user->id
+                ]);
+                if(!empty($cupon->auto_school_group_id)){
+                    User::where('id', $user->id)->update([
+                        'auto_school_group_id' => $cupon->auto_school_group_id
+                    ]);
+                }
+            });
+            $this->notification($user->id, "Вы активировали купон! Номер купона $cupon->id");
+            $this->notification($director, "Пользователь $user->name $user->last_name активировал купон $cupon->code!");
+
             return response()->json(['status' => 1], 201);
         } else {
             return response()->json(['status' => 0], 400);
