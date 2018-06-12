@@ -60,7 +60,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::get('/get-lessons', 'LessonController@getLessonsSlider');
 
 
-    Route::group(['prefix' => 'statistic', 'middleware' => ['student']] , function () {
+    Route::group(['prefix' => 'statistic', 'middleware' => ['student']], function () {
         Route::get('/', 'StatisticController@index')->name('user.statistic');
     });
 
@@ -154,7 +154,7 @@ Route::get('/schools/{city_id}', 'Site\SchoolsController@getSchools');
 
 Route::get('/confirm/student/{confirmation_code}', 'Site\SchoolsController@confirmStudent');
 
-Route::get('/students-list', function (){
+Route::get('/students-list', function () {
     return view('autoschool.filials.students_list');
 });
 

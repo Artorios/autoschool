@@ -11,7 +11,7 @@
                             <h3>Введите реквизиты карты</h3>
                         </div>
                         <div class="modal-online-block">
-                            <form  v-on:submit.prevent="paymentSend">
+                            <form v-on:submit.prevent="paymentSend">
                                 <div class="input-block">
                                     <div class="form-group">
                                         <div class="label-text">Номер карты:</div>
@@ -60,11 +60,12 @@
 
 <script>
     import {Events} from '../../account'
+
     export default {
         name: "online-payment",
-        data () {
+        data() {
             return {
-                cardInfo:{
+                cardInfo: {
                     numberCard: '',
                     validityMonth: '',
                     validityYear: '',
@@ -86,16 +87,17 @@
             price: {type: Number}
         },
         methods: {
-            close(){
+            close() {
                 $('body').removeClass('modal-open')
                 Events.$emit('close-online-payment-popup')
             },
-            paymentSend () {
+            paymentSend() {
                 if (this.validate()) return false
                 this.cardInfo.amount = this.price
                 this.$http.post('/account/finance/card-payment', this.cardInfo).then(res => {
                     if (res.status === 201) {
                         console.log(res)
+                        window.location.reload('true')
                         this.close()
                     }
                 }, err => {
@@ -104,7 +106,7 @@
                     }
                 })
             },
-            validate () {
+            validate() {
                 for (let key in this.cardInfo) {
                     switch (key) {
                         case 'numberCard':
@@ -160,30 +162,37 @@
         justify-content: center;
         align-items: center;
     }
-    .modal-body.online-payment-content{
+
+    .modal-body.online-payment-content {
         padding: 0;
     }
-    .modal-online-top{
+
+    .modal-online-top {
         text-align: center;
         background-color: #ccc;
         padding: 35px 15px 25px;
     }
-    .modal-body.online-payment-content .close{
+
+    .modal-body.online-payment-content .close {
         top: 15px;
         right: 10px;
     }
-    .modal-online-block{
+
+    .modal-online-block {
         padding: 25px 20px;
     }
-    .result-wrap{
+
+    .result-wrap {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
     }
+
     .form-group input {
         width: 100%;
     }
-    .form-group.form-group-two-short input{
+
+    .form-group.form-group-two-short input {
         width: 100px;
     }
 </style>
