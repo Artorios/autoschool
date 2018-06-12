@@ -42,6 +42,31 @@ class UserController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
+
+    public function listUsersRole(User $user, AutoSchool $autoSchool, $role){
+
+        $users_list = $user->where('role', $role)->with('autoschoolgroup')->get()->toArray();
+        $schools = $autoSchool->get()->toArray();
+
+        $users = array_map(function ($user) use ($schools) {
+            foreach ($schools as $school) {
+                if (isset($user['autoschool']) && $user['autoschool'] === $school['id']) {
+                    $user['school'] = $school;
+                }
+            }
+            return $user;
+        }, $users_list);
+
+
+
+        return view('admin.user.index', compact('users'));
+
+    }
+
+    /**
      * @param User $user
      * @param UpdateUserInAdmin $request
      *

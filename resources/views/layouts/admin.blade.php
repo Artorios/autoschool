@@ -373,14 +373,30 @@
                             <li><a href="/admin/lessons/list/C"><i class="fa fa-circle-o text-yellow"></i> <span>Категория C</span></a></li>
                         </ul>
                     </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-circle-o text-yellow"></i>
+                            <span>Пользователи</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ route('admin.users') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Все пользователи</span></a></li>
+                            <li><a href="/admin/users/user"><i class="fa fa-circle-o text-yellow"></i> <span>Студенты</span></a></li>
+                            <li><a href="/admin/users/autoschool"><i class="fa fa-circle-o text-yellow"></i> <span>Директора</span></a></li>
+                            <li><a href="/admin/users/investor"><i class="fa fa-circle-o text-yellow"></i> <span>Инвесторы</span></a></li>
+                            <li><a href="/admin/users/admin"><i class="fa fa-circle-o text-yellow"></i> <span>Администраторы</span></a></li>
+                        </ul>
+                    </li>
                     <li><a href="{{route('admin.questions.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Вопросы и ответы</span></a></li>
-                    <li><a href="{{ route('admin.users') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Пользователи</span></a></li>
-                    <li>
+{{--                    <li><a href="{{ route('admin.users') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Пользователи</span></a></li>--}}
+                    {{--<li>
                         <a href="{{ route('admin.students') }}">
                             <i class="fa fa-circle-o text-yellow"></i>
                             <span>Ученики</span>
                         </a>
-                    </li>
+                    </li>--}}
                     {{--<li><a href="/admin/districts"><i class="fa fa-circle-o text-yellow"></i> <span>Районы</span></a></li>--}}
                     <li><a href="{{route('admin.schools.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Автошколы</span></a></li>
                     <li class="treeview">
