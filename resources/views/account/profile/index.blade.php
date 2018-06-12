@@ -31,6 +31,8 @@
                     </a>
                 </div>
             </div>
+            <edit-profile-form :cities="{{json_encode($cities)}}" :userdata="{{json_encode($user)}}" :finance="{{json_encode($finance)}}"></edit-profile-form>
+            <edit-pass-form ></edit-pass-form>
             <edit-profile-form :cities="{{json_encode($cities)}}" :userdata="{{json_encode($user)}}"></edit-profile-form>
             {{--<edit-pass-form ></edit-pass-form>--}}
 

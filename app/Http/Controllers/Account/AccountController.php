@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Models\Finance\Coupon;
+use App\Models\Finance\Order;
+use App\Models\Location\City;
+use App\Models\Training\School\AutoSchool;
+use App\Models\User\User;
+use Illuminate\Http\Request;
 use App\Events\UserPasswordChangeRequestEvent;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Controllers\Controller;
@@ -41,8 +47,6 @@ class AccountController extends Controller
             'last_exam',
             'progress'
         );
-        $itempost['auto_school_group_id'] = $itempost['autoschoolgroup']['id'];
-        unset($itempost['autoschoolgroup']);
         $validator = Validator::make($itempost, [
             'name'      => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
@@ -147,11 +151,17 @@ class AccountController extends Controller
 //        return response()->json(['status' => 0], 200);
     }
 
-    public function editProfile()
+    public function editProfile(Order $order, Coupon $coupon)
     {
         $cities = City::where('show_city', 1)->get();
         $user = Auth::user();
-        return view('account.profile.index', compact('cities', 'user'));
+        $order = $user->orders->first();
+        $coupon = $user->coupons->first();
+        $finance = [
+            'order' => $order,
+            'coupon' => $coupon
+        ];
+        return view('account.profile.index', compact('cities', 'user', 'finance'));
 
     }
 

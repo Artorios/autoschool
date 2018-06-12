@@ -36,6 +36,8 @@
                 <option value="C" :selected="userdata.license == 'C'">C</option>
             </select>
         </div>
+        <button type="button" v-if="!finance.coupon && !finance.order" @click="editing" class="btn-grey">Сохранить изменения</button>
+
     </form>
 </template>
 <script type="text/babel">
@@ -69,7 +71,8 @@
         },
         props: {
             cities: {},
-            userdata: {}
+            userdata: {},
+            finance: {}
         },
 
         created () {
