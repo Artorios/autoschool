@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="coupon-table" v-if="list.length">
-                <div class="table-wrapper table-coupon">
+                <div class="table-coupon table-investor">
                     <div class="title-line line">
                         <span class="line-item coupons-checkbox"></span>
                         <span class="line-item number">№</span>
@@ -547,11 +547,11 @@
   }
 </script>
 <style>
-    .inner-main-content .container .autoschool-coupons .table-wrapper .line div.hidden-popup {
+    .inner-main-content .container .autoschool-coupons .table-coupon .line div.hidden-popup {
         display: none;
     }
 
-    .inner-main-content .container .autoschool-coupons .table-wrapper .hidden-popup {
+    .inner-main-content .container .autoschool-coupons .table-coupon .hidden-popup {
         display: none;
     }
 
