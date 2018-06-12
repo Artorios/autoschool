@@ -37,56 +37,95 @@
                 </div>
             </div>
         </div>
-        <table class="table manage-grid">
-            <thead>
-            <tr class="visible-md visible-lg">
-                <th></th>
-                <th>№</th>
-                <th>ФИО ученика</th>
-                <th>Группа</th>
-                <th>Тип оплаты</th>
-                <th>Дата оплаты</th>
-                <th>Сумма</th>
-            </tr>
-            </thead>
-            <tbody class="main">
-            <tr data-id="1" class="visible-md visible-lg" v-for="(student, index) in pagination()">
-                <td>
-                    <div class="checked-line">
-                        <input type="checkbox" v-bind:value="`${student.userId}`"  v-model="gridSelected">
-                        <label for="checked-line"></label>
-                    </div>
-                </td>
-                <td>{{++index}}</td>
-                <td>
-                    <span class="student-name" v-text="fullName(student)"></span>
-                </td>
-                <td><span class="group-number">Группа
-                    <a :href="`filials/groups/${student.auto_school_group_id}`" v-text="student.autoSchoolGroupName"></a></span></td>
-                <td v-text="student.payment_option"></td>
-                <td v-text="getDate(student)"></td>
-                <td>
-                    <a class="bold big" href="#" v-text="student.amount"></a></td>
-            </tr>
-            </tbody>
-            <tfoot class="finance-line-height">
-            <tr>
-                <td colspan="9">
-                    <div class="row nero">
-                        <div class="col-md-2 margin-12">
-                            <input type="checkbox" v-model="gridSelectedAll"> Для всех
-                        </div>
-                        <div class="col-md-2 margin-12">
-                            Отмечено {{totalSelectedStudents}}
-                        </div>
-                        <div class="col-xs-12 col-md-2"><a type="text" class="btn-grey" @click="delateData()">Удалить</a></div>
 
+        <div class="table-block table-autoschool-finance table-block-without-title">
+            <div class="table-head">
+                <span class="table-head-item checkbox-item"></span>
+                <span class="table-head-item number-item">№</span>
+                <span class="table-head-item name-item">ФИО ученика</span>
+                <span class="table-head-item group-item">Группа</span>
+                <span class="table-head-item pay-item">Тип оплаты</span>
+                <span class="table-head-item date-item">Дата оплаты</span>
+                <span class="table-head-item sum-item">Сумма</span>
+            </div>
+            <div class="table-item-row"
+                 data-id="1"
+                 v-for="(student, index) in pagination()">
+                <div class="table-item checkbox-item">
+                    <label class="label-checkbox">
+                        <input type="checkbox"
+                               v-bind:value="`${student.userId}`"
+                               v-model="gridSelected"
+                               class="hidden-checkbox">
+                        <span class="label-check"></span>
+                    </label>
+                </div>
+                <div class="table-item number-item">
+                    <div class="table-head-item hidden-head-text">№</div>
+                    <div class="table-item-content">
+                        {{++index}}
                     </div>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
+                </div>
+                <div class="table-item name-item">
+                    <div class="table-head-item hidden-head-text">ФИО ученика</div>
+                    <div class="table-item-content">
+                        <span class="student-name" v-text="fullName(student)"></span>
+                    </div>
+                </div>
+                <div class="table-item group-item">
+                    <div class="table-head-item hidden-head-text">Группа</div>
+                    <div class="table-item-content">
+                        <span class="group-number">
+                            <a :href="`filials/groups/${student.auto_school_group_id}`"
+                               v-text="student.autoSchoolGroupName"
+                               class="table-item-link text-underline">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="table-item pay-item">
+                    <div class="table-head-item hidden-head-text">Тип оплаты</div>
+                    <div class="table-item-content">
+                        <span v-text="student.payment_option"></span>
+                    </div>
+                </div>
+                <div class="table-item date-item">
+                    <div class="table-head-item hidden-head-text">Дата оплаты</div>
+                    <div class="table-item-content">
+                        <span v-text="getDate(student)"></span>
+                    </div>
+                </div>
+                <div class="table-item sum-item">
+                    <div class="table-head-item hidden-head-text">Сумма</div>
+                    <div class="table-item-content">
+                        <a class="table-item-link text-underline"
+                           href="#"
+                           v-text="student.amount">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="check-all-block">
+            <div class="check-all-input-block">
+                <label class="label-checkbox-with-text">
+                    <input type="checkbox"
+                           class="hidden-checkbox"
+                           v-model="gridSelectedAll">
+                    <span class="label-check-text">Для всех</span>
+                </label>
+            </div>
+            <div class="check-all-text">
+                Отмечено {{totalSelectedStudents}}
+            </div>
+            <div class="button-block">
+                <a href="#" type="text" class="btn-grey" @click="delateData()">Удалить</a>
+            </div>
+        </div>
+
     </div>
+
         <h2 v-if="this.errorDelete">Выберете учеников</h2>
         <div class="invitegroupe">
             <ul class="pagination" v-if="itemsPerPage < resultCount">
