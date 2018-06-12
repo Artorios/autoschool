@@ -6,9 +6,13 @@ use App\Billing\{
     PaymentFailedException, PaymentGateway
 };
 use App\Http\Controllers\Controller;
-use App\Models\Finance\{Order,Coupon};
+use App\Models\Finance\{
+    Order, Coupon
+};
 use App\Models\Training\School\AutoSchool;
-use App\Models\User\{UserSchool, User};
+use App\Models\User\{
+    UserSchool, User
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
     Auth, Validator, DB
@@ -83,12 +87,12 @@ class OrderController extends Controller
             $director = AutoSchool::find($cupon->auto_school_id)->director_id;
             $user = Auth::user();
 
-            DB::transaction(function () use ($cupon,$user) {
+            DB::transaction(function () use ($cupon, $user) {
                 $cupon->update([
                     'status' => 3,
                     'student_id' => $user->id
                 ]);
-                if(!empty($cupon->auto_school_group_id)){
+                if (!empty($cupon->auto_school_group_id)) {
                     User::where('id', $user->id)->update([
                         'auto_school_group_id' => $cupon->auto_school_group_id
                     ]);

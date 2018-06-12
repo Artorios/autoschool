@@ -33,6 +33,7 @@
                 </div>
             </div>
         </div>
+
         @if(empty($user->auto_school_group_id))
             <div class="finance-wrapper">
                 @if(!empty($school[0]))
