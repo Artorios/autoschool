@@ -4,11 +4,13 @@
         <p class="error" style="color: red" v-if="serverError">Произошла ошибка при изменении данных</p>
         <div class="form-group">
             <label>Имя пользователя:</label>
-            <input type="text" v-model="userProfile.name" v-bind:class="{'input-error': errors.name}" minlength="2" required>
+            <input type="text" v-model="userProfile.name" v-bind:class="{'input-error': errors.name}" minlength="2"
+                   required>
         </div>
         <div class="form-group">
             <label>Фамилия:</label>
-            <input type="text"  v-model="userProfile.last_name" v-bind:class="{'input-error': errors.last_name}" minlength="2" required>
+            <input type="text" v-model="userProfile.last_name" v-bind:class="{'input-error': errors.last_name}"
+                   minlength="2" required>
         </div>
         <div class="form-group error-content">
             <label>Отчество:</label>
@@ -16,16 +18,20 @@
         </div>
         <div class="form-group">
             <label>Электронная почта:</label>
-            <input type="email" v-model="userProfile.email" v-bind:class="{'input-error': errors.email}" minlength="7" required>
+            <input type="email" v-model="userProfile.email" v-bind:class="{'input-error': errors.email}" minlength="7"
+                   required>
         </div>
         <div class="form-group">
             <label>Телефон:</label>
-            <input type="tel" required  v-model="userProfile.phone" v-bind:class="{ 'input-error': errors.phone}" minlength="5" pattern="[0-9]{5,16}">
+            <input type="tel" required v-model="userProfile.phone" v-bind:class="{ 'input-error': errors.phone}"
+                   minlength="5" pattern="[0-9]{5,16}">
         </div>
         <div class="form-group">
             <label>Город: </label>
             <select class="select" id="city">
-                <option v-for="city in cities" :selected="city.id == userdata.city_id"  v-bind:value="city.id"  >{{city.name}}</option>
+                <option v-for="city in cities" :selected="city.id == userdata.city_id" v-bind:value="city.id">
+                    {{city.name}}
+                </option>
             </select>
         </div>
         <div class="form-group">
@@ -36,13 +42,15 @@
                 <option value="C" :selected="userdata.license == 'C'">C</option>
             </select>
         </div>
-        <button type="button" v-if="!finance.coupon && !finance.order" @click="editing" class="btn-grey">Сохранить изменения</button>
+        <button type="button" v-if="!finance.coupon && !finance.order" @click="editing" class="btn-grey">Сохранить
+            изменения
+        </button>
 
     </form>
 </template>
 <script type="text/babel">
     export default {
-        data () {
+        data() {
             return {
                 userProfile: {
                     name: '',
@@ -75,32 +83,32 @@
             finance: {}
         },
 
-        created () {
+        created() {
             this.getData()
         },
 
-        mounted () {
+        mounted() {
             let vm = this
             $('#city').selectric({
-                onChange: function(element) {
+                onChange: function (element) {
                     vm.userProfile.city_id = $(element).val()
                 },
             })
             $('#license').selectric({
-                onChange: function(element) {
+                onChange: function (element) {
                     vm.userProfile.license = $(element).val()
                 },
             })
 //            this.getCities()
         },
         methods: {
-            getData () {
+            getData() {
                 this.$http.get('/account/auth-info-acc').then(res => {
                     this.userProfile = res.data.user
                 })
             },
 
-            editing () {
+            editing() {
 
                 if (this.validate()) return false
                 this.$http.post('/account/edit-profile', this.userProfile).then(res => {
@@ -111,13 +119,13 @@
                     if (+err.status === 400) {
                         this.serverError = true
                     }
-                    if (+err.data.status == 5){
+                    if (+err.data.status == 5) {
                         this.errors.email = true
                     }
 
                 })
             },
-            validate () {
+            validate() {
                 for (let key in this.userProfile) {
                     switch (key) {
                         case 'name':
@@ -149,7 +157,7 @@
                             }
                             break
                         case 'phone':
-                            if (!this.userProfile[key] || this.userProfile[key].length < 3 ) {
+                            if (!this.userProfile[key] || this.userProfile[key].length < 3) {
                                 this.errors[key] = true
                             } else {
                                 this.errors[key] = false
@@ -180,13 +188,13 @@
                 }
                 return hasError
             },
-            checkEmail (email) {
+            checkEmail(email) {
                 let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 return re.test(email.toLowerCase());
 
             },
 
-            },
+        },
 
     }
 </script>
