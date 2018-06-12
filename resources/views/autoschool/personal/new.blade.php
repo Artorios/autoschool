@@ -4,7 +4,6 @@
         <div class="breadcrumbs">
             <ul>
                 <li><a href="{{ route('autoschool.index') }}">Главная</a></li>
-                <li>
                 <li>Карточка ученика</li>
             </ul>
         </div>

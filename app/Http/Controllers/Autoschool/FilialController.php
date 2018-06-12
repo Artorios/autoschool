@@ -11,6 +11,7 @@ use App\Models\User\User;
 use App\Models\Training\School\{
     AutoSchool, AutoSchoolGroup
 };
+use App\Models\User\UserSchool;
 use Illuminate\Support\Facades\{
     Auth, DB
 };
@@ -40,19 +41,53 @@ class FilialController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+
     public function newStudents()
     {
         $orders = Order::where('auto_school_id', '!=', '0')->get()->toArray();
 
         $users_id = array_map(
-            function ($order){
+            function ($order) {
                 return $order['user_id'];
             }, $orders
         );
 
-        $students = User::where('auto_school_group_id', null)->whereIn('id', $users_id)->get();
+        $students = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $users_id)->get();
         $group = collect([
             'name' => 'Нераспределённые'
+        ]);
+        return view('autoschool.students.new', compact('students', 'group'));
+
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
+    public function newSelectStudents()
+    {
+        $orders = Order::where('auto_school_id', '!=', '0')->get()->toArray();
+        $schools = AutoSchool::where('director_id', Auth::user()->id)->get()->toArray();
+        $schools_id = array_map(
+            function ($school) {
+                return $school['id'];
+            }, $schools
+        );
+        $users = UserSchool::all()->whereIn('school_id', $schools_id)->toArray();
+        $users_id = array_map(
+            function ($select) {
+                return $select['user_id'];
+            }, $users
+        );
+        $new_id = array_map(
+            function ($order) {
+                return $order['user_id'];
+            }, $orders
+        );
+
+        $students = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $users_id)->whereNotIn('id', $new_id)->get();
+        $group = collect([
+            'name' => 'Выбрали автошколу(неоплачено)'
         ]);
         return view('autoschool.students.new', compact('students', 'group'));
 
@@ -75,7 +110,7 @@ class FilialController extends Controller
         DB::transaction(function () use ($request) {
             $filial = AutoSchool::create($request->validated());
             $filial->contacts()->create([
-                'type'  => 'address',
+                'type' => 'address',
                 'value' => $request->post('address')
             ]);
         });

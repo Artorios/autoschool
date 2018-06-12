@@ -16,8 +16,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function notification($user_id, $notify){
-        if(!empty($user_id && $notify)){
+    public function notification($user_id, $notify)
+    {
+        if (!empty($user_id && $notify)) {
             $notification = new Notification;
             $time = date("H:i:s");
             $date = date("Y-m-j");
