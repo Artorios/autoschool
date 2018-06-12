@@ -12,6 +12,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
     })->name('admin.index');
 
     Route::get('/users', 'UserActions\UserController@listUsers')->name('admin.users');
+    Route::get('/users/{role}', 'UserActions\UserController@listUsersRole');
     Route::get('/students', 'UserActions\UserController@listStudents')->name('admin.students');
     Route::post('/students/get-list-students', 'UserActions\UserController@getListStudents');
     Route::put('/user/edit-user/{user}', 'UserActions\UserController@edit');
