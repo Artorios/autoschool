@@ -38,122 +38,226 @@
             </div>
         </div>
 -->
-
     <div v-for="error in createErrorsTop">
         <span if="error[0]" class="coupon-error">{{error[0]}} <br></span>
     </div>
     <div class="coupon-table">
-        <div class="table-wrapper autoschool-student profile" >
-            <div class="title-line">
-                <span class="number">№</span>
-                <span class="coupon">Купон</span>
-                <span class="name-student">ФИО ученика</span>
-                <span class="city">Филиал /Город</span>
-                <span class="price">Група</span>
-                <span class="generate-date">Дата генерации</span>
-                <span class="activate-date">Дата активации</span>
-                <span class="status">Комиссия /статус</span>
+        <div class="table-coupon table-school">
+            <div class="title-line line">
+                <span class="line-item coupons-checkbox"></span>
+                <span class="line-item number">№</span>
+                <span class="line-item coupon">Купон</span>
+                <span class="line-item name-student">ФИО ученика</span>
+                <span class="line-item city">Филиал /Город</span>
+                <span class="line-item price">Група</span>
+                <span class="line-item generate-date">Дата генерации</span>
+                <span class="line-item activate-date">Дата активации</span>
+                <span class="line-item status">Комиссия /статус</span>
             </div>
-            <div v-for="coupon in paginate" >
-                <div class="line" :class="{active: coupon.status == 3, free: coupon.status == 1, paid: coupon.status == 2}" >
-                    <div class="coupons-cheskbox">
-                        <input type="checkbox" :value="coupon.id"  v-model="checkedCoupons"></div>
-                    <div class="number" v-if="coupon.id<10">0{{coupon.id}}</div>
-                    <div class="number" v-else>{{coupon.id}}</div>
-                    <div @click="onPopup(coupon.id,coupon.status)">
-                        <div class="coupon"><a href="#">{{coupon.code}}</a></div>
-
-                        <div class="name-student" v-if="coupon.user.last_name && (coupon.status == 3 || coupon.status == 2)">
-                            {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}.
-                            <div v-if="coupon.user.second_name">{{coupon.user.second_name.toString()[0].toUpperCase()}}.</div>
-                        </div>
-                        <div class="name-student" v-else>
-                        </div>
-
-                        <div class="city" v-if="!coupon.school.filial_name">{{coupon.school.title}} {{coupon.school.city_name}}</div>
-                        <div class="city" v-else>{{coupon.school.filial_name}} {{coupon.school.city_name}}</div>
-
-
-                        <div class="price" ><div v-if="coupon.group && (coupon.status == 3 || coupon.status == 2)">{{coupon.group.name}}</div>
-                        <div class="price" v-else></div></div>
-
-                        <div class="generate-date">
-                            <a href="#">{{editDate(coupon.generation_date)}}</a>
-                        </div>
-                        <div class="activate-date" >
-                            <a href="#" v-if="coupon.status == 3">{{editDate(coupon.activated_at)}}</a>
-                        </div>
-                        <div class="status">
-                            <div class="status-fee">{{coupon.fee_amount}}</div>
-                            <div class="status-free"   v-if="coupon.status == 1"><a href="#">Свободный</a></div>
-                            <div class="status-paid"   v-else-if="coupon.status == 2"><a href="#">Выплачен</a>
-                                <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
+            <div v-for="coupon in paginate"
+                    :class="[{active: coupon.status === 3,
+                    sale: coupon.status === 2,
+                    free: coupon.status === 1},
+                    'line']">
+                <div class="line-item coupons-checkbox">
+                    <label class="label-checkbox">
+                        <input type="checkbox"
+                                v-model="checkedCoupons"
+                                :value="coupon.id"
+                                class="hidden-checkbox">
+                        <span class="label-check"></span>
+                    </label>
+                </div>
+                <div class="line-item number">
+                    <div class="hidden-head-text">№</div>
+                    <div class="line-item-content">
+                        <span v-if="coupon.id<10">0{{coupon.id}}</span>
+                        <span v-else>{{coupon.id}}</span>
+                    </div>
+                </div>
+                <div class="line-item coupon">
+                    <div class="hidden-head-text">Купон</div>
+                    <div class="line-item-content">
+                        <a href="#">{{coupon.code}}</a>
+                    </div>
+                </div>
+                <div class="line-item name-student">
+                    <div class="hidden-head-text">ФИО ученика</div>
+                    <div class="line-item-content">
+                        <div v-if="coupon.user">
+                            <div v-if="coupon.user.last_name && (coupon.status == 3 || coupon.status == 2)">
+                                {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}.
+                                <div v-if="coupon.user.second_name">
+                                    {{coupon.user.second_name.toString()[0].toUpperCase()}}.
+                                </div>
                             </div>
-                            <div class="status-active" v-else-if="coupon.status == 3"><a href="#">Активирован</a></div>
+                        </div>
+                        <div v-else>
+                            ---
                         </div>
                     </div>
-
                 </div>
-                <div class="block-media-768" :class="{active: coupon.status == 3, free: coupon.status == 1, paid: coupon.status == 2}" >
-                    <div>
-                        <div class="coupons-checkbox">
-                            <input type="checkbox" :value="coupon.id"  v-model="checkedCoupons"></div>
+                <div class="line-item city">
+                    <div class="hidden-head-text">Филиал /Город</div>
+                    <div class="line-item-content">
+                        <span v-if="!coupon.school.filial_name">
+                            {{coupon.school.title}} {{coupon.school.city_name}}
+                        </span>
+                        <span v-else>
+                            {{coupon.school.filial_name}} {{coupon.school.city_name}}
+                        </span>
                     </div>
-                    <div>
-                        <div class="number" v-if="coupon.id<10">0{{coupon.id}}</div>
-                        <div class="number" v-else>{{coupon.id}}</div>
+                </div>
+                <div class="line-item price">
+                    <div class="hidden-head-text">Група</div>
+                    <div class="line-item-content">
+                        <span v-if="coupon.group && (coupon.status == 3 || coupon.status == 2)">
+                            {{coupon.group.name}}
+                        </span>
+                        <span v-else>
+                            --
+                        </span>
                     </div>
-                    <div @click="onPopup(coupon.id,coupon.status)">
-                        <div class="coupon"><a href="#">Купон {{coupon.code}}</a></div>
-                        <div class="name-student" v-if="coupon.user.last_name && (coupon.status == 3 || coupon.status == 2)">
-                            {{coupon.user.last_name}} {{coupon.user.name.toString()[0].toUpperCase()}}. <span v-if="coupon.user.second_name">{{coupon.user.second_name.toString()[0].toUpperCase()}}.</span>
+                </div>
+                <div class="line-item generate-date">
+                    <div class="hidden-head-text">Дата генерации</div>
+                    <div class="line-item-content">
+                        <a href="#">{{editDate(coupon.generation_date)}}</a>
+                    </div>
+                </div>
+                <div class="line-item activate-date">
+                    <div class="hidden-head-text">Дата активации</div>
+                    <div class="line-item-content">
+                        <a href="#" v-if="coupon.status == 3">
+                            {{editDate(coupon.activated_at)}}
+                        </a>
+                    </div>
+                </div>
+                <div class="line-item status">
+                    <div class="hidden-head-text">Комиссия /статус</div>
+                    <div class="line-item-content">
+                        <div class="status-fee">
+                            {{coupon.fee_amount}}
                         </div>
-                        <div class="name-student" v-else></div>
-
-                        <div class="city" v-if="!coupon.school.filial_name">{{coupon.school.title}} {{coupon.school.city_name}}</div>
-                        <div class="city" v-else>Филиал {{coupon.school.filial_name}} {{coupon.school.city_name}}</div>
-
-                        <div class="city" ><div v-if="coupon.group && (coupon.status == 3 || coupon.status == 2)">Група {{coupon.group.name}}</div></div>
-
-                        <div class="generate-date">
-                            <a href="#">Дата генерации {{editDate(coupon.generation_date)}}</a>
+                        <div class="status-free" v-if="coupon.status == 1">
+                            <a href="#" @click="onPopup(coupon.id,coupon.status)">Свободный</a>
                         </div>
-                        <div class="activate-date" >
-                            <a href="#" v-if=" coupon.status == 3">Дата активации {{editDate(coupon.activated_at)}}</a>
+                        <div class="status-paid" v-else-if="coupon.status == 2">
+                            <a href="#" @click="onPopup(coupon.id,coupon.status)">Выплачен</a>
+                            <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
                         </div>
-                        <div class="status-fee"><span>Комиссия </span> <span style="font-weight: bold">{{coupon.fee_amount}}</span></div>
-                        <div class="status">
-                            <span>Статус</span>
-                            <div class="status-free"   v-if="coupon.status == 1"><a href="#">Свободный</a></div>
-                            <div class="status-paid"   v-else-if="coupon.status == 2"><a href="#">Выплачен</a>
-                                <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
+                        <div class="status-active" v-else-if="coupon.status == 3">
+                            <a href="#" @click="onPopup(coupon.id,coupon.status)">Активирован</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blockform paid hidden-comment"
+                     :id="'comment'+coupon.id"
+                     v-if="coupon.status == 2">
+                    <div class="form-inline">
+                        <div class="comment-block">
+                            <div class="comment-item comment-pay-info"
+                                    v-if="coupon.sale_date">
+                                <div class="comment-info comment-date">
+                                    {{editDate(coupon.sale_date)}}
+                                </div>
+                                <div class="comment-text" v-if="coupon.comment_director">
+                                    <span>Выплата комисии</span>
+                                    {{coupon.comment_director}}
+                                </div>
                             </div>
-                            <div class="status-active" v-else-if="coupon.status == 3"><a href="#">Активирован</a></div>
-
                         </div>
+                        <a href="#" class="close" @click="this.document.getElementById('comment'+coupon.id).classList.add('hidden-comment')"></a>
                     </div>
                 </div>
-                <div class="blockform paid hidden-comment"  :id="'comment'+coupon.id"  v-if="coupon.status == 2">
-                    <div class="form-inline">
-                        <div class="date" v-if="coupon.sale_date">
-                            {{editDate(coupon.sale_date)}}
-                        </div>
-                        <div>
-                            Выплата комисии
-                        </div>
-                        <div class="info" v-if="coupon.comment_director"> {{coupon.comment_director}}</div>
 
-                        <a  class="close" @click="this.document.getElementById('comment'+coupon.id).classList.add('hidden-comment')"></a>
-                    </div>
-                </div>
-                <div class="blockform active hidden-sale"  :id="'sale'+coupon.id" v-if="coupon.status == 1">
+                <div class="blockform active hidden-sale"
+                        :id="'sale'+coupon.id"
+                        v-if="coupon.status == 1">
                     <div class="form-inline">
+
                         <input type="text" :id="'sale-form'+coupon.id" placeholder="Комментарий">
-                        <br>
 
+                        <div class="complete-block">
+                            <autocomplete placeholder="Группа"
+                                    :url="'/api/groups-api/'+user.id"
+                                    anchor="name"
+                                    label="writer"
+                                    :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                    :on-select="getGroup">
+                            </autocomplete>
 
-                        <a  class="btn-grey" @click="sellOne(coupon.id)">Выплатить</a>
-                        <a  class="close" @click="this.document.getElementById('sale'+coupon.id).classList.add('hidden-sale')"></a>
+                            <autocomplete placeholder="Студент" v-if="checkedGroup"
+                                    :url="'/api/students-api/'+checkedGroup"
+                                    anchor="email"
+                                    label="last_name"
+                                    :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                    :on-select="getStudent">
+                            </autocomplete>
+
+                        </div>
+
+                        <a href="#" class="btn-grey" @click="sellOne(coupon.id)">Выплатить</a>
+
+                        <a href="#" class="close" @click="this.document.getElementById('sale'+coupon.id).classList.add('hidden-sale')"></a>
+
+                    </div>
+                </div>
+
+                <div class="blockform active hidden-active"
+                     :id="'active'+coupon.id"
+                     v-if="coupon.status == 3">
+                    <div class="form-inline">
+                        <div class="comment-block">
+                            <div class="comment-item comment-pay-info"
+                                    v-if="coupon.comment_coupon">
+                                <div class="comment-text">
+                                    <span>{{coupon.comment_coupon}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" :id="'comment-form'+coupon.id" placeholder="Комментарий">
+                        <a href="#" class="btn-grey" @click="commentSave(coupon.id)">Сохранить</a>
+                        <a href="#" class="close" @click="this.document.getElementById('active'+coupon.id).classList.add('hidden-active')"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="check-all-block">
+                <div class="check-all-input-block">
+                    <label class="label-checkbox-with-text">
+                        <input type="checkbox"
+                                true-value="false"
+                                false-value="true"
+                                v-model="checkedAll"
+                                @click="checkedCouponsAll(checkedAll)"
+                                class="hidden-checkbox">
+                        <span class="label-check-text">Для всех</span>
+                    </label>
+                </div>
+                <div class="check-all-text">
+                    Отмечено
+                    <span class="text-bold">{{ checkedCoupons.length }}</span>
+                    из
+                    <span class="text-bold">{{coupons.length}}</span>
+                </div>
+                <div class="button-block">
+                    <a  class="btn-grey" @click="anull(checkedCoupons)">Анулировать</a>
+                    <a  class="btn-grey" @click="sellPopup">Продать</a>
+                </div>
+            </div>
+            <div class="blockform blockform-error hidden-sale" id="sale">
+                <span v-if="this.createErrors.coupon == true" class="coupon-error">Не выбрано свободного купона<br></span>
+
+                <span v-if="this.createErrors.comment_director" class="coupon-error">{{this.createErrors.comment_director[0]}} <br></span>
+
+                <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
+                <div class="blockform active ">
+
+                    <div class="form-inline">
+                        <input type="text" v-model="data.comment_director"  placeholder="Комментарий">
+                        <a  class="btn-grey" @click="sell(checkedCoupons)">Выплатить</a>
+                        <a  class="close" @click="this.document.getElementById('sale').classList.add('hidden-sale')"></a>
                     </div>
                     <div class="form-inline">
                         <autocomplete placeholder="Группа"
@@ -161,82 +265,18 @@
                                 anchor="name"
                                 label="writer"
                                 :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
-                                :on-select="getGroup">
-                        </autocomplete>
-
-                        <autocomplete placeholder="Студент" v-if="checkedGroup"
-                                      :url="'/api/students-api/'+checkedGroup"
-                                      anchor="email"
-                                      label="last_name"
-                                      :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
-                                      :on-select="getStudent">
+                                :on-select="getGroupAll">
                         </autocomplete>
                     </div>
-                </div>
-                <div class="blockform active hidden-active"  :id="'active'+coupon.id" v-if="coupon.status == 3">
-                    <div v-if="coupon.comment_coupon">
-                        <span>{{coupon.comment_coupon}}</span>
-                    </div>
-                    <br>
-                    <div class="form-inline" >
-                        <input type="text" :id="'comment-form'+coupon.id" placeholder="Комментарий">
-                        <a  class="btn-grey" @click="commentSave(coupon.id)">Сохранить</a>
-                        <a  class="close" @click="this.document.getElementById('active'+coupon.id).classList.add('hidden-active')"></a>
-                    </div>
-
                 </div>
             </div>
-
-
-
         </div>
         <ul class="pagination" v-if="itemsPerPage < resultCount">
             <li class="page-item" v-for="pageNumber in totalPages">
                 <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
             </li>
         </ul>
-        <br>
-        <div class="blockform paid active">
-            <div class="form-inline">
-                <label class="label-checkbox">
-                    <input type="checkbox"
-                            true-value="false"
-                            false-value="true"
-                            v-model="checkedAll"
-                            @click="checkedCouponsAll(checkedAll)"
-                            class="hidden-checkbox">
-                    <span class="label-check"></span>
-                </label>
-            <div class="info">Отмечено {{ checkedCoupons.length }} из {{coupons.length}}</div>
-                <a  class="btn-grey" @click="anull(checkedCoupons)">Анулировать</a>
-                <a  class="btn-grey" @click="sellPopup">Продать</a>
-            </div>
-        </div>
 
-        <div class="hidden-sale" id="sale">
-            <span v-if="this.createErrors.coupon == true" class="coupon-error">Не выбрано свободного купона<br></span>
-
-            <span v-if="this.createErrors.comment_director" class="coupon-error">{{this.createErrors.comment_director[0]}} <br></span>
-
-            <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
-            <div class="blockform active "   >
-
-                <div class="form-inline">
-                    <input type="text" v-model="data.comment_director"  placeholder="Комментарий">
-                    <a  class="btn-grey" @click="sell(checkedCoupons)">Выплатить</a>
-                    <a  class="close" @click="this.document.getElementById('sale').classList.add('hidden-sale')"></a>
-                </div>
-                <div class="form-inline">
-                    <autocomplete placeholder="Группа"
-                                  :url="'/api/groups-api/'+user.id"
-                                  anchor="name"
-                                  label="writer"
-                                  :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
-                                  :on-select="getGroupAll">
-                    </autocomplete>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 </template>
