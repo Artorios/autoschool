@@ -22,14 +22,19 @@
   align-items: center;
   justify-content: space-between;
 }
-.button-block .btn-grey{
-  width: 26%;
-  margin: 0;
-}
+
 .button-block .btn-grey:hover{
   cursor: pointer;
 }
-.button-block .select-block{
+.button-block .btn-grey{
+  width: 32%;
+  margin: 0;
+}
+.button-block.button-block-with-select .btn-grey{
+  width: 26%;
+  margin: 0;
+}
+.button-block.button-block-with-select .select-block{
   width: 45%;
 }
 
@@ -63,7 +68,14 @@
     width: 100%;
     margin: 0 0 15px 0;
   }
-  .button-block .select-block{
+  .button-block .btn-grey:last-child{
+    margin: 0;
+  }
+  .button-block.button-block-with-select .btn-grey{
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+  .button-block.button-block-with-select .select-block{
     width: 100%;
   }
   .check-all-input-block {

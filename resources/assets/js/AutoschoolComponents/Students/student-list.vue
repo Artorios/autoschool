@@ -37,115 +37,106 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="table-block table-block-students table-block-without-title">
+            <div class="table-head">
+                <span class="table-head-item number-item">№</span>
+                <span class="table-head-item name-item">ФИО ученика</span>
+                <span class="table-head-item group-item">Группа</span>
+                <span class="table-head-item lesson-item">Текущий урок</span>
+                <span class="table-head-item progress-item">Успеваемость</span>
+                <span class="table-head-item exam-item">Экзамен</span>
+            </div>
+            <div class="table-item-row"
+                 data-id="1"
+                 v-for="(student, index) in pagination()">
+                <div class="table-item number-item">
+                    <div class="table-head-item hidden-head-text">№</div>
+                    <div class="table-item-content">
+                        <span v-text="++index"></span>
+                    </div>
+                </div>
+                <div class="table-item name-item">
+                    <div class="table-head-item hidden-head-text">ФИО ученика</div>
+                    <div class="table-item-content">
+                        <a class="table-item-link text-underline"
+                           v-bind:href="`${student.auto_school_group_id}/${student.id}`"
+                           v-if="student.second_name">
+                            {{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.
+                        </a>
+                        <a class="table-item-link text-underline"
+                           v-bind:href="`${student.auto_school_group_id}/${student.id}`"
+                           v-else>
+                            {{student.last_name}} {{student.name.toString()[0].toUpperCase()}}.
+                        </a>
+                    </div>
+                </div>
+                <div class="table-item group-item">
+                    <div class="table-head-item hidden-head-text">Группа</div>
+                    <div class="table-item-content">
+                        <a v-bind:href="group.id" class="table-item-link text-underline">{{group.name}}</a>
+                    </div>
+                </div>
+                <div class="table-item lesson-item">
+                    <div class="table-head-item hidden-head-text">Текущий урок</div>
+                    <div class="table-item-content">
+                        {{student.lesson_now.lesson_num}} {{student.lesson_now.title}}
+                    </div>
+                </div>
+                <div class="table-item progress-item">
+                    <div class="table-head-item hidden-head-text">Успеваемость</div>
+                    <div class="table-item-content">
+                        <span>{{student.progress}}%</span>
+                    </div>
+                </div>
+                <div class="table-item exam-item">
+                    <div class="table-head-item hidden-head-text">Экзамен</div>
+                    <div v-if="student.last_exam" class="table-item-content">
+                        <span v-if="student.last_exam.type == 'test'">
+                            Тестовый экзамен
+                        </span>
+                        <a href="#" class="table-item-link text-underline">
+                            {{student.last_exam.right_answer_count}} из {{student.last_exam.all_answer_count}}
+                        </a>
+                    </div>
+                    <div v-if="!student.last_exam" class="table-item-content">
+                        --
+                    </div>
+                </div>
+            </div>
         </div>
-    <table class="table manage-grid">
-        <thead>
-        <tr class="visible-md visible-lg">
-            <th>№</th>
-            <th>ФИО ученика</th>
-            <th>Группа</th>
-            <th>Текущий урок</th>
-            <th>Успеваемость</th>
-            <th>Экзамен</th>
-        </tr>
-        </thead>
-        <tbody class="main">
-            <tr data-id="1" class="visible-md visible-lg" v-for="(student, index) in pagination()">
-                <td v-text="++index"></td>
-                <td>
-                    <a v-bind:href="`${student.auto_school_group_id}/${student.id}`" v-if="student.second_name">{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>
-                    <a v-bind:href="`${student.auto_school_group_id}/${student.id}`" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}.</a>
-                </td>
-                <td>
-                    <a v-bind:href="group.id">{{group.name}}</a>
-                </td>
-                <td>{{student.lesson_now.lesson_num}} {{student.lesson_now.title}}</td>
-                <td>{{student.progress}}%</td>
-                <td v-if="student.last_exam">
-                    <span v-if="student.last_exam.type == 'test'">Тестовый экзамен</span>
-                    <a href="#">{{student.last_exam.right_answer_count}} из {{student.last_exam.all_answer_count}}</a></td>
-                <td v-if="!student.last_exam">--</td>
-            </tr>
-        <div>
-            <tr data-id="1" class="hidden-md hidden-lg" v-for="(student, index) in filterStudents">
-                <td>
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <span class="big bold" v-text="++index"></span>
-                            </td>
-                            <td colspan="2">
-                                <!--<a href="#" v-if="student.second_name">{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}. {{student.second_name.toString()[0].toUpperCase()}}.</a>-->
-                                <!--<a href="#" v-else>{{student.last_name}} {{student.name.toString()[0].toUpperCase()}}.</a>-->
-                                <a href="#" v-if="student.second_name">{{student.last_name}} {{student.name}} {{student.second_name}}</a>
-                                <a href="#" v-else>{{student.last_name}} {{student.name}}.</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <th>Группа</th>
-                            <td>
-                                <a v-bind:href="group.id">{{group.name}}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <th>Текущий урок</th>
-                            <td>{{student.lesson_now.lesson_num}} {{student.lesson_now.title}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <th>Успеваемость</th>
-                            <td>{{student.progress}}%</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <th>Экзамен</th>
-                            <td v-if="student.last_exam">
-                                <span v-if="student.last_exam.type == 'test'">Тестовый экзамен</span>
-                                <a href="#">{{student.last_exam.right_answer_count}} из {{student.last_exam.all_answer_count}}</a></td>
-                            <td v-if="!student.last_exam">--</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
 
-
-            <tr data-id="1" class="payment-form" style="display: none">
-                <td colspan="6">
-                    <form action="">
-                        <div class="close hidden-md hidden-lg"></div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <button class="btn-grey">Сохранить</button>
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <div class="close visible-md visible-lg"></div>
-                            </div>
+            <div data-id="1" class="payment-form" style="display: none">
+            <form action="">
+                <div class="close hidden-md hidden-lg"></div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text">
                         </div>
-                    </form>
-                </td>
-            </tr>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <button class="btn-grey">Сохранить</button>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="close visible-md visible-lg"></div>
+                    </div>
+                </div>
+            </form>
         </div>
 
-        </tbody>
-    </table>
+        </div>
 
-    <div class="invitegroupe">
+        <div class="invitegroupe">
         <ul class="pagination" v-if="itemsPerPage < resultCount">
             <li class="page-item" v-for="pageNumber in totalPages">
                 <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber"
