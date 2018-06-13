@@ -2,7 +2,7 @@
     <div class="blockform">
         <div class="error-server error" v-if="serverError">Произошла ошибка</div>
         <form action="">
-            <div class="row">
+            <div class="row nero">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                     <input v-model.trim="data.name" v-bind:class="{'input-error': errors.name}" id="name" type="text"
                            class="name-group" placeholder="Название группы" required="">
