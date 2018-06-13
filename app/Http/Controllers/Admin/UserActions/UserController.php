@@ -36,9 +36,9 @@ class UserController extends Controller
             return $user;
         }, $users_list);
 
+        $role = 'all';
 
-
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.index', compact('users', 'role'));
     }
 
     /**
@@ -62,7 +62,7 @@ class UserController extends Controller
 
 
 
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.index', compact('users', 'role'));
 
     }
 

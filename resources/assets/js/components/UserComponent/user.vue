@@ -21,7 +21,6 @@
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <p class="error" v-if="error_search">{{error_search}}</p>
                                     <input type="text" name="table_search" class="form-control pull-right" v-model="query" :placeholder="searchplaceholder">
 
                                     <div class="input-group-btn">
@@ -48,6 +47,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <p class="error" v-if="error_search">{{error_search}}</p>
+
                                 <tr v-for="user in pagination()">
                                     <td>{{user.id}}</td>
                                     <td>{{user.name}}</td>
@@ -99,7 +100,7 @@
                 lists: {},
             }
         },
-        props: ['users', 'searchplaceholder'],
+        props: ['users', 'searchplaceholder', 'role'],
         components: {
             EditPopup
         },
@@ -148,17 +149,20 @@
             },
             search(){
                 if (this.query) {
-                    this.$http.get('/api/admin/search-user?q=' + this.query).then(res => {
+
+                    this.$http.get('/api/admin/'+this.role+'/search-user?q=' + this.query).then(res => {
                         if(res.data){
                             if(!res.data.error){
                                 this.lists = res.data
                                 this.currentPage = '1'
+                                this.error_search = ''
+
                             }
                             else {
+                                this.lists = []
                                 this.error_search = res.data.error
                             }
                         }
-                        console.log(res.data.error)
                     });
                 }
                 else {
