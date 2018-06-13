@@ -3,24 +3,24 @@
         <div class="error-server error" v-if="serverError">Произошла ошибка</div>
         <form action="">
             <div class="row nero">
-                <div class="col-xs-12 col-sm-4">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                     <input v-model.trim="data.name" v-bind:class="{'input-error': errors.name}" id="name" type="text"
                            class="name-group" placeholder="Название группы" required="">
                 </div>
-                <div class="col-xs-6 col-sm-2">
-                    <div class="data">
+                <div class="col-xs-6 col-sm-5 col-md-5 col-lg-2">
+                    <div class="data data-small">
                         <input v-model.trim="data.exam_date" v-bind:class="{'input-error': errors.exam_date}"
                                 v-mask="'9999-99-99'" id="date" type="text"  placeholder="Дата" required="">
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-2">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-2">
                     <span class="error" v-if="errors.exam_time">Время должно быть в формате ЧЧ:ММ</span>
-                    <div class="time">
+                    <div class="time time-small">
                         <input v-model.trim="data.exam_time" v-bind:class="{'input-error': errors.exam_time}"
                                 v-mask="'99:99'" id="time" type="text" placeholder="Время" required="">
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-3">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-3">
                     <a href="#" class="btn-grey" v-on:click.prevent="sendDataToServer()">Сохранить</a>
                 </div>
                 <span class="close" @click="closeForm"></span>

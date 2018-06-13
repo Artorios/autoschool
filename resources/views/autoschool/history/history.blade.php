@@ -37,7 +37,7 @@
                     <div class="table-item count-item">
                         <div class="table-head-item hidden-head-text">Кол-во учеников</div>
                         <div class="table-item-content">
-                            <span>count</span>
+                            <span class="text-bold text-big">count</span>
                         </div>
                     </div>
                     <div class="table-item kupons-item">
@@ -52,7 +52,7 @@
     <div class="invitegroupe">
         <ul class="pagination">
             <li class="page-item">
-                <a class="[{active: currentPage === pageNumber}, 'page-link']" href="#"</a>
+                <a class="[{active: currentPage === pageNumber}, 'page-link']" href="#"></a>
             </li>
         </ul>
     </div>

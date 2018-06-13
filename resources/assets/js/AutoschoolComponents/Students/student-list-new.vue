@@ -89,7 +89,7 @@
                 <div class="table-item progress-item">
                     <div class="table-head-item hidden-head-text">Успеваемость</div>
                     <div class="table-item-content">
-                        <span>{{student.progress}}%</span>
+                        <span class="text-bold text-big">{{student.progress}}%</span>
                     </div>
                 </div>
                 <div class="table-item exam-item">

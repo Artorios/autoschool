@@ -98,7 +98,7 @@
                 <div class="table-item sum-item">
                     <div class="table-head-item hidden-head-text">Сумма</div>
                     <div class="table-item-content">
-                        <a class="table-item-link text-underline"
+                        <a class="table-item-link text-big"
                            href="#"
                            v-text="student.amount">
                         </a>

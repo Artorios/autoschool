@@ -142,7 +142,7 @@
                         <div class="line-item price">
                             <div class="hidden-head-text">Сумма оплаты</div>
                             <div class="line-item-content">
-                                {{ item.amount.payment }}
+                                <span class="text-bold text-big">{{ item.amount.payment }}</span>
                             </div>
                         </div>
                         <div class="line-item status">

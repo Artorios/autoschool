@@ -198,6 +198,11 @@ div.data{
     pointer-events: none;
   }
 }
+div.data.data-small{
+  &:after{
+    right: 15px;
+  }
+}
 @media only screen and (max-width: 991px){
   div.data{
     &:after{
@@ -222,6 +227,11 @@ div.time{
     right: 21px;
     transform: translateY(-50%);
     pointer-events: none;
+  }
+}
+div.time.time-small{
+  &:after{
+    right: 15px;
   }
 }
 .search{
