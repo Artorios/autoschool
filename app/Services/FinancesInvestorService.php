@@ -18,6 +18,7 @@ class FinancesInvestorService
             ->leftJoin('orders', 'users.id', 'orders.user_id')
             ->select(['*',
                 'auto_schools.id as AutoSchoolId',
+                'auto_schools.title as AutoSchoolTitle',
                 'users.name as studentName',
                 'users.id as studentId',
                 'users.second_name as studentSecondName',

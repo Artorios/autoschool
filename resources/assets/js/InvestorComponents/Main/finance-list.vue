@@ -34,12 +34,15 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
-                    <div class="form-group">
-                         <select class="select user">
-                                <option selected disabled>ФИО ученика</option>
-                                <option value="acs">От А-Я</option>
-                                <option value="desc">От Я-А</option>
-                         </select>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select name="" class="select">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="all" v-text="list.length"></option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
@@ -61,55 +64,9 @@
             </div>
         </div>
 
-        <table class="table manage-grid">
-            <thead>
-            <tr class="visible-md visible-lg">
-                <th></th>
-                <th>№</th>
-                <th>Автошкола/ID</th>
-                <th>ФИО ученика/Группа</th>
-                <th>Тип оплаты</th>
-                <th>Дата оплаты</th>
-                <th>Сумма</th>
-                <th>Комиссия</th>
-                <th>Статус</th>
-            </tr>
-            </thead>
-            <tbody class="main">
-            <tr
-                :data-id="index"
-                :class="{
-                    'line active': item.status === 3,
-                    'line sale': item.status === 2,
-                    'line free': item.status === 1,
-                    }"
-                v-for="(item, index) in pagination()">
-                <div class="coupons-checkbox">
-                    <input type="checkbox" :value="item.CouponID"  v-model="checkedCoupons">
-                </div>
-                <td v-text="++index"></td>
-                <td>
-                    <a class="school-name">{{ item.title }}</a>
-                    <span class="school-id">{{ item.AutoSchoolId }}</span>
-                </td>
-                <td>
-                    <span class="student-name" v-text="getFullName(item)"></span>
-                    <span class="group-number">Группа
-                        <a href="javascript:">{{ item.GroupName }}</a>
-                    </span>
-                </td>
-                <td v-text="item.payment_option"></td>
-                <td v-text="getDate(item)"></td>
-                <td><span class="bold big">{{ item.amount }}</span></td>
-                <td><a class="bold big" href="javascript:">?</a></td>
-                <td>
-                    <a href="javascript:" class="status" v-text="getstatus(item)"></a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
         <div class="table-block table-filial-autoschool-finance table-block-without-title">
             <div class="table-head">
+                <span class="table-head-item checkbox-item"></span>
                 <span class="table-head-item number-item">№</span>
                 <span class="table-head-item school-item">Автошкола/ID</span>
                 <span class="table-head-item name-group-item">ФИО ученика/Группа</span>
@@ -121,12 +78,10 @@
             </div>
             <div class="table-item-row status-active"
                         :data-id="index"
-                        :class="{
-                            'line active': item.status === 3,
-                            'line sale': item.status === 2,
-                            'line free': item.status === 1,
-                        }"
                         v-for="(item, index) in pagination()">
+                    <div class="line-item coupons-checkbox">
+                        <input type="checkbox" :value="item.CouponID"  v-model="checkedCoupons">
+                    </div>
                     <div class="table-item number-item">
                         <div class="table-head-item hidden-head-text">№</div>
                         <div class="table-item-content">
@@ -182,7 +137,70 @@
                             <a href="javascript:" class="table-item-link status" v-text="getstatus(item)">Оплаченно</a>
                         </div>
                     </div>
+
+                    <div class="check-all-block">
+                        <div class="check-all-input-block">
+                        <label class="label-checkbox-with-text">
+                            <input type="checkbox"
+                                   true-value="false"
+                                   false-value="true"
+                                   v-model="checkedAll"
+                                   @click="checkedCouponsAll(checkedAll)"
+                                   class="hidden-checkbox">
+                            <span class="label-check-text">Для всех</span>
+                        </label>
+                    </div>
+                        <div class="check-all-text">
+                        Отмечено
+                        <!--<span class="text-bold">{{ checkedCoupons.length }}</span>-->
+                        из
+                        <!--<span class="text-bold">{{filteredList.length}}</span>-->
+                    </div>
+                        <div class="button-block">
+                        <a class="btn-grey" @click="anull(checkedCoupons)">
+                            Анулировать
+                        </a>
+                        <a class="btn-grey" @click="sellPopup">
+                            Продать
+                        </a>
+                        <a class="btn-grey" @click="delCoupon">
+                            Удалить
+                        </a>
+                    </div>
+                    </div>
+                    <div id="sale" class="blockform blockform-error hidden-popup">
+                        <span v-if="this.createErrors.coupon == true"
+                              class="coupon-error">
+                          Не выбрано свободного купона<br>
+                        </span>
+                    <span v-if="this.createErrors.comment_investor"
+                          class="coupon-error">
+                          {{this.createErrors.comment_investor[0]}}<br>
+                        </span>
+                    <span v-if="this.createErrors.id"
+                          class="coupon-error">
+                          {{this.createErrors.id[0]}}<br>
+                        </span>
+                    <div class="form-inline">
+                        <input type="text"
+                               v-model="data.comment_investor"
+                               placeholder="Комментарий">
+                        <a class="btn-grey"
+                           @click="sell(checkedCoupons)">
+                            Выплатить
+                        </a>
+                        <a class="close" @click="closePopup('sale')"></a>
+                    </div>
                 </div>
+                    <div class="blockform active " v-if="serverError">
+                    <span v-if="this.createErrors.coupon == true" class="coupon-error">Выбирите купон<br></span>
+                    <span v-if="this.createErrors.comment_investor" class="coupon-error">{{this.createErrors.comment_investor[0]}} <br></span>
+                    <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
+                    <div class="form-inline">
+                        <a class="close" @click="serverError=false"></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -194,34 +212,6 @@
             </li>
         </ul>
     </div>
-
-    <div class="blockform paid active">
-        <div class="form-inline">
-            <input type="checkbox" style="width: 12px"  true-value="false" false-value="true"  v-model="checkedAll" @click="checkedCouponsAll(checkedAll)">
-            <div class="info">Отмечено {{ checkedCoupons.length }} из {{list.length}}</div>
-            <a  class="btn-grey" @click="anull(checkedCoupons)">Анулировать</a>
-            <a  class="btn-grey" @click="sellPopup">Продать</a>
-        </div>
-    </div>
-
-    <div class="hidden-sale" id="sale">
-        <span v-if="this.createErrors.coupon == true" class="coupon-error">Не выбрано свободного купона<br></span>
-
-        <span v-if="this.createErrors.comment_investor" class="coupon-error">
-            {{this.createErrors.comment_director[0]}} <br>
-        </span>
-
-        <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
-        <div class="blockform active ">
-
-        <div class="form-inline">
-                <input type="text" v-model="data.comment_director"  placeholder="Комментарий">
-                <a  class="btn-grey" @click="sell(checkedCoupons)">Выплатить</a>
-                <a  class="close" @click="this.document.getElementById('sale').classList.add('hidden-sale')"></a>
-            </div>
-        </div>
-    </div>
-
 
 </div>
 </template>
@@ -486,8 +476,22 @@
                     case 3:
                         return 'Активированный'
                 }
-            }
+            },
 
+            delCoupon(coupons) {
+                this.serverError=false
+                this.data.id = coupons
+                this.$http.post('/investor/coupons/delete', this.data).then(res => {
+                    if (res.status === 201) {
+                        window.location.reload(true);
+                    }
+                }, err => {
+                    if (+err.status === 422) {
+                        this.createErrors = err.data['errors']
+                        this.serverError = true
+                    }
+                })
+            }
 
         },
 
@@ -500,3 +504,9 @@
         },
     }
 </script>
+
+<style scoped>
+    .table-item-row {
+        flex-wrap: nowrap;
+    }
+</style>
