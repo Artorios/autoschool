@@ -32,7 +32,7 @@
                     <div class="table-item count-item">
                         <div class="table-head-item hidden-head-text">Кол-во учеников</div>
                         <div class="table-item-content">
-                            <span></span>
+                            <span class="text-bold text-big"></span>
                         </div>
                     </div>
                     <div class="table-item kupons-item">
@@ -66,7 +66,7 @@
                     <div class="table-item count-item">
                         <div class="table-head-item hidden-head-text">Кол-во учеников</div>
                         <div class="table-item-content">
-                            <span>{{filial.student_count}}</span>
+                            <span class="text-bold text-big">{{filial.student_count}}</span>
                         </div>
                     </div>
                     <div class="table-item kupons-item">

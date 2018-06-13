@@ -112,7 +112,7 @@
                     <div class="table-item sum-item">
                         <div class="table-head-item hidden-head-text">Сумма</div>
                         <div class="table-item-content">
-                            <span class="text-bold">{{ item.amount }}</span>
+                            <span class="text-bold text-big">{{ item.amount }}</span>
                         </div>
                     </div>
                     <div class="table-item commission-item">

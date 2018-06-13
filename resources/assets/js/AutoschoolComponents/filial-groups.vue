@@ -35,7 +35,7 @@
                     <div class="table-item count-item">
                         <div class="table-head-item hidden-head-text">Кол-во учеников</div>
                         <div class="table-item-content">
-
+                            <span class="text-bold text-big"></span>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                     <div class="table-item count-item">
                         <div class="table-head-item hidden-head-text">Кол-во учеников</div>
                         <div class="table-item-content">
-
+                            <span class="text-bold text-big"></span>
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                     <div class="table-item count-item">
                         <div class="table-head-item hidden-head-text">Кол-во учеников</div>
                         <div class="table-item-content">
-                            {{group.count_student}}
+                            <span class="text-bold text-big">{{group.count_student}}</span>
                         </div>
                     </div>
                 </div>
