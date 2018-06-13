@@ -1,6 +1,7 @@
 <template>
     <div class="content-wrapper">
         <edit-popup :user="this.checkedUser" :edit="this.checkedUser ? true : false" v-if="showEditPopup"></edit-popup>
+        <pay-popup :user="this.checkedUser" v-if="showPayPopup"></pay-popup>
         <section class="content-header">
             <h1>
                 Пользователи
@@ -69,13 +70,19 @@
                                     <td>{{user.email}}</td>
                                     <td><span class="label label-success">{{user.role}}</span></td>
 
-                                    <td v-if="role == 'user' || role == 'all'">{{sale_status(user)}}</td>
+                                    <td v-if="role == 'user' || role == 'all'">
+                                    <div v-if="sale_status(user) == 'paid'">оплаченый</div>
+                                    <div v-else>неоплаченный</div>
+                                    </td>
                                     <td>
                                         <button class="btn btn-success"
                                                 title="Редактировать"
                                                 @click="showEdit(user)"><i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i>
-                                        </button>
+                                        <button class="btn btn-success"
+                                                title="Редактировать"
+                                                v-if="sale_status(user) == 'not_paid'"
+                                                @click="showPay(user)">$</button>
+                                        <button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -103,6 +110,7 @@
 <script>
     import {Events} from '../../app'
     import EditPopup from './add-popup.vue'
+    import PayPopup from './pay-popup.vue'
 
     export default {
         data() {
@@ -111,6 +119,7 @@
                 itemsPerPage: 10,
                 checkedUser: null,
                 showEditPopup: false,
+                showPayPopup: false,
                 query: '',
                 error_search: '',
                 lists: {},
@@ -118,7 +127,8 @@
         },
         props: ['users', 'searchplaceholder', 'role'],
         components: {
-            EditPopup
+            EditPopup,
+            PayPopup,
         },
         computed: {
 
@@ -131,6 +141,9 @@
             this.lists = this.users
             Events.$on('toggle-popup', () => {
                 this.togglePopup()
+            })
+            Events.$on('toggle-popup-pay', () => {
+                this.togglePopupPay()
             })
             this.pagination()
         },
@@ -155,11 +168,19 @@
                 this.showEditPopup = !this.showEditPopup
                 this.checkedUser = null
             },
+            togglePopupPay () {
+                this.showPayPopup = !this.showPayPopup
+                this.checkedUser = null
+            },
             showEdit(user) {
                 this.checkedUser = user
                 this.showEditPopup = true
             },
-            showCreate() {
+            showPay (user) {
+                this.checkedUser = user
+                this.showPayPopup = true
+            },
+            showCreate () {
                 this.checkedUser = null
                 this.showEditPopup = true
             },
@@ -190,7 +211,7 @@
             },
             sale_status(user) {
                 if (user.orders.length > 0) {
-                    return 'оплаченый'
+                    return 'paid'
                 }
                 else {
                     if (user.coupons.length > 0) {
@@ -198,17 +219,17 @@
                         for (var i = 0; i < user.coupons.length; i++) {
                             if (user.coupons[i].status == 3) {
                                 st = 1
-                                return 'оплаченый'
+                                return 'paid'
                             }
 
                         }
                         if (st == 0) {
-                            return 'неоплаченный'
+                            return 'not_paid'
                         }
 
                     }
                     else {
-                        return 'неоплаченный'
+                        return 'not_paid'
                     }
                 }
 
