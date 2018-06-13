@@ -8,9 +8,8 @@ header {
         display: inline-block;
         list-style: none;
         padding: 0;
-
         li {
-          padding: 0 20px;
+          padding: 0 15px;
           display: inline-block;
           &:first-child {
             padding-left: 0;
@@ -27,6 +26,9 @@ header {
         display: inline-block;
         float: right;
         position: relative;
+        max-width: 49%;
+        display: flex;
+        max-height: 50px;
         &:before {
           content: '';
           display: block;
@@ -39,7 +41,7 @@ header {
         }
         a {
           color: #fff;
-          padding: 0 20px;
+          padding: 0 15px;
           .fa{
             color: #9A9A9A;
             font-size: 20px;
@@ -52,6 +54,12 @@ header {
           }
           &:last-child {
             padding-right: 0;
+          }
+          &:first-child {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
           }
         }
       }
@@ -165,6 +173,24 @@ header {
 
 @media (max-width: 1199px) {
   header {
+    .top-line{
+      .container{
+        ul{
+          li{
+            padding: 0 10px;
+          }
+        }
+        .right{
+          max-width: 45%;
+          a{
+            padding: 0 10px;
+          }
+          a:first-child{
+            padding-left: 0;
+          }
+        }
+      }
+    }
     .logo-line {
       .container {
         .select-wrapper {
@@ -205,6 +231,7 @@ header {
           display: none;
         }
         .right {
+          max-width: 100%;
           &:before {
             display: none;
           }
@@ -260,11 +287,12 @@ header {
         .right {
           width: 100%;
           text-align: right;
+          flex-grow: 2;
           a {
             padding: 0 10px !important;
             &:first-child {
-              margin-right: 40px;
-              padding-left: 0 !important;
+              //padding-left: 0 !important;
+              text-align: left;
             }
             img {
               margin-left: 0;
@@ -329,5 +357,41 @@ header {
         }
       }
     }
+  }
+}
+@media (max-width: 479px) {
+  header{
+    .top-line{
+      max-height: initial;
+      line-height: 1.4;
+      .container{
+        .right{
+          //justify-content: flex-end;
+          flex-wrap: wrap;
+          max-height: initial;
+          a{
+            margin: 0 0 15px 0;
+          }
+          a:first-child {
+            margin: 15px 0;
+            text-align: left;
+            flex: 0 0 100%;
+            max-width: 100%;
+            text-overflow: clip;
+            overflow: visible;
+            white-space: normal;
+            word-wrap: break-word;
+            padding-left: 35px !important;
+            position: relative;
+            .fa{
+              position: absolute;
+              left: 10px;
+              top: 0;
+            }
+          }
+        }
+      }
+    }
+
   }
 }
