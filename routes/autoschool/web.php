@@ -19,6 +19,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
         Route::get('/', 'FilialController@index')->name('autoschool.filials');
         Route::get('/new', 'FilialController@newStudents')->name('autoschool.filials.new');
         Route::get('/new/{id}', 'StudentController@indexStudentNew');
+        Route::post('/new/save-group', 'StudentController@saveGroupNew');
         Route::get('/new-select', 'FilialController@newSelectStudents')->name('autoschool.filials.new-select');
         Route::get('/new-select/{id}', 'StudentController@indexStudentSelectNew');
         Route::get('{id}', 'FilialController@show')->middleware('filial');
