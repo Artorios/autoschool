@@ -120,7 +120,12 @@
                 <span class="table-head-item status-item">Статус</span>
             </div>
             <div class="table-item-row status-active"
-                        data-id="1"
+                        :data-id="index"
+                        :class="{
+                            'line active': item.status === 3,
+                            'line sale': item.status === 2,
+                            'line free': item.status === 1,
+                        }"
                         v-for="(item, index) in pagination()">
                     <div class="table-item number-item">
                         <div class="table-head-item hidden-head-text">№</div>
@@ -174,7 +179,7 @@
                     <div class="table-item status-item">
                         <div class="table-head-item hidden-head-text">Статус</div>
                         <div class="table-item-content">
-                            <a href="javascript:" class="table-item-link status">Оплаченно</a>
+                            <a href="javascript:" class="table-item-link status" v-text="getstatus(item)">Оплаченно</a>
                         </div>
                     </div>
                 </div>
