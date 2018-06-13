@@ -66,4 +66,18 @@ return [
         'redirect'      => env('APP_URL') . '/user/callback/twitter',
     ],
 
+    'yakassa' => [
+        'test_mode'     => env('YAKASSA_TEST_MODE', true),
+        'shop_id'       => env('YAKASSA_SHOP_ID', ''),
+        'showcase_id'   => env('YAKASSA_SHOWCASE_ID', ''),
+        'shop_password' => env('YAKASSA_SHOP_PASSWORD', ''),
+    ],
+
+    'robokassa' => [
+        'login'              => env('ROBOKASSA_LOGIN', ''),
+        'paymentPassword'    => env('ROBOKASSA_PAYMENT_PASSWORD', ''),
+        'validationPassword' => env('ROBOKASSA_VALIDATION_PASSWORD', ''),
+        'testMode'           => env('ROBOKASSA_TEST_MODE', true),
+    ]
+
 ];
