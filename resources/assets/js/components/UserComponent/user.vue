@@ -45,7 +45,7 @@
                                     <th>Група</th>
                                     <th>Email</th>
                                     <th>Роль</th>
-                                    <th>Статус</th>
+                                    <th v-if="role == 'user' || role == 'all'">Статус</th>
                                     <th>Действия</th>
                                 </tr>
                                 </thead>
@@ -63,9 +63,9 @@
                                     <td v-if="user.autoschoolgroup">{{user.autoschoolgroup.name}}</td>
                                     <td v-else></td>
                                     <td>{{user.email}}</td>
-                                    <td><span class="label label-success">{{user.role}}</span></td>
+                                    <td ><span class="label label-success">{{user.role}}</span></td>
 
-                                    <td>{{sale_status(user)}}</td>
+                                    <td v-if="role == 'user' || role == 'all'">{{sale_status(user)}}</td>
                                     <td>
                                         <button class="btn btn-success"
                                                 title="Редактировать"
@@ -184,7 +184,6 @@
             },
             sale_status(user) {
                 if (user.orders.length > 0) {
-                    console.log('1', user.id)
                     return 'оплаченый'
                 }
                 else {
@@ -193,7 +192,6 @@
                         for(var i = 0; i<user.coupons.length; i++){
                             if(user.coupons[i].status == 3){
                                 st = 1
-                                console.log('2', user.id)
                                 return 'оплаченый'
                             }
 
