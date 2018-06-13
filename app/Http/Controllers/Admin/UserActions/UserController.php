@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin\UserActions;
 
 use App\Http\Requests\Admin\{
-    CreateUserInAdmin, SearchUser, UpdateUserInAdmin
+    CreateUserInAdmin, SearchUser, UpdateUserInAdmin, PaymentUserInAdmin
 };
+use App\Models\Finance\Order;
 use App\Models\Training\School\AutoSchool;
 use App\Models\User\User;
 use Illuminate\Http\Request;
@@ -77,6 +78,22 @@ class UserController extends Controller
 
 
         $user->update($request->validated());
+
+        return response()->json(['status' => 1], 202);
+
+    }
+
+    /**
+     * @param Order $order
+     * @param PaymentUserInAdmin $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function pay(Order $order, PaymentUserInAdmin $request)
+    {
+
+
+        $order->create($request->validated());
 
         return response()->json(['status' => 1], 202);
 
