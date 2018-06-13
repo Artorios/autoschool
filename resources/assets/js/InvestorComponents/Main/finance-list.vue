@@ -204,6 +204,7 @@
         </div>
     </div>
 
+    <h2 v-if="this.errorDelete">Выберете учеников</h2>
     <div class="invitegroupe">
         <ul class="pagination" v-if="itemsPerPage < resultCount">
             <li class="page-item" v-for="pageNumber in totalPages">
@@ -212,7 +213,6 @@
             </li>
         </ul>
     </div>
-
 </div>
 </template>
 
