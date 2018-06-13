@@ -16,6 +16,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin'], 'namespace
     Route::get('/students', 'UserActions\UserController@listStudents')->name('admin.students');
     Route::post('/students/get-list-students', 'UserActions\UserController@getListStudents');
     Route::put('/user/edit-user/{user}', 'UserActions\UserController@edit');
+    Route::post('/user/pay-user/{user}', 'UserActions\UserController@pay');
     Route::post('/user/create', 'UserActions\UserController@create');
 
     Route::group(['prefix' => 'schools', 'namespace' => 'AutoSchools'], function () {
