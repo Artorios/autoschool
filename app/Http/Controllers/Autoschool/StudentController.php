@@ -39,7 +39,7 @@ class StudentController extends Controller
         return view('autoschool.students.list', compact('students', 'group'));
     }
 
-    public function indexStudent(Request $request)
+    public function indexStudent(Request $request, User $user)
     {
         $studentWithOrders = User::leftjoin('orders', 'users.id', 'orders.user_id')
             ->where('users.id', $request->student)
@@ -64,7 +64,10 @@ class StudentController extends Controller
             ->get()
             ->first();
 
-        return view('autoschool.personal.index', compact('studentWithOrders', 'studentWithAutoSchool', 'studentWithAddress'));
+        $director = Auth::user();
+        $student = $user->where('id', $request->student)->first();
+        $group = AutoSchoolGroup::where('id', $student->auto_school_group_id)->with('autoschool')->first();
+        return view('autoschool.personal.index', compact('studentWithOrders', 'studentWithAutoSchool', 'studentWithAddress','student','director','group'));
 
     }
 
