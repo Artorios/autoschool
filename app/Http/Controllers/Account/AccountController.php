@@ -150,13 +150,14 @@ class AccountController extends Controller
     {
         $cities = City::where('show_city', 1)->get();
         $user = Auth::user();
+        $group = $user->autoschoolgroup()->first();
         $order = $user->orders->first();
         $coupon = $user->coupons->first();
         $finance = [
             'order' => $order,
             'coupon' => $coupon
         ];
-        return view('account.profile.index', compact('cities', 'user', 'finance'));
+        return view('account.profile.index', compact('cities', 'user', 'finance', 'group'));
 
     }
 

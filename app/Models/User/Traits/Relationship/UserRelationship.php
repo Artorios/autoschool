@@ -105,6 +105,6 @@ trait UserRelationship
     }
 
     public function coupons(){
-        return $this->hasMany(Coupon::class, 'student_id','id');
+        return $this->hasMany(Coupon::class, 'student_id', 'id');
     }
 }

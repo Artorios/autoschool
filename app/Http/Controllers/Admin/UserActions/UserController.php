@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function listUsers(User $user, AutoSchool $autoSchool)
     {
-        $users_list = $user->with('autoschoolgroup')->get()->toArray();
+        $users_list = $user->with('autoschoolgroup')->with('city')->with('orders')->with('coupons')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
 
         $users = array_map(function ($user) use ($schools) {
@@ -36,9 +36,9 @@ class UserController extends Controller
             return $user;
         }, $users_list);
 
+        $role = 'all';
 
-
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.index', compact('users', 'role'));
     }
 
     /**
@@ -48,7 +48,7 @@ class UserController extends Controller
 
     public function listUsersRole(User $user, AutoSchool $autoSchool, $role){
 
-        $users_list = $user->where('role', $role)->with('autoschoolgroup')->get()->toArray();
+        $users_list = $user->where('role', $role)->with('autoschoolgroup')->with('city')->with('orders')->with('coupons')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
 
         $users = array_map(function ($user) use ($schools) {
@@ -62,7 +62,7 @@ class UserController extends Controller
 
 
 
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.index', compact('users', 'role'));
 
     }
 
