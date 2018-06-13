@@ -212,32 +212,32 @@
                 <span>Смотрите и читайте еще больше отзывов в социальных сетях</span>
                 <ul class="icon-list clearfix">
                     <li class="icon-item">
-                        <a href="" class="icon-link">
+                        <a href="" class="icon-link" target="_blank">
                             <i class="fa fa-linkedin" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="icon-item">
-                        <a href="" class="icon-link">
+                        <a href="" class="icon-link" target="_blank">
                             <i class="fa fa-google-plus" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="icon-item">
-                        <a href="" class="icon-link">
+                        <a href="" class="icon-link" target="_blank">
                             <i class="fa fa-vimeo" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="icon-item">
-                        <a href="" class="icon-link">
+                        <a href="" class="icon-link" target="_blank">
                             <i class="fa fa-tumblr" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="icon-item">
-                        <a href="" class="icon-link">
+                        <a href="" class="icon-link" target="_blank">
                             <i class="fa fa-odnoklassniki" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="icon-item">
-                        <a href="" class="icon-link">
+                        <a href="" class="icon-link" target="_blank">
                             <i class="fa fa-facebook" aria-hidden="true"></i>
                         </a>
                     </li>
