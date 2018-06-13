@@ -12,9 +12,8 @@
             <div class="info-card">
                 <profile-photo :user="{{json_encode($user)}}"></profile-photo>
                 <h3>{{$user->last_name.' '.$user->name}}
-                    <span>(ID {{$user->id}}) Группа №
-                        @if(!empty($user->auto_school_group_id))
-                            {{$user->auto_school_group_id}}
+                    <span>(ID {{$user->id}})  @if(!empty($group))
+                            Группа {{$group->name}}
                         @endif
                     </span>
                 </h3>
