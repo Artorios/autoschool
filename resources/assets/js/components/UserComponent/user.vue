@@ -39,10 +39,13 @@
                                 <tr>
 
                                     <th>ID</th>
-                                    <th>Логин</th>
-                                    <th>Email</th>
+                                    <th>ФИО</th>
+                                    <th>Город</th>
                                     <th>Автошкола</th>
+                                    <th>Група</th>
+                                    <th>Email</th>
                                     <th>Роль</th>
+                                    <th>Статус</th>
                                     <th>Действия</th>
                                 </tr>
                                 </thead>
@@ -50,12 +53,19 @@
                                 <p class="error" v-if="error_search">{{error_search}}</p>
 
                                 <tr v-for="user in pagination()">
+
                                     <td>{{user.id}}</td>
-                                    <td>{{user.name}}</td>
-                                    <td>{{user.email}}</td>
+                                    <td>{{user.last_name}} {{user.name}} {{user.second_name}}</td>
+                                    <td v-if="user.city">{{user.city.name}}</td>
+                                    <td v-else></td>
                                     <td v-if="user.school">{{user.school.title}}</td>
                                     <td v-else></td>
+                                    <td v-if="user.autoschoolgroup">{{user.autoschoolgroup.name}}</td>
+                                    <td v-else></td>
+                                    <td>{{user.email}}</td>
                                     <td><span class="label label-success">{{user.role}}</span></td>
+
+                                    <td>{{sale_status(user)}}</td>
                                     <td>
                                         <button class="btn btn-success"
                                                 title="Редактировать"
@@ -172,6 +182,33 @@
             pagination() {
                 return this.paginate(this.lists);
             },
+            sale_status(user) {
+                if (user.orders.length > 0) {
+                    console.log('1', user.id)
+                    return 'оплаченый'
+                }
+                else {
+                    if (user.coupons.length > 0) {
+                        var st = 0
+                        for(var i = 0; i<user.coupons.length; i++){
+                            if(user.coupons[i].status == 3){
+                                st = 1
+                                console.log('2', user.id)
+                                return 'оплаченый'
+                            }
+
+                        }
+                        if(st == 0){
+                            return 'неоплаченный'
+                        }
+
+                    }
+                    else {
+                        return 'неоплаченный'
+                    }
+                }
+
+            }
         },
         updated(){
             this.pagination()
