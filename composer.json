@@ -20,6 +20,8 @@
         "socialiteproviders/twitter": "^3.0",
         "socialiteproviders/vkontakte": "^3.0",
         "spatie/laravel-fractal": "^5.3",
+        "idma/robokassa": "dev-master",
+        "appwilio/yakassa": "dev-master",
         "stripe/stripe-php": "^6.4"
     },
     "require-dev": {
