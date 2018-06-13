@@ -29,10 +29,10 @@
                     </span>
                     @if($all_number[$exam->id] == $correct_number[$exam->id] && $all_number[$exam->id] != 0)
                     <span class="result green">{{$correct_number[$exam->id]}} из {{$all_number[$exam->id]}}
-                        <a href="/account/exams/test"><span class="refresh"></span></a></span>
+                        <a href="/account/exams/test" class="refresh"></a></span>
                         @else
                         <span class="result">{{$correct_number[$exam->id]}} из {{$all_number[$exam->id]}}
-                            <a href="/account/exams/test"><span class="refresh"></span></a></span>
+                            <a href="/account/exams/test" class="refresh"></a></span>
                     @endif
                     <?php
                         $date = explode(' ', $exam->updated_at);

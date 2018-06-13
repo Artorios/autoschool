@@ -230,7 +230,7 @@
                 </div>
             </form>
         </div>
-        <a class="btn-grey btn-exit profile-btn-exit" @click="changeAutoschool">
+        <a class="btn-grey btn-exit profile-btn-change" @click="changeAutoschool">
             Изменить
         </a>
     </div>

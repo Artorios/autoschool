@@ -3,7 +3,7 @@
 
         <div :class="totalPages > 0 ? '' : 'hidden'">
             <h2>Список автошкол:</h2>
-            <div class="table-block">
+            <div class="table-block table-schools-list">
                 <div class="table-head">
                     <div class="table-head-item number-item">№</div>
                     <div class="table-head-item id-item">Автошкола/ID</div>
