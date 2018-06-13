@@ -49,7 +49,7 @@
                 <span class="line-item coupon">Купон</span>
                 <span class="line-item name-student">ФИО ученика</span>
                 <span class="line-item city">Филиал /Город</span>
-                <span class="line-item price">Група</span>
+                <span class="line-item price">Группа</span>
                 <span class="line-item generate-date">Дата генерации</span>
                 <span class="line-item activate-date">Дата активации</span>
                 <span class="line-item status">Комиссия /статус</span>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <div class="line-item price">
-                    <div class="hidden-head-text">Група</div>
+                    <div class="hidden-head-text">Группа</div>
                     <div class="line-item-content">
                         <span v-if="coupon.group && (coupon.status == 3 || coupon.status == 2)">
                             {{coupon.group.name}}

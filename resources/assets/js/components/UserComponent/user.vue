@@ -47,7 +47,7 @@
                                     <th>ФИО</th>
                                     <th>Город</th>
                                     <th>Автошкола</th>
-                                    <th>Група</th>
+                                    <th>Группа</th>
                                     <th>Email</th>
                                     <th>Роль</th>
                                     <th v-if="role == 'user' || role == 'all'">Статус</th>

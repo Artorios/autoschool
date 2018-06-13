@@ -22,7 +22,7 @@ class CouponTransformer extends TransformerAbstract
             'id' => $coupon->id,
             'name' => $coupon->code,
             'student_name' => User::find($coupon->student_id)->name ?? '',
-            'group_id' => $coupon->auto_school_group_id,
+            'group_id' => $coupon->group ? $coupon->group->id_number : '',
             'status' => $coupon->status,
             'autoschool' => [
                 'id' => $coupon->autoSchool->id,

@@ -123,7 +123,10 @@ class FilialController extends Controller
      */
     public function createGroup(StoreGroup $request)
     {
-        $group = AutoSchoolGroup::create($request->validated());
+        $data = $request->all();
+        $idNumber = AutoSchoolGroup::where('auto_school_id', $data['auto_school_id'])->count();
+        $data['id_number'] = ++$idNumber;
+        $group = AutoSchoolGroup::create($data);
         return response()->json(['status' => 1, 'group' => $group], 201);
     }
 

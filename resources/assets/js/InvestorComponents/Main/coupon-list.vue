@@ -69,7 +69,7 @@
                         <span class="line-item coupon">Купон</span>
                         <span class="line-item autoschool">Автошкола /ID</span>
                         <span class="line-item city">Филиал /Город</span>
-                        <span class="line-item name-student">ФИО ученика /група</span>
+                        <span class="line-item name-student">ФИО ученика /группа</span>
                         <span class="line-item generate-date">Дата генерации</span>
                         <span class="line-item activate-date">Дата активации</span>
                         <span class="line-item price">Сумма оплаты</span>
@@ -118,12 +118,11 @@
                             </div>
                         </div>
                         <div class="line-item name-student">
-                            <div class="hidden-head-text">ФИО ученика /група</div>
+                            <div class="hidden-head-text">ФИО ученика /группа</div>
                             <div class="line-item-content">
                                 {{ item.student_name }}
-                                Група №
-                                <a href="">
-                                    {{ item.group_id }}
+                                <a href="#" v-if="item.group_id">
+                                    / №{{ item.group_id }}
                                 </a>
                             </div>
                         </div>
