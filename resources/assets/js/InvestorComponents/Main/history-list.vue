@@ -39,7 +39,7 @@
             </div>
         </div>
         <h2>История</h2>
-        <div class="table-block table-block-history">
+        <div class="table-block table-history">
             <div class="table-head">
                 <div class="table-head-item number-item">№</div>
                 <div class="table-head-item table-item-date">Дата</div>
@@ -142,95 +142,5 @@
     }
 </script>
 <style scoped>
-    .table-block-history{
-        margin: 0 0 25px 0;
-    }
-    .number-item{
-        flex: 0 0 6%;
-        max-width: 6%;
-    }
-    .table-item-date{
-        flex: 0 0 25%;
-        max-width: 25%;
-    }
-    .table-item-operation{
-        flex: 0 0 34%;
-        max-width: 34%;
-    }
-    .table-item-comment{
-        flex: 0 0 35%;
-        max-width: 35%;
-    }
-    @media only screen and (max-width: 991px){
-        .number-item{
-            flex: 0 0 7%;
-            max-width: 7%;
-        }
-        .table-item-date{
-            flex: 0 0 25%;
-            max-width: 25%;
-        }
-        .table-item-operation{
-            flex: 0 0 32%;
-            max-width: 32%;
-        }
-        .table-item-comment{
-            flex: 0 0 37%;
-            max-width: 37%;
-        }
-    }
-    @media only screen and (max-width: 767px){
-        .table-item{
-            background-color: transparent;
-        }
-        .number-item{
-            flex: 0 0 35%;
-            max-width: 35%;
-            background-color: #fafafa;
-        }
-        .table-item-date{
-            flex: 0 0 65%;
-            max-width: 65%;
-            background-color: #fafafa;
-        }
-        .table-item-operation{
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-        .table-item-comment{
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-        .table-head-item.table-head-date{
-            flex: 0 0 25%;
-            max-width: 25%;
-        }
-        .table-head-item.table-head-number{
-            flex: 0 0 15%;
-            max-width: 15%;
-        }
-    }
-    @media only screen and (max-width: 575px){
-        .table-head-item.table-head-number {
-            flex: 0 0 35%;
-            max-width: 35%;
-            padding: 0 10px 0 0;
-        }
-        .number-item{
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-        .table-item-date{
-            flex: 0 0 100%;
-            max-width: 100%;
-            background-color: transparent;
-        }
-        .table-item:nth-child(odd){
-            background-color: #fafafa;
-        }
-        .table-head-item.table-head-date{
-            flex: 0 0 35%;
-            max-width: 35%;
-        }
-    }
+
 </style>

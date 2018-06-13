@@ -130,7 +130,7 @@
             <span>
                 <i class="fa fa-envelope-open" aria-hidden="true"></i>
                 e-mail:
-                <a href="#">info@autotrener.com</a>
+                <a href="mailto:info@autotrener.com">info@autotrener.com</a>
             </span>
             <a href="#">8 (495)<span>369-43-49</span></a>
         </div>

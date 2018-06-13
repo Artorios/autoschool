@@ -142,7 +142,7 @@
                         <div class="ico">
                             <i class="fa fa-envelope-open" aria-hidden="true"></i>
                         </div>
-                        <a href="#">info@autotrener.com</a>
+                        <a href="mailto:info@autotrener.com">info@autotrener.com</a>
                     </li>
                 </ul>
             </div>

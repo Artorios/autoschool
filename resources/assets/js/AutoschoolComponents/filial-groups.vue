@@ -2,7 +2,7 @@
     <div>
         <div class="blockgroupe">
             <h2>Группы:</h2>
-            <div class="table-block">
+            <div class="table-block table-filial-groups">
                 <div class="table-head">
                     <span class="table-head-item number-item">№</span>
                     <span class="table-head-item name-item">Название группы</span>
@@ -197,83 +197,5 @@
 </script>
 
 <style scoped>
-    .table-item-row {
-        padding: 30px 10px;
-    }
 
-    .number-item {
-        flex: 0 0 6%;
-        max-width: 6%;
-    }
-
-    .name-item {
-        flex: 0 0 37%;
-        max-width: 37%;
-    }
-
-    .data-and-time-item {
-        flex: 0 0 35%;
-        max-width: 35%;
-    }
-
-    .count-item {
-        flex: 0 0 22%;
-        max-width: 22%;
-    }
-
-    @media only screen and (max-width: 1199px) {
-        .data-and-time-item {
-            flex: 0 0 37%;
-            max-width: 37%;
-        }
-
-        .count-item {
-            flex: 0 0 20%;
-            max-width: 20%;
-        }
-    }
-
-    @media only screen and (max-width: 991px) {
-        .number-item {
-            flex: 0 0 7%;
-            max-width: 7%;
-        }
-
-        .name-item {
-            flex: 0 0 35%;
-            max-width: 35%;
-        }
-
-        .data-and-time-item {
-            flex: 0 0 41%;
-            max-width: 41%;
-        }
-
-        .count-item {
-            flex: 0 0 17%;
-            max-width: 17%;
-        }
-    }
-
-    @media only screen and (max-width: 767px) {
-        .number-item {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-
-        .name-item {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-
-        .data-and-time-item {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-
-        .count-item {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-    }
 </style>
