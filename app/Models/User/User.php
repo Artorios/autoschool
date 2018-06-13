@@ -13,6 +13,7 @@ use App\Models\Training\School\AutoSchool;
 use App\Models\Training\School\AutoSchoolGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 /**
  * Class User
@@ -24,7 +25,8 @@ class User extends Authenticatable
     use Notifiable,
         UserRelationship,
         UserAttribute,
-        UserMethod;
+        UserMethod,
+        Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -80,6 +82,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
 
 
     /*public function scopeRelationSchool(){

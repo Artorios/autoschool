@@ -21,17 +21,20 @@
 
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <p class="error" v-if="error_search">{{error_search}}</p>
-                                    <input type="text" name="table_search" class="form-control pull-right" v-model="query" :placeholder="searchplaceholder">
+                                    <input type="text" name="table_search" class="form-control pull-right"
+                                           v-model="query" :placeholder="searchplaceholder">
 
                                     <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default" @click="search"><i class="fa fa-search"></i></button>
+                                        <button type="submit" class="btn btn-default" @click="search"><i
+                                                class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="input-group-btn">
-                            <button type="submit" class="btn btn-success btn-lg" @click="showCreate"><i class="fa fa-plus" style="margin-right: 10px;"></i>Добавить пользователя</button>
+                            <button type="submit" class="btn btn-success btn-lg" @click="showCreate"><i
+                                    class="fa fa-plus" style="margin-right: 10px;"></i>Добавить пользователя
+                            </button>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body table-responsive no-padding">
@@ -40,26 +43,39 @@
                                 <tr>
 
                                     <th>ID</th>
-                                    <th>Логин</th>
-                                    <th>Email</th>
+                                    <th>ФИО</th>
+                                    <th>Город</th>
                                     <th>Автошкола</th>
+                                    <th>Група</th>
+                                    <th>Email</th>
                                     <th>Роль</th>
+                                    <th v-if="role == 'user' || role == 'all'">Статус</th>
                                     <th>Действия</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <p class="error" v-if="error_search">{{error_search}}</p>
+
                                 <tr v-for="user in pagination()">
+
                                     <td>{{user.id}}</td>
-                                    <td>{{user.name}}</td>
-                                    <td>{{user.email}}</td>
+                                    <td>{{user.last_name}} {{user.name}} {{user.second_name}}</td>
+                                    <td v-if="user.city">{{user.city.name}}</td>
+                                    <td v-else></td>
                                     <td v-if="user.school">{{user.school.title}}</td>
                                     <td v-else></td>
+                                    <td v-if="user.autoschoolgroup">{{user.autoschoolgroup.name}}</td>
+                                    <td v-else></td>
+                                    <td>{{user.email}}</td>
                                     <td><span class="label label-success">{{user.role}}</span></td>
+
+                                    <td v-if="role == 'user' || role == 'all'">{{sale_status(user)}}</td>
                                     <td>
                                         <button class="btn btn-success"
                                                 title="Редактировать"
                                                 @click="showEdit(user)"><i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i></button>
+                                        <button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -67,12 +83,13 @@
                             </table>
                             <ul class="pagination" v-if="itemsPerPage < resultCount">
                                 <li class="page-item" v-for="pageNumber in totalPages">
-                                    <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
+                                    <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#"
+                                       v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>
                                 </li>
                             </ul>
                         </div>
                         <!--<div class="input-group-btn">-->
-                            <!--<button type="submit" class="btn btn-default" @click="showCreate">Добавить пользователя</button>-->
+                        <!--<button type="submit" class="btn btn-default" @click="showCreate">Добавить пользователя</button>-->
                         <!--</div>-->
                         <!-- /.box-body -->
                     </div>
@@ -88,7 +105,7 @@
     import EditPopup from './add-popup.vue'
 
     export default {
-        data () {
+        data() {
             return {
                 currentPage: 1,
                 itemsPerPage: 10,
@@ -99,18 +116,18 @@
                 lists: {},
             }
         },
-        props: ['users', 'searchplaceholder'],
+        props: ['users', 'searchplaceholder', 'role'],
         components: {
             EditPopup
         },
         computed: {
 
 
-            totalPages: function(){
+            totalPages: function () {
                 return Math.ceil(this.resultCount / this.itemsPerPage)
             },
         },
-        created () {
+        created() {
             this.lists = this.users
             Events.$on('toggle-popup', () => {
                 this.togglePopup()
@@ -118,12 +135,12 @@
             this.pagination()
         },
         methods: {
-            paginate(items){
-                if (!items || items.length != items.length){
+            paginate(items) {
+                if (!items || items.length != items.length) {
                     return
                 }
                 this.resultCount = items.length
-                if(this.currentPage >= this.totalPages){
+                if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages
                 }
 
@@ -131,34 +148,37 @@
 
                 return items.slice(index, index + this.itemsPerPage)
             },
-            setPage(pageNumber){
+            setPage(pageNumber) {
                 this.currentPage = pageNumber
             },
-            togglePopup () {
+            togglePopup() {
                 this.showEditPopup = !this.showEditPopup
                 this.checkedUser = null
             },
-            showEdit (user) {
+            showEdit(user) {
                 this.checkedUser = user
                 this.showEditPopup = true
             },
-            showCreate () {
+            showCreate() {
                 this.checkedUser = null
                 this.showEditPopup = true
             },
-            search(){
+            search() {
                 if (this.query) {
-                    this.$http.get('/api/admin/search-user?q=' + this.query).then(res => {
-                        if(res.data){
-                            if(!res.data.error){
+
+                    this.$http.get('/api/admin/' + this.role + '/search-user?q=' + this.query).then(res => {
+                        if (res.data) {
+                            if (!res.data.error) {
                                 this.lists = res.data
                                 this.currentPage = '1'
+                                this.error_search = ''
+
                             }
                             else {
+                                this.lists = []
                                 this.error_search = res.data.error
                             }
                         }
-                        console.log(res.data.error)
                     });
                 }
                 else {
@@ -168,8 +188,33 @@
             pagination() {
                 return this.paginate(this.lists);
             },
+            sale_status(user) {
+                if (user.orders.length > 0) {
+                    return 'оплаченый'
+                }
+                else {
+                    if (user.coupons.length > 0) {
+                        var st = 0
+                        for (var i = 0; i < user.coupons.length; i++) {
+                            if (user.coupons[i].status == 3) {
+                                st = 1
+                                return 'оплаченый'
+                            }
+
+                        }
+                        if (st == 0) {
+                            return 'неоплаченный'
+                        }
+
+                    }
+                    else {
+                        return 'неоплаченный'
+                    }
+                }
+
+            }
         },
-        updated(){
+        updated() {
             this.pagination()
         },
     }

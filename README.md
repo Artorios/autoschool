@@ -49,3 +49,6 @@
 и получить STRIPE_SECRET и STRIPE_KEY в разделе https://dashboard.stripe.com/account/apikeys
 * Прописать их в файле .env
 * В разделе https://stripe.com/docs/api#create_card_token получить номер карточки и cvc для тестирования
+
+### Scout ###
+* php artisan scout:import "App\User\User"

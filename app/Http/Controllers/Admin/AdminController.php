@@ -60,15 +60,56 @@ class AdminController extends Controller
         return response()->json(['city' => $city, 'director' => $director, 'investor' => $investor], 202);
     }
 
-    public function searchUser(SearchUser $request)
+    public function searchUser(SearchUser $request, $role)
     {
         $error = ['error' => 'Не найдено!'];
 
         if (!empty($request->validated()['q'])) {
 
-            $users = User::select('id', 'role', 'name', 'email', 'last_name', 'phone')->where('email', 'like', '%' . $request->validated()['q'] . '%')->get();
+            switch ($role) {
+                case 'all':
+                    $users = User::search($request->validated()['q'])->get();
+                    break;
 
-            return $users->count() ? $users : $error;
+                case 'user':
+                    $students = User::search($request->validated()['q'])->get()->toArray();
+                    $users = array_map(function ($user){
+                        if($user['role'] == 'user'){
+                            return $user;
+                        }
+                    }, $students);
+                    break;
+
+                case 'admin':
+                    $admins = User::search($request->validated()['q'])->get()->toArray();
+                    $users = array_map(function ($user){
+                        if($user['role'] == 'admin'){
+                            return $user;
+                        }
+                    }, $admins);
+                    break;
+
+                case 'autoschool':
+                    $autoschools = User::search($request->validated()['q'])->get()->toArray();
+                    $users = array_map(function ($user){
+                        if($user['role'] == 'autoschool'){
+                            return $user;
+                        }
+                    }, $autoschools);
+                    break;
+
+                case 'investor':
+                    $investors = User::search($request->validated()['q'])->get()->toArray();
+                    $users = array_map(function ($user){
+                        if($user['role'] == 'investor'){
+                            return $user;
+                        }
+                    }, $investors);
+                    break;
+
+            }
+
+            return count($users) ? $users : $error;
         }
 
         return $error;
