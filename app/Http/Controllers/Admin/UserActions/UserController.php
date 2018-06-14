@@ -47,7 +47,8 @@ class UserController extends Controller
      */
 
 
-    public function listUsersRole(User $user, AutoSchool $autoSchool, $role){
+    public function listUsersRole(User $user, AutoSchool $autoSchool, $role)
+    {
 
         $users_list = $user->where('role', $role)->with('autoschoolgroup')->with('city')->with('orders')->with('coupons')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
@@ -60,7 +61,6 @@ class UserController extends Controller
             }
             return $user;
         }, $users_list);
-
 
 
         return view('admin.user.index', compact('users', 'role'));

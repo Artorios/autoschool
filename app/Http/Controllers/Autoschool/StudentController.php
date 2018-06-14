@@ -8,7 +8,9 @@ use App\Mail\ConfirmEmail;
 use App\Models\Finance\Coupon;
 use App\Models\Location\City;
 use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
-use App\Models\User\{Contract,UserLessonTrainingQuestion,User};
+use App\Models\User\{
+    Contract, UserLessonTrainingQuestion, User, UserSchool
+};
 use App\Services\StatisticService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -37,7 +39,7 @@ class StudentController extends Controller
         return view('autoschool.students.list', compact('students', 'group'));
     }
 
-    public function indexStudent(Request $request)
+    public function indexStudent(Request $request, User $user)
     {
         $studentWithOrders = User::leftjoin('orders', 'users.id', 'orders.user_id')
             ->where('users.id', $request->student)
@@ -62,7 +64,10 @@ class StudentController extends Controller
             ->get()
             ->first();
 
-        return view('autoschool.personal.index', compact('studentWithOrders', 'studentWithAutoSchool', 'studentWithAddress'));
+        $director = Auth::user();
+        $student = $user->where('id', $request->student)->first();
+        $group = AutoSchoolGroup::where('id', $student->auto_school_group_id)->with('autoschool')->first();
+        return view('autoschool.personal.index', compact('studentWithOrders', 'studentWithAutoSchool', 'studentWithAddress','student','director','group'));
 
     }
 
@@ -74,8 +79,36 @@ class StudentController extends Controller
             ->with('coupons')
             ->get()
             ->first();
+        $status = 0;
+        if($student->orders()->count() > 0){
+            $status = 'paid';
+        }
+        else{
+            if($student->coupons()->count() > 0){
+                foreach ($student->coupons as $coupon){
+                    $st = 0;
+                    if($coupon->status == 3){
+                        $status = 'paid';
+                        $st = 1;
+                    }
+                }
+                if($st == 0){
+                    $status = 'not_paid';
+                }
+            }
+            else{
+                $status = 'not_paid';
+            }
 
-        return view('autoschool.personal.new', compact('student'));
+        }
+
+        $director = Auth::user();
+        $school_id = UserSchool::where('user_id', $student->id)->first();
+        $school = '';
+        if(!empty($school_id)){
+            $school = AutoSchool::find($school_id->school_id);
+        }
+        return view('autoschool.personal.new', compact('student','status','director', 'school'));
     }
 
     public function addStudent()
@@ -88,6 +121,18 @@ class StudentController extends Controller
         $coupons = Coupon::whereIn('auto_school_id', $schools_id)->where('status', 1)->get();
         $cities = City::where('show_city', 1)->get();
         return view('autoschool.filials.add-student', compact('schools', 'groups', 'coupons', 'cities'));
+    }
+
+    public function saveGroupNew(Request $request){
+        $itempost = $request->all();
+        if(!empty($itempost['user_id']) && !empty($itempost['auto_school_group_id'])){
+            User::where('id', $itempost['user_id'])->update(['auto_school_group_id' => $itempost['auto_school_group_id']]);
+            return response()->json(['status' => $itempost], 202);
+        }
+        else{
+            return response()->json(['status' => $itempost], 402);
+        }
+
     }
 
     public function saveNewStudent(NewStudent $request, Mailer $mailer)

@@ -7,9 +7,12 @@
                 <li>Карточка ученика</li>
             </ul>
         </div>
-        {{--{{dd($student)}}--}}
+        {{--{{dd($school)}}--}}
         <index-student-new
             :student="{{json_encode($student)}}"
+            :status="{{json_encode($status)}}"
+            :director="{{json_encode($director)}}"
+            :school="{{json_encode($school)}}"
         ></index-student-new>
     </div>
 @endsection
