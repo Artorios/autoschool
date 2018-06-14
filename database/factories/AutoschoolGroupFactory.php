@@ -8,5 +8,6 @@ $factory->define(\App\Models\Training\School\AutoSchoolGroup::class, function(Fa
         'auto_school_id' => \App\Models\Training\School\AutoSchool::all()->random()->id,
         'exam_date' => $faker->date(),
         'exam_time' => $faker->time(),
+        'id_number' => 1,
     ];
 });
