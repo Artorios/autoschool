@@ -38,6 +38,7 @@ class FinanceInvestorCollection extends ResourceCollection
                     'director' => $element['comment_director'],
                     'coupon' => $element['comment_coupon'],
                 ],
+                'commission' => sumCommission($element['AutoSchoolId'], $element['CouponID'])
             ];
 
         }, $this->collection->toArray());
