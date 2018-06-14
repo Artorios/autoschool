@@ -7,7 +7,7 @@
                         <span aria-hidden="true" @click="cancelChange">×</span></button>
                     <h4 class="modal-title" >Оплата</h4>
                 </div>
-                <div class="error" v-if="error">Произошла ошыбка</div>
+                <span class="error" v-if="error">Произошла ошыбка</span>
                 <div class="modal-body">
                     <div class="row">
                         <div class="requsites clearfix">
@@ -187,8 +187,8 @@
                 this.$http.post('/admin/user/investor-info-save', this.data.info).then(res => {
                     if (res.status === 202) {
                         this.error = false
-                        console.log(res.data)
-                        // location.href = '/admin/users'
+                        // console.log(res.data)
+                        location.href = '/admin/users'
                     } else {
                         this.error = true
                     }
