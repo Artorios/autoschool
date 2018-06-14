@@ -48,28 +48,42 @@
             </div>
         </div>
 
-        <div class="row inner-block">
+        <div class="row inner-block" v-if="status == 'paid'">
             <div class="col-md-4 col-xs-12 col-sm-12">
                 Филиал:
             </div>
             <div class="col-md-8 col-xs-12 col-sm-12">
-                <div class="form-group">
-                    <select class="select">
-                        <option v-text=""></option>
-                    </select>
-                </div>
+                    <autocomplete placeholder="Филиал"
+                                  :url="'/api/get-filials-api/'+director.id"
+                                  anchor="title"
+                                  label="filial_name"
+                                  :initValue="checkedFilial ? checkedFilial.title : ''"
+                                  :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                  :on-select="selectFilial">
+                    </autocomplete>
+                    <!--label="writer"-->
+
 
             </div>
+        </div>
+        <div class="row inner-block" v-if="status == 'paid'">
             <div class="col-md-4 col-xs-12 col-sm-12">
                 Группа:
             </div>
+            <span class="error" v-if="errorEdit">Выберите группу</span>
             <div class="col-md-8 col-xs-12 col-sm-12">
-                <div class="form-group">
-                    <select class="select">
-                        <option></option>
-                    </select>
-                </div>
+                    <autocomplete placeholder="Группа"
+                                  :url="'/api/get-schoolgroup-api/'+checkedFilial.id"
+                                  anchor="name"
+                                  label="writer"
+                                  :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                  :on-select="selectGroup">
+                    </autocomplete>
             </div>
+        </div>
+        <a v-if="status == 'paid'" class="btn-grey" @click="saveGroup()">Сохранить изменения</a>
+
+        <div class="row inner-block" v-if="status == 'paid'">
             <div v-if="student.orders" v-for="order in student.orders">
                 <div class="clearfix">
                     <div class="col-md-4 col-xs-6 ">
@@ -85,7 +99,7 @@
                 </div>
                     <div class="col-md-8 col-xs-6" v-text="student.created_at"></div>
                 </div>
-
+                <hr>
             </div>
             <div v-if="student.orders" v-for="coupon in student.coupons">
                 <div v-if="coupon.status == 3">
@@ -103,9 +117,18 @@
                         </div>
                         <div class="col-md-8 col-xs-6" v-text="coupon.created_at"></div>
                     </div>
+                    <hr>
                 </div>
 
             </div>
+
+            <!--<div class="col-md-8 col-xs-12 col-sm-12">-->
+                    <!--<textarea name="" id="" class="form-control" cols="0" rows="5" placeholder="Комментарий">-->
+                    <!--</textarea>-->
+                <!--<a href="" class="btn-grey">Сохранить изменения</a>-->
+            <!--</div>-->
+        </div>
+        <div class="row inner-block">
             <div class="clearfix">
                 <div class="col-md-4 col-xs-6 ">
                     Дата регистрации в системе:
@@ -114,29 +137,67 @@
                     <div v-text="student.created_at"></div>
                 </div>
             </div>
-            <!--<div class="col-md-8 col-xs-12 col-sm-12">-->
-                    <!--<textarea name="" id="" class="form-control" cols="0" rows="5" placeholder="Комментарий">-->
-                    <!--</textarea>-->
-                <!--<a href="" class="btn-grey">Сохранить изменения</a>-->
-            <!--</div>-->
         </div>
     </div>
 </template>
 
 <script>
+    require('vue2-autocomplete-js/dist/style/vue2-autocomplete.css')
+    import Autocomplete from 'vue2-autocomplete-js'
+
     export default {
         data() {
             return {
-
+                data: {
+                    auto_school_group_id: '',
+                    user_id: ''
+                },
+                checkedFilial: '',
+                checkedGroup: '',
+                errorEdit: false
             }
         },
         props: {
             student: {},
+            status: {},
+            director: {},
+            school: {},
+        },
+        created(){
+            this.checkedFilial = this.school
+        },
+        components: {
+            Autocomplete
         },
 
         methods: {
             getFullName(){
                 return `${this.student.name} ${this.student.second_name} ${this.student.last_name}`
+            },
+            selectFilial(val){
+                this.checkedFilial = val
+            },
+            selectGroup(val){
+                this.checkedGroup = val
+            },
+            saveGroup(){
+                if(this.checkedGroup.id){
+                    this.data.auto_school_group_id = this.checkedGroup.id
+                    this.data.user_id = this.student.id
+                    this.$http.post('/autoschool/filials/new/save-group', this.data).then(res => {
+                        console.log(res.data)
+                        if (res.status === 202) {
+                            // location.href = '/autoschool/filials'
+                        } else {
+                        }
+                    }, err => {
+                        console.log(err.data)
+                    })
+
+                }
+                else{
+                    this.errorEdit = true
+                }
             }
         },
     }

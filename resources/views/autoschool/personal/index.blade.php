@@ -15,6 +15,9 @@
             :student_with_orders="{{json_encode($studentWithOrders)}}"
             :student_with_auto_school="{{json_encode($studentWithAutoSchool)}}"
             :student_with_address="{{json_encode($studentWithAddress)}}"
+            :director="{{json_encode($director)}}"
+            :group="{{json_encode($group)}}"
+            :student="{{json_encode($student)}}"
         ></index-student>
     </div>
 @endsection
