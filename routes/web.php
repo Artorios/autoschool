@@ -130,7 +130,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     });
     Route::view('faq', 'account.faq')->name('faq');
 
-    Route::group(['prefix' => 'tickets', 'middleware' => ['student']], function () {
+    Route::group(['prefix' => 'tickets'], function () {
         Route::get('/', 'TicketsController@index')->name('account.tickets');
         Route::post('/set-show-comments', 'TicketsController@setShowAnswer');
         Route::post('/{ticket}/check', 'TicketsController@checkAnswer');
@@ -138,7 +138,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         Route::get('/{ticket}', 'TicketsController@single');
         Route::get('/analysis/{ticket}', 'TicketsController@analysis');
     });
-    Route::group(['prefix' => 'exams', 'middleware' => ['student']], function () {
+    Route::group(['prefix' => 'exams'], function () {
         Route::get('/', 'ExamsController@index')->name('user.exams');
         Route::get('/test', 'ExamsController@testPage');
         Route::get('/analysis/{id}', 'ExamsController@analysis');
