@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Investor;
 
+use App\Http\Resources\FinanceInvestorCollection;
 use App\Models\Finance\Order;
 use App\Services\FinancesInvestorService;
 use App\Transformers\FinanceTransformer;
@@ -19,10 +20,8 @@ class FinanceController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(FinancesInvestorService $financesInvestorService)
     {
-
-
         return view('investor.finance.index', [
             'students' => AutoSchool::where('investor_id', Auth::id())
                 ->with('autoschoolGroups.users')
@@ -40,7 +39,9 @@ class FinanceController extends Controller
     {
         try {
            if(!empty($financesInvestorService->dataForFinancePage())) {
-             return response()->json(['data' => $financesInvestorService->dataForFinancePage()], 201);
+             return (new FinanceInvestorCollection($financesInvestorService->dataForFinancePage()))
+                 ->response()
+                 ->setStatusCode(201);
            } else {
                throw new \Exception();
            }
