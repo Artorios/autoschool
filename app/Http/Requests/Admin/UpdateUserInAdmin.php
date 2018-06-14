@@ -31,7 +31,7 @@ class UpdateUserInAdmin extends FormRequest
             'last_name' => 'string',
             'second_name' => 'string',
             'phone' => 'string',
-            'auto_school_group_id' => 'integer',
+//            'auto_school_group_id' => 'integer',
         ];
     }
 }

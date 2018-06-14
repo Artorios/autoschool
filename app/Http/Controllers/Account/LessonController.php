@@ -227,7 +227,7 @@ class LessonController extends Controller
     {
         $user = Auth::user();
         $count = UserLesson::where('user_id', $user->id)->where('done', 1)->get()->count();
-        $all_lessons = Lesson::all()->count();
+        $all_lessons = Lesson::where('license', $user->license)->count();
 
         return response()->json(['done_lessons' => $count, 'all_lessons' => $all_lessons], 202);
     }
