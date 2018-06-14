@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin\UserActions;
 
 use App\Http\Requests\Admin\{
-    CreateUserInAdmin, SearchUser, UpdateUserInAdmin, PaymentUserInAdmin
+    CreateUserInAdmin, SearchUser, UpdateUserInAdmin, PaymentUserInAdmin, InvestorUserInAdmin
 };
 use App\Models\Finance\Order;
 use App\Models\Training\School\AutoSchool;
+use App\Models\User\InvestorInfo;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,7 +26,7 @@ class UserController extends Controller
      */
     public function listUsers(User $user, AutoSchool $autoSchool)
     {
-        $users_list = $user->with('autoschoolgroup')->with('city')->with('orders')->with('coupons')->get()->toArray();
+        $users_list = $user->with('autoschoolgroup')->with('city')->with('orders')->with('coupons')->with('info')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
 
         $users = array_map(function ($user) use ($schools) {
@@ -50,7 +51,7 @@ class UserController extends Controller
     public function listUsersRole(User $user, AutoSchool $autoSchool, $role)
     {
 
-        $users_list = $user->where('role', $role)->with('autoschoolgroup')->with('city')->with('orders')->with('coupons')->get()->toArray();
+        $users_list = $user->where('role', $role)->with('autoschoolgroup')->with('city')->with('orders')->with('coupons')->with('info')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
 
         $users = array_map(function ($user) use ($schools) {
@@ -89,13 +90,33 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function pay(Order $order, PaymentUserInAdmin $request)
+    public function pay(Order $order, InvestorUserInAdmin $request)
     {
 
 
         $order->create($request->validated());
 
         return response()->json(['status' => 1], 202);
+
+    }
+
+    /**
+     * @param InvestorInfo $info
+     * @param PaymentUserInAdmin $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function investorInfoSave(InvestorInfo $info, InvestorUserInAdmin $request)
+    {
+        $count = $info->where('user_id', $request->get('user_id'))->count();
+        if($count > 0){
+            $info->where('user_id', $request->get('user_id'))->update($request->validated());
+        }
+        else{
+            $info->create($request->validated());
+        }
+
+        return response()->json(['status' => $request->validated()], 202);
 
     }
 

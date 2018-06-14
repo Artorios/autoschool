@@ -2,6 +2,7 @@
     <div class="content-wrapper">
         <edit-popup :user="this.checkedUser" :edit="this.checkedUser ? true : false" v-if="showEditPopup"></edit-popup>
         <pay-popup :user="this.checkedUser" v-if="showPayPopup"></pay-popup>
+        <investor-popup :investor="this.checkedUser" v-if="showInvestorPopup"></investor-popup>
         <section class="content-header">
             <h1>
                 Пользователи
@@ -82,6 +83,10 @@
                                                 title="Редактировать"
                                                 v-if="sale_status(user) == 'not_paid'"
                                                 @click="showPay(user)">$</button>
+                                        <button class="btn btn-success"
+                                                title="Редактировать"
+                                                v-if="user.role == 'investor'"
+                                                @click="showInvestor(user)">!</button>
                                         <button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i></button>
                                     </td>
                                 </tr>
@@ -111,6 +116,7 @@
     import {Events} from '../../app'
     import EditPopup from './add-popup.vue'
     import PayPopup from './pay-popup.vue'
+    import InvestorPopup from './investor-popup'
 
     export default {
         data() {
@@ -120,6 +126,7 @@
                 checkedUser: null,
                 showEditPopup: false,
                 showPayPopup: false,
+                showInvestorPopup: false,
                 query: '',
                 error_search: '',
                 lists: {},
@@ -129,6 +136,7 @@
         components: {
             EditPopup,
             PayPopup,
+            InvestorPopup,
         },
         computed: {
 
@@ -144,6 +152,9 @@
             })
             Events.$on('toggle-popup-pay', () => {
                 this.togglePopupPay()
+            })
+            Events.$on('toggle-popup-investor', () => {
+                this.togglePopupInvestor()
             })
             this.pagination()
         },
@@ -172,6 +183,10 @@
                 this.showPayPopup = !this.showPayPopup
                 this.checkedUser = null
             },
+            togglePopupInvestor () {
+                this.showInvestorPopup = !this.showInvestorPopup
+                this.checkedUser = null
+            },
             showEdit(user) {
                 this.checkedUser = user
                 this.showEditPopup = true
@@ -179,6 +194,10 @@
             showPay (user) {
                 this.checkedUser = user
                 this.showPayPopup = true
+            },
+            showInvestor (user) {
+                this.checkedUser = user
+                this.showInvestorPopup = true
             },
             showCreate () {
                 this.checkedUser = null
