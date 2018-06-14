@@ -19,8 +19,7 @@
                     <div class="table-item name-item">
                         <div class="table-head-item hidden-head-text">Название группы</div>
                         <div class="table-item-content">
-                            <a class="table-item-link text-underline" :href="'/autoschool/filials/new-select'">Выбрали
-                                автошколу(неоплачено)</a>
+                            <a class="table-item-link text-underline" :href="'/autoschool/filials/new-select'">Новые ученики(неоплачено)</a>
                         </div>
                     </div>
                     <div class="table-item data-and-time-item">
@@ -50,7 +49,7 @@
                         <div class="table-head-item hidden-head-text">Название группы</div>
                         <div class="table-item-content">
                             <a class="table-item-link text-underline"
-                               :href="'/autoschool/filials/new'">Нераспределённые</a>
+                               :href="'/autoschool/filials/new'">Новые ученики(оплачено)</a>
                         </div>
                     </div>
                     <div class="table-item data-and-time-item">

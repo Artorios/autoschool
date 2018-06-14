@@ -17,76 +17,7 @@
                     <span class="table-head-item count-item">Кол-во учеников</span>
                     <span class="table-head-item kupons-item">Купоны активные/неактивные/всего</span>
                 </div>
-                <div class="table-item-row">
-                    <div class="table-item number-item">
-                        <div class="table-head-item hidden-head-text">№</div>
-                        <div class="table-item-content">
-                            0
-                        </div>
-                    </div>
-                    <div class="table-item name-filial-item">
-                        <div class="table-head-item hidden-head-text">Название филиала</div>
-                        <div class="table-item-content">
-                            <a :href="'/autoschool/filials/new-select'"
-                                class="table-item-link text-underline">
-                                Выбрали автошколу(неоплачено)
-                            </a>
-                        </div>
-                    </div>
-                    <div class="table-item address-filial-item">
-                        <div class="table-head-item hidden-head-text">Адрес филиала</div>
-                        <div class="table-item-content">
-                            <span></span>
-                        </div>
-                    </div>
-                    <div class="table-item count-item">
-                        <div class="table-head-item hidden-head-text">Кол-во учеников</div>
-                        <div class="table-item-content">
-                            <span class="text-bold text-big"></span>
-                        </div>
-                    </div>
-                    <div class="table-item kupons-item">
-                        <div class="table-head-item hidden-head-text">Купоны активные/неактивные/всего</div>
-                        <div class="table-item-content">
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-item-row">
-                    <div class="table-item number-item">
-                        <div class="table-head-item hidden-head-text">№</div>
-                        <div class="table-item-content">
-                            0
-                        </div>
-                    </div>
-                    <div class="table-item name-filial-item">
-                        <div class="table-head-item hidden-head-text">Название филиала</div>
-                        <div class="table-item-content">
-                            <a :href="'/autoschool/filials/new'"
-                               class="table-item-link text-underline">
-                                Нераспределённые
-                            </a>
-                        </div>
-                    </div>
-                    <div class="table-item address-filial-item">
-                        <div class="table-head-item hidden-head-text">Адрес филиала</div>
-                        <div class="table-item-content">
-                            <span></span>
-                        </div>
-                    </div>
-                    <div class="table-item count-item">
-                        <div class="table-head-item hidden-head-text">Кол-во учеников</div>
-                        <div class="table-item-content">
-                            <span class="text-bold text-big"></span>
-                        </div>
-                    </div>
-                    <div class="table-item kupons-item">
-                        <div class="table-head-item hidden-head-text">Купоны активные/неактивные/всего</div>
-                        <div class="table-item-content">
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
+
                 @foreach($filials as $filial)
                     <div class="table-item-row">
                             <div class="table-item number-item">
