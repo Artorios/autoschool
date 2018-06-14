@@ -15,7 +15,7 @@ class AutoSchoolGroup extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'auto_school_id', 'exam_date', 'exam_time'];
+    protected $fillable = ['id_number', 'name', 'auto_school_id', 'exam_date', 'exam_time'];
     protected $appends = ['count_student'];
 
 

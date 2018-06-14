@@ -169,7 +169,7 @@ class AutoschoolController extends Controller
             return $filial['id'];
         }, $filials);
         $q = $request->input('q');
-        return response()->json(AutoSchoolGroup::whereIn('id', $filials_id)->where('name', 'like', '%' . $q . '%')->limit(10)->get(), 200);
+        return response()->json(AutoSchoolGroup::whereIn('auto_school_id', $filials_id)->where('name', 'like', '%' . $q . '%')->limit(10)->get(), 200);
     }
     public function studentsApi(Request $request, $id)
     {

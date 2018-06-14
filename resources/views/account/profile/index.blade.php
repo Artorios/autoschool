@@ -13,7 +13,7 @@
                 <profile-photo :user="{{json_encode($user)}}"></profile-photo>
                 <h3>{{$user->last_name.' '.$user->name}}
                     <span>(ID {{$user->id}})  @if(!empty($group))
-                            Группа {{$group->name}}
+                            Группа №{{$group->id_number}}
                         @endif
                     </span>
                 </h3>

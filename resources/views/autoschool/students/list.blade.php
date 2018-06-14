@@ -8,7 +8,7 @@
             </ul>
         </div>
         <div class="studentgroupe">
-            <h4>Ученики группы {{$group->name}}:</h4>
+            <h4>Ученики группы №{{$group->id_number}}:</h4>
             <student-list   :students="{{json_encode($students)}}"
                             :group="{{json_encode($group)}}"
             ></student-list>

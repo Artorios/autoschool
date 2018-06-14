@@ -57,7 +57,7 @@
                         <i class="fa fa-angle-down" aria-hidden="true"></i>
                     </h3>
                     @if(Auth::user()->auto_school_group_id)
-                    <span>{{group_name(Auth::user()->id)}}</span>
+                    <span>Группа №{{group_name(Auth::user()->id)}}</span>
                         @endif
                 </a>
                 <a href="{{route('user.notify')}}" class="notes">
