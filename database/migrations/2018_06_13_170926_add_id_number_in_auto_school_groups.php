@@ -14,7 +14,7 @@ class AddIdNumberInAutoSchoolGroups extends Migration
     public function up()
     {
         Schema::table('auto_school_groups', function (Blueprint $table) {
-            $table->unsignedInteger('id_number');
+            $table->unsignedInteger('id_number')->default(0);
         });
     }
 

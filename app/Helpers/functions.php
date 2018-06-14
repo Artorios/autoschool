@@ -60,6 +60,25 @@ function group_name($id){
     return AutoSchoolGroup::find($user->auto_school_group_id)->id_number;
 }
 
+function sumCommission($autoSchoolId, $cuponId, $procent = 50)
+{
+    try {
+        $autoschool = AutoSchool::where('id', '=', $autoSchoolId)->first();
+        $cupon = Coupon::where('id', '=', $cuponId)->first();
+
+        if($autoschool->commission > 0) {
+            return $autoschool->commission;
+        } elseif ($cupon->fee_amount) {
+            return $cupon->fee_amount;
+        } else {
+            return ceil($cupon->payment_amount * ($procent / 100));
+        }
+    } catch (\Exception $exception) {
+        return 'Комисия неопределена';
+    }
+
+}
+
 
 
 
