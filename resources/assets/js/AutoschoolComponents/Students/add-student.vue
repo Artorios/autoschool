@@ -46,9 +46,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <p class="error" v-if="errors.auto_school_group_id">Выберите групу</p>
+                    <p class="error" v-if="errors.auto_school_group_id">Выберите группу</p>
                     <select class="select" id="auto_school_group_id" v-model="data.auto_school_group_id">
-                        <option disabled value="">Група*</option>
+                        <option disabled value="">Группа*</option>
                         <option v-for="(item, index) in groups" v-bind:value="item.id" v-text="item.name"></option>
                     </select>
                 </div>

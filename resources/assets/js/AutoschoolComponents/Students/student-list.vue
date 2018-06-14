@@ -76,7 +76,7 @@
                 <div class="table-item group-item">
                     <div class="table-head-item hidden-head-text">Группа</div>
                     <div class="table-item-content">
-                        <a v-bind:href="group.id" class="table-item-link text-underline">{{group.name}}</a>
+                        <a v-bind:href="group.id" class="table-item-link text-underline">{{group.id_number}}</a>
                     </div>
                 </div>
                 <div class="table-item lesson-item">

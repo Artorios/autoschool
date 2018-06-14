@@ -73,7 +73,7 @@
                     <div class="table-item number-item">
                         <div class="table-head-item hidden-head-text">№</div>
                         <div class="table-item-content">
-                            {{group.id}}
+                            {{group.id_number}}
                         </div>
                     </div>
                     <div class="table-item name-item">

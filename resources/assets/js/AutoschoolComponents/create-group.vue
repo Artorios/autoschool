@@ -10,14 +10,14 @@
                 <div class="col-xs-6 col-sm-5 col-md-5 col-lg-2">
                     <div class="data data-small">
                         <input v-model.trim="data.exam_date" v-bind:class="{'input-error': errors.exam_date}"
-                                v-mask="'9999-99-99'" id="date" type="text"  placeholder="Дата" required="">
+                                v-mask="'9999-99-99'" id="date" type="text"  placeholder="Дата экзамена" required="">
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-2">
                     <span class="error" v-if="errors.exam_time">Время должно быть в формате ЧЧ:ММ</span>
                     <div class="time time-small">
                         <input v-model.trim="data.exam_time" v-bind:class="{'input-error': errors.exam_time}"
-                                v-mask="'99:99'" id="time" type="text" placeholder="Время" required="">
+                                v-mask="'99:99'" id="time" type="text" placeholder="Время экзамена" required="">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-5 col-md-5 col-lg-3">
