@@ -134,7 +134,7 @@
                     <div class="table-item commission-item">
                         <div class="table-head-item hidden-head-text">Комиссия</div>
                         <div class="table-item-content">
-                            <a class="table-item-link" href="javascript:">?</a>
+                            <a class="table-item-link" href="javascript:" v-text="item.commission"></a>
                         </div>
                     </div>
                     <div class="table-item status-item">
@@ -315,7 +315,7 @@
         searchDate: '',
         list: [],
         filteredList: [],
-        selectedDate: Date(),
+        selectedDate: new Date(),
 
         checkedCoupons: [],
         currentPage: 1,
@@ -353,9 +353,9 @@
                 return this.filterByTitle()
             }
 
-            // if (this.selectedDate !== "") {
-            //     return this.filterByDate()
-            // }
+            if (this.selectedDate !== "") {
+                // return this.filterByDate()
+            }
 
             switch(this.selected) {
                 case "desc":
@@ -576,6 +576,7 @@
         },
     },
     created () {
+      this.selectedDate = ''
       window.axios.get('/investor/finance/list')
         .then((response) => {
           this.list = response.data.data
