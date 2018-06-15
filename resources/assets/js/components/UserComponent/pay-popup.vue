@@ -97,9 +97,12 @@
             save(){
                 this.data.auto_school_id = this.checkedSchool
                 this.data.user_id = this.user.id
+                // console.log(this.data)
                 this.$http.post('/admin/user/pay-user/' + this.user.id, this.data).then(res => {
                     if (res.status === 202) {
                         location.href = '/admin/users'
+                        // console.log(res.data)
+
                     } else {
                         this.errorPay = true
                     }

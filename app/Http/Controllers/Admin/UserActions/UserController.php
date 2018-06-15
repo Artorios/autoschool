@@ -94,9 +94,9 @@ class UserController extends Controller
     {
 
 
-        $order->create($request->validated());
-
+        $order->create($request->all());
         return response()->json(['status' => 1], 202);
+
 
     }
 
