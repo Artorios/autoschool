@@ -13,18 +13,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Имя*</label>
-                                <input type="text" class="form-control" v-model="data.name">
                                 <p class="error" v-if="serverErrors.name">Введите имя</p>
+                                <input type="text" class="form-control" v-model="data.name">
                             </div>
                             <div class="form-group">
                                 <label>Фамилия*</label>
-                                <input type="text" class="form-control" v-model="data.last_name">
                                 <p class="error" v-if="serverErrors.last_name">Введите фамилию</p>
+                                <input type="text" class="form-control" v-model="data.last_name">
                             </div>
                             <div class="form-group">
                                 <label>Отчество</label>
-                                <input type="text" class="form-control" v-model="data.second_name">
                                 <p class="error" v-if="serverErrors.second_name">Введите отчество</p>
+                                <input type="text" class="form-control" v-model="data.second_name">
                             </div>
                             <div v-if="edit && (data.role == 'user' || data.role.slug == 'user')">
                                 <div class="form-group">
@@ -55,16 +55,17 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Email*</label>
+                                <p class="error" v-if="serverErrors.email">{{serverErrors.email[0]}}</p>
                                 <input type="text" class="form-control" v-model="data.email">
-                                <p class="error" v-if="serverErrors.email">Введите емейл</p>
                             </div>
                             <div class="form-group">
                                 <label>Телефон*</label>
-                                <input type="text" class="form-control" v-model="data.phone">
                                 <p class="error" v-if="serverErrors.phone">Введите телефон</p>
+                                <input type="text" class="form-control" v-model="data.phone">
                             </div>
                             <div class="form-group">
                                 <label>Роль*</label>
+                                <p class="error" v-if="serverErrors.role">Введите роль</p>
                                 <select class="form-control select2"
                                         style="width: 100%;"
                                         v-model="data.role"
@@ -72,7 +73,6 @@
                                     <option selected="selected" value="" disabled>Выберите роль</option>
                                     <option :value="role.slug" v-for="role in roles">{{role.name}}</option>
                                 </select>
-                                <p class="error" v-if="serverErrors.role">Введите роль</p>
                             </div>
 
                         </div>
@@ -138,12 +138,14 @@
             }
         },
         created () {
-            if(this.user.auto_school_group_id){
-                this.checkedGroup = this.user.autoschoolgroup
-                this.checkedSchool = this.user.school
+            if(this.edit){
+                if(this.user.auto_school_group_id){
+                    this.checkedGroup = this.user.autoschoolgroup
+                    this.checkedSchool = this.user.school
 
 
 
+                }
             }
         },
         props: ['user', 'edit'],
@@ -178,6 +180,8 @@
                     }
                 }, err => {
                     this.errorEdit = true
+                    this.serverErrors = err.data.errors
+
                 })
             },
             createUser () {
@@ -205,3 +209,9 @@
         }
     }
 </script>
+
+<style>
+    p.error {
+        color: red;
+    }
+</style>

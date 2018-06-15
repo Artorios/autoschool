@@ -14,10 +14,12 @@
                             <label>Информация</label>
                             <div class="form-group">
                                 <label>Название</label>
+                                <p class="error" v-if="serverErrors.title">{{serverErrors.title[0]}}</p>
                                 <input type="text" class="form-control" v-model="data.title">
                             </div>
                             <div class="form-group">
                                 <label>Описание</label>
+                                <p class="error" v-if="serverErrors.description">{{serverErrors.description[0]}}</p>
                                 <textarea class="form-control" v-model="data.description"></textarea>
                             </div>
                             <div v-if="edit">
@@ -34,6 +36,7 @@
                                 </div>
                                 <div class="form-group" v-if="checkedRegion">
                                     <label>Выберите город</label>
+                                    <p class="error" v-if="serverErrors.city_id">{{serverErrors.city_id[0]}}</p>
                                     <autocomplete
                                             :url="'/api/address/get-cities-api/'+ checkedRegion.id"
                                             anchor="name"
@@ -46,6 +49,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Выберите директора</label>
+                                    <p class="error" v-if="serverErrors.director_id">{{serverErrors.director_id[0]}}</p>
                                     <autocomplete
                                             url="/api/get-directors-api"
                                             anchor="email"
@@ -59,6 +63,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Выберите инвестора</label>
+                                    <p class="error" v-if="serverErrors.investor_id">{{serverErrors.investor_id[0]}}</p>
                                     <autocomplete
                                             :url="investor_url"
                                             anchor="email"
@@ -73,6 +78,7 @@
                             <div v-else>
                                 <div class="form-group">
                                     <label>Выберите регион</label>
+
                                     <autocomplete
                                             url="/api/address/get-regions-api"
                                             anchor="name"
@@ -84,6 +90,8 @@
                                 </div>
                                 <div class="form-group" v-if="checkedRegion">
                                     <label>Выберите город</label>
+                                    <p class="error" v-if="serverErrors.city_id">{{serverErrors.city_id[0]}}</p>
+
                                     <autocomplete
                                             :url="city_url.concat(checkedRegion.id)"
                                             anchor="name"
@@ -96,6 +104,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Выберите директора</label>
+                                    <p class="error" v-if="serverErrors.director_id">{{serverErrors.director_id[0]}}</p>
+
                                     <autocomplete
                                             url="/api/get-directors-api"
                                             anchor="email"
@@ -109,6 +119,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Выберите инвестора</label>
+                                    <p class="error" v-if="serverErrors.investor_id">{{serverErrors.investor_id[0]}}</p>
+
                                     <autocomplete
                                             :url="investor_url"
                                             anchor="email"
@@ -182,21 +194,18 @@
 
 <script>
     import {Events} from "../../app"
+
     require('vue2-autocomplete-js/dist/style/vue2-autocomplete.css')
     import Autocomplete from 'vue2-autocomplete-js'
+
     export default {
-        data () {
+        data() {
             return {
                 data: {
                     title: '',
                     description: '',
                     city_id: '',
-                    contacts: [
-                        {
-                            value: '',
-                            type: '0'
-                        },
-                    ],
+                    contacts: [],
                     director_id: 0,
                     investor_id: 0,
 
@@ -220,13 +229,14 @@
                 checkedCity: null,
                 checkedInvestor: null,
                 checkedDirector: null,
+                serverErrors: '',
             }
         },
         props: ['school', 'edit'],
         components: {
             Autocomplete
         },
-        created () {
+        created() {
             if (this.school) {
                 this.data.contacts = []
                 this.data.title = this.school.title
@@ -248,43 +258,35 @@
                 }, err => {
                 })
             }
-            if (this.checkedRegion.id) {
-                this.investor_url = '/api/get-investors-api' + this.checkedRegion.id
-                console.log(this.investor_url)
-            }
-            else {
-                if (this.checkedRegion) {
-                    this.investor_url = '/api/get-investors-api' + this.checkedRegion
-                    console.log(this.investor_url)
-
+            if (this.checkedRegion) {
+                if (this.checkedRegion.id) {
+                    this.investor_url = '/api/get-investors-api/' + this.checkedRegion.id
                 }
                 else {
-                    this.investor_url = '/api/get-investors-api/0'
-                    console.log(this.investor_url)
-
+                    this.investor_url = '/api/get-investors-api/' + this.checkedRegion
                 }
+            }
+            else {
+                this.investor_url = '/api/get-investors-api/0'
 
             }
 
         },
-        updated (){
-            if (this.checkedRegion.id) {
-                this.investor_url = '/api/get-investors-api/' + this.checkedRegion.id
-                console.log(this.investor_url)
-            }
-            else {
-                if (this.checkedRegion) {
-                    this.investor_url = '/api/get-investors-api/' + this.checkedRegion
-                    console.log(this.investor_url)
-
+        updated() {
+            if (this.checkedRegion) {
+                if (this.checkedRegion.id) {
+                    this.investor_url = '/api/get-investors-api/' + this.checkedRegion.id
                 }
                 else {
-                    this.investor_url = '/api/get-investors-api/0'
-                    console.log(this.investor_url)
-
+                    this.investor_url = '/api/get-investors-api/' + this.checkedRegion
                 }
+            }
+            else {
+                this.investor_url = '/api/get-investors-api/0'
 
             }
+
+
         },
         watch: {
             checkedCity: function (val) {
@@ -295,31 +297,31 @@
 
         },
         methods: {
-            cancelChange () {
+            cancelChange() {
                 Events.$emit('toggle-popup-school')
             },
-            getData (val) {
+            getData(val) {
                 this.checkedRegion = val
                 this.checkedCity = null
                 this.$refs.cityComplete ? this.$refs.cityComplete.setValue('') : ''
             },
-            getDataCity (val) {
+            getDataCity(val) {
                 this.checkedCity = val
             },
-            getDataDirector (val) {
+            getDataDirector(val) {
                 this.data.director_id = val.id
             },
-            delDirector(){
+            delDirector() {
                 this.data.director_id = 0
             },
-            getDataInvestor (val) {
+            getDataInvestor(val) {
                 this.data.investor_id = val.id
 
             },
-            delInvestor(){
+            delInvestor() {
                 this.data.investor_id = 0
             },
-            editSchool () {
+            editSchool() {
                 this.$http.post('/admin/schools/update/' + this.school.id, this.data).then(res => {
                     if (res.status === 202) {
                         location.href = '/admin/schools'
@@ -329,9 +331,12 @@
                     }
                 }, err => {
                     this.errorEdit = true
+                    this.serverErrors = err.data.errors
+
                 })
             },
-            createSchool () {
+            createSchool() {
+
                 this.$http.post('/admin/schools/create', this.data).then(res => {
                     if (res.status === 201) {
                         location.href = '/admin/schools'
@@ -340,17 +345,25 @@
                     }
                 }, err => {
                     this.errorEdit = true
+                    this.serverErrors = err.data.errors
+
                 })
             },
-            addContactsField () {
+            addContactsField() {
                 this.data.contacts.push({
                     value: '',
                     type: '0'
                 })
             },
-            spliceContactsField (i) {
+            spliceContactsField(i) {
                 this.data.contacts.splice(i, 1)
             }
         }
     }
 </script>
+
+<style>
+    p.error {
+        color: red;
+    }
+</style>

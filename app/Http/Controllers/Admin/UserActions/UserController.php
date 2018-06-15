@@ -109,10 +109,9 @@ class UserController extends Controller
     public function investorInfoSave(InvestorInfo $info, InvestorUserInAdmin $request)
     {
         $count = $info->where('user_id', $request->get('user_id'))->count();
-        if($count > 0){
+        if ($count > 0) {
             $info->where('user_id', $request->get('user_id'))->update($request->validated());
-        }
-        else{
+        } else {
             $info->create($request->validated());
         }
 
