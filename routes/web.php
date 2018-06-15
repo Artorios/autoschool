@@ -62,7 +62,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::get('/get-lessons', 'LessonController@getLessonsSlider');
 
 
-    Route::group(['prefix' => 'statistic', 'middleware' => ['student']], function () {
+    Route::group(['prefix' => 'statistic'], function () {
         Route::get('/', 'StatisticController@index')->name('user.statistic');
     });
 
@@ -128,7 +128,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
         Route::post('/video', 'LessonController@videoTimeSave')->name('user.lessons.saveView');
         Route::post('/video/ended', 'LessonController@endView')->name('user.lessons.endView');
     });
-    Route::view('faq', 'account.faq')->name('faq');
+    Route::view('faq', 'account.faq')->name('faq-user');
 
     Route::group(['prefix' => 'tickets'], function () {
         Route::get('/', 'TicketsController@index')->name('account.tickets');
