@@ -4,7 +4,7 @@
         <div class="breadcrumbs">
             <ul>
                 <li><a href="{{route('admin.index')}}">Главная</a></li>
-                <li><a href="{{route('faq')}}">Справка</a></li>
+                <li><a href="{{route('faq-as')}}">Справка</a></li>
             </ul>
         </div>
 
