@@ -33,35 +33,36 @@
                 </div>
             </div>
         </div>
+        @if(!Auth::user()->pay)
+            @if(empty($user->auto_school_group_id))
+                <div class="finance-wrapper">
+                    @if(!empty($school[0]))
+                        <div>Выбрано: {{$school[0]->title}}
+                            @if(!empty($school[0]->filial_name))
+                                ({{$school[0]->filial_name}})
+                            @endif
+                            г. {{$school[0]->city->name}}</div>
+                    @endif
+                    <choice-autoschool :user="{{json_encode($user)}}">
 
-        @if(empty($user->auto_school_group_id))
-            <div class="finance-wrapper">
-                @if(!empty($school[0]))
-                    <div>Выбрано: {{$school[0]->title}}
-                        @if(!empty($school[0]->filial_name))
-                            ({{$school[0]->filial_name}})
-                        @endif
-                        г. {{$school[0]->city->name}}</div>
-                @endif
-                <choice-autoschool :user="{{json_encode($user)}}">
-
-                </choice-autoschool>
-            </div>
-        @endif
-        @if(!empty($user->contract->name))
-            @if(!empty($school[0]))
-                <payment-variants :user="{{json_encode($user)}}"
-                                  :contract="{{json_encode($user->contract->name)}}"
-                                  :price="{{json_encode($user->city->price)}}"
-                                  :school="{{json_encode($school[0]->id)}}"
-                ></payment-variants>
-            @else
-                <payment-variants :user="{{json_encode($user)}}"
-                                  :contract="{{json_encode($user->contract->name)}}"
-                                  :price="{{json_encode($user->city->price)}}"
-                ></payment-variants>
+                    </choice-autoschool>
+                </div>
             @endif
+            @if(!empty($user->contract->name))
+                @if(!empty($school[0]))
+                    <payment-variants :user="{{json_encode($user)}}"
+                                      :contract="{{json_encode($user->contract->name)}}"
+                                      :price="{{json_encode($user->city->price)}}"
+                                      :school="{{json_encode($school[0]->id)}}"
+                    ></payment-variants>
+                @else
+                    <payment-variants :user="{{json_encode($user)}}"
+                                      :contract="{{json_encode($user->contract->name)}}"
+                                      :price="{{json_encode($user->city->price)}}"
+                    ></payment-variants>
+                @endif
 
+            @endif
         @endif
     </div>
 @endsection

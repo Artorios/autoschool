@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models\User\Traits\Attribute;
+use App\Models\Finance\Coupon;
+use App\Models\Finance\Order;
 use App\Models\Training\Lesson\Lesson;
 use App\Models\User\UserLesson;
 
@@ -88,6 +90,18 @@ trait UserAttribute
             $last = 0;
         }
         return $last;
+    }
+
+    public function getPayAttribute()
+    {
+        $coupon = Coupon::where('student_id', $this->attributes['id'])->where('status', 3)->count();
+        $order = Order::where('user_id', $this->attributes['id'])->count();
+        if($coupon > 0 || $order > 0){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }
