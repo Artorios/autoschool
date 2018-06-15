@@ -73,7 +73,7 @@
                     {{count(\App\Models\User\Notification::where(['user_id' => Auth::user()->id, 'status' => '1'])->get())}}</span>
                         <span class="title">Уведомления</span>
                     </a>
-                    <a href="{{route('faq')}}" class="help">
+                    <a href="{{route('faq-as')}}" class="help">
                         <i class="fa fa-question-circle" aria-hidden="true"></i>
                     </a>
                 </div>
