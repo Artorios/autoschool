@@ -13,17 +13,17 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Имя*</label>
-                                <p class="error" v-if="serverErrors.name">Введите имя</p>
+                                <p class="error" v-if="serverErrors.name">{{serverErrors.name[0]}}</p>
                                 <input type="text" class="form-control" v-model="data.name">
                             </div>
                             <div class="form-group">
                                 <label>Фамилия*</label>
-                                <p class="error" v-if="serverErrors.last_name">Введите фамилию</p>
+                                <p class="error" v-if="serverErrors.last_name">{{serverErrors.last_name[0]}}</p>
                                 <input type="text" class="form-control" v-model="data.last_name">
                             </div>
                             <div class="form-group">
                                 <label>Отчество</label>
-                                <p class="error" v-if="serverErrors.second_name">Введите отчество</p>
+                                <p class="error" v-if="serverErrors.second_name">serverErrors.second_name[0]</p>
                                 <input type="text" class="form-control" v-model="data.second_name">
                             </div>
                             <div v-if="edit && (data.role == 'user' || data.role.slug == 'user')">
@@ -60,12 +60,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Телефон*</label>
-                                <p class="error" v-if="serverErrors.phone">Введите телефон</p>
+                                <p class="error" v-if="serverErrors.phone">{{serverErrors.phone[0]}}</p>
                                 <input type="text" class="form-control" v-model="data.phone">
                             </div>
                             <div class="form-group">
                                 <label>Роль*</label>
-                                <p class="error" v-if="serverErrors.role">Введите роль</p>
+                                <p class="error" v-if="serverErrors.role">{{serverErrors.role[0]}}</p>
                                 <select class="form-control select2"
                                         style="width: 100%;"
                                         v-model="data.role"

@@ -25,6 +25,7 @@
                             <div v-if="edit">
                                 <div class="form-group">
                                     <label>Выберите регион</label>
+                                    <p class="error" v-if="serverErrors.city_id">{{serverErrors.city_id[0]}}</p>
                                     <autocomplete
                                             url="/api/address/get-regions-api"
                                             anchor="name"
@@ -36,7 +37,6 @@
                                 </div>
                                 <div class="form-group" v-if="checkedRegion">
                                     <label>Выберите город</label>
-                                    <p class="error" v-if="serverErrors.city_id">{{serverErrors.city_id[0]}}</p>
                                     <autocomplete
                                             :url="'/api/address/get-cities-api/'+ checkedRegion.id"
                                             anchor="name"
@@ -78,6 +78,7 @@
                             <div v-else>
                                 <div class="form-group">
                                     <label>Выберите регион</label>
+                                    <p class="error" v-if="serverErrors.city_id">{{serverErrors.city_id[0]}}</p>
 
                                     <autocomplete
                                             url="/api/address/get-regions-api"
@@ -87,10 +88,10 @@
                                             :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
                                             :on-select="getData">
                                     </autocomplete>
+
                                 </div>
                                 <div class="form-group" v-if="checkedRegion">
                                     <label>Выберите город</label>
-                                    <p class="error" v-if="serverErrors.city_id">{{serverErrors.city_id[0]}}</p>
 
                                     <autocomplete
                                             :url="city_url.concat(checkedRegion.id)"
@@ -322,6 +323,7 @@
                 this.data.investor_id = 0
             },
             editSchool() {
+                console.log(this.data)
                 this.$http.post('/admin/schools/update/' + this.school.id, this.data).then(res => {
                     if (res.status === 202) {
                         location.href = '/admin/schools'
@@ -352,7 +354,11 @@
             addContactsField() {
                 this.data.contacts.push({
                     value: '',
-                    type: '0'
+                    type: {
+                        id: 1,
+                        name: 'Адрес',
+                        slug: 'address'
+                    },
                 })
             },
             spliceContactsField(i) {

@@ -28,7 +28,7 @@ class CreateUserInAdmin extends FormRequest
             'name' => 'required|string|min:3',
             'email' => 'required|email|unique:users,email',
             'role' => Rule::in(['admin', 'autoschool', 'investor', 'user']),
-            'last_name' => 'required|string',
+            'last_name' => 'required|string|min:2',
             'second_name' => 'nullable|string',
             'phone' => 'required|numeric|min:8',
 
@@ -51,6 +51,7 @@ class CreateUserInAdmin extends FormRequest
             'role.rule' => 'Выберите роль',
             'last_name.required' => 'Введите фамилию',
             'last_name.string' => 'Должна быть строка',
+            'last_name.min' => 'Должно быть больше 2-х символов',
             'second_name.string' => 'Должна быть строка',
             'phone.required' => 'Введите номер телефона',
             'phone.numeric' => 'Неверный ввод',

@@ -81,7 +81,7 @@
                                                 @click="showEdit(user)"><i class="fa fa-edit"></i></button>
                                         <button class="btn btn-success"
                                                 title="Редактировать"
-                                                v-if="sale_status(user) == 'not_paid'"
+                                                v-if="sale_status(user) == 'not_paid' && user.role == 'user'"
                                                 @click="showPay(user)">$</button>
                                         <button class="btn btn-success"
                                                 title="Редактировать"
