@@ -90,11 +90,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function pay(Order $order, InvestorUserInAdmin $request)
+    public function pay(Order $order, PaymentUserInAdmin $request)
     {
 
 
-        $order->create($request->all());
+        $order->create($request->validated());
         return response()->json(['status' => 1], 202);
 
 
