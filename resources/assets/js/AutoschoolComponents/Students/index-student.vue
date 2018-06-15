@@ -59,9 +59,9 @@
             </div>
         </div>
 
-        <div class="row inner-block">
+        <div class="row">
             <div class="col-md-4 col-xs-12 col-sm-12">
-                Филиал:
+                <span class="autocomplete-label">Филиал:</span>
             </div>
             <div class="col-md-8 col-xs-12 col-sm-12">
                 <autocomplete placeholder="Филиал"
@@ -69,7 +69,7 @@
                               anchor="title"
                               label="filial_name"
                               :initValue="checkedFilial ? checkedFilial.title : ''"
-                              :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                              :classes="{ wrapper: 'search-wrap', input: 'search-input', list: 'search-block', item: 'data-list-item' }"
                               :on-select="selectFilial">
                 </autocomplete>
                 <!--label="writer"-->
@@ -77,9 +77,9 @@
 
             </div>
         </div>
-        <div class="row inner-block">
+        <div class="row">
             <div class="col-md-4 col-xs-12 col-sm-12">
-                Группа:
+                <span class="autocomplete-label">Группа:</span>
             </div>
             <span class="error" v-if="errorEdit">Выберите группу</span>
             <div class="col-md-8 col-xs-12 col-sm-12">
@@ -88,12 +88,17 @@
                               anchor="name"
                               label="writer"
                               :initValue="checkedGroup ? checkedGroup.name : ''"
-                              :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                              :classes="{ wrapper: 'search-wrap', input: 'search-input', list: 'search-block', item: 'data-list-item' }"
                               :on-select="selectGroup">
                 </autocomplete>
             </div>
         </div>
-        <a class="btn-grey" @click="saveGroup()">Сохранить изменения</a>
+        <div class="row">
+            <div class="col-md-8 col-xs-12 col-sm-12 col-md-offset-4">
+                <a class="btn-grey btn-save" @click="saveGroup()">Сохранить изменения</a>
+            </div>
+        </div>
+
         <div class="row inner-block">
 
 
@@ -189,6 +194,6 @@
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>
