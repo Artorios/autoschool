@@ -43,8 +43,10 @@ class SchoolController extends Controller
 
         DB::transaction(function () use ($request) {
             $school = AutoSchool::create($request->validated());
-            $city = City::where('id', $request->validated()['city_id'])->update(['show_city' => 1]);
-            $school->contacts()->createMany($request->validated()['contacts']);
+            $city = City::where('id', $request->get('city_id'))->update(['show_city' => 1]);
+            if (isset($request->validated()['contacts'])) {
+                $school->contacts()->createMany($request->validated()['contacts']);
+            }
 
         });
         return response()->json(['status' => 1], 201);
@@ -63,15 +65,17 @@ class SchoolController extends Controller
             $city = AutoSchool::where('id', $id)->firstOrFail()->city_id;
             if ($city != $request->validated()['city_id']) {
                 City::where('id', $city)->update(['show_city' => 0]);
-                City::where('id', $request->input('city_id'))->update(['show_city' => 1]);
+                City::where('id', $request->get('city_id'))->update(['show_city' => 1]);
             }
             $school = AutoSchool::where('id', $id)->update($request->validated());
-            foreach ($adminContacts->validated()['contacts'] as $item) {
-                if (!empty($item['id'])) {
-                    AutoSchoolContact::where('id', $item['id'])->update(['type' => $item['type'], 'value' => $item['value'], 'auto_school_id' => $id]);
-                } else {
-                    AutoSchoolContact::create(['type' => $item['type'], 'value' => $item['value'], 'auto_school_id' => $id]);
+            if (isset($adminContacts->validated()['contacts'])) {
+                foreach ($adminContacts->validated()['contacts'] as $item) {
+                    if (!empty($item['id'])) {
+                        AutoSchoolContact::where('id', $item['id'])->update(['type' => $item['type'], 'value' => $item['value'], 'auto_school_id' => $id]);
+                    } else {
+                        AutoSchoolContact::create(['type' => $item['type'], 'value' => $item['value'], 'auto_school_id' => $id]);
 
+                    }
                 }
             }
         });

@@ -90,13 +90,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function pay(Order $order, InvestorUserInAdmin $request)
+    public function pay(Order $order, PaymentUserInAdmin $request)
     {
 
 
         $order->create($request->validated());
-
         return response()->json(['status' => 1], 202);
+
 
     }
 
@@ -109,10 +109,9 @@ class UserController extends Controller
     public function investorInfoSave(InvestorInfo $info, InvestorUserInAdmin $request)
     {
         $count = $info->where('user_id', $request->get('user_id'))->count();
-        if($count > 0){
+        if ($count > 0) {
             $info->where('user_id', $request->get('user_id'))->update($request->validated());
-        }
-        else{
+        } else {
             $info->create($request->validated());
         }
 

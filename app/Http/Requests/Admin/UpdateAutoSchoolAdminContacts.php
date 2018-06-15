@@ -25,9 +25,9 @@ class UpdateAutoSchoolAdminContacts extends FormRequest
     public function rules()
     {
         return [
-            'contacts' => 'required|array',
-            'contacts.*.type' => ['required', Rule::in(['phone', 'address'])],
-            'contacts.*.value' => 'required|string|min:3',
+            'contacts' => 'nullable|array',
+            'contacts.*.type' => ['nullable', Rule::in(['phone', 'address'])],
+            'contacts.*.value' => 'nullable|string|min:3',
 
         ];
     }
