@@ -66,5 +66,5 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
     Route::post('get-count-main-finance', 'FinanceController@getCountMain');
     Route::post('delete-users', 'FinanceController@deleteUser');
 
-    Route::view('faq', 'autoschool.faq')->name('faq'); //TODO rename 'autoschool.faq' need
+    Route::view('faq', 'autoschool.faq')->name('faq-as'); //TODO rename 'autoschool.faq' need
 });
