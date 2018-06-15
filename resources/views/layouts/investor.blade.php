@@ -64,7 +64,7 @@
                         </span>
                         <span class="title">Уведомления</span>
                     </a>
-                    <a href="{{route('faq')}}" class="help">
+                    <a href="{{route('faq-user')}}" class="help">
                         <i class="fa fa-question-circle" aria-hidden="true"></i>
                     </a>
                 </div>
