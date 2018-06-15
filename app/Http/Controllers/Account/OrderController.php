@@ -13,6 +13,7 @@ use App\Models\Training\School\AutoSchool;
 use App\Models\User\{
     UserSchool, User
 };
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
     Auth, Validator, DB
@@ -78,7 +79,7 @@ class OrderController extends Controller
 
     public function cuponPayment(Request $request)
     {
-        $cupon = Coupon::where('code', $request->input('number_cupon'))->get()->first();
+        $cupon = Coupon::where('code', $request->get('number_cupon'))->first();
         if (!$cupon) {
             return response()->json(['status' => 0], 400);
         }
@@ -86,11 +87,11 @@ class OrderController extends Controller
         if ($cupon->status == 2 && $cupon->code == $request->input('number_cupon')) {
             $director = AutoSchool::find($cupon->auto_school_id)->director_id;
             $user = Auth::user();
-
-            DB::transaction(function () use ($cupon, $user) {
-                $cupon->update([
+            DB::transaction(function () use ($cupon, $user, $request) {
+                Coupon::where('code', $request->get('number_cupon'))->update([
+                    'student_id' => $user->id,
+                    'activated_at' => Carbon::now(),
                     'status' => 3,
-                    'student_id' => $user->id
                 ]);
                 if (!empty($cupon->auto_school_group_id)) {
                     User::where('id', $user->id)->update([

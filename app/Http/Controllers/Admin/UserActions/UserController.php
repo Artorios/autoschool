@@ -11,9 +11,10 @@ use App\Models\User\InvestorInfo;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Validator, DB};
 use Illuminate\Validation\Rule;
 use Psy\Exception\ErrorException;
+use App\Models\User\Contract;
 
 /**
  * Class UserController
@@ -130,10 +131,17 @@ class UserController extends Controller
 
         $data = $request->validated();
         $data['password'] = '123456';
-        $data['license'] = "A";
+        $data['license'] = "B";
         $data['city_id'] = "565";
-        User::create($data);
 
+        DB::transaction(function () use ($data) {
+            $user = User::create($data);
+            $contract = Contract::create([
+                'name' => generateContractNumber($user),
+                'user_id' => $user->id
+            ]);
+
+        });
         return response()->json(['status' => $data], 201);
 
     }
