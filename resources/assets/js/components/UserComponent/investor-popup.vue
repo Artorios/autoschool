@@ -5,30 +5,35 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" @click="cancelChange">×</span></button>
-                    <h4 class="modal-title" >Оплата</h4>
+                    <h4 class="modal-title">Оплата</h4>
                 </div>
                 <span class="error" v-if="error">Произошла ошыбка</span>
                 <div class="modal-body">
                     <div class="row">
                         <div class="requsites clearfix">
                             <div class="radio-button">
-                                <input type="radio" name="address-type" id="address-type-1" value="addressType1" v-model="tab">
+                                <input type="radio" name="address-type" id="address-type-1" value="addressType1"
+                                       v-model="tab">
                                 <label for="address-type-1">Реквизиты юр. лица</label>
                             </div>
                             <div class="radio-button">
-                                <input type="radio" name="address-type" id="address-type-2" value="addressType2" v-model="tab">
+                                <input type="radio" name="address-type" id="address-type-2" value="addressType2"
+                                       v-model="tab">
                                 <label for="address-type-2">Фактический адрес</label>
                             </div>
                             <div class="radio-button">
-                                <input type="radio" name="address-type" id="address-type-3" value="addressType3" v-model="tab">
+                                <input type="radio" name="address-type" id="address-type-3" value="addressType3"
+                                       v-model="tab">
                                 <label for="address-type-3">Юридический адрес</label>
                             </div>
                             <div class="radio-button">
-                                <input type="radio" name="address-type" id="address-type-4" value="addressType4" v-model="tab">
+                                <input type="radio" name="address-type" id="address-type-4" value="addressType4"
+                                       v-model="tab">
                                 <label for="address-type-4">Банк</label>
                             </div>
                             <div class="radio-button">
-                                <input type="radio" name="address-type" id="address-type-5" value="addressType5" v-model="tab">
+                                <input type="radio" name="address-type" id="address-type-5" value="addressType5"
+                                       v-model="tab">
                                 <label for="address-type-5">Контакты</label>
                             </div>
                         </div>
@@ -39,11 +44,13 @@
                                 <h3>Реквизиты юр. лица:</h3>
                                 <div class="form-group">
                                     <label>ИНН:</label>
-                                    <input type="text" v-model="data.info.taxpayer_identification_number" placeholder="*****">
+                                    <input type="text" v-model="data.info.taxpayer_identification_number"
+                                           placeholder="*****">
                                 </div>
                                 <div class="form-group">
                                     <label>Сокращенное наименование организации:</label>
-                                    <input type="text" v-model="data.info.abbreviated_name_of_the_organization" placeholder="ООО Франчайзи">
+                                    <input type="text" v-model="data.info.abbreviated_name_of_the_organization"
+                                           placeholder="ООО Франчайзи">
                                 </div>
                                 <div class="form-group">
                                     <label>Полное наименование организации:</label>
@@ -56,7 +63,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>ОГРН:</label>
-                                    <input v-model="data.info.date_of_state_registration" type="text" placeholder="01.12.2017">
+                                    <input v-model="data.info.date_of_state_registration" type="text"
+                                           placeholder="01.12.2017">
                                 </div>
                                 <div class="form-group">
                                     <label>Ген. директор:</label>
@@ -64,7 +72,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Дополнительная информация:</label>
-                                    <input v-model="data.info.additional_information" type="text" placeholder="Дополнительная информация">
+                                    <input v-model="data.info.additional_information" type="text"
+                                           placeholder="Дополнительная информация">
                                 </div>
                             </div>
                             <div v-show="tab==='addressType2'">
@@ -83,7 +92,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Почтовый адрес:</label>
-                                    <input v-model="data.info.actual_post_index" type="text" placeholder="Почтовый адрес">
+                                    <input v-model="data.info.actual_post_index" type="text"
+                                           placeholder="Почтовый адрес">
                                 </div>
                             </div>
                             <div v-show="tab==='addressType3'">
@@ -113,11 +123,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Кор счет:</label>
-                                    <input type="text" v-model="data.info.bank_correspondent_account" placeholder="Кор счет">
+                                    <input type="text" v-model="data.info.bank_correspondent_account"
+                                           placeholder="Кор счет">
                                 </div>
                                 <div class="form-group">
                                     <label>Расчетный счет:</label>
-                                    <input v-model="data.info.bank_settlement_account" type="text" placeholder="Расчетный счет">
+                                    <input v-model="data.info.bank_settlement_account" type="text"
+                                           placeholder="Расчетный счет">
                                 </div>
                             </div>
                             <div v-show="tab==='addressType5'">
@@ -128,7 +140,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Доп. телефон:</label>
-                                    <input type="text" v-model="data.info.contact_reserve_phone" placeholder="Доп. телефон">
+                                    <input type="text" v-model="data.info.contact_reserve_phone"
+                                           placeholder="Доп. телефон">
                                 </div>
                                 <div class="form-group">
                                     <label>Факс:</label>
@@ -144,15 +157,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Дополнительная информация:</label>
-                                    <input v-model="data.info.contact_additional_information" type="text" placeholder="Дополнительная информация">
+                                    <input v-model="data.info.contact_additional_information" type="text"
+                                           placeholder="Дополнительная информация">
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal" @click="cancelChange">Отмена</button>
-                    <button type="button" class="btn btn-primary" @click="save()">Сохранить </button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal" @click="cancelChange">
+                        Отмена
+                    </button>
+                    <button type="button" class="btn btn-primary" @click="save()">Сохранить</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -163,25 +179,56 @@
 
 <script>
     import {Events} from "../../app";
+
     export default {
-        data () {
+        data() {
             return {
-                data:  {
+                data: {
+                    info: {
+                        'taxpayer_identification_number': '',
+                        'abbreviated_name_of_the_organization': '',
+                        'full_name_of_the_organization': '',
+                        'code_of_reason': '',
+                        'date_of_state_registration': '',
+                        'fio': '',
+                        'additional_information': '',
+                        'actual_city': '',
+                        'actual_index': '',
+                        'actual_address': '',
+                        'actual_post_index': '',
+                        'legal_city': '',
+                        'legal_index': '',
+                        'legal_address': '',
+                        'bank_identification_code': '',
+                        'bank_name': '',
+                        'bank_correspondent_account': '',
+                        'bank_settlement_account': '',
+                        'contact_phone': '',
+                        'contact_reserve_phone': '',
+                        'contact_fax': '',
+                        'contact_skype': '',
+                        'contact_email': '',
+                        'contact_additional_information': '',
+                        'user_id': ''
+
+                    }
                 },
                 error: false,
                 tab: 'addressType1',
 
             }
         },
-        created () {
-            this.data = this.investor
+        created() {
+            if (this.investor.info) {
+                this.data = this.investor
+            }
         },
         props: ['investor'],
         methods: {
-            cancelChange () {
+            cancelChange() {
                 Events.$emit('toggle-popup-investor')
             },
-            save(){
+            save() {
                 console.log(this.data.info)
                 this.data.info.user_id = this.investor.id
                 this.$http.post('/admin/user/investor-info-save', this.data.info).then(res => {
@@ -200,13 +247,11 @@
             }
 
 
-
-
         }
     }
 </script>
 <style>
-    span.error{
+    span.error {
         color: red;
     }
 </style>
