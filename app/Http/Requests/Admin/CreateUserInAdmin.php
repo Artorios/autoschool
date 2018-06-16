@@ -31,6 +31,9 @@ class CreateUserInAdmin extends FormRequest
             'last_name' => 'required|string|min:2',
             'second_name' => 'nullable|string',
             'phone' => 'required|numeric|min:8',
+            'city_id' => 'required',
+            'password' => 'required|min:8',
+            'license' => Rule::in(['A', 'B', 'C']),
 
         ];
     }
@@ -56,6 +59,9 @@ class CreateUserInAdmin extends FormRequest
             'phone.required' => 'Введите номер телефона',
             'phone.numeric' => 'Неверный ввод',
             'phone.min' => 'Должно быть больше 8-ми символов',
+            'password.required' => 'Введите пароль',
+            'password.min' => 'Должно быть больше 8-ми символов',
+            'license.rule' => 'Выберите категорию',
         ];
     }
 }

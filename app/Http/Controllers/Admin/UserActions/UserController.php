@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function listUsers(User $user, AutoSchool $autoSchool)
     {
-        $users_list = $user->with('autoschoolgroup')->with('city')->with('orders')->with('coupons')->with('info')->get()->toArray();
+        $users_list = $user->with('autoschoolgroup')->with('city.region')->with('orders')->with('coupons')->with('info')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
 
         $users = array_map(function ($user) use ($schools) {
@@ -52,7 +52,7 @@ class UserController extends Controller
     public function listUsersRole(User $user, AutoSchool $autoSchool, $role)
     {
 
-        $users_list = $user->where('role', $role)->with('autoschoolgroup')->with('city')->with('orders')->with('coupons')->with('info')->get()->toArray();
+        $users_list = $user->where('role', $role)->with('autoschoolgroup')->with('orders')->with('coupons')->with('info')->with('city.region')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
 
         $users = array_map(function ($user) use ($schools) {
@@ -129,9 +129,6 @@ class UserController extends Controller
     {
 
         $data = $request->validated();
-        $data['password'] = '123456';
-        $data['license'] = "B";
-        $data['city_id'] = "565";
 
         DB::transaction(function () use ($data) {
             $user = User::create($data);

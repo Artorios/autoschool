@@ -32,6 +32,10 @@ class UpdateUserInAdmin extends FormRequest
             'second_name' => 'nullable|string',
             'phone' => 'required|numeric|min:8',
             'auto_school_group_id' => 'nullable|integer',
+            'city_id' => 'required',
+            'password' => 'nullable|min:8',
+            'license' => ['required', Rule::in(['A', 'B', 'C'])],
+
         ];
     }
 
@@ -54,6 +58,13 @@ class UpdateUserInAdmin extends FormRequest
             'phone.required' => 'Введите номер телефона',
             'phone.numeric' => 'Неверный ввод',
             'phone.min' => 'Должно быть больше 8-ми символов',
+            'city_id.required' => 'Выберите город',
+            'license.rule' => 'Выберите категорию',
+            'license.required' => 'Выберите категорию',
+            'password.required' => 'Введите пароль',
+            'password.min' => 'Должно быть больше 8-ми символов',
+
+
         ];
     }
 
