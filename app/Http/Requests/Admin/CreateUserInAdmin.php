@@ -62,6 +62,8 @@ class CreateUserInAdmin extends FormRequest
             'password.required' => 'Введите пароль',
             'password.min' => 'Должно быть больше 8-ми символов',
             'license.rule' => 'Выберите категорию',
+            'city_id.required' => 'Выберите город',
+
         ];
     }
 }
