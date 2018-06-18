@@ -11,11 +11,10 @@
         <h4>{{lesson.title}}</h4>
 
         <div class="video-wrapper" v-if="lesson.videos[0].youtube">
-            <video   class=" video-js vjs-default-skin vjs-custom-skin"
-                     ref="videoPlayer"
-                     currentTime="100"
+            <video id="my-player" class=" video-js vjs-default-skin vjs-custom-skin"
+                   ref="videoPlayer"
                    :class="{'custom-video': !lesson.videos[0].viewed}"
-                     :data-setup="videoOptionsYT"
+                   :data-setup="videoOptionsYT"
                    :playsinline="false"
                    width="650" height="360"
                    @ended="onPlayerEnded($event)"
@@ -23,25 +22,25 @@
             </video>
         </div>
         <div class="video-wrapper" v-if="!lesson.videos[0].youtube">
-            <video-player v-if="lesson.videos.length "  class="vjs-custom-skin"
-                           ref="videoPlayer"
-                           :options="videoOptions"
-                           :class="{'custom-video': !lesson.videos[0].viewed}"
-                           :playsinline="false"
-                            @ended="onPlayerEnded($event)">
+            <video-player v-if="lesson.videos.length " class="vjs-custom-skin"
+                          ref="videoPlayer"
+                          :options="videoOptions"
+                          :class="{'custom-video': !lesson.videos[0].viewed}"
+                          :playsinline="false"
+                          @ended="onPlayerEnded($event)">
             </video-player>
 
             <!--@play="onPlayerPlay($event)"-->
-                           <!--@pause="onPlayerPause($event)"-->
-                           <!--@ended="onPlayerEnded($event)"-->
-                           <!--@loadeddata="onPlayerLoadeddata($event)"-->
-                           <!--@waiting="onPlayerWaiting($event)"-->
-                           <!--@playing="onPlayerPlaying($event)"-->
-                           <!--@timeupdate="onPlayerTimeupdate($event)"-->
-                           <!--@canplay="onPlayerCanplay($event)"-->
-                           <!--@canplaythrough="onPlayerCanplaythrough($event)"-->
-                           <!--@ready="playerReadied"-->
-                           <!--@statechanged="playerStateChanged($event)"-->
+            <!--@pause="onPlayerPause($event)"-->
+            <!--@ended="onPlayerEnded($event)"-->
+            <!--@loadeddata="onPlayerLoadeddata($event)"-->
+            <!--@waiting="onPlayerWaiting($event)"-->
+            <!--@playing="onPlayerPlaying($event)"-->
+            <!--@timeupdate="onPlayerTimeupdate($event)"-->
+            <!--@canplay="onPlayerCanplay($event)"-->
+            <!--@canplaythrough="onPlayerCanplaythrough($event)"-->
+            <!--@ready="playerReadied"-->
+            <!--@statechanged="playerStateChanged($event)"-->
         </div>
         <div class="video-wrapper" v-if="!lesson.videos[0]">
             <p>Нет видео!</p>
@@ -75,8 +74,11 @@
 </style>
 
 <script>
+    require('videojs-youtube/dist/Youtube.min')
+    import 'videojs-youtube'
+
     export default {
-        data () {
+        data() {
             return {
                 videoOptions: {
                     muted: false,
@@ -91,7 +93,7 @@
                     }],
                     poster: "/static/images/author.jpg"
                 },
-                videoOptionsYT: '{ "techOrder": ["youtube"], "controls": "true", "playbackRates": ["0.7", "1.0", "1.5", "2.0"],   "language": "ru", "sources": [{ "type": "video/youtube", "src": "'+this.lesson.videos[0].youtube+'"}] }',
+                videoOptionsYT: '{ "techOrder": ["youtube", "html5"], "controls": "true", "playbackRates": ["0.7", "1.0", "1.5", "2.0"],   "language": "ru", "sources": [{ "type": "video/youtube", "src": "' + this.lesson.videos[0].youtube + '"}] }',
 
                 lessonTraining: this.lesson.videos[0].hasOwnProperty('viewed') ? 1 : 0
             }
@@ -100,32 +102,60 @@
         computed: {
             player() {
                 return this.$refs.videoPlayer.player
-            }
+            },
+            myPlayer() {
+                return videojs('my-player');
+            },
         },
         watch: {
             lessonTraining: function (val) {
                 console.log(val)
             }
         },
-        mounted () {
+        mounted() {
 //            let time = localStorage.getItem('timePlay')
+            //end pause time
             let time = this.lesson.videos.length ? this.lesson.videos[0].time : false
+
+            // youtube or video-player pause time
             if (time) {
-                this.player.on('loadedmetadata', () => {
-                    this.player.currentTime(time);
-                });
+                if(this.player){
+                    this.player.on('loadedmetadata', () => {
+                        this.player.currentTime(time);
+                    });
+                }
+                if(this.myPlayer){
+                    this.myPlayer.on('loadedmetadata', () => {
+                        this.myPlayer.currentTime(Math.ceil(time));
+                    });
+                }
             }
-            window.onbeforeunload = function(){
+
+            //if youtube video ended
+            this.myPlayer.on('ended', () => {
+                this.onPlayerEnded()
+            });
+
+            //if youtube video pause
+            this.myPlayer.on('pause', () => {
+                this.youtubePause(this.myPlayer)
+            });
+
+            //if video-player pause
+            window.onbeforeunload = function () {
                 if (!this.player.paused() && !this.lesson.videos[0].viewed) {
 //                    localStorage.setItem('timePlay', this.player.currentTime())
-                    this.$http.post('/account/lessons/video', {video_id: this.lesson.videos[0].id, time: this.player.currentTime()})
+                    this.$http.post('/account/lessons/video', {
+                        video_id: this.lesson.videos[0].id,
+                        time: this.player.currentTime()
+                    })
                     return "Are you sure you want to close the window?";
                 }
             }.bind(this)
 
         },
         methods: {
-            onPlayerEnded (player) {
+            onPlayerEnded() {
                 let data = {
                     video_id: this.lesson.videos[0].id,
                     end_view: 1
@@ -133,6 +163,13 @@
                 this.$http.post('/account/lessons/video/ended', data).then(res => {
                     this.lessonTraining = true
                     this.$set(this.lesson.videos[0], 'viewed', 1)
+                })
+            },
+            youtubePause(myPlayer) {
+
+                this.$http.post('/account/lessons/video', {
+                    video_id: this.lesson.videos[0].id,
+                    time: myPlayer.cache_.currentTime
                 })
             }
         }
@@ -142,7 +179,7 @@
 
 <style lang="scss">
     .custom-video {
-        .vjs-progress-control.vjs-control{
+        .vjs-progress-control.vjs-control {
             display: block;
             height: 0;
             overflow: hidden;

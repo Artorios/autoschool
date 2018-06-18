@@ -21,6 +21,7 @@ mix.copy('resources/assets/public/selectric.css', 'public/css')
     .copy('resources/assets/public/slick.css', 'public/css')
     .copy('resources/assets/public/slick-theme.css', 'public/css')
     .copy('resources/assets/public/AdminLTE.min.css', 'public/css')
+    .copy('resources/assets/public/Youtube.min.js', 'public/js')
     .copy('resources/assets/public/skins/_all-skins.min.css', 'public/css/skins');
 
 mix.less('resources/assets/less/app.less', 'public/css/app.min.css');

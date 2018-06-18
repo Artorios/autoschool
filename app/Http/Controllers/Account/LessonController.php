@@ -113,7 +113,7 @@ class LessonController extends Controller
 
         $user_video->pivot->time_stop_view = $request->input('time');
 
-        $user_video->pivot->save();
+        $user_video->pivot->update();
 
         return response()->json(['status' => 1], 201);
     }

@@ -221,6 +221,7 @@
 
 <script type="text/babel">
     import paginate from 'vuejs-paginate'
+    require('videojs-youtube/dist/Youtube.min')
     export default {
         data () {
             return {
@@ -239,7 +240,7 @@
 
                 },
                 youtube: this.lesson.videos[0].youtube ? {video: this.lesson.videos[0].youtube} : {video: ''},
-                videoOptionsYT: '{ "techOrder": ["youtube"], "controls": "true", "playbackRates": ["0.7", "1.0", "1.5", "2.0"],   "language": "ru", "sources": [{ "type": "video/youtube", "src": "'+this.lesson.videos[0].youtube+'"}] }',
+                videoOptionsYT: '{ "techOrder": ["youtube","html5"], "controls": "true", "playbackRates": ["0.7", "1.0", "1.5", "2.0"],   "language": "ru", "sources": [{ "type": "video/youtube", "src": "'+this.lesson.videos[0].youtube+'"}] }',
                 page: 0,
                 dataQuestions: this.questions,
                 showDescription: false,
