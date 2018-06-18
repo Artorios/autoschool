@@ -66,6 +66,7 @@
     "slimscroll": "^0.9.1",
     "utf8": "^3.0.0",
     "v-calendar": "^0.9.7",
+    "video.js": "^7.0.3",
     "videojs-youtube": "^2.5.0",
     "vue-bus": "^1.1.0",
     "vue-image-crop-upload": "^2.3.1",

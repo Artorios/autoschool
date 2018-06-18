@@ -174,12 +174,15 @@
 <script type="text/javascript" src="/js/slick.js"></script>
 <script src="/js/scripts.js"></script>
 <script src="/js/account.js"></script>
+<script src="{{asset('/js/Youtube.min.js')}}"></script>
 @stack('scripts')
 <script src="{{ asset('bower_components/matchHeight/dist/jquery.matchHeight-min.js') }}"></script>
 <script>
     $(document).ready(function(){
         $('.ticket-inner').matchHeight();
     });
+
+
 </script>
 </body>
 
