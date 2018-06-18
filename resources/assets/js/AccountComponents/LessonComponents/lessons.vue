@@ -19,8 +19,12 @@
                     <span>{{lesson.description}}</span>
                 </div>
                 <div class="btn-wrapper">
-                    <a :href="'/account/lessons/training/' + lesson.id" class="btn-grey">Тренировка</a>
-                    <a :href="'/account/lessons/exam/' + lesson.id" class="btn-grey">Зачет</a>
+                    <a :href="'/account/lessons/training/' + lesson.id"
+                       :disabled="!lesson.videos[0].user_videos ? true : lesson.videos[0].user_videos.viewed ? false : true"
+                       class="btn-grey">Тренировка</a>
+                    <a :href="'/account/lessons/exam/' + lesson.id"
+                       :disabled="!lesson.videos[0].user_videos ? true : lesson.videos[0].user_videos.viewed ? false : true"
+                       class="btn-grey">Зачет</a>
                     <a :href="'/account/lessons/group-exam/' + lesson.id" class="btn-grey" v-if="lesson.isGroup && !lesson.locked">Групповой зачет</a>
                 </div>
             </div>
@@ -35,7 +39,7 @@
 
 <script type="text/babel">
     export default {
-        data () {
+        data() {
             return {
                 currentPage: 1,
                 itemsPerPage: 10,
@@ -45,15 +49,15 @@
         },
         props: ['lessons'],
         computed: {
-            totalPages: function(){
+            totalPages: function () {
                 return Math.ceil(this.resultCount / this.itemsPerPage)
             },
-            paginate: function(){
-                if (!this.lessons || this.lessons.length != this.lessons.length){
+            paginate: function () {
+                if (!this.lessons || this.lessons.length != this.lessons.length) {
                     return
                 }
                 this.resultCount = this.lessons.length
-                if(this.currentPage >= this.totalPages){
+                if (this.currentPage >= this.totalPages) {
                     this.currentPage = this.totalPages
                 }
                 let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
@@ -61,9 +65,17 @@
             }
         },
         methods: {
-            setPage(pageNumber){
+            setPage(pageNumber) {
                 this.currentPage = pageNumber
             }
         }
     }
 </script>
+<style>
+    button[disabled='disabled'][data-v-5bf97dd9] {
+        cursor: not-allowed;
+        background: -webkit-gradient(linear, left bottom, left top, from(#bababa), to(#ebeaea));
+        background: linear-gradient(to top, #bababa, #ebeaea);
+        opacity: 0.5;
+    }
+</style>

@@ -13,8 +13,8 @@ trait LessonVideoRelationship
     /**
      * @return mixed
      */
-    /*public function userVideos()
+    public function userVideos()
     {
         return $this->hasOne(UserLessonVideo::class, 'lesson_video_id', 'id')->where('user_id', \Illuminate\Support\Facades\Auth::id());
-    }*/
+    }
 }
