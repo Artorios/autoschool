@@ -26,6 +26,34 @@
                                 <p class="error" v-if="serverErrors.second_name">serverErrors.second_name[0]</p>
                                 <input type="text" class="form-control" v-model="data.second_name">
                             </div>
+                            <div class="form-group">
+                                <label>Выберите регион</label>
+                                <p class="error" v-if="serverErrors.city_id">{{serverErrors.city_id[0]}}</p>
+
+                                <autocomplete
+                                        url="/api/address/get-regions-api"
+                                        anchor="name"
+                                        label="writer"
+                                        :initValue="checkedRegion ? checkedRegion.name : ''"
+                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                        :on-select="getData">
+                                </autocomplete>
+
+                            </div>
+                            <div class="form-group" v-if="checkedRegion">
+                                <label>Выберите город</label>
+
+                                <autocomplete
+                                        :url="city_url.concat(checkedRegion.id)"
+                                        anchor="name"
+                                        label="ru_path"
+                                        ref="cityComplete"
+                                        :initValue="checkedCity ? checkedCity.name : ''"
+                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                        :on-select="getDataCity">
+                                </autocomplete>
+                            </div>
+
                             <div v-if="edit && (data.role == 'user' || data.role.slug == 'user')">
                                 <div class="form-group">
                                     <label>Автошкола</label>
@@ -64,6 +92,11 @@
                                 <input type="text" class="form-control" v-model="data.phone">
                             </div>
                             <div class="form-group">
+                                <label>Пароль*</label>
+                                <p class="error" v-if="serverErrors.password">{{serverErrors.password[0]}}</p>
+                                <input type="password" class="form-control" v-model="data.password">
+                            </div>
+                            <div class="form-group">
                                 <label>Роль*</label>
                                 <p class="error" v-if="serverErrors.role">{{serverErrors.role[0]}}</p>
                                 <select class="form-control select2"
@@ -72,6 +105,18 @@
                                         required>
                                     <option selected="selected" value="" disabled>Выберите роль</option>
                                     <option :value="role.slug" v-for="role in roles">{{role.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Категория*</label>
+                                <p class="error" v-if="serverErrors.license">{{serverErrors.license[0]}}</p>
+                                <select class="form-control select2"
+                                        style="width: 100%;"
+                                        v-model="data.license"
+                                        required>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
                                 </select>
                             </div>
 
@@ -105,10 +150,17 @@
                     last_name: '',
                     second_name: '',
                     phone: '',
-                    auto_school_group_id: ''
+                    auto_school_group_id: '',
+                    city_id: '',
+                    license: '',
+                    password: '',
                 },
                 checkedSchool: '',
                 checkedGroup: '',
+                city_url: '/api/address/get-cities-api/',
+                checkedRegion: null,
+                checkedCity: null,
+
                 group_url: '/api/get-schoolgroup-api/',
                 roles: [
                     {
@@ -146,18 +198,42 @@
 
 
                 }
+                this.checkedRegion = this.user.city.region
+                this.checkedCity = this.user.city
+
             }
         },
+        watch: {
+            checkedCity: function (val) {
+                if (val) {
+                    this.data.city_id = val.id
+                }
+            },
+
+        },
+
         props: ['user', 'edit'],
         components: {
             Autocomplete
         },
         methods: {
+            getData(val) {
+                this.checkedRegion = val
+                this.checkedCity = null
+                this.$refs.cityComplete ? this.$refs.cityComplete.setValue('') : ''
+            },
+            getDataCity(val) {
+                this.checkedCity = val
+            },
+
             cancelChange () {
                 Events.$emit('toggle-popup')
             },
             editUser () {
 //                console.log(this.school)
+                if(this.checkedCity){
+                    this.data.city_id = this.checkedCity.id
+                }
                 if(this.checkedSchool){
                     if(this.checkedGroup){
                         if(this.checkedGroup.id){
@@ -185,6 +261,9 @@
                 })
             },
             createUser () {
+                if(this.checkedCity){
+                    this.data.city_id = this.checkedCity.id
+                }
                 console.log(this.data)
                 this.$http.post('/admin/user/create', this.data).then(res => {
                     if (res.status === 201) {
