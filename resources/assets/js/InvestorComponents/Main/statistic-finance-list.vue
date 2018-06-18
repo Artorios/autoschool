@@ -51,9 +51,11 @@
                     <div class="col-xs-12 col-sm-12 col-md-4">
                         <div class="form-group">
                             <div class="data">
-                                <v-date-picker
-                                        v-model='selectedDate'>
-                                </v-date-picker>
+                                <datepicker
+                                        v-model='selectedDate'
+                                        :language="lang"
+                                        name="uniquename">
+                                </datepicker>
                             </div>
                         </div>
                     </div>
@@ -308,14 +310,20 @@
 </template>
 
 <script>
-  export default {
+    import Datepicker from 'vuejs-datepicker';
+    import {en, ru} from 'vuejs-datepicker/dist/locale'
+
+    export default {
+    components: {
+        Datepicker
+    },
     data () {
       return {
         searchTitle: '',
         searchDate: '',
         list: [],
         filteredList: [],
-        selectedDate: new Date(),
+        selectedDate: '',
 
         checkedCoupons: [],
         currentPage: 1,
@@ -340,7 +348,9 @@
           id: []
         },
         comment: {},
-        selected: ''
+        selected: '',
+        pageCreated: true,
+        lang: ru,
       }
     },
     computed: {
@@ -353,8 +363,10 @@
                 return this.filterByTitle()
             }
 
-            if (this.selectedDate !== "") {
-                // return this.filterByDate()
+            if(this.pageCreated) {
+                if (this.selectedDate !== "") {
+                    return this.filterByDate()
+                }
             }
 
             switch(this.selected) {
@@ -371,6 +383,13 @@
             }
         },
 
+      changeCalendar() {
+          this.pageCreated = false
+      },
+
+      selectedDateOne() {
+         return this.getFullData(this.selectedDate).toString()
+      }
     },
     methods: {
       filterByTitle: function () {
@@ -380,11 +399,14 @@
           });
       },
       filterByDate: function () {
-          return this.list.filter((student) => {
-              if(student.DatePayment != null) {
-                  return student.DatePayment.split(" ", 1)[0].toLowerCase().includes(this.selectedDate.toLowerCase());
+          let list = this.list.filter((element) => {
+              if(element.DatePayment != null) {
+                  return element.DatePayment.split(" ", 1)[0].toLowerCase()
+                      .includes(this.selectedDateOne.toLowerCase())
+
               }
           });
+          return (list.length > 0) ? list  : ''
       },
 
       filterStudentByDesk(type_select) {
@@ -574,9 +596,20 @@
                 return 'Активированный'
          }
         },
+      getFullData(data){
+         let month = this.addZero(data.getUTCMonth() + 1).toString()
+         let day = this.addZero(data.getUTCDate()).toString()
+         let year = data.getUTCFullYear().toString()
+         return `${year}-${month}-${day}`
+      },
+
+      addZero(num) {
+         return (num >= 0 && num < 10) ? "0" + num : num + "";
+      },
+
     },
     created () {
-      this.selectedDate = ''
+        this.pageCreated = true
       window.axios.get('/investor/finance/list')
         .then((response) => {
           this.list = response.data.data
