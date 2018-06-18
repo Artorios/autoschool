@@ -15,6 +15,8 @@ import StatisticFinanceList from './InvestorComponents/Main/statistic-finance-li
 import AutoSchoolProfileEdit from './InvestorComponents/Main/autoschool-profile-edit';
 import VCalendar from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css';
+import Datepicker from 'vuejs-datepicker';
+
 const VueInputMask = require('vue-inputmask').default;
 
 
@@ -45,6 +47,7 @@ const app = new Vue({
         HistoryList,
         CouponList,
         AutoSchoolProfileEdit,
-        StatisticFinanceList
+        StatisticFinanceList,
+        Datepicker
     }
 });
