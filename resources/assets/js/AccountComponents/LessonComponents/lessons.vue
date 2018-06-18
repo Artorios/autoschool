@@ -71,11 +71,3 @@
         }
     }
 </script>
-<style>
-    button[disabled='disabled'][data-v-5bf97dd9] {
-        cursor: not-allowed;
-        background: -webkit-gradient(linear, left bottom, left top, from(#bababa), to(#ebeaea));
-        background: linear-gradient(to top, #bababa, #ebeaea);
-        opacity: 0.5;
-    }
-</style>
