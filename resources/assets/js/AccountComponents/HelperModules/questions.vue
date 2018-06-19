@@ -110,6 +110,10 @@
             nextQuestion () {
                 this.setAnswer = false
                 this.userAnswer = null
+                console.log(this.question)
+                console.log(this.checkedQuestion)
+                console.log(this.type)
+
                 let checkQuest = this.questions[++this.questionStart]
                 if (checkQuest) {
                     this.checkedQuestion = checkQuest
