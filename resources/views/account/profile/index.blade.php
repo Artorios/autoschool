@@ -23,7 +23,12 @@
                     @endif
                 </a>
                 <div class="btn-wrapper">
-                    <a href="/account/finance" class="btn-grey">Оплата</a>
+                    @if($user->pay)
+                        <a href="/account/finance" class="btn-grey">Оплачено</a>
+                    @else
+                        <a href="/account/finance" class="btn-grey">Оплата</a>
+
+                    @endif
                     <a href="/logout" class="btn-grey btn-exit">
                         <i class="fa fa-power-off" aria-hidden="true"></i>
                         Выход
