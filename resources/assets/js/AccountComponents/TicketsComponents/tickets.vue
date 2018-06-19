@@ -20,7 +20,7 @@
                         <span class="status status-green" v-if="ticket.status === 'passed'">Пройден</span>
                         <span class="status status-green"
                               v-if="ticket.status === 'failed'">{{ticket.right_answers_count}} из {{ticket.all_count}}
-                            <span class="refresh"></span>
+                            <span class="refresh" @click="refresh(ticket.ticket_id)"></span>
                         </span>
                         <span class="status" v-if="!ticket.status">Этот билет еще не решался</span>
                         <span v-if="ticket.date_try">{{ticket.date_try}}</span>
@@ -112,6 +112,9 @@
             },
             setPage(pageNumber){
                 this.currentPage = pageNumber
+            },
+            refresh(id){
+                location.href = '/account/tickets/'+id
             }
         }
     }
