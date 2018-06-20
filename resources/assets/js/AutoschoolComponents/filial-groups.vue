@@ -34,7 +34,7 @@
                     <div class="table-item count-item">
                         <div class="table-head-item hidden-head-text">Кол-во учеников</div>
                         <div class="table-item-content">
-                            <span class="text-bold text-big"></span>
+                            <span class="text-bold text-big">{{unpay}}</span>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     <div class="table-item count-item">
                         <div class="table-head-item hidden-head-text">Кол-во учеников</div>
                         <div class="table-item-content">
-                            <span class="text-bold text-big"></span>
+                            <span class="text-bold text-big">{{pay}}</span>
                         </div>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                 visible: false,
             }
         },
-        props: ['filial', 'groups'],
+        props: ['filial', 'groups', 'pay', 'unpay'],
         computed: {
             totalPages: function () {
                 return Math.ceil(this.resultCount / this.itemsPerPage)
