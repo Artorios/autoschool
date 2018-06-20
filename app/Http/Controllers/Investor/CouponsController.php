@@ -25,11 +25,10 @@ class CouponsController extends Controller
 
     public function all()
     {
-        $couppons = Coupon::where('investor_id', Auth::id())->where('status', '!=', '4')->get();
+        $couppons = Coupon::where('investor_id', Auth::id())->where('status', '!=', '4')
+            ->get()
+            ->load('student');
         return fractal($couppons, new CouponTransformer())->respond();
-//        return Coupon::where('investor_id', Auth::id())
-//            ->with('autoSchool.city', 'group', 'student')
-//            ->get();
     }
 
     public function create()

@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use App\Models\Training\School\AutoSchool;
 use Illuminate\Database\Eloquent\Model;
 
 class History extends Model
@@ -12,4 +13,9 @@ class History extends Model
         'operation',
         'comment',
     ];
+
+    public function school()
+    {
+        return $this->belongsTo(AutoSchool::class, 'auto_school_id', 'id');
+    }
 }

@@ -32,6 +32,6 @@ class HistoryController extends Controller
      */
     public function all()
     {
-        return fractal(History::where('investor_id', Auth::id())->get(), new HistoryTransformer())->respond();
+        return fractal(History::where('investor_id', Auth::id())->get()->load('school'), new HistoryTransformer())->respond();
     }
 }
