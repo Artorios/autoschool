@@ -29,7 +29,7 @@ trait UserAttribute
 
     public function getLessonNowAttribute()
     {
-        if(empty(Lesson::all()))
+        if(Lesson::where('license', $this->attributes['license'])->count() > 1)
         {
             $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 0)->orderBy('id', 'ASC')->first();
             if(empty($userLesson)){
@@ -40,7 +40,9 @@ trait UserAttribute
             }
             return Lesson::where('id', $userLesson->lesson_id)->firstOrFail();
         }
-        return 0;
+        else{
+            return 0;
+        }
 
     }
     public function getProgressAttribute()
