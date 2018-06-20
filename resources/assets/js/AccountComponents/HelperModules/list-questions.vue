@@ -7,7 +7,8 @@
                              {'correct': question.correct},
                              {'wrong': question.hasOwnProperty('correct') && !question.correct},
                              {'slick-current slick-slide active': question.id === checkedQuestion.id},
-                             {'slick-slide slick-active': question.id !== checkedQuestion.id}
+                             {'slick-slide slick-active': question.id !== checkedQuestion.id},
+                             {'slick-current slick-slide active': !question.hasOwnProperty('has_answer')}
                          ]"
                  v-for="(question, i) in questions">
                 <a href="#" @click.prevent="!question.hasOwnProperty('has_answer') ? setQuestion(i) : false">{{i+1}}</a>
@@ -24,6 +25,10 @@
             Events.$on('add-questions', () => {
                 this.reInit()
             })
+            console.log(this.question)
+            console.log(this.checkedQuestion)
+            console.log(this.type)
+
         },
         watch: {
             checkedQuestion: function (val) {
