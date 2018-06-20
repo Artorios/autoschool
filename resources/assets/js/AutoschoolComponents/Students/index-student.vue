@@ -176,13 +176,11 @@
                     this.data.auto_school_group_id = this.checkedGroup.id
                     this.data.user_id = this.student.id
                     this.$http.post('/autoschool/filials/new/save-group', this.data).then(res => {
-                        console.log(res.data)
                         if (res.status === 202) {
-                            // location.href = '/autoschool/filials'
+                            location.reload(true)
                         } else {
                         }
                     }, err => {
-                        console.log(err.data)
                     })
 
                 }
