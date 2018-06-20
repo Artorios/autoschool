@@ -59,6 +59,19 @@
     margin: 0 10px 0 0;
   }
 }
+button[disabled='disabled'] {
+  cursor: not-allowed;
+  background: -webkit-gradient(linear, left bottom, left top, from(#bababa), to(#ebeaea));
+  background: linear-gradient(to top, #bababa, #ebeaea);
+  opacity: 0.5;
+}
+.btn-red[disabled='disabled'],
+.btn-grey[disabled='disabled'] {
+  cursor: not-allowed;
+  background: -webkit-gradient(linear, left bottom, left top, from(#bababa), to(#ebeaea));
+  background: linear-gradient(to top, #bababa, #ebeaea);
+  opacity: 0.5;
+}
 //close icon
 .close {
   position: absolute;

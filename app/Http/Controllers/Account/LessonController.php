@@ -31,7 +31,7 @@ class LessonController extends Controller
      */
     public function index()
     {
-        if (!Lesson::count()) {
+        if (!Lesson::where('license', Auth::user()->license)->count()) {
             return redirect('/account');
         }
 
@@ -57,7 +57,7 @@ class LessonController extends Controller
 //        $lessons = Lesson::all();
 
         $user_lessons = $user->lessons;
-
+        $lessons->load('videos.userVideos');
 
         foreach ($user_lessons as $user_lesson) {
             foreach ($lessons as $lesson) {
