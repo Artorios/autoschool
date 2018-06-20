@@ -23,11 +23,19 @@
                    v-for="answer in checkedQuestion.answers">{{answer.title}}</p>
             </div>
         </form>
-        <div class="comment" v-if="setAnswer && (type === 'training' || type === 'withComment')">
-            <i class="fa fa-info-circle icon-info-comment" aria-hidden="true"></i>
-            <h5>Комментарий</h5>
-            <p>{{checkedQuestion.comment}}</p>
+        <div v-if="setAnswer && (type === 'training' || type === 'withComment')">
+            <div class="comment" v-if="this.checkedQuestion.correct == 1" style="border-color: green">
+                <i class="fa fa-info-circle icon-info-comment" aria-hidden="true"></i>
+                <h5>Комментарий</h5>
+                <p>{{checkedQuestion.comment}}</p>
+            </div>
+            <div class="comment" v-else>
+                <i class="fa fa-info-circle icon-info-comment" aria-hidden="true"></i>
+                <h5>Комментарий</h5>
+                <p>{{checkedQuestion.comment}}</p>
+            </div>
         </div>
+
         <div class="btn-wrapper">
             <a href="#" class="btn-grey" @click.prevent="prevQuestion">Назад</a>
             <a href="#" class="btn-grey" v-if="isComplete" @click.prevent="setFinished">Далее</a>
