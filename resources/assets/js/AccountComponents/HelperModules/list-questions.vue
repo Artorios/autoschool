@@ -43,7 +43,6 @@
 
             },
             reInit () {
-                console.log('reInit')
 //                $('.slick-training').remove()
 
                 $('.slick-wrapper').css({overflow: 'hidden'})
