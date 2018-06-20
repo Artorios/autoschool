@@ -28,7 +28,7 @@ class ExamsController extends Controller
         $settings_exam = LessonsSettings::where('key', 'exam_time')->first();
         $ticketValue = [];
         $examsQuestion = [];
-        $user_exam     = $user->exams()->create(['type' => 'test']);
+        $user_exam     = $user->exams()->create(['type' => 'test', 'status' => 0 ]);
         $test = [];
         for($i= 0; $i<=11; $i++){
             $ticketNumber = 0;
