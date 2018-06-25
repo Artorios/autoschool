@@ -122,6 +122,13 @@ class AdminController extends Controller
 
     }
 
+    public function getAutoSchoolCentralApi(Request $request, $id)
+    {
+        $q = $request->input('q');
+        return response()->json(AutoSchool::select('id', 'title', 'filial_name')->where('director_id', $id)->where('title', 'like', '%' . $q . '%')->limit(10)->get(), 200);
+
+    }
+
     public function getFilialsApi(Request $request, $id)
     {
         $q = $request->input('q');

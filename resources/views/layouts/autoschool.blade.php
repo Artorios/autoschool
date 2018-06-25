@@ -46,9 +46,9 @@
                 <div class="right">
                     <a href="{{route('autoschool.edit')}}" class="student-info">
 
-                            @if($logo = \App\Models\Training\School\AutoSchool::where('director_id', Auth::user()->id)->get()->first())
+                            @if(!empty(\App\Models\Training\School\AutoSchool::where('director_id', Auth::user()->id)->where('central', 1)->get()->first()->logo))
                             <div class="img">
-                                <img src="{{asset("storage/school/" . $logo->logo )}}" alt="">
+                                <img src="/storage/school/{{ \App\Models\Training\School\AutoSchool::where('director_id', Auth::user()->id)->where('central', 1)->get()->first()->logo}}" alt="">
                             </div>
                             @else
                                 <div class="img">
@@ -56,11 +56,16 @@
                                 </div>
                             @endif
                             @if(!empty(Auth::user()->autoschool))
-                                <h3>{{\App\Models\Training\School\AutoSchool::find(Auth::user()->autoschool)->title}}
+                                @if(\App\Models\Training\School\AutoSchool::where('director_id', Auth::user()->id)->where('central', 1)->count() > 0)
+                                <h3>{{\App\Models\Training\School\AutoSchool::where('director_id', Auth::user()->id)->where('central', 1)->first()->title}}
                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                                 </h3>
-                            @endif
-                            @if(empty(Auth::user()->autoschool))
+                                    @else
+                                        <h3>{{auth()->user()->name}}
+                                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                        </h3>
+                                    @endif
+                            @elseif(empty(Auth::user()->autoschool))
                                     <h3>{{auth()->user()->name}}
                                         <i class="fa fa-angle-down" aria-hidden="true"></i>
                                     </h3>

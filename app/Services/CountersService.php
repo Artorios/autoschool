@@ -2,9 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Finance\Coupon;
-use App\Models\Training\School\AutoSchool;
-use App\Models\Training\School\AutoSchoolGroup;
+use App\Models\Finance\{Coupon, Order};
+use App\Models\Training\School\{AutoSchool, AutoSchoolGroup};
 use App\Models\User\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,7 +46,25 @@ class CountersService
         $filials_id = array_map(function ($filial) {
             return $filial['id'];
         }, $filials);
-        $income = Coupon::whereIn('auto_school_id', $filials_id)->where('status', 3)->sum('fee_amount');
+        $coupons_all = Coupon::whereIn('auto_school_id', $filials_id)->whereIn('status', [2, 3])->sum('payment_amount');
+        $coupons_fee = Coupon::whereIn('auto_school_id', $filials_id)->whereIn('status', [2, 3])->sum('fee_amount');
+        $coupons =  $coupons_all - $coupons_fee;
+
+        $filials = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
+        $filials_id = array_map(function ($filial) {
+            return $filial['id'];
+        }, $filials);
+        $groups = AutoSchoolGroup::all()->whereIn('auto_school_id', $filials_id)->toArray();
+        $groups_id = array_map(function ($group) {
+            return $group['id'];
+        }, $groups);
+        $users = User::all()->whereIn('auto_school_group_id', $groups_id)->toArray();
+        $users_id = array_map(function ($user) {
+            return $user['id'];
+        }, $users);
+        $orders = Order::all()->whereIn('user_id', $users_id)->sum('amount');
+
+        $income = $orders/2 + $coupons;
         return $income;
     }
 

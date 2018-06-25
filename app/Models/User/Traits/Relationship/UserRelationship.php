@@ -107,4 +107,9 @@ trait UserRelationship
     public function coupons(){
         return $this->hasMany(Coupon::class, 'student_id', 'id');
     }
+
+    public function directors(){
+        return $this->hasMany(AutoSchool::class,'director_id','id');
+    }
+
 }

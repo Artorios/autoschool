@@ -53,7 +53,17 @@
                                         :on-select="getDataCity">
                                 </autocomplete>
                             </div>
-
+                            <div class="form-group" v-if="edit && (data.role == 'autoschool' || data.role.slug == 'autoschool')">
+                                <label>Центральный филиал</label>
+                                <autocomplete
+                                        :url="'/api/get-center-api/'+ user.id"
+                                        anchor="title"
+                                        label="filial_name"
+                                        :initValue="checkedCentral ? checkedCentral['title'] : ''"
+                                        :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
+                                        :on-select="getDataCentral">
+                                </autocomplete>
+                            </div>
                             <div v-if="edit && (data.role == 'user' || data.role.slug == 'user')">
                                 <div class="form-group">
                                     <label>Автошкола</label>
@@ -66,6 +76,7 @@
                                             :on-select="getDataSchool">
                                     </autocomplete>
                                 </div>
+
                                 <div class="form-group" v-if="checkedSchool">
                                     <label>Группа</label>
                                     <autocomplete
@@ -155,6 +166,7 @@
                     license: '',
                     password: '',
                 },
+                checkedCentral: '',
                 checkedSchool: '',
                 checkedGroup: '',
                 city_url: '/api/address/get-cities-api/',
@@ -197,6 +209,13 @@
 
 
 
+                }
+                if(this.user.directors.length > 0){
+                    for(let i = 0; i < this.user.directors.length; i++){
+                        if(this.user.directors[i].central == 1 ){
+                            this.checkedCentral = this.user.directors[i]
+                        }
+                    }
                 }
                 this.checkedRegion = this.user.city.region
                 this.checkedCity = this.user.city
@@ -247,6 +266,15 @@
                         alert('Не сохранено! Выберите группу!');
                     }
                 }
+                if(this.checkedCentral){
+                    if(this.checkedCentral.id){
+                        this.data.central = this.checkedCentral.id
+                    }
+                    else{
+                        this.data.central = this.checkedCentral
+                    }
+
+                }
 
                 this.$http.put('/admin/user/edit-user/' + this.user.id, this.data).then(res => {
                     if (res.status === 202) {
@@ -282,6 +310,9 @@
             },
             getDataGroup(val){
                 this.checkedGroup = val.id
+            },
+            getDataCentral(val){
+                this.checkedCentral = val.id
             },
 
 

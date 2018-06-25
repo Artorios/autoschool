@@ -31,7 +31,9 @@ function all_sum($user_id)
         return $school['id'];
     }, $schools);
     //Coupons
-    $cupons = Coupon::whereIn('auto_school_id', $schools_id)->whereIn('status', [2, 3])->sum('payment_amount');
+    $cupons_all = Coupon::whereIn('auto_school_id', $schools_id)->whereIn('status', [2, 3])->sum('payment_amount');
+    $cupons_fee = Coupon::whereIn('auto_school_id', $schools_id)->whereIn('status', [2, 3])->sum('fee_amount');
+    $cupons =  $cupons_all - $cupons_fee;
 
     //Orders
     $filials = AutoSchool::select('id')->where('director_id', $user_id)->get()->toArray();
@@ -49,7 +51,7 @@ function all_sum($user_id)
     $orders = Order::all()->whereIn('user_id', $users_id)->sum('amount');
 
     //All Summ
-    $summ = $cupons + $orders;
+    $summ = $cupons + $orders/2;
     return $summ;
 
 }
