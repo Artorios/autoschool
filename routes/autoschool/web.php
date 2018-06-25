@@ -50,7 +50,7 @@ Route::group(['prefix' => 'autoschool', 'namespace' => 'Autoschool', 'middleware
 
     Route::get('histories', 'HistoryController')->name('autoschool.history');
 
-    Route::get('add-student', 'StudentController@addStudent')->name('autoschool.add-student');
+    Route::get('add-student/{filial}', 'StudentController@addStudent');
     Route::post('get-autoschool-group', 'StudentController@getGroupsAutoSchool');
     Route::post('save-new-student', 'StudentController@saveNewStudent')->name('autoschool.save-new-student');
     Route::view('personal', 'autoschool.personal.index')->name('autoschool.personal');

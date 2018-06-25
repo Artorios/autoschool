@@ -36,7 +36,7 @@ trait UserAttribute
                 $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 1)->orderBy('id', 'DESC')->first();
             }
             if(empty($userLesson) ) {
-                return Lesson::all()->where('lesson_num', 1)->firstOrFail();
+                return Lesson::all()->where('lesson_num', 1)->first();
             }
             return Lesson::where('id', $userLesson->lesson_id)->firstOrFail();
         }

@@ -14,7 +14,7 @@
             ></student-list>
         </div>
         <div class="addstudent">
-            <a href="{{ route('autoschool.add-student') }}" class="btn-grey"> Добавить ученика</a>
+            <a href="/autoschool/add-student/{{$group->auto_school_id}}" class="btn-grey"> Добавить ученика</a>
         </div>
     </div>
 
