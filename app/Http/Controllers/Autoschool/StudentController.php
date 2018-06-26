@@ -111,14 +111,22 @@ class StudentController extends Controller
         return view('autoschool.personal.new', compact('student','status','director', 'school'));
     }
 
-    public function addStudent()
+    public function addStudent($filial)
     {
         $schools   = AutoSchool::select('id')->where('director_id', Auth::user()->id)->get()->toArray();
         $schools_id = array_map(function ($school) {
             return $school['id'];
         }, $schools);
-        $groups = AutoSchoolGroup::whereIn('auto_school_id', $schools_id)->get();
-        $coupons = Coupon::whereIn('auto_school_id', $schools_id)->where('status', 1)->get();
+        if($filial == 0){
+            $groups = AutoSchoolGroup::whereIn('auto_school_id', $schools_id)->get();
+            $coupons = Coupon::whereIn('auto_school_id', $schools_id)->where('status', 1)->get();
+
+        }
+        else{
+            $groups = AutoSchoolGroup::where('auto_school_id', $filial)->get();
+            $coupons = Coupon::where('auto_school_id', $filial)->where('status', 1)->get();
+
+        }
         $cities = City::where('show_city', 1)->get();
         return view('autoschool.filials.add-student', compact('schools', 'groups', 'coupons', 'cities'));
     }

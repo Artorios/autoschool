@@ -14,7 +14,7 @@
             ></student-list-new>
         </div>
         <div class="addstudent">
-            <a href="{{ route('autoschool.add-student') }}" class="btn-grey"> Добавить ученика</a>
+            <a href="/autoschool/add-student/0" class="btn-grey"> Добавить ученика</a>
         </div>
     </div>
 
