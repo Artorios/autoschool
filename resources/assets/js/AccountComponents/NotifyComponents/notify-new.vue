@@ -1,7 +1,7 @@
 <template>
     <div class="notice-wrapper">
 
-        <div v-for="notify in notifies" class="forpagination"   id="notify.id">
+        <div v-for="notify in notifies" class="for-pagination"   id="notify.id">
             <div class="line active"   v-if="notify.status == 1"  v-on:click="classActive(notify.id)"  :id="notify.id" >
                 <span class="date-time"><img src="/img/clock.png" alt="">{{editDate(notify.date)}} {{editTime(notify.time)}}</span>
                 <p>{{notify.notify}}</p>
