@@ -16,6 +16,6 @@
         </div>
         <current-lesson></current-lesson>
         <h3>Уроки, тренировки, зачеты:</h3>
-        <slider-vue></slider-vue>
+        <slider-vue :lessons="{{json_encode($lessons)}}"></slider-vue>
     </div>
     @endsection

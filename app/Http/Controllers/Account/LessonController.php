@@ -57,15 +57,8 @@ class LessonController extends Controller
 //        $lessons = Lesson::all();
 
         $user_lessons = $user->lessons;
-        $lessons->load('videos.userVideos');
+        $lessons->load('videos.userVideos')->load('userLessons');
 
-        foreach ($user_lessons as $user_lesson) {
-            foreach ($lessons as $lesson) {
-                if ($user_lesson->id === $lesson->id) {
-                    $lesson->locked = 0;
-                }
-            }
-        }
         return view('account.lessons.index', compact('lessons'));
     }
 
@@ -79,11 +72,26 @@ class LessonController extends Controller
     public function show(Lesson $lesson)
     {
         $user = Auth::user();
-        if (!$user->lessons()->find($lesson->id)) {
+        if (!$user->lessons()->where('license', $lesson->license)->where('id', $lesson->id)) {
             return redirect('/account/lessons');
         }
+        $prev_lesson = Lesson::where('license', $lesson->license)->where('lesson_num','<', $lesson->lesson_num)->count();
+        if($prev_lesson >= 1){
+            if(Auth::user()->pay == true){
+                $lesson = \LessonRules::checkRules($lesson);
 
-        $lesson = \LessonRules::checkRules($lesson);
+            }
+            else{
+                return redirect('/account/lessons');
+
+            }
+
+        }
+        else{
+            $lesson = \LessonRules::checkRules($lesson);
+
+        }
+
 
 
         return view('account.lessons.single', compact('lesson'));
@@ -226,7 +234,7 @@ class LessonController extends Controller
     public function getCountLesson()
     {
         $user = Auth::user();
-        $count = UserLesson::where('user_id', $user->id)->where('done', 1)->get()->count();
+        $count = UserLesson::where('user_id', $user->id)->where('done', 1)->count();
         $all_lessons = Lesson::where('license', $user->license)->count();
 
         return response()->json(['done_lessons' => $count, 'all_lessons' => $all_lessons], 202);

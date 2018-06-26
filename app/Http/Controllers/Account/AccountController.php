@@ -11,6 +11,7 @@ use App\Models\{
     Location\City,
     User\User
 };
+use App\Models\Training\Lesson\Lesson;
 use App\Services\ChangePasswordService;
 use Carbon\Carbon;
 use Illuminate\Mail\Mailer;
@@ -216,5 +217,48 @@ class AccountController extends Controller
         }
 
         return redirect()->route('home');
+    }
+
+
+
+    public function main(){
+
+
+        if (!Lesson::where('license', Auth::user()->license)->count()) {
+            return redirect('/account');
+        }
+
+        $user = Auth::user();
+
+        if (!$user->lessons()->where('license', Auth::user()->license)->count()) {
+
+            if ($lesson = Lesson::with('videos')->where('license', Auth::user()->license)->orderBy('lesson_num', 'ASC')->first()) {
+                $user->lessonsVideos()->attach($lesson->videos);
+                $user->lessons()->attach(['lesson_id' => $lesson->id]);
+
+//                if ($this->checkIfUserPaid($user)) {
+//                    return $this->getDemoLesson();
+//                }
+            }
+        }
+
+//        if ($this->checkIfUserPaid($user)) {
+//            return $this->getDemoLesson();
+//        }
+
+        $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC')->get();
+//        $lessons = Lesson::all();
+
+        $user_lessons = $user->lessons;
+        $lessons->load('videos.userVideos');
+
+        foreach ($user_lessons as $user_lesson) {
+            foreach ($lessons as $lesson) {
+                if ($user_lesson->id === $lesson->id) {
+                    $lesson->locked = 0;
+                }
+            }
+        }
+        return view('account.main', compact('lessons'));
     }
 }

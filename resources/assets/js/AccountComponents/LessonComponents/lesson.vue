@@ -109,7 +109,6 @@
         },
         watch: {
             lessonTraining: function (val) {
-                console.log(val)
             }
         },
         mounted() {

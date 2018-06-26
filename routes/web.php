@@ -44,16 +44,16 @@ Route::group(['prefix' => 'user', 'namespace' => 'Auth'], function () {
 Route::get('/change-password/{token}/{password}/', 'Account\AccountController@updatePassword')->name('password.update');
 
 Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => ['auth']], function () {
-    Route::get('/', function () {
+    Route::get('/', 'AccountController@main'/*//function () {
         return view('account.main', []);
-    })->name('user.account');
+    }*/)->name('user.account');
 
     Route::post('/get-group-lessons', 'LessonController@getGroupLessons');
 
     Route::get('/get-count-lesson', function () {
         $user = Auth::user();
 
-        $count = UserLessonVideo::where('user_id', $user->id)->where('viewed', 1)->get()->count();
+        $count = UserLessonVideo::where('user_id', $user->id)->where('viewed', 1)->count();
 
         return response()->json(['count' => $count], 200);
     });

@@ -34,7 +34,23 @@ trait LessonAttribute
      */
     public function getLockedAttribute()
     {
-        return $this->attributes['locked'] ?? 1;
+        $user = Auth::user();
+        $exams = $user->lessonsTrainings->where('type', 'exam')->where('status', 'passed');
+        $lesson = Lesson::where('license', $this->attributes['license'])->where('lesson_num',  '<',  $this->attributes['lesson_num'])->orderBy('lesson_num', 'DESC')->first();
+        if($lesson == null){
+            return 0;
+        }
+        foreach ($exams as $exam){
+            if($exam->lesson_id == $lesson->id){
+                if(Auth::user()->pay == true){
+                    return 0;
+                }
+                else return 1;
+            }
+        }
+
+
+        return 1;// $this->attributes['locked'] ?? 1;
     }
 
     /**
