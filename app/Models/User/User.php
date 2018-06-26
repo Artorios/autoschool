@@ -25,8 +25,8 @@ class User extends Authenticatable
     use Notifiable,
         UserRelationship,
         UserAttribute,
-        UserMethod,
-        Searchable;
+        UserMethod;
+//        Searchable;
 
     /**
      * The attributes that are mass assignable.

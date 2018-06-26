@@ -68,43 +68,77 @@ class AdminController extends Controller
 
             switch ($role) {
                 case 'all':
-                    $users = User::search($request->validated()['q'])->get();
+                    $users = User::where('name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('last_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('second_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('email', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('phone', 'like', '%' . $request->validated()['q'] . '%')
+                        ->get();
                     break;
 
                 case 'user':
-                    $students = User::search($request->validated()['q'])->get()->toArray();
+                    $students = User::where('name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('last_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('second_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('email', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('phone', 'like', '%' . $request->validated()['q'] . '%')
+                        ->get()
+                        ->toArray();
                     $users = array_map(function ($user){
                         if($user['role'] == 'user'){
                             return $user;
                         }
                     }, $students);
+                    $users = array_filter($users, function($value) { return $value !== null; });
                     break;
 
                 case 'admin':
-                    $admins = User::search($request->validated()['q'])->get()->toArray();
+                    $admins = User::where('name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('last_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('second_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('email', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('phone', 'like', '%' . $request->validated()['q'] . '%')
+                        ->get()
+                        ->toArray();
                     $users = array_map(function ($user){
                         if($user['role'] == 'admin'){
                             return $user;
                         }
                     }, $admins);
+                    $users = array_filter($users, function($value) { return $value !== null; });
                     break;
 
                 case 'autoschool':
-                    $autoschools = User::search($request->validated()['q'])->get()->toArray();
+                    $autoschools = User::where('role', 'autoschool')
+                        ->where('name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('last_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('second_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('email', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('phone', 'like', '%' . $request->validated()['q'] . '%')
+                        ->get()
+                        ->toArray();
                     $users = array_map(function ($user){
                         if($user['role'] == 'autoschool'){
                             return $user;
                         }
                     }, $autoschools);
+                    $users = array_filter($users, function($value) { return $value !== null; });
                     break;
 
                 case 'investor':
-                    $investors = User::search($request->validated()['q'])->get()->toArray();
+                    $investors = User::where('name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('last_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('second_name', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('email', 'like', '%' . $request->validated()['q'] . '%')
+                        ->orWhere('phone', 'like', '%' . $request->validated()['q'] . '%')
+                        ->get()
+                        ->toArray();
                     $users = array_map(function ($user){
                         if($user['role'] == 'investor'){
                             return $user;
                         }
                     }, $investors);
+                    $users = array_filter($users, function($value) { return $value !== null; });
                     break;
 
             }
