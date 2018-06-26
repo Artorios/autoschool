@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function listUsers(User $user, AutoSchool $autoSchool)
     {
-        $users_list = $user->with('autoschoolgroup')->with('city.region')->with('orders')->with('coupons')->with('info')->get()->toArray();
+        $users_list = $user->with('autoschoolgroup')->with('directors')->with('city.region')->with('orders')->with('coupons')->with('info')->get()->toArray();
         $schools = $autoSchool->get()->toArray();
 
         $users = array_map(function ($user) use ($schools) {
@@ -77,10 +77,24 @@ class UserController extends Controller
      */
     public function edit(User $user, UpdateUserInAdmin $request)
     {
+        $validated = $request->validated();
+        if(isset($validated['central'])){
+            $central_id = $validated['central'];
+            unset($validated['central']);
 
+        }
+        else{
+            $central_id = 0;
+        }
+        DB::transaction(function () use ($validated,$central_id, $user) {
 
-        $user->update($request->validated());
-
+            $user->update($validated);
+            if($central_id != 0)  {
+                $school = AutoSchool::where('id', $central_id)->first();
+                $schools = AutoSchool::where('director_id', $school->director_id)->update(['central' => 0]);
+                AutoSchool::where('id', $central_id)->update(['central' => 1]);
+            }
+        });
         return response()->json(['status' => 1], 202);
 
     }

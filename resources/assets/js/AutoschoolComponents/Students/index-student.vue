@@ -98,34 +98,60 @@
                 <a class="btn-grey btn-save" @click="saveGroup()">Сохранить изменения</a>
             </div>
         </div>
-
-        <div class="row inner-block">
-
-
-            <div class="clearfix">
-                <div class="col-md-4 col-xs-6 ">
-                    Метод оплаты:
+        <div class="row inner-block" v-if="student.pay == 'true'">
+            <div v-if="student.orders" v-for="order in student.orders">
+                <div class="clearfix">
+                    <div class="col-md-4 col-xs-6 ">
+                        Метод оплаты:
+                    </div>
+                    <div class="col-md-8 col-xs-6"  >
+                        <div v-text="order.payment_option"></div>
+                    </div>
                 </div>
-                <div class="col-md-8 col-xs-6" v-text="student_with_orders.payment_option"></div>
-            </div>
-            <div class="clearfix">
-                <div class="col-md-4 col-xs-6">
-                    Дата оплаты:
+                <div class="clearfix">
+                    <div class="col-md-4 col-xs-6">
+                        Дата оплаты:
+                    </div>
+                    <div class="col-md-8 col-xs-6" v-text="student.created_at"></div>
                 </div>
-                <div class="col-md-8 col-xs-6" v-text="student_with_orders.created_at"></div>
+                <hr>
             </div>
-            <div class="clearfix">
-                <div class="col-md-4 col-xs-6">
-                    Дата регистрации в системе:
+            <div v-if="student.coupons" v-for="coupon in student.coupons">
+                <div v-if="coupon.status == 3">
+                    <div class="clearfix">
+                        <div class="col-md-4 col-xs-6 ">
+                            Метод оплаты:
+                        </div>
+                        <div class="col-md-8 col-xs-6"  >
+                            <div v-text="'Купон ' +coupon.code"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class="col-md-4 col-xs-6">
+                            Дата оплаты:
+                        </div>
+                        <div class="col-md-8 col-xs-6" v-text="coupon.created_at"></div>
+                    </div>
+                    <hr>
                 </div>
+
             </div>
-            <div class="col-md-8 col-xs-6" v-text="student_with_orders.DateCreateUser"></div>
-            <div class="col-md-4"></div>
+
             <!--<div class="col-md-8 col-xs-12 col-sm-12">-->
             <!--<textarea name="" id="" class="form-control" cols="0" rows="5" placeholder="Комментарий">-->
             <!--</textarea>-->
             <!--<a href="" class="btn-grey">Сохранить изменения</a>-->
             <!--</div>-->
+        </div>
+        <div class="row inner-block">
+            <div class="clearfix">
+                <div class="col-md-4 col-xs-6 ">
+                    Дата регистрации в системе:
+                </div>
+                <div class="col-md-8 col-xs-6"  >
+                    <div v-text="student.created_at"></div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -163,7 +189,14 @@
         },
         methods: {
             getFullName() {
-                return `${this.student_with_orders.userName} ${this.student_with_orders.second_name} ${this.student_with_orders.last_name}`
+                if(this.student_with_orders.second_name){
+
+                    return `${this.student_with_orders.last_name} ${this.student_with_orders.userName} ${this.student_with_orders.second_name} `
+                }
+                else {
+                    return `${this.student_with_orders.last_name} ${this.student_with_orders.userName}  `
+
+                }
             },
             selectFilial(val) {
                 this.checkedFilial = val

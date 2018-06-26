@@ -81,9 +81,9 @@
                     </autocomplete>
             </div>
         </div>
-        <a v-if="status == 'paid'" class="btn-grey" @click="saveGroup()">Сохранить изменения</a>
+        <a  class="btn-grey" v-if="status == 'paid'" @click="saveGroup()">Сохранить изменения</a>
 
-        <div class="row inner-block" v-if="status == 'paid'">
+        <div class="row inner-block" v-if="student.pay == 'true'">
             <div v-if="student.orders" v-for="order in student.orders">
                 <div class="clearfix">
                     <div class="col-md-4 col-xs-6 ">
@@ -101,7 +101,7 @@
                 </div>
                 <hr>
             </div>
-            <div v-if="student.orders" v-for="coupon in student.coupons">
+            <div v-if="student.coupons" v-for="coupon in student.coupons">
                 <div v-if="coupon.status == 3">
                     <div class="clearfix">
                         <div class="col-md-4 col-xs-6 ">

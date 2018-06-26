@@ -11,7 +11,7 @@
                     <autoschool-profile-logo :filial="filial"></autoschool-profile-logo>
                 </div>
                 <div class="profile-info-block">
-                    <h3 class="profile-info-title">Филиал Главный</h3>
+                    <h3 class="profile-info-title" v-if="filial.central == 1">Филиал Главный</h3>
                     <div class="profile-info-bottom">
                         <div class="form-group profile-form-group">
                             <select class="select" id="fillials_select" v-model="selected">

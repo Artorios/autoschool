@@ -29,16 +29,21 @@ trait UserAttribute
 
     public function getLessonNowAttribute()
     {
-        if(Lesson::where('license', $this->attributes['license'])->count() > 1)
-        {
-            $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 0)->orderBy('id', 'ASC')->first();
-            if(empty($userLesson)){
-                $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 1)->orderBy('id', 'DESC')->first();
+        if(isset($this->attributes['license'])){
+            if(Lesson::where('license', $this->attributes['license'])->count() > 1)
+            {
+                $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 0)->orderBy('id', 'ASC')->first();
+                if(empty($userLesson)){
+                    $userLesson = UserLesson::where('user_id', $this->attributes['id'])->where('done', 1)->orderBy('id', 'DESC')->first();
+                }
+                if(empty($userLesson) ) {
+                    return Lesson::all()->where('lesson_num', 1)->first();
+                }
+                return Lesson::where('id', $userLesson->lesson_id)->first();
             }
-            if(empty($userLesson) ) {
-                return Lesson::all()->where('lesson_num', 1)->first();
+            else{
+                return 0;
             }
-            return Lesson::where('id', $userLesson->lesson_id)->firstOrFail();
         }
         else{
             return 0;
@@ -96,14 +101,20 @@ trait UserAttribute
 
     public function getPayAttribute()
     {
-        $coupon = Coupon::where('student_id', $this->attributes['id'])->where('status', 3)->count();
-        $order = Order::where('user_id', $this->attributes['id'])->count();
-        if($coupon > 0 || $order > 0){
-            return true;
+        if(isset($this->attributes['id'])){
+            $coupon = Coupon::where('student_id', $this->attributes['id'])->where('status', 3)->count();
+            $order = Order::where('user_id', $this->attributes['id'])->count();
+            if($coupon > 0 || $order > 0){
+                return true;
+            }
+            else {
+                return false;
+            }
         }
-        else {
+        else{
             return false;
         }
+
     }
 
 }

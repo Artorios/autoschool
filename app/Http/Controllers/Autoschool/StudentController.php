@@ -65,7 +65,7 @@ class StudentController extends Controller
             ->first();
 
         $director = Auth::user();
-        $student = $user->where('id', $request->student)->first();
+        $student = $user->where('id', $request->student)->with('orders')->with('coupons')->with('city')->first();
         $group = AutoSchoolGroup::where('id', $student->auto_school_group_id)->with('autoschool')->first();
         return view('autoschool.personal.index', compact('studentWithOrders', 'studentWithAutoSchool', 'studentWithAddress','student','director','group'));
 

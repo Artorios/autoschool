@@ -11,6 +11,7 @@
                 <li>Карточка ученика</li>
             </ul>
         </div>
+        {{--{{dd($student->pay)}}--}}
         <index-student
             :student_with_orders="{{json_encode($studentWithOrders)}}"
             :student_with_auto_school="{{json_encode($studentWithAutoSchool)}}"
