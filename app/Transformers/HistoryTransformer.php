@@ -15,13 +15,12 @@ class HistoryTransformer extends TransformerAbstract
      */
     public function transform(History $history)
     {
-        $autoschool = AutoSchool::find($history->auto_school_id);
         return [
             "id"          => $history->id,
             "investor_id" => $history->investor_id,
             "auto_school" => [
-                'id' => $autoschool->id,
-                'title' => $autoschool->title
+                'id' => $history->school->id,
+                'title' => $history->school->title
             ],
             "operation"   => $history->operation,
             "comment"     => $history->comment,

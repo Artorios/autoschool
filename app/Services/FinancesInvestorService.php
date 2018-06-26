@@ -27,6 +27,7 @@ class FinancesInvestorService
                 'orders.created_at as DatePayment',
                 'coupons.id as CouponID',
             ])
+            ->where('auto_schools.investor_id', '=', Auth::id())
             ->get();
     }
 }

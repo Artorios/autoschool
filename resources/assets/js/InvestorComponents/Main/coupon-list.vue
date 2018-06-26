@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <div class="search-form blockforms finance" v-if="list.length">
+            <div class="search-form blockforms finance">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
@@ -34,28 +34,28 @@
                         <div class="form-group">
                             <select class="select">
                                 <option selected disabled>ФИО ученика</option>
-                                <option>Петров В.В.</option>
-                                <option>Сидоров Г.А.</option>
+                                <option>От А-Я.</option>
+                                <option>От Я-А</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4">
                         <div class="form-group">
-                            <select v-model="searchDate"
-                                    @change="filterByDate"
-                                    id="date" class="select">
-                                <option selected disabled>дата</option>
-                                <option v-for="item in list">{{ item.updated_at }}</option>
+                            <select id="date" class="select">
+                                <option selected disabled>Дата</option>
+                                <option value="data-acs">От начала</option>
+                                <option value="data-desc">От конца</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4">
                         <div class="form-group">
                             <div class="data">
-                                <v-date-picker
-                                        :min-date='new Date()'
-                                        v-model='selectedDate'>
-                                </v-date-picker>
+                                <datepicker
+                                        v-model='selectedDate'
+                                        :language="lang"
+                                        name="uniquename">
+                                </datepicker>
                             </div>
                         </div>
                     </div>
@@ -328,15 +328,18 @@
                     </ul>
                 </div>
             </div>
-            <div v-else>
-                Недостаточно данных
-            </div>
         </div>
     </div>
 </template>
 
 <script>
+  import Datepicker from 'vuejs-datepicker';
+  import {en, ru} from 'vuejs-datepicker/dist/locale'
+
   export default {
+    components: {
+      Datepicker
+    },
     data () {
       return {
         searchTitle: '',
@@ -344,7 +347,7 @@
         list: [],
         filteredList: [],
         selectedDate: '',
-
+        lang: ru,
         checkedCoupons: [],
         currentPage: 1,
         itemsPerPage: 10,
