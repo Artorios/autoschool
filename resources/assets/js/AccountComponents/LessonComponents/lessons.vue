@@ -20,15 +20,16 @@
                 </div>
                 <div class="btn-wrapper">
                     <a :href="'/account/lessons/training/' + lesson.id"
-                       :disabled="!lesson.videos[0].user_videos ? true : lesson.videos[0].user_videos.viewed ? false : true"
+                       :disabled="!lesson.videos[0] ? true : !lesson.videos[0].user_videos ? true : lesson.videos[0].user_videos.viewed ? false : true"
                        class="btn-grey">Тренировка</a>
                     <a :href="'/account/lessons/exam/' + lesson.id"
-                       :disabled="!lesson.videos[0].user_videos ? true : lesson.videos[0].user_videos.viewed ? false : true"
+                       :disabled="!lesson.videos[0] ? true : !lesson.videos[0].user_videos ? true : lesson.videos[0].user_videos.viewed ? false : true"
                        class="btn-grey">Зачет</a>
                     <a :href="'/account/lessons/group-exam/' + lesson.id" class="btn-grey" v-if="lesson.isGroup && !lesson.locked">Групповой зачет</a>
                 </div>
             </div>
         </div>
+        {{lesson}}
         <ul class="pagination" v-if="itemsPerPage < resultCount">
             <li class="page-item" v-for="pageNumber in totalPages">
                 <a :class="[{active: currentPage === pageNumber}, 'page-link']" href="#" v-bind:key="pageNumber" @click="setPage(pageNumber)">{{pageNumber}}</a>

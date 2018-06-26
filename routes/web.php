@@ -44,9 +44,9 @@ Route::group(['prefix' => 'user', 'namespace' => 'Auth'], function () {
 Route::get('/change-password/{token}/{password}/', 'Account\AccountController@updatePassword')->name('password.update');
 
 Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => ['auth']], function () {
-    Route::get('/', function () {
+    Route::get('/', 'AccountController@main'/*//function () {
         return view('account.main', []);
-    })->name('user.account');
+    }*/)->name('user.account');
 
     Route::post('/get-group-lessons', 'LessonController@getGroupLessons');
 

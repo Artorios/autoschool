@@ -81,6 +81,11 @@
                 }
             }
         },
+/*
+        props: [
+            'lessons'
+        ],
+*/
         created () {
             this.getData()
         },
@@ -88,6 +93,8 @@
             getData () {
                 this.$http.get('/account/get-lessons').then(res => {
                     this.lessons = res.data.lessons
+                    console.log(this.lessons)
+
                 })
 
             },

@@ -3,21 +3,17 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Account\NotificationController;
-use App\Http\Requests\NewRegistrationStudent;
-use App\Http\Requests\Registration;
+use App\Http\Requests\{NewRegistrationStudent, Registration};
 use App\Mail\ConfirmEmail;
-use App\Models\User\Contract;
-use App\Models\User\Notification;
-use App\Models\User\User;
+use App\Models\User\{Contract, Notification ,  User};
 use App\Models\Location\Region;
 use App\Notifications\UserRegistration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Auth, Mail, Validator};
 use Psy\Exception\ErrorException;
 use Illuminate\Mail\Mailer;
+use App\Models\Training\Lesson\Lesson;
 
 /**
  * Class RegistrationController
@@ -63,6 +59,19 @@ class RegistrationController extends Controller
             Auth::loginUsingId($user->id);
 
             //$user->notify(new UserRegistration($full_name, $user->confirmation_code));
+            $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC')->get();
+//        $lessons = Lesson::all();
+
+            $user_lessons = $user->lessons;
+            $lessons->load('videos.userVideos');
+
+            foreach ($user_lessons as $user_lesson) {
+                foreach ($lessons as $lesson) {
+                    if ($user_lesson->id === $lesson->id) {
+                        $lesson->locked = 0;
+                    }
+                }
+            }
 
 
             return response()->json(['status' => 1], 201);
