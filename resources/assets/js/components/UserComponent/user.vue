@@ -88,8 +88,8 @@
                                                     v-if="user.role == 'investor'"
                                                     @click="showInvestor(user)">!
                                             </button>
-                                            <button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i>
-                                            </button>
+                                            <!--<button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i>
+                                            </button>-->
                                         </td>
                                     </tr>
                                 </tbody>
