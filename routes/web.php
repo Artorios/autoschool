@@ -53,7 +53,7 @@ Route::group(['prefix' => 'account', 'namespace' => 'Account', 'middleware' => [
     Route::get('/get-count-lesson', function () {
         $user = Auth::user();
 
-        $count = UserLessonVideo::where('user_id', $user->id)->where('viewed', 1)->get()->count();
+        $count = UserLessonVideo::where('user_id', $user->id)->where('viewed', 1)->count();
 
         return response()->json(['count' => $count], 200);
     });

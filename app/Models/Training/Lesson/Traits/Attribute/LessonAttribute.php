@@ -42,7 +42,10 @@ trait LessonAttribute
         }
         foreach ($exams as $exam){
             if($exam->lesson_id == $lesson->id){
-                return 0;
+                if(Auth::user()->pay == true){
+                    return 0;
+                }
+                else return 1;
             }
         }
 

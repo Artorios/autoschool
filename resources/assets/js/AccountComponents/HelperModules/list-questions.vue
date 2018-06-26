@@ -25,9 +25,6 @@
             Events.$on('add-questions', () => {
                 this.reInit()
             })
-            console.log(this.question)
-            console.log(this.checkedQuestion)
-            console.log(this.type)
 
         },
         watch: {

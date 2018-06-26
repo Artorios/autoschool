@@ -200,12 +200,11 @@ class UserLessonController extends Controller
         $training->status = $response['status'];
 
         $training->save();
-
         /*
          * If exam failed
          */
         if ($response['status'] !== 'passed') return response()->json($response, 200);
-
+        if ($response['status'] === 'passed') UserLesson::where('user_id', $user->id)->where('lesson_id', $training->lesson_id)->update(['done' => 1]);
         /*
          * If lesson has group exam
          */
@@ -215,23 +214,16 @@ class UserLessonController extends Controller
             return response()->json($response, 200);
         }
 
-        /*
-         * Add new lesson for user
-         */
-        if(Coupon::where('student_id', $user->id)->first()){
-            $next_lesson = $lesson->next_lesson;
-            $response_lesson = $next_lesson->id ?? false;
-
-            if ($next_lesson) {
-                $user->lessonsVideos()->attach($next_lesson->videos);
-                $user->lessons()->attach(['lesson_id' => $next_lesson->id]);
-            }
-            $response['next_lesson'] = $response_lesson;
+        $next_lesson = $lesson->next_lesson;
+        $response_lesson = $next_lesson->id ?? false;
+        $next = UserLesson::where('user_id', $user->id)->where('lesson_id',$next_lesson->id)->count();
+        if ($next_lesson && $next < 1) {
+            $user->lessonsVideos()->attach($next_lesson->videos);
+            $user->lessons()->attach(['lesson_id' => $next_lesson->id]);
         }
 
-        UserLesson::where('lesson_id', $training->lesson_id)
-            ->where('user_id', $training->user_id)
-            ->update(['done' => 1]);
+        $response['next_lesson'] = $response_lesson;
+
 
         return response()->json($response, 200);
     }
@@ -248,7 +240,9 @@ class UserLessonController extends Controller
         if (!$lesson->getIsGroupAttribute()) {
             return redirect('/account/lessons/' . $lesson->id);
         }
-
+        if($lesson->userLessons[0]->done == 0){
+            return redirect('/account/lessons/' . $lesson->id);
+        }
         if (!$user_video = $user->lessonsVideos->where('lesson_id', $lesson->id)->first()) {
             return redirect('/account/lessons/' . $lesson->id);
         }
