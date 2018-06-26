@@ -7,7 +7,10 @@
             </ul>
         </div>
         <block-statistic-groups></block-statistic-groups>
-        <filial-groups :groups="{{json_encode($groups)}}"></filial-groups>
+        <filial-groups :groups="{{json_encode($groups)}}"
+                       :unpay="{{json_encode($students_unpay)}}"
+                       :pay="{{json_encode($students_pay)}}"
+        ></filial-groups>
     </div>
 
 @endsection

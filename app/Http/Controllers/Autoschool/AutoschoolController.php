@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Autoschool;
 
 use App\Http\Requests\LogoRequest;
-use App\Models\Finance\Coupon;
+use App\Models\Finance\{Coupon, Order};
 use App\Models\Location\City;
 use App\Models\Training\School\{
     AutoSchoolGroup, AutoSchool
 };
-use App\Models\User\User;
+use App\Models\User\{User, UserSchool};
 use App\Http\Controllers\Controller;
 use App\Services\CountersService;
 use Illuminate\Http\Request;
@@ -33,7 +33,42 @@ class AutoschoolController extends Controller
 
         $groups = AutoSchoolGroup::whereIn('auto_school_id', $groups_id)->get();
 
-        return view('autoschool.index.index', compact('groups'));
+
+        //new students, not payment
+
+        $orders = Order::where('auto_school_id', '!=', '0')->get()->toArray();
+        $schools = AutoSchool::where('director_id', Auth::user()->id)->get()->toArray();
+        $schools_id = array_map(
+            function ($school) {
+                return $school['id'];
+            }, $schools
+        );
+        $users = UserSchool::all()->whereIn('school_id', $schools_id)->toArray();
+        $users_id = array_map(
+            function ($select) {
+                return $select['user_id'];
+            }, $users
+        );
+        $new_id = array_map(
+            function ($order) {
+                return $order['user_id'];
+            }, $orders
+        );
+
+
+        $students_pay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $users_id)->whereNotIn('id', $new_id)->count();
+
+        //new students, payment
+
+        $students_id = array_map(
+            function ($order) {
+                return $order['user_id'];
+            }, $orders
+        );
+
+        $students_unpay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $students_id)->count();
+
+        return view('autoschool.index.index', compact('groups','students_pay', 'students_unpay'));
     }
 
     /**

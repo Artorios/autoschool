@@ -139,7 +139,43 @@ class FilialController extends Controller
     {
         $filial = AutoSchool::where('id', $id)->first();
         $groups = $group->where(['auto_school_id' => $id])->get();
-        return view('autoschool.filials.groups', compact('filial', 'groups'));
+
+
+        //new students, not payment
+
+        $orders = Order::where('auto_school_id', '!=', '0')->get()->toArray();
+        $schools = AutoSchool::where('director_id', Auth::user()->id)->get()->toArray();
+        $schools_id = array_map(
+            function ($school) {
+                return $school['id'];
+            }, $schools
+        );
+        $users = UserSchool::all()->whereIn('school_id', $schools_id)->toArray();
+        $users_id = array_map(
+            function ($select) {
+                return $select['user_id'];
+            }, $users
+        );
+        $new_id = array_map(
+            function ($order) {
+                return $order['user_id'];
+            }, $orders
+        );
+
+
+        $students_pay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $users_id)->whereNotIn('id', $new_id)->count();
+
+        //new students, payment
+
+        $students_id = array_map(
+            function ($order) {
+                return $order['user_id'];
+            }, $orders
+        );
+
+        $students_unpay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $students_id)->count();
+
+        return view('autoschool.filials.groups', compact('filial', 'groups', 'students_pay', 'students_unpay'));
     }
 
     /**
