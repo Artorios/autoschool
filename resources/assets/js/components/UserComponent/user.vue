@@ -56,40 +56,42 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <p class="error" v-if="error_search">{{error_search}}</p>
+                                    <p class="error" v-if="error_search">{{error_search}}</p>
 
-                                <tr v-for="user in pagination()">
+                                    <tr v-for="user in pagination()">
+                                        <td>{{user.id}}</td>
+                                        <td>{{user.last_name}} {{user.name}} {{user.second_name}}</td>
+                                        <td v-if="user.city">{{user.city.name}}</td>
+                                        <td v-else></td>
+                                        <td v-if="user.school">{{user.school.title}}</td>
+                                        <td v-else></td>
+                                        <td v-if="user.autoschoolgroup">{{user.autoschoolgroup.name}}</td>
+                                        <td v-else></td>
+                                        <td>{{user.email}}</td>
+                                        <td><span class="label label-success">{{user.role}}</span></td>
 
-                                    <td>{{user.id}}</td>
-                                    <td>{{user.last_name}} {{user.name}} {{user.second_name}}</td>
-                                    <td v-if="user.city">{{user.city.name}}</td>
-                                    <td v-else></td>
-                                    <td v-if="user.school">{{user.school.title}}</td>
-                                    <td v-else></td>
-                                    <td v-if="user.autoschoolgroup">{{user.autoschoolgroup.name}}</td>
-                                    <td v-else></td>
-                                    <td>{{user.email}}</td>
-                                    <td><span class="label label-success">{{user.role}}</span></td>
-
-                                    <td v-if="role == 'user' || role == 'all'">
-                                    <div v-if="sale_status(user) == 'paid'">оплаченый</div>
-                                    <div v-else>неоплаченный</div>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-success"
-                                                title="Редактировать"
-                                                @click="showEdit(user)"><i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-success"
-                                                title="Редактировать"
-                                                v-if="sale_status(user) == 'not_paid' && user.role == 'user'"
-                                                @click="showPay(user)">$</button>
-                                        <button class="btn btn-success"
-                                                title="Редактировать"
-                                                v-if="user.role == 'investor'"
-                                                @click="showInvestor(user)">!</button>
-                                        <button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i></button>
-                                    </td>
-                                </tr>
+                                        <td v-if="role == 'user' || role == 'all'">
+                                            <div v-if="user.pay == true">оплаченый</div>
+                                            <div v-else>неоплаченный</div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-success"
+                                                    title="Редактировать"
+                                                    @click="showEdit(user)"><i class="fa fa-edit"></i></button>
+                                            <button class="btn btn-success"
+                                                    title="Редактировать"
+                                                    v-if="user.pay == false && user.role == 'user'"
+                                                    @click="showPay(user)">$
+                                            </button>
+                                            <button class="btn btn-success"
+                                                    title="Редактировать"
+                                                    v-if="user.role == 'investor'"
+                                                    @click="showInvestor(user)">!
+                                            </button>
+                                            <!--<button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i>
+                                            </button>-->
+                                        </td>
+                                    </tr>
                                 </tbody>
 
                             </table>
@@ -160,7 +162,7 @@
         },
         methods: {
             paginate(items) {
-                if (!items || items.length != items.length) {
+                if (!items || items.length != items.length ) {
                     return
                 }
                 this.resultCount = items.length
@@ -169,7 +171,9 @@
                 }
 
                 let index = this.currentPage * this.itemsPerPage - this.itemsPerPage
-
+                if( items.length == undefined){
+                    return items
+                }
                 return items.slice(index, index + this.itemsPerPage)
             },
             setPage(pageNumber) {
@@ -179,11 +183,11 @@
                 this.showEditPopup = !this.showEditPopup
                 this.checkedUser = null
             },
-            togglePopupPay () {
+            togglePopupPay() {
                 this.showPayPopup = !this.showPayPopup
                 this.checkedUser = null
             },
-            togglePopupInvestor () {
+            togglePopupInvestor() {
                 this.showInvestorPopup = !this.showInvestorPopup
                 this.checkedUser = null
             },
@@ -191,15 +195,15 @@
                 this.checkedUser = user
                 this.showEditPopup = true
             },
-            showPay (user) {
+            showPay(user) {
                 this.checkedUser = user
                 this.showPayPopup = true
             },
-            showInvestor (user) {
+            showInvestor(user) {
                 this.checkedUser = user
                 this.showInvestorPopup = true
             },
-            showCreate () {
+            showCreate() {
                 this.checkedUser = null
                 this.showEditPopup = true
             },
@@ -228,7 +232,7 @@
             pagination() {
                 return this.paginate(this.lists);
             },
-            sale_status(user) {
+            /*sale_status(user) {
                 if (user.orders.length > 0) {
                     return 'paid'
                 }
@@ -252,7 +256,7 @@
                     }
                 }
 
-            }
+            }*/
         },
         updated() {
             this.pagination()
