@@ -120,6 +120,21 @@
 }
 /*--------уроки----lessons-------*/
 
+@media (min-width: 992px) and(max-width: 1200px) {
+  .inner-main-content {
+    .container {
+      .lessons {
+        .lessons-wrapper {
+          .line {
+            .info {
+              width: 50%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 @media (max-width: 991px) {
   .inner-main-content {
@@ -128,7 +143,7 @@
         .lessons-wrapper {
           .line {
             .info {
-              max-width: 60%;
+              width: 49%;
             }
           }
         }
@@ -136,6 +151,44 @@
     }
   }
 }
+@media (min-width: 766px) and (max-width:991px) {
+  .inner-main-content {
+    .container {
+      .lessons {
+        .lessons-wrapper {
+          padding: 0 20px;
+          .title {
+            display: none;
+          }
+          .line {
+            height: auto;
+            min-height: 100px;
+            padding-bottom: 20px;
+            .info {
+              width: 50%;
+              a {
+                border-bottom: 0;
+                text-decoration: underline;
+                &:hover {
+                  border-bottom: none;
+                }
+              }
+            }
+            .btn-wrapper {
+              width: 100%;
+              left: -20px;
+              max-width: none;
+              float: none;
+              display: block;
+              margin: 20px 0 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 
 @media (max-width: 767px) {
   .inner-main-content {
@@ -151,7 +204,7 @@
             min-height: 100px;
             padding-bottom: 20px;
             .info {
-              max-width: 390px;
+              width: 100%;
               a {
                 border-bottom: 0;
                 text-decoration: underline;
@@ -161,7 +214,7 @@
               }
             }
             .btn-wrapper {
-              width: 105%;
+              width: 100%;
               left: -20px;
               max-width: none;
               float: none;
