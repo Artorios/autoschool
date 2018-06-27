@@ -11,12 +11,15 @@
             text-align: center;
           }
         }
+
         .line {
           border-bottom: 1px solid #ccc;
           padding-top: 25px;
-          height: 100px;
+          height: auto;
           padding-left: 35px;
           position: relative;
+          padding-bottom: 25px;
+          overflow: hidden;
           .number {
             position: absolute;
             left: 10px;
@@ -26,6 +29,7 @@
           .info {
             display: inline-block;
             line-height: normal;
+            width: 60%;
             a {
               color: #000;
               border-bottom: 1px solid #000;
@@ -43,7 +47,7 @@
             }
           }
           .btn-wrapper {
-            width: 230px;
+            width: 300px;
             float: right;
             display: inline-block;
             position: relative;
@@ -74,38 +78,39 @@
                 color: #999;
               }
             }
+            .group-test {
+              padding: 10px;
+              .btn-grey {
+                width: 100%;
+                display: inline-block;
+                line-height: 45px;
+                height: 45px;
+                margin: 0;
+                &:last-child {
+                  float: right;
+                }
+              }
+              &.disabled {
+                &:after {
+                  width: 100%;
+                  height: 100%;
+                  content: '';
+                  display: block;
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  z-index: 100;
+                }
+                .btn-grey {
+                  background: #fff;
+                  border: 1px solid #ccc;
+                  color: #999;
+                }
+              }
+            }
           }
         }
-        .group-test {
-          padding: 10px;
-          .btn-grey {
-            width: 48%;
-            display: inline-block;
-            line-height: 45px;
-            height: 45px;
-            margin: 0;
-            &:last-child {
-              float: right;
-            }
-          }
-          &.disabled {
-            &:after {
-              width: 100%;
-              height: 100%;
-              content: '';
-              display: block;
-              position: absolute;
-              left: 0;
-              top: 0;
-              z-index: 100;
-            }
-            .btn-grey {
-              background: #fff;
-              border: 1px solid #ccc;
-              color: #999;
-            }
-          }
-        }
+
       }
       nav {
         margin: 20px 0;
