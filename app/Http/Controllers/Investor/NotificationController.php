@@ -10,7 +10,7 @@ class NotificationController extends Controller
 {
     public function index(Request $request)
     {
-        $data = Notification::where('user_id', $request->user()->id);
+        $data = Notification::where('user_id', $request->user()->id)->orderBy('date', 'desc')->orderBy('time', 'desc');
 
         if ($request->get('show') == 'new') {
             $data = $data->where('status', 1);
