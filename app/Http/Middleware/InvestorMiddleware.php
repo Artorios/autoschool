@@ -16,7 +16,7 @@ class InvestorMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->isInvestor()) {
+        if (Auth::check() && (Auth::user()->isInvestor() || Auth::user()->isAdmin())) {
             return $next($request);
         }
 

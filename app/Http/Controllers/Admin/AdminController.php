@@ -30,8 +30,13 @@ class AdminController extends Controller
         $cities_id = array_map(function ($city) {
             return $city['id'];
         }, $cities);
+        $investors = User::select('id', 'email', 'last_name')->whereIn('city_id', $cities_id)->where('email', 'like', '%' . $q . '%')->where('role', 'investor')->limit(5)->get()->toArray();
+        $admins = User::select('id', 'email', 'last_name')->where('role', 'admin')->limit(2)->get();
+        foreach ($admins as $admin){
+            array_push($investors , $admin);
+        }
 
-        return response()->json(User::select('id', 'email', 'last_name')->whereIn('city_id', $cities_id)->where('email', 'like', '%' . $q . '%')->where('role', 'investor')->limit(10)->get(), 200);
+        return response()->json($investors, 200);
 
     }
 
