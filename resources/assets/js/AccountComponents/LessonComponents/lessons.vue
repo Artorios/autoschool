@@ -25,12 +25,8 @@
                     <a :href="'/account/lessons/exam/' + lesson.id"
                        :disabled="!lesson.videos[0] ? true : !lesson.videos[0].user_videos ? true : lesson.videos[0].user_videos.viewed ? false : true"
                        class="btn-grey">Зачет</a>
-                    <!--
-                    v-if="lesson.isGroup && lesson.user_lessons[0]"
-                    v-if="lesson.isGroup && lesson.user_lessons[0].done == 1"
-                    -->
-                    <div class="group-test">
-                    <a :href="'/account/lessons/group-exam/' + lesson.id" class="btn-grey" >Групповой зачет</a>
+                    <div class="group-test"  v-if="lesson.isGroup && lesson.user_lessons[0]">
+                    <a :href="'/account/lessons/group-exam/' + lesson.id" class="btn-grey"   v-if="lesson.isGroup && lesson.user_lessons[0].done == 1">Групповой зачет</a>
                     </div>
                 </div>
             </div>
