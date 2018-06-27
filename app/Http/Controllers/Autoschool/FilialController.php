@@ -163,7 +163,7 @@ class FilialController extends Controller
         );
 
 
-        $students_pay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $users_id)->whereNotIn('id', $new_id)->count();
+        $students_unpay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $users_id)->whereNotIn('id', $new_id)->count();
 
         //new students, payment
 
@@ -173,7 +173,7 @@ class FilialController extends Controller
             }, $orders
         );
 
-        $students_unpay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $students_id)->count();
+        $students_pay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $students_id)->count();
 
         return view('autoschool.filials.groups', compact('filial', 'groups', 'students_pay', 'students_unpay'));
     }
