@@ -19,13 +19,13 @@ class NotificationController extends Controller
     public function getPageAll(Notification $notification){
 
         $user_id = Auth::user()->id;
-        $this->data['notifies'] = $notification->where(['user_id'=> $user_id])->paginate(5);
+        $this->data['notifies'] = $notification->where(['user_id'=> $user_id])->orderBy('date', 'desc')->orderBy('time', 'desc')->paginate(10);
         return view('autoschool.notify.all', $this->data);
     }
 
     public function getPageNew(Notification $notification){
         $user_id = Auth::user()->id;
-        $this->data['notifies'] = $notification->where(['user_id'=> $user_id, 'status' => 1])->paginate(5);
+        $this->data['notifies'] = $notification->where(['user_id'=> $user_id, 'status' => 1])->orderBy('date', 'desc')->orderBy('time', 'desc')->paginate(10);
         return view('autoschool.notify.index', $this->data);
     }
 
