@@ -56,7 +56,7 @@ class AutoschoolController extends Controller
         );
 
 
-        $students_pay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $users_id)->whereNotIn('id', $new_id)->count();
+        $students_unpay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $users_id)->whereNotIn('id', $new_id)->count();
 
         //new students, payment
 
@@ -66,7 +66,7 @@ class AutoschoolController extends Controller
             }, $orders
         );
 
-        $students_unpay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $students_id)->count();
+        $students_pay = User::where('auto_school_group_id', null)->where('role', 'user')->whereIn('id', $students_id)->count();
 
         return view('autoschool.index.index', compact('groups','students_pay', 'students_unpay'));
     }
