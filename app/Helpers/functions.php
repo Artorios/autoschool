@@ -62,22 +62,34 @@ function group_name($id){
     return AutoSchoolGroup::find($user->auto_school_group_id)->name;
 }
 
-function sumCommission($autoSchoolId, $cuponId, $procent = 50)
+function investor_fee($user_id)
 {
-    try {
-        $autoschool = AutoSchool::where('id', '=', $autoSchoolId)->first();
-        $cupon = Coupon::where('id', '=', $cuponId)->first();
+    $schools = AutoSchool::where('investor_id', $user_id)->get()->toArray();
+    $schools_id = array_map(function ($school) {
+        return $school['id'];
+    }, $schools);
+    //Coupons
+    $cupons_fee = Coupon::whereIn('auto_school_id', $schools_id)->whereIn('status', [2, 3])->sum('fee_amount');
+    $cupons =  $cupons_fee;
 
-        if($autoschool->commission > 0) {
-            return $autoschool->commission;
-        } elseif ($cupon->fee_amount) {
-            return $cupon->fee_amount;
-        } else {
-            return ceil($cupon->payment_amount * ($procent / 100));
-        }
-    } catch (\Exception $exception) {
-        return 'Комисия неопределена';
-    }
+    //Orders
+    $filials = AutoSchool::select('id')->where('investor_id', $user_id)->get()->toArray();
+    $filials_id = array_map(function ($filial) {
+        return $filial['id'];
+    }, $filials);
+    $groups = AutoSchoolGroup::all()->whereIn('auto_school_id', $filials_id)->toArray();
+    $groups_id = array_map(function ($group) {
+        return $group['id'];
+    }, $groups);
+    $users = User::all()->whereIn('auto_school_group_id', $groups_id)->toArray();
+    $users_id = array_map(function ($user) {
+        return $user['id'];
+    }, $users);
+    $orders = Order::all()->whereIn('user_id', $users_id)->sum('amount');
+
+    //All Summ
+    $summ = $cupons + $orders/2;
+    return $summ;
 
 }
 

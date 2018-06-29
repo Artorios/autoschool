@@ -6,7 +6,7 @@
                     <profile-photo :user="investor"></profile-photo>
                 </div>
                 <div class="profile-info-block">
-                        <h3 class="profile-info-title">{{ investor.name }}</h3>
+                        <h3 class="profile-info-title" v-if="investor.info" >{{investor.info.abbreviated_name_of_the_organization ? investor.info.abbreviated_name_of_the_organization : investor.name }}</h3>
 
                         <a href="/logout" class="btn-grey btn-exit profile-btn-exit">
                             <i class="fa fa-power-off" aria-hidden="true"></i>

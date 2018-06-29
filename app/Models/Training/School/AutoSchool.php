@@ -2,7 +2,7 @@
 
 namespace App\Models\Training\School;
 
-use App\Models\Finance\Coupon;
+use App\Models\Finance\{Coupon, Order};
 use App\Models\Training\School\Traits\Relationship\AutoSchoolRelationship;
 use App\Models\User\User;
 use App\Models\Training\School\Traits\Scope\AutoSchoolScope;
@@ -39,7 +39,7 @@ class AutoSchool extends Model
     /**
      * @var array $appends
      */
-    protected $appends = ['count_student', 'coupons_active','coupons_passive'];
+    protected $appends = ['count_student', 'coupons_active','coupons_passive', 'fee_all', 'fee_pay'];
 
     /**
      * @return mixed
@@ -60,6 +60,24 @@ class AutoSchool extends Model
     public function getCouponsPassiveAttribute()
     {
         return Coupon::where('auto_school_id', $this->attributes['id'])->whereIn('status', [2,1])->count();
+    }
+
+
+    public function getFeeAllAttribute()
+    {
+        $coupon = Coupon::where('auto_school_id', $this->attributes['id'])->whereIn('status', [2,3])->sum('fee_amount');
+        $order = Order::where('auto_school_id', $this->attributes['id'])->sum('amount');
+        $summ = $coupon + $order/2;  // TODO::set FEE
+        return $summ;
+    }
+
+    public function getFeePayAttribute()
+    {
+        $coupon = Coupon::where('auto_school_id', $this->attributes['id'])->whereIn('status', [2,3])->sum('fee_amount');
+        $order = Order::where('auto_school_id', $this->attributes['id'])->sum('amount');
+        $summ = $coupon + $order/2;  // TODO::set FEE
+        $summ_pay = SchoolFee::where('auto_school_id', $this->attributes['id'])->sum('summ');
+        return $summ - $summ_pay;
     }
     /**
      * @param $query

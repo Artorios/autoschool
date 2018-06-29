@@ -7,7 +7,6 @@
                 <li>Филиалы автошкол</li>
             </ul>
         </div>
-
         <schools-list :schools="{{json_encode($schools)}}"></schools-list>
         <statistic></statistic>
 

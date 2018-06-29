@@ -8,6 +8,7 @@ Route::group([
 ], function () {
 
     Route::get('/', 'DashboardController@show')->name('index');
+    Route::post('/fee-pay', 'DashboardController@feePay');
 
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', 'ProfileController@show')->name('profile.index');

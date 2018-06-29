@@ -85,7 +85,7 @@
                                             </button>
                                             <button class="btn btn-success"
                                                     title="Редактировать"
-                                                    v-if="user.role == 'investor'"
+                                                    v-if="user.role == 'investor' || user.role == 'admin'"
                                                     @click="showInvestor(user)">!
                                             </button>
                                             <!--<button class="btn btn-warning" title="Забанить"><i class="fa fa-ban"></i>
