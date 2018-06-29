@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Auth;
+
 
 class FinanceInvestorCollection extends ResourceCollection
 {
@@ -38,7 +40,7 @@ class FinanceInvestorCollection extends ResourceCollection
                     'director' => $element['comment_director'],
                     'coupon' => $element['comment_coupon'],
                 ],
-                'commission' => sumCommission($element['AutoSchoolId'], $element['CouponID'])
+                'commission' => investor_fee(Auth::user()->id),
             ];
 
         }, $this->collection->toArray());

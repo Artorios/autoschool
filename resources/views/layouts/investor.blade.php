@@ -52,10 +52,16 @@
                                 <img src="/img/profile-photo.png" alt="">
                             @endif
                         </div>
-                        <h3>{{Auth::user()->name . ' ' . Auth::user()->last_name}}
+
+                        <h3>
+                            @if(isset(Auth::user()->info->abbreviated_name_of_the_organization))
+                                {{Auth::user()->info->abbreviated_name_of_the_organization}}
+                            @else
+                                {{Auth::user()->name . ' ' . Auth::user()->last_name}}
+                            @endif
                             <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </h3>
-                        <span>Комиссия 10 000 руб.</span>
+                        <span>Комиссия {{investor_fee(Auth::user()->id)}} руб.</span>
                     </a>
                     <a href="{{ route('investor.notifications.index', ['show' => 'new']) }}" class="notes">
                         <i class="fa fa-bell-o" aria-hidden="true"></i>
