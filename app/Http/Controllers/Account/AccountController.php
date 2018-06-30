@@ -224,9 +224,6 @@ class AccountController extends Controller
     public function main(){
 
 
-        if (!Lesson::where('license', Auth::user()->license)->count()) {
-            return redirect('/account');
-        }
 
         $user = Auth::user();
 
@@ -249,16 +246,6 @@ class AccountController extends Controller
         $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC')->get();
 //        $lessons = Lesson::all();
 
-        $user_lessons = $user->lessons;
-        $lessons->load('videos.userVideos');
-
-        foreach ($user_lessons as $user_lesson) {
-            foreach ($lessons as $lesson) {
-                if ($user_lesson->id === $lesson->id) {
-                    $lesson->locked = 0;
-                }
-            }
-        }
         return view('account.main', compact('lessons'));
     }
 }

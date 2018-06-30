@@ -31,9 +31,6 @@ class LessonController extends Controller
      */
     public function index()
     {
-        if (!Lesson::where('license', Auth::user()->license)->count()) {
-            return redirect('/account');
-        }
 
         $user = Auth::user();
 
