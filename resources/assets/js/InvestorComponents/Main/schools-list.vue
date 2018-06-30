@@ -49,14 +49,11 @@
                     <div class="table-item coupon-item">
                         <div class="table-head-item hidden-head-text">Купоны активные/неактивные/всего</div>
                         <div class="table-item-content">
-                            <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.active ?
-                                school.active : 0 }}</a>
+                            <a class="coupon coupon-active table-item-link" href="javascript:">{{school.coupons_active}}</a>
                             /
-                            <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.inActive ?
-                                school.inActive : 0 }}</a>
+                            <a class="coupon coupon-active table-item-link" href="javascript:">{{school.coupons_passive}}</a>
                             /
-                            <a class="coupon coupon-active table-item-link" href="javascript:">{{ school.count ?
-                                school.count : 0 }}</a>
+                            <a class="coupon coupon-active table-item-link" href="javascript:">{{school.coupons_active + school.coupons_passive}}</a>
                         </div>
 
                     </div>

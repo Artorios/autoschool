@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Investor;
 
 use App\Http\Requests\Investor\FeePay;
+use App\Models\Finance\Coupon;
 use App\Models\Training\School\{AutoSchool, SchoolFee};
 use App\Models\User\History;
 use App\Repositories\AutoSchoolRepository;
@@ -21,8 +22,13 @@ class DashboardController extends Controller
     public function show()
     {
         $schools = AutoSchool::where('investor_id', Auth::user()->id)->with('city')->get();
-
-        return view('investor.index', compact('schools'));
+        $coupons = [
+            'free' => Coupon::where('investor_id', Auth::user()->id)->where('status', 1)->count(),
+            'sale' => Coupon::where('investor_id', Auth::user()->id)->where('status', 2)->count(),
+            'active' => Coupon::where('investor_id', Auth::user()->id)->where('status', 3)->count(),
+            'canceled' => Coupon::where('investor_id', Auth::user()->id)->where('status', 4)->count(),
+        ];
+        return view('investor.index', compact('schools', 'coupons'));
     }
 
 

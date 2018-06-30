@@ -7,8 +7,9 @@
                 <li>Филиалы автошкол</li>
             </ul>
         </div>
+        {{--{{dd($schools)}}--}}
         <schools-list :schools="{{json_encode($schools)}}"></schools-list>
-        <statistic></statistic>
+        <statistic :coupons="{{json_encode($coupons)}}"></statistic>
 
         <div class="invitegroupe">
             <ul class="pagination">

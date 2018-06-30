@@ -55,11 +55,11 @@ class AutoSchool extends Model
     }
     public function getCouponsActiveAttribute()
     {
-        return Coupon::where('auto_school_id', $this->attributes['id'])->where('status', 3)->count();
+        return Coupon::where('auto_school_id', $this->attributes['id'])->where('status', 3)->where('investor_id', Auth::user()->id)->count();
     }
     public function getCouponsPassiveAttribute()
     {
-        return Coupon::where('auto_school_id', $this->attributes['id'])->whereIn('status', [2,1])->count();
+        return Coupon::where('auto_school_id', $this->attributes['id'])->whereIn('status', [2,1])->where('investor_id', Auth::user()->id)->count();
     }
 
 
