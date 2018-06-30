@@ -3,14 +3,20 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Account\NotificationController;
-use App\Http\Requests\{NewRegistrationStudent, Registration};
+use App\Http\Requests\{
+    NewRegistrationStudent, Registration
+};
 use App\Mail\ConfirmEmail;
-use App\Models\User\{Contract, Notification ,  User};
+use App\Models\User\{
+    Contract, Notification, User
+};
 use App\Models\Location\Region;
 use App\Notifications\UserRegistration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\{Auth, Mail, Validator};
+use Illuminate\Support\Facades\{
+    Auth, Mail, Validator
+};
 use Psy\Exception\ErrorException;
 use Illuminate\Mail\Mailer;
 use App\Models\Training\Lesson\Lesson;
@@ -41,11 +47,11 @@ class RegistrationController extends Controller
                 'license'
             ]);
 
-            $data['role']              = 'user';
+            $data['role'] = 'user';
             $data['confirmation_code'] = str_random(30);
             $data['activated'] = 0;
-            $user                      = User::create($data);
-            $full_name                 = $user->name . ' ' . $user->last_name;
+            $user = User::create($data);
+            $full_name = $user->name . ' ' . $user->last_name;
             $user['password_for_send_user_email'] = $data['password'];
 
             $contract = Contract::create([
@@ -55,7 +61,7 @@ class RegistrationController extends Controller
 
             $mailer->to($data['email'])->send(new ConfirmEmail($user));
 
-            Controller::notification($user->id,'Вы поступили в Школу Автотренер! 
+            Controller::notification($user->id, 'Вы поступили в Школу Автотренер! 
 Мы скоро свяжемся с Вами и согласуем детали обучения.');
             Auth::loginUsingId($user->id);
 
@@ -89,7 +95,7 @@ class RegistrationController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email'    => 'required|email|exists:users,email',
+            'email' => 'required|email|exists:users,email',
             'password' => 'required|string|min:6',
         ]);
 
