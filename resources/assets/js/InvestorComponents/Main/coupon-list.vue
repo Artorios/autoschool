@@ -32,16 +32,16 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4">
                         <div class="form-group">
-                            <select class="select">
+                            <select class="select" v-model="sortNameType" v-bind:onselect="sortName">
                                 <option selected disabled>ФИО ученика</option>
-                                <option>От А-Я.</option>
-                                <option>От Я-А</option>
+                                <option value="a">От А-Я.</option>
+                                <option value="z">От Я-А</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4">
                         <div class="form-group">
-                            <select id="date" class="select">
+                            <select class="select" v-model="sortDateType" v-bind:onselect="sortDate">
                                 <option selected disabled>Дата</option>
                                 <option value="data-acs">От начала</option>
                                 <option value="data-desc">От конца</option>
@@ -52,9 +52,11 @@
                         <div class="form-group">
                             <div class="data">
                                 <datepicker
-                                        v-model='selectedDate'
+                                        v-model="selectedDate"
                                         :language="lang"
-                                        name="uniquename">
+                                        format="yyyy-MM-dd"
+                                        name="uniquename"
+                                        @selected="filterByDate">
                                 </datepicker>
                             </div>
                         </div>
@@ -120,7 +122,7 @@
                         <div class="line-item name-student">
                             <div class="hidden-head-text">ФИО ученика /группа</div>
                             <div class="line-item-content">
-                                {{ item.student_name }}
+                                {{ item.student_surname+ ' ' +item.student_name }}
                                 <a href="#" v-if="item.group_id">
                                     / №{{ item.group_id }}
                                 </a>
@@ -152,22 +154,22 @@
                                 </div>
                                 <div class="status-active"
                                         v-if="item.status === 3">
-                                    <a href="#"
-                                            @click.prevent="onPopup(item.id,item.status)">
+                                    <a>
+                                            <!--@click.prevent="onPopup(item.id,item.status)">-->
                                         Активирован
                                     </a>
                                 </div>
                                 <div class="status-free"
                                         v-if="item.status === 1">
-                                    <a href="#"
-                                            @click.prevent="onPopup(item.id,item.status)">
+                                    <a>
+                                            <!--@click.prevent="onPopup(item.id,item.status)">-->
                                         Свободный
                                     </a>
                                 </div>
                                 <div class="status-paid"
                                         v-if="item.status === 2">
-                                    <a href="#"
-                                            @click.prevent="onPopup(item.id,item.status)">
+                                    <a>
+                                            <!--@click.prevent="onPopup(item.id,item.status)">-->
                                         Выплачен
                                     </a>
                                     <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
@@ -175,7 +177,7 @@
                             </div>
                         </div>
 
-                        <div class="blockform active hidden-popup"
+                        <!--<div class="blockform active hidden-popup"
                                 :id="'sale'+item.id"
                                 v-if="item.status == 1">
                             <span v-if="createErrors.coupon == true" class="coupon-error">
@@ -202,7 +204,7 @@
                                         @click="closePopup('sale'+item.id)">
                                 </a>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="blockform paid hidden-popup"
                                 :id="'comment'+item.id"
@@ -278,9 +280,9 @@
                             <a class="btn-grey" @click="anull(checkedCoupons)">
                                 Анулировать
                             </a>
-                            <a class="btn-grey" @click="sellPopup">
+                            <!--<a class="btn-grey" @click="sellPopup">
                                 Продать
-                            </a>
+                            </a>-->
                             <a class="btn-grey" @click="delCoupon">
                                 Удалить
                             </a>
@@ -346,7 +348,7 @@
         searchDate: '',
         list: [],
         filteredList: [],
-        selectedDate: '',
+        selectedDate: null,
         lang: ru,
         checkedCoupons: [],
         currentPage: 1,
@@ -370,7 +372,9 @@
           comment_investor: '',
           id: []
         },
-        comment: {}
+        comment: {},
+          sortDateType: '',
+          sortNameType: '',
       }
     },
     computed: {
@@ -381,16 +385,33 @@
     methods: {
       filterByTitle: function () {
         this.filteredList = this.list.filter(item => {
-          return item.autoschool.title.toLowerCase().includes(this.searchTitle.toLowerCase())
+          return item.name.toLowerCase().includes(this.searchTitle.toLowerCase())
         })
         if (this.searchTitle.length <= 0) this.filteredList = this.list
       },
-      filterByDate: function () {
-        this.filteredList = this.list.filter(item => {
-          return item.updated_at.toLowerCase().includes(this.searchDate.toLowerCase())
-        })
-        if (this.searchDate.length <= 0) this.filteredList = this.list
+      filterByDate: function (val) {
+          let day = val.getDate()
+          if(day<10) day = '0'+ day
+          let month = 1 + val.getMonth()
+          if(month<10) month = '0' + month
+          this.searchDate = val.getFullYear()+ '-'+ month + '-' + day
+          this.filteredList = this.list.filter(item => {
+              return item.date.generation.includes(this.searchDate)
+          })
+          if (this.searchDate.length <= 0) this.filteredList = this.list
+
       },
+        sortName: function(){
+            if(this.sortNameType == 'a'){
+                console.log(this.sortNameType)
+            }
+            if(this.sortNameType == 'z'){
+                console.log(this.sortNameType)
+            }
+        },
+        sortDate: function(){
+
+        },
       paginate(data) {
         if (!data || data.length != data.length) {
             return

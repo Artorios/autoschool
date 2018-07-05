@@ -22,6 +22,7 @@ class CouponTransformer extends TransformerAbstract
             'id' => $coupon->id,
             'name' => $coupon->code,
             'student_name' => $coupon->student->name ?? '',
+            'student_surname' => $coupon->student->last_name ?? '',
             'group_id' => $coupon->group ? $coupon->group->id_number : '',
             'status' => $coupon->status,
             'autoschool' => [
