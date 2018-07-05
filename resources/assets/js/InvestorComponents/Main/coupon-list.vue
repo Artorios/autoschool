@@ -32,7 +32,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-4">
                         <div class="form-group">
-                            <select class="select" v-model="sortNameType" v-bind:onselect="sortName">
+                            <select class="select" v-model="sortNameType" v-bind:onchange="sortName">
                                 <option selected disabled>ФИО ученика</option>
                                 <option value="a">От А-Я.</option>
                                 <option value="z">От Я-А</option>

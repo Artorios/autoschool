@@ -11,10 +11,12 @@ use App\Models\User\InvestorInfo;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\{Validator, DB};
 use Illuminate\Validation\Rule;
 use Psy\Exception\ErrorException;
 use App\Models\User\Contract;
+use App\Mail\ConfirmEmail;
 
 /**
  * Class UserController
@@ -139,19 +141,28 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(CreateUserInAdmin $request)
+    public function create(CreateUserInAdmin $request, Mailer $mailer)
     {
 
         $data = $request->validated();
-
-        DB::transaction(function () use ($data) {
+        $data['email_notice'] = 1;
+        $data['confirmation_code'] = str_random(30);
+        $data['sms_notice'] = 1;
+        $data['activated'] = 0;
+        DB::transaction(function () use ($data, $mailer) {
             $user = User::create($data);
             $contract = Contract::create([
                 'name' => generateContractNumber($user),
                 'user_id' => $user->id
             ]);
+            Controller::notification($user->id, 'Вы поступили в Школу Автотренер! 
+Мы скоро свяжемся с Вами и согласуем детали обучения.');
+            $mailer->to($data['email'])->send(new ConfirmEmail($user));
+
 
         });
+
+
         return response()->json(['status' => $data], 201);
 
     }
