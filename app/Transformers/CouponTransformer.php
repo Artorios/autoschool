@@ -35,6 +35,7 @@ class CouponTransformer extends TransformerAbstract
                 'activation' => $coupon->activated_at   ,
                 'sale' => $coupon->sale_date   ,
             ],
+            'generate' => $coupon->generation_date,
             'amount' => [
                 'payment' => $coupon->payment_amount,
                 'commission' => $coupon->fee_amount,

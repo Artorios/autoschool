@@ -25,7 +25,7 @@ class CouponsController extends Controller
 
     public function all()
     {
-        $couppons = Coupon::where('investor_id', Auth::id())->where('status', '!=', '4')
+        $couppons = Coupon::where('investor_id', Auth::id())->where('status', '!=', '4')->orderBy('generation_date', 'desc')
             ->get()
             ->load('student');
         return fractal($couppons, new CouponTransformer())->respond();
