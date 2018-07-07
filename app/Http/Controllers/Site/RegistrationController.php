@@ -60,11 +60,11 @@ class RegistrationController extends Controller
                 'name' => generateContractNumber($user),
                 'user_id' => $user->id
             ]);
+            Controller::notification($user->id, 'Вы поступили в Школу Автотренер! 
+Мы скоро свяжемся с Вами и согласуем детали обучения.');
 
             $mailer->to($data['email'])->send(new ConfirmEmail($user));
 
-            Controller::notification($user->id, 'Вы поступили в Школу Автотренер! 
-Мы скоро свяжемся с Вами и согласуем детали обучения.');
             Auth::loginUsingId($user->id);
 
             return response()->json(['status' => 1], 201);

@@ -170,7 +170,7 @@
                                      v-if="item.status === 2">
                                     <a>
                                         <!--@click.prevent="onPopup(item.id,item.status)">-->
-                                        Выплачен
+                                        Продан
                                     </a>
                                     <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
                                 </div>
@@ -283,7 +283,7 @@
                             <!--<a class="btn-grey" @click="sellPopup">
                                 Продать
                             </a>-->
-                            <a class="btn-grey" @click="delCoupon">
+                            <a class="btn-grey" @click="delCoupon(checkedCoupons)">
                                 Удалить
                             </a>
                         </div>
@@ -313,7 +313,7 @@
                         </div>
                     </div>
                     <div class="blockform active " v-if="serverError">
-                        <span v-if="this.createErrors.coupon == true" class="coupon-error">Выбирите купон<br></span>
+                        <span v-if="this.createErrors.coupon == true" class="coupon-error">Выберите купон<br></span>
                         <span v-if="this.createErrors.comment_investor" class="coupon-error">{{this.createErrors.comment_investor[0]}} <br></span>
                         <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
                         <div class="form-inline">
@@ -559,6 +559,7 @@
             delCoupon: function (coupons) {
                 this.serverError = false
                 this.data.id = coupons
+
                 this.$http.post('/investor/coupons/delete', this.data).then(res => {
                     if (res.status === 201) {
                         window.location.reload(true);

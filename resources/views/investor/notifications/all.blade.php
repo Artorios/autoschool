@@ -8,10 +8,10 @@
         </ul>
     </div>
     <div class="btn-wrapper">
-        <a href="{{ route('investor.notifications.index') }}" class="active">Новые</a>
-        <a href="{{ route('investor.notifications.all') }}">Все</a>
+        <a href="{{ route('investor.notifications.index') }}" >Новые</a>
+        <a href="{{ route('investor.notifications.all') }}" class="active">Все</a>
     </div>
-    <notify-all :notifies="{{ json_encode($notifications->items()) }}"></notify-all>
+    <notify-new :notifies="{{ json_encode($notifications->items()) }}"></notify-new>
     <nav aria-label="Page navigation example">
         <pages :page="{{json_encode($notifications->currentPage())}}"
                :pages="{{json_encode($notifications->total())}}"
