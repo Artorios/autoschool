@@ -18,6 +18,7 @@ Route::group([
 
     Route::group(['prefix' => 'notifications'], function () {
         Route::get('/', 'NotificationController@index')->name('notifications.index');
+        Route::get('/all', 'NotificationController@all')->name('notifications.all');
         Route::put('{notification}', 'NotificationController@update')->name('notification.read');
     });
 

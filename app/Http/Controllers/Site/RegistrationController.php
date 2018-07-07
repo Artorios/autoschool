@@ -50,6 +50,8 @@ class RegistrationController extends Controller
             $data['role'] = 'user';
             $data['confirmation_code'] = str_random(30);
             $data['activated'] = 0;
+            $data['email_notice'] = 1;
+            $data['sms_notice'] = 1;
             $user = User::create($data);
             $full_name = $user->name . ' ' . $user->last_name;
             $user['password_for_send_user_email'] = $data['password'];
@@ -58,28 +60,12 @@ class RegistrationController extends Controller
                 'name' => generateContractNumber($user),
                 'user_id' => $user->id
             ]);
+            Controller::notification($user->id, 'Вы поступили в Школу Автотренер! 
+Мы скоро свяжемся с Вами и согласуем детали обучения.');
 
             $mailer->to($data['email'])->send(new ConfirmEmail($user));
 
-            Controller::notification($user->id, 'Вы поступили в Школу Автотренер! 
-Мы скоро свяжемся с Вами и согласуем детали обучения.');
             Auth::loginUsingId($user->id);
-
-            //$user->notify(new UserRegistration($full_name, $user->confirmation_code));
-            $lessons = Lesson::where('license', auth()->user()->license)->orderBy('lesson_num', 'ASC')->get();
-//        $lessons = Lesson::all();
-
-            $user_lessons = $user->lessons;
-            $lessons->load('videos.userVideos');
-
-            foreach ($user_lessons as $user_lesson) {
-                foreach ($lessons as $lesson) {
-                    if ($user_lesson->id === $lesson->id) {
-                        $lesson->locked = 0;
-                    }
-                }
-            }
-
 
             return response()->json(['status' => 1], 201);
         } catch (ErrorException $e) {

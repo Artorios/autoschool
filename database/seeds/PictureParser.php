@@ -20,7 +20,7 @@ class PictureParser extends Seeder
         $questions = Question::all();
 
         foreach ($questions as $question) {
-            $url = 'https://pdd-russia.com/pdd-online/img/ab/' . $question->ticket_num . '_' . $question->question_num . '.jpg';
+            $url = 'https://pdd-russia.com/pdd-online/stat17062018/img/ab/' . $question->ticket_num . '_' . $question->question_num . '.jpg';
             $options = [
                 CURLOPT_RETURNTRANSFER => true,     // return web page
                 CURLOPT_HEADER         => false,    // don't return headers

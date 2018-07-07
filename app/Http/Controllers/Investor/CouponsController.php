@@ -25,7 +25,7 @@ class CouponsController extends Controller
 
     public function all()
     {
-        $couppons = Coupon::where('investor_id', Auth::id())->where('status', '!=', '4')
+        $couppons = Coupon::where('investor_id', Auth::id())->where('status', '!=', '4')->orderBy('generation_date', 'desc')
             ->get()
             ->load('student');
         return fractal($couppons, new CouponTransformer())->respond();
@@ -104,6 +104,7 @@ class CouponsController extends Controller
         Coupon::whereIn('id', $request->get('id'))->update([
             'status' => 4
         ]);
+        $this->notification(Auth::user()->id, "Было ануллировано купоны, в количестве - ".count($request->get('id')).".");
         return response()->json(['status' => 1], '201');
     }
 
@@ -114,6 +115,8 @@ class CouponsController extends Controller
     public function delete(CanceledCoupon $request)
     {
         Coupon::whereIn('id', $request->get('id'))->delete();
-        return response()->json(['status' => 1], '201');
+        $this->notification(Auth::user()->id, "Было удалено купоны, в количестве - ".count($request->get('id')).".");
+
+        return response()->json([], '201');
     }
 }

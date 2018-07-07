@@ -160,10 +160,14 @@ class StudentController extends Controller
 
         $passwordForSendEmail = str_random(8);
 
+
         try {
             $data['role']              = 'user';
             $data['confirmation_code'] = str_random(30);
             $data['password'] = $passwordForSendEmail;
+            $data['email_notice'] = 1;
+            $data['sms_notice'] = 1;
+            $data['activated'] = 0;
 
             $user = User::create($data);
             $user['password_for_send_user_email'] = $passwordForSendEmail;
@@ -183,6 +187,8 @@ class StudentController extends Controller
                 ]);
 
             });
+            Controller::notification($user->id, 'Вы поступили в Школу Автотренер! 
+Мы скоро свяжемся с Вами и согласуем детали обучения.');
 
             $mailer->to($data['email'])->send(new ConfirmEmail($user));
 

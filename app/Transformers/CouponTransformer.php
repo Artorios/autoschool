@@ -22,6 +22,7 @@ class CouponTransformer extends TransformerAbstract
             'id' => $coupon->id,
             'name' => $coupon->code,
             'student_name' => $coupon->student->name ?? '',
+            'student_surname' => $coupon->student->last_name ?? '',
             'group_id' => $coupon->group ? $coupon->group->id_number : '',
             'status' => $coupon->status,
             'autoschool' => [
@@ -34,6 +35,7 @@ class CouponTransformer extends TransformerAbstract
                 'activation' => $coupon->activated_at   ,
                 'sale' => $coupon->sale_date   ,
             ],
+            'generate' => $coupon->generation_date,
             'amount' => [
                 'payment' => $coupon->payment_amount,
                 'commission' => $coupon->fee_amount,
