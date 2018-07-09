@@ -93,6 +93,12 @@ class CouponsController extends Controller
                         return $coupon['id'];
                     }
                     , $coupons);
+                $as_id = array_map(
+                    function ($coupon) {
+                        return $coupon['auto_school_id'];
+                    }
+                    , $coupons);
+                $as_id = array_unique($as_id);
                 Coupon::whereIn('id', $request->get('id'))->whereIn('status', [2, 3])->update([
                     'comment_investor' => $request->validated()['comment_investor']
                 ]);
@@ -107,6 +113,9 @@ class CouponsController extends Controller
                 }
                 foreach ($history as $item){
                     History::create($item);
+                }
+                foreach ($as_id as $item){
+                    $this->notification(AutoSchool::where('id', $item)->first()->director_id, "Выплата за купоны. " . $request->validated()['comment_investor'] . "");
                 }
                 $this->notification(Auth::user()->id, "Выплата за купоны. " . $request->validated()['comment_investor'] . ". В количестве - ". count($coupons) ."");
 
