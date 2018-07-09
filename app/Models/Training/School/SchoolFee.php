@@ -10,6 +10,7 @@ class SchoolFee extends Model
         'auto_school_id',
         'comment',
         'summ',
-        'investor_id'
+        'investor_id',
+        'coupon_id'
     ];
 }

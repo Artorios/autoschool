@@ -153,9 +153,17 @@
                                     {{ item.amount.commission }}
                                 </div>
                                 <div class="status-active"
+                                     v-if="item.status === 5">
+                                    <a @click="onPopup(item.id, 1 )">
+                                        Выплачен
+                                        <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
+
+                                    </a>
+                                </div>
+                                <div class="status-active"
                                      v-if="item.status === 3">
-                                    <a>
-                                        <!--@click.prevent="onPopup(item.id,item.status)">-->
+                                    <a @click.prevent="onPopup(item.id,1)">
+
                                         Активирован
                                     </a>
                                 </div>
@@ -168,45 +176,61 @@
                                 </div>
                                 <div class="status-paid"
                                      v-if="item.status === 2">
-                                    <a>
-                                        <!--@click.prevent="onPopup(item.id,item.status)">-->
+                                    <a @click.prevent="onPopup(item.id,1)">
                                         Продан
                                     </a>
                                     <i class="fa fa-info-circle icon-info-status" aria-hidden="true"></i>
                                 </div>
+
                             </div>
                         </div>
 
-                        <!--<div class="blockform active hidden-popup"
-                                :id="'sale'+item.id"
-                                v-if="item.status == 1">
-                            <span v-if="createErrors.coupon == true" class="coupon-error">
-                                Не выбрано свободного купона<br>
-                            </span>
-                            <span v-if="createErrors.comment_investor"
-                                    class="coupon-error">
-                                {{createErrors.comment_investor[0]}}<br>
-                            </span>
-                            <span v-if="createErrors.id"
-                                    class="coupon-error">
-                                  {{createErrors.id[0]}}<br>
-                            </span>
-                            <div class="form-inline">
-                                <input type="text"
-                                        v-model="data.comment_investor"
-                                        :id="'sale-form'+item.id"
-                                        placeholder="Комментарий">
-                                <a class="btn-grey"
-                                        @click="sellOne(item.id)">
-                                    Выплатить
-                                </a>
-                                <a class="close"
-                                        @click="closePopup('sale'+item.id)">
-                                </a>
+                        <div class="blockform active hidden-popup"
+                             :id="'sale'+item.id"
+                             v-if="item.status == 2 || item.status == 3 || item.status == 5">
+                            <div v-if="item.comment.investor">
+                                <div class="form-inline">
+                                    <div class="comment-block">
+                                        <div class="comment-item comment-pay-info">
+                                            <div class="comment-text">
+                                                {{item.comment.investor}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="close"
+                                       @click="closePopup('sale'+item.id)">
+                                    </a>
+                                </div>
                             </div>
-                        </div>-->
+                            <div v-else>
+                                    <span v-if="createErrors.coupon == true" class="coupon-error">
+                                    Не выбрано свободного купона или выбрано уже выплаченный. Посмотрите статус купонa.<br>
+                                </span>
+                                <span v-if="createErrors.comment_investor"
+                                      class="coupon-error">
+                                    {{createErrors.comment_investor[0]}}<br>
+                                </span>
+                                <span v-if="createErrors.id"
+                                      class="coupon-error">
+                                      {{createErrors.id[0]}}<br>
+                                </span>
+                                <div class="form-inline">
+                                    <input type="text"
+                                           v-model="data.comment_investor"
+                                           :id="'sale-form'+item.id"
+                                           placeholder="Комментарий">
+                                    <a class="btn-grey"
+                                       @click="sellOne(item.id)">
+                                        Выплатить
+                                    </a>
+                                    <a class="close"
+                                       @click="closePopup('sale'+item.id)">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="blockform paid hidden-popup"
+                        <!--<div class="blockform paid hidden-popup"
                              :id="'comment'+item.id"
                              v-if="item.status == 2">
                             <div class="form-inline">
@@ -225,14 +249,14 @@
                                    @click="closePopup('comment'+item.id)">
                                 </a>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="blockform active hidden-popup"
                              :id="'active'+item.id"
                              v-if="item.status == 3">
                             <span class="coupon-error"
                                   v-if="createErrors.coupon == true">
-                                  Не выбрано свободного купона<br>
+                                  Не выбрано свободного купона или выбрано уже выплаченный. Посмотрите статус купонa.<br>
                             </span>
                             <span v-if="createErrors.comment_investor"
                                   class="coupon-error">
@@ -280,9 +304,9 @@
                             <a class="btn-grey" @click="anull(checkedCoupons)">
                                 Анулировать
                             </a>
-                            <!--<a class="btn-grey" @click="sellPopup">
-                                Продать
-                            </a>-->
+                            <a class="btn-grey" @click="sellPopup">
+                                Выплатить
+                            </a>
                             <a class="btn-grey" @click="delCoupon(checkedCoupons)">
                                 Удалить
                             </a>
@@ -291,7 +315,7 @@
                     <div id="sale" class="blockform blockform-error hidden-popup">
                         <span v-if="this.createErrors.coupon == true"
                               class="coupon-error">
-                          Не выбрано свободного купона<br>
+                          Не выбрано свободного купона или выбрано уже выплаченный. Посмотрите статус купонов.<br>
                         </span>
                         <span v-if="this.createErrors.comment_investor"
                               class="coupon-error">
@@ -312,14 +336,7 @@
                             <a class="close" @click="closePopup('sale')"></a>
                         </div>
                     </div>
-                    <div class="blockform active " v-if="serverError">
-                        <span v-if="this.createErrors.coupon == true" class="coupon-error">Выберите купон<br></span>
-                        <span v-if="this.createErrors.comment_investor" class="coupon-error">{{this.createErrors.comment_investor[0]}} <br></span>
-                        <span v-if="this.createErrors.id" class="coupon-error">{{this.createErrors.id[0]}}<br></span>
-                        <div class="form-inline">
-                            <a class="close" @click="serverError=false"></a>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="invitegroupe">
                     <ul class="pagination" v-if="itemsPerPage < resultCount">
@@ -386,18 +403,18 @@
         watch: {
             sortNameType: function () {
                 if (this.sortNameType == 'a') {
-                    this.list = this.list.sort((a, b) => a['student_surname'].localeCompare(b['student_surname']) )
+                    this.list = this.list.sort((a, b) => a['student_surname'].localeCompare(b['student_surname']))
                 }
                 if (this.sortNameType == 'z') {
-                    this.list = this.list.sort((a, b) => a['student_surname'].localeCompare(b['student_surname']) ).reverse()
+                    this.list = this.list.sort((a, b) => a['student_surname'].localeCompare(b['student_surname'])).reverse()
                 }
             },
             sortDateType: function () {
                 if (this.sortDateType == 'asc') {
-                    this.list = this.list.sort((a, b) => a['generate'].localeCompare(b['generate']) )
+                    this.list = this.list.sort((a, b) => a['generate'].localeCompare(b['generate']))
                 }
                 if (this.sortDateType == 'desc') {
-                    this.list = this.list.sort((a, b) => a['generate'].localeCompare(b['generate']) ).reverse()
+                    this.list = this.list.sort((a, b) => a['generate'].localeCompare(b['generate'])).reverse()
                 }
             },
         },
@@ -492,7 +509,9 @@
             },
             sellOne(coupon) {
                 this.sellArray.comment_investor = document.getElementById('sale-form' + coupon).value
+                this.sellArray.id = []
                 this.sellArray.id.push(coupon)
+                console.log(this.sellArray)
                 this.$http.post('/investor/coupons/sell', this.sellArray).then(res => {
                     if (res.status === 201) {
                         if (res.data.count === 0) {
@@ -504,6 +523,7 @@
                     }
                 }, err => {
                     if (+err.status === 422) {
+                        console.log(err.data['errors'])
                         this.serverError = true
                         this.createErrors = err.data['errors']
                     }
@@ -546,11 +566,13 @@
                             this.createErrors.coupon = true
                         }
                         else {
+                            // console.log(res.data)
                             window.location.reload(true)
                         }
                     }
                 }, err => {
                     if (+err.status === 422) {
+
                         this.serverError = true
                         this.createErrors = err.data['errors']
                     }
