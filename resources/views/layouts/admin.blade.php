@@ -49,7 +49,7 @@
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="{{ route('admin.index') }}" class="logo">
+            <a href="/" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>
                 <!-- logo for regular state and mobile devices -->
@@ -399,6 +399,8 @@
                     </li>--}}
                     {{--<li><a href="/admin/districts"><i class="fa fa-circle-o text-yellow"></i> <span>Районы</span></a></li>--}}
                     <li><a href="{{route('admin.schools.list')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Автошколы</span></a></li>
+                    <li><a href="/investor"><i class="fa fa-circle-o text-yellow"></i> <span>Админ-Инвестор</span></a></li>
+
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-pie-chart"></i>

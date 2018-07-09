@@ -6,7 +6,7 @@
                 :url="'/api/get-autoschool-city-api/'+user.id"
                 anchor="title"
                 label="filial_name"
-                :initValue="checkedSchool ? checkedSchool['title'] : ''"
+                :initValue="checkedSchool ? checkedSchool['title'] : 'Выберите вашу автошколу'"
                 :classes="{ wrapper: 'form-wrapper', input: 'form-control', list: 'data-list', item: 'data-list-item' }"
                 :on-select="getDataSchool">
         </autocomplete>
