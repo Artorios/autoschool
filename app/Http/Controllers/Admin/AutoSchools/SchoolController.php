@@ -28,7 +28,7 @@ class SchoolController extends Controller
     public function listSchools()
     {
         $per_page = 20;
-        $schools = AutoSchool::with('contacts')->paginate($per_page);
+        $schools = AutoSchool::with('contacts')->with('city')->paginate($per_page);
 
         return view('admin.school.index', compact('schools'));
     }

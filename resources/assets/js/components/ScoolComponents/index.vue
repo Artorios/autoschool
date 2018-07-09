@@ -41,6 +41,7 @@
                                     <th>ID</th>
                                     <th>Название</th>
                                     <th>Описание</th>
+                                    <th>Город</th>
                                     <th>Действия</th>
                                 </tr>
                                 </thead>
@@ -49,6 +50,7 @@
                                     <td>{{school.id}}</td>
                                     <td>{{school.title}}</td>
                                     <td>{{school.description}}</td>
+                                    <td>{{school.city.name}}</td>
                                     <td>
                                         <button class="btn btn-success"
                                                 title="Редактировать"
