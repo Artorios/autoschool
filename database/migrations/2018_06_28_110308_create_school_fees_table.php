@@ -19,6 +19,7 @@ class CreateSchoolFeesTable extends Migration
             $table->double('summ',10,2)->unsigned();
             $table->integer('investor_id')->default(1);
             $table->longText('comment');
+            $table->integer('coupon_id')->default(0);
             $table->timestamps();
         });
     }

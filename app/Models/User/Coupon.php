@@ -20,9 +20,12 @@ class Coupon extends Model
         'code',
         'student_id',
         'generation_date',
+        'activated_at',
+        'sale_date',
         'payment_amount',
         'fee_amount',
         'status',
-        'activated_at',
+        'comment_investor',
+        'comment_director',
     ];
 }
