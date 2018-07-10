@@ -103,7 +103,7 @@ class CouponsController extends Controller
                     'comment_investor' => $request->validated()['comment_investor']
                 ]);
                 $coupons = Coupon::whereIn('id', $coupon_id)->get();
-                foreach ($coupons as $key=>$coupon) {
+                foreach ($coupons as $key => $coupon) {
                     SchoolFee::create(fractal($coupon, new SchoolFeeCouponTransformer())->toArray()['data']);
                     $history[$key]['auto_school_id'] = $coupon->auto_school_id;
                     $history[$key]['investor_id'] = Auth::user()->id;
@@ -111,13 +111,13 @@ class CouponsController extends Controller
                     $history[$key]['comment'] = "Выплата за купоны. " . $request->validated()['comment_investor'] . "";
 
                 }
-                foreach ($history as $item){
+                foreach ($history as $item) {
                     History::create($item);
                 }
-                foreach ($as_id as $item){
+                foreach ($as_id as $item) {
                     $this->notification(AutoSchool::where('id', $item)->first()->director_id, "Выплата за купоны. " . $request->validated()['comment_investor'] . "");
                 }
-                $this->notification(Auth::user()->id, "Выплата за купоны. " . $request->validated()['comment_investor'] . ". В количестве - ". count($coupons) ."");
+                $this->notification(Auth::user()->id, "Выплата за купоны. " . $request->validated()['comment_investor'] . ". В количестве - " . count($coupons) . "");
 
             });
 
@@ -148,10 +148,25 @@ class CouponsController extends Controller
      */
     public function canceled(CanceledCoupon $request)
     {
-        Coupon::whereIn('id', $request->get('id'))->update([
-            'status' => 4
-        ]);
-        $this->notification(Auth::user()->id, "Было ануллировано купоны, в количестве - " . count($request->get('id')) . ".");
+        DB::transaction(function () use ($request) {
+
+            Coupon::whereIn('id', $request->get('id'))->update([
+                'status' => 4
+            ]);
+            $this->notification(Auth::user()->id, "Было ануллировано купоны, в количестве - " . count($request->get('id')) . ".");
+            $coupons = Coupon::whereIn('id', $request->get('id'))->where([
+                'status' => 4
+            ])->get();
+            foreach ($coupons as $key => $coupon) {
+                $history[$key]['auto_school_id'] = $coupon->auto_school_id;
+                $history[$key]['investor_id'] = Auth::user()->id;
+                $history[$key]['operation'] = 'Аннулировал купон';
+                $history[$key]['comment'] = "Купон № " . $coupon->id . "";
+            }
+            foreach ($history as $item) {
+                History::create($item);
+            }
+        });
         return response()->json(['status' => 1], '201');
     }
 
@@ -161,9 +176,21 @@ class CouponsController extends Controller
      */
     public function delete(CanceledCoupon $request)
     {
-        Coupon::whereIn('id', $request->get('id'))->delete();
-        $this->notification(Auth::user()->id, "Было удалено купоны, в количестве - " . count($request->get('id')) . ".");
+        DB::transaction(function () use ($request) {
 
+            $coupons = Coupon::whereIn('id', $request->get('id'))->get();
+            Coupon::whereIn('id', $request->get('id'))->delete();
+            $this->notification(Auth::user()->id, "Было удалено купоны, в количестве - " . count($request->get('id')) . ".");
+            foreach ($coupons as $key => $coupon) {
+                $history[$key]['auto_school_id'] = $coupon->auto_school_id;
+                $history[$key]['investor_id'] = Auth::user()->id;
+                $history[$key]['operation'] = 'Удалено купон';
+                $history[$key]['comment'] = "Купон № " . $coupon->id . "";
+            }
+            foreach ($history as $item) {
+                History::create($item);
+            };
+        });
         return response()->json([], '201');
     }
 }
